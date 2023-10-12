@@ -57,14 +57,11 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 
             controlPanel.Interaction = (item, target) =>
             {
-                if (Name.EqualsExaminable(controlPanel))
+                if (Hammer.Name.EqualsIdentifier(item.Identifier))
                 {
-                    if (Hammer.Name.EqualsIdentifier(item.Identifier))
-                    {
-                        room.RemoveItem(controlPanel);
-                        room.AddItem(BrokenControlPanel.Create());
-                        return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
-                    }
+                    room.RemoveItem(controlPanel);
+                    room.AddItem(BrokenControlPanel.Create());
+                    return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
                 }
 
                 return new InteractionResult(InteractionEffect.NoEffect, item);

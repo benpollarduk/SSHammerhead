@@ -22,20 +22,19 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
         /// <returns>The region.</returns>
         protected override Item OnCreate()
         {
-            var brokenControlPanel = new Item(Name, Description);
-
-            brokenControlPanel.Interaction = (item, target) =>
+            var brokenControlPanel = new Item(Name, Description)
             {
-                if (Name.EqualsExaminable(brokenControlPanel))
+                Interaction = (item, target) =>
                 {
                     if (Hammer.Name.EqualsIdentifier(item.Identifier))
                     {
                         return new InteractionResult(InteractionEffect.FatalEffect, item, $"Once again you swing the {Hammer.Name} in to the remains of the control panel. You must have hit a high voltage wire inside because you are suddenly electrocuted. You are electrocuted to death.");
                     }
-                }
 
-                return new InteractionResult(InteractionEffect.NoEffect, item);
+                    return new InteractionResult(InteractionEffect.NoEffect, item);
+                }
             };
+
 
             return brokenControlPanel;
         }
