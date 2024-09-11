@@ -1,9 +1,9 @@
 ﻿using BP.AdventureFramework.Assets.Locations;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L2
 {
-    internal class Bridge : RoomTemplate<Bridge>
+    internal class Bridge : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -12,13 +12,9 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L
 
         #endregion
 
-        #region Overrides of RoomTemplate<Bridge>
+        #region Implementation of IAssetTemplare<Room>
 
-        /// <summary>
-        /// Create a new instance of the room.
-        /// </summary>
-        /// <returns>The room.</returns>
-        protected override Room OnCreate()
+        public Room Instantiate()
         {
             return new Room(Name, Description, new Exit(Direction.West), new Exit(Direction.East), new Exit(Direction.South));
         }

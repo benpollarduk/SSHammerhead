@@ -1,56 +1,48 @@
 ﻿using System.Linq;
-using BP.AdventureFramework.Assets.Characters;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L0;
 using BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L1;
 using BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L2;
-using BP.AdventureFramework.SSHammerHead.TextManagement;
 using BP.AdventureFramework.Utilities;
-using BP.AdventureFramework.Utilities.Templates;
 
 namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead
 {
-    internal class SSHammerHead : RegionTemplate<SSHammerHead>
+    internal class SSHammerHead : IAssetTemplate<Region>
     {
         #region Constants
 
         private const string Name = "SS Hammerhead";
-        private static readonly string Description = Lookup.Text[Name];
+        private static readonly string Description = "The star ship Hammerhead.";
 
         #endregion
 
-        #region Overrides of RegionTemplate<SSHammerHead>
+        #region Implementation of IAssetTemplate<Region>
 
-        /// <summary>
-        /// Create a new instance of the region.
-        /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <returns>The room.</returns>
-        protected override Region OnCreate(PlayableCharacter pC)
+        public Region Instantiate()
         {
             var regionMaker = new RegionMaker(Name, Description)
             {
                 // L2
-                [0, 0, 0] = Bridge.Create(),
-                [-1, 0, 0] = BridgePort.Create(),
-                [1, 0, 0] = BridgeStarboard.Create(),
-                [0, -1, 0] = BridgeTunnel.Create(),
+                [0, 0, 0] = new Bridge().Instantiate(),
+                [-1, 0, 0] = new BridgePort().Instantiate(),
+                [1, 0, 0] = new BridgeStarboard().Instantiate(),
+                [0, -1, 0] = new BridgeTunnel().Instantiate(),
                 // L1
-                [0, -1, -1] = BridgeTunnelVertical.Create(),
-                [0, -2, -1] = BridgeTunnelEntry.Create(),
-                [0, -3, -1] = CentralHull.Create(),
-                [0, -4, -1] = Booster.Create(),
-                [-1, -2, -1] = PortWing.Create(),
-                [1, -2, -1] = StarboardWing.Create(),
-                [-2, -3, -1] = PortWingOuter.Create(),
-                [-1, -3, -1] = PortWingInner.Create(),
-                [1, -3, -1] = StarboardWingInner.Create(),
-                [2, -3, -1] = StarboardWingOuter.Create(),
+                [0, -1, -1] = new BridgeTunnelVertical().Instantiate(),
+                [0, -2, -1] = new BridgeTunnelEntry().Instantiate(),
+                [0, -3, -1] = new CentralHull().Instantiate(),
+                [0, -4, -1] = new Booster().Instantiate(),
+                [-1, -2, -1] = new PortWing().Instantiate(),
+                [1, -2, -1] = new StarboardWing().Instantiate(),
+                [-2, -3, -1] = new PortWingOuter().Instantiate(),
+                [-1, -3, -1] = new PortWingInner().Instantiate(),
+                [1, -3, -1] = new StarboardWingInner().Instantiate(),
+                [2, -3, -1] = new StarboardWingOuter().Instantiate(),
                 // L0
-                [0, -3, -2] = EngineRoom.Create(),
-                [-1, -3, -2] = Airlock.Create(pC),
-                [1, -3, -2] = SupplyRoom.Create(pC)
+                [0, -3, -2] = new EngineRoom().Instantiate(),
+                [-1, -3, -2] = new Airlock().Instantiate(),
+                [1, -3, -2] = new SupplyRoom().Instantiate()
             };
 
             // start in airlock

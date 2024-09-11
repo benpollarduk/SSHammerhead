@@ -5,11 +5,11 @@ using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Commands;
 using BP.AdventureFramework.Extensions;
 using BP.AdventureFramework.Interpretation;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 {
-    public class ControlPanel : ItemTemplate<ControlPanel>
+    public class ControlPanel : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -27,7 +27,7 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
                 room.FindExit(Direction.West, true, out var west);
                 west.Unlock();
                 const string result = "You press the red button on the control panel. The airlock door that leads to outer space opens and in an instant you are sucked out. As you drift in to outer space the SS Hammerhead becomes smaller and smaller until you can no longer see it. You die all alone.";
-                pC.Kill(result);
+                pC.Kill();
                 return new Reaction(ReactionResult.Fatal, result);
             });
 
@@ -43,24 +43,18 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<ControlPanel>
+        #region Implementation of IAssetTemplate<Item>
 
-        /// <summary>
-        /// Create a new instance of the item.
-        /// </summary>
-        /// <param name="pC">The playable character.</param>
-        /// <param name="room">The room.</param>
-        /// <returns>The item.</returns>
-        protected override Item OnCreate(PlayableCharacter pC, Room room)
+        public Item Instantiate()
         {
             var controlPanel = new Item(Name, Description) { Commands = CreateControlPannelCommands(pC, room) };
 
-            controlPanel.Interaction = (item, target) =>
+            controlPanel.Interaction = (item) =>
             {
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                 {
                     room.RemoveItem(controlPanel);
-                    room.AddItem(BrokenControlPanel.Create());
+                    room.AddItem(new BrokenControlPanel().Instantiate());
                     return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
                 }
 

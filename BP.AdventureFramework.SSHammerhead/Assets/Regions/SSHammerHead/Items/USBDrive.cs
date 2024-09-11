@@ -1,9 +1,9 @@
 ﻿using BP.AdventureFramework.Assets;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 {
-    public class USBDrive : ItemTemplate<USBDrive>
+    public class USBDrive : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -12,13 +12,9 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<Mirror>
+        #region Implementation of IAssetTemplate<Item>
 
-        /// <summary>
-        /// Create a new instance of the item.
-        /// </summary>
-        /// <returns>The region.</returns>
-        protected override Item OnCreate()
+        public Item Instantiate()
         {
             return new Item(Name, Description, true);
         }

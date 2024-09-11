@@ -1,11 +1,11 @@
 ﻿using BP.AdventureFramework.Assets;
 using BP.AdventureFramework.Assets.Interaction;
 using BP.AdventureFramework.Extensions;
-using BP.AdventureFramework.Utilities.Templates;
+using BP.AdventureFramework.Utilities;
 
 namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 {
-    public class BrokenControlPanel : ItemTemplate<BrokenControlPanel>
+    public class BrokenControlPanel : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -14,13 +14,9 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
 
         #endregion
 
-        #region Overrides of ItemTemplate<BrokenControlPanel>
+        #region Implementation of IAssetTemplate<Item>
 
-        /// <summary>
-        /// Create a new instance of the item.
-        /// </summary>
-        /// <returns>The region.</returns>
-        protected override Item OnCreate()
+        public Item Instantiate()
         {
             var brokenControlPanel = new Item(Name, Description)
             {
@@ -34,7 +30,6 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
                     return new InteractionResult(InteractionEffect.NoEffect, item);
                 }
             };
-
 
             return brokenControlPanel;
         }

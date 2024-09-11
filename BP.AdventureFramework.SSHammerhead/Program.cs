@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Reflection;
 using BP.AdventureFramework.Assets.Locations;
 using BP.AdventureFramework.Logic;
 using BP.AdventureFramework.SSHammerHead.Assets.Players;
-using BP.AdventureFramework.SSHammerHead.TextManagement;
 
 namespace BP.AdventureFramework.SSHammerHead
 {
@@ -13,24 +11,22 @@ namespace BP.AdventureFramework.SSHammerHead
         {
             try
             {
-                // buffer all text
-                Lookup.Text.BufferJsonResource(Assembly.GetExecutingAssembly(), "BP.AdventureFramework.SSHammerhead.strings.json");
-
-                OverworldCreationCallback overworldCreator = p =>
+                OverworldCreationCallback overworldCreator = () =>
                 {
                     var overworldName = "CTY-1 Galaxy";
-                    var ship = Assets.Regions.SSHammerHead.SSHammerHead.Create(p);
-                    var overworld = new Overworld(overworldName, Lookup.Text[overworldName]);
+                    var ship = new Assets.Regions.SSHammerHead.SSHammerHead().Instantiate();
+                    var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.");
                     overworld.AddRegion(ship);
                     return overworld;
                 };
 
-                var creator = Game.Create(Lookup.Text["Title"],
-                    Lookup.Text["Introduction"],
-                    Lookup.Text["About"],
+                var creator = Game.Create("Trouble aboard the SS HammerHead",
+                    "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\nA ship was hurriedly prepared and scrambled and made contact 27 days later.\n\nYou enter the outer most airlock and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.",
+                    "This is a short demo game using the BP.AdventureFramework.",
                     x => overworldCreator(x),
-                    Player.Create,
-                    g => CompletionCheckResult.NotComplete);
+                    new Player().Instantiate,
+                    g => EndCheckResult.NotEnded,
+                    g => EndCheckResult.NotEnded);
 
                 Game.Execute(creator);
             }
