@@ -20,7 +20,7 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
         {
             var brokenControlPanel = new Item(Name, Description)
             {
-                Interaction = (item, target) =>
+                Interaction = (item) =>
                 {
                     if (Hammer.Name.EqualsIdentifier(item.Identifier))
                     {

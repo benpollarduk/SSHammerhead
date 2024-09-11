@@ -5,7 +5,7 @@ using BP.AdventureFramework.SSHammerHead.Assets.Players;
 
 namespace BP.AdventureFramework.SSHammerHead
 {
-    internal class Program
+    internal static class Program
     {
         private static void Main(string[] args)
         {
@@ -23,7 +23,7 @@ namespace BP.AdventureFramework.SSHammerHead
                 var creator = Game.Create("Trouble aboard the SS HammerHead",
                     "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\nA ship was hurriedly prepared and scrambled and made contact 27 days later.\n\nYou enter the outer most airlock and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.",
                     "This is a short demo game using the BP.AdventureFramework.",
-                    x => overworldCreator(x),
+                    overworldCreator,
                     new Player().Instantiate,
                     g => EndCheckResult.NotEnded,
                     g => EndCheckResult.NotEnded);

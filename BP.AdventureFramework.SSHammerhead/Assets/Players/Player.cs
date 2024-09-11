@@ -21,7 +21,7 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Players
         {
             var player = new PlayableCharacter(Name, Description, new Hammer().Instantiate(), new Mirror().Instantiate())
             {
-                Interaction = (i, target) =>
+                Interaction = (i) =>
                 {
                     if (i == null)
                         return new InteractionResult(InteractionEffect.NoEffect, null);
