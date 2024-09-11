@@ -7,6 +7,14 @@ namespace BP.AdventureFramework.SSHammerHead
 {
     internal static class Program
     {
+        private static EndCheckResult CheckForGameOver(Game game)
+        {
+            if (!game.Player.IsAlive)
+                return new EndCheckResult(true, "You are dead.", "You are dead now.");
+
+            return EndCheckResult.NotEnded;
+        }
+
         private static void Main(string[] args)
         {
             try
@@ -26,7 +34,7 @@ namespace BP.AdventureFramework.SSHammerHead
                     overworldCreator,
                     new Player().Instantiate,
                     g => EndCheckResult.NotEnded,
-                    g => EndCheckResult.NotEnded);
+                    g => CheckForGameOver(g));
 
                 Game.Execute(creator);
             }

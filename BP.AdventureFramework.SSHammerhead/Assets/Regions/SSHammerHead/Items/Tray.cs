@@ -24,7 +24,7 @@ namespace BP.AdventureFramework.SSHammerHead.Assets.Regions.SSHammerHead.Items
                 if (Name.EqualsExaminable(x))
                 {
                     item.Morph(new EmptyTray().Instantiate());
-                    pC.AquireItem(new USBDrive().Instantiate());
+                    //pC.AquireItem(new USBDrive().Instantiate());
                     return new ExaminationResult($"A tray containing a range of different cables that have become intertwined. Amongst the jumble is a small {USBDrive.Name}, you empty the contents of the tray on to the shelf in front of you. It seems unusual to leave the {USBDrive.Name} here so you take it.");
                 }
 
