@@ -39,4 +39,4 @@ git clone https://github.com/benpollarduk/ss-hammerhead.git
 ```
 
 ## For Open Questions
-Visit https://github.com/benpollarduk/NetAF/issues
+Visit https://github.com/benpollarduk/ss-hammerhead/issues
