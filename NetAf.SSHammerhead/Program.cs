@@ -34,7 +34,7 @@ namespace NetAF.SSHammerHead
                     overworldCreator,
                     new Player().Instantiate,
                     g => EndCheckResult.NotEnded,
-                    g => CheckForGameOver(g));
+                    CheckForGameOver);
 
                 Game.Execute(creator);
             }

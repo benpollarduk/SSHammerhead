@@ -37,7 +37,7 @@ namespace NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L0
                 return new Reaction(ReactionResult.OK, "You press the green button on the control panel. The airlock door that leads to The SS Hammerhead opens.");
             });
 
-            return new[] { redButtonCommand, greenButtonCommand };
+            return [redButtonCommand, greenButtonCommand];
         }
 
         #endregion

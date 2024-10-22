@@ -25,7 +25,7 @@ namespace NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Items
                 return new Reaction(ReactionResult.OK, $"You check the {Name} in detail. You know understand the internal layout of the ship.");
             });
 
-            return new[] { checkCommand };
+            return [checkCommand];
         }
 
         #endregion

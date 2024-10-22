@@ -21,10 +21,10 @@ namespace NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Items
 
             item.Examination = x =>
             {
-                if (Name.EqualsExaminable(x))
+                if (Name.EqualsExaminable(x.Examinable))
                 {
                     item.Morph(new EmptyTray().Instantiate());
-                    //pC.AquireItem(new USBDrive().Instantiate());
+                    x.Scene.Examiner.AcquireItem(new USBDrive().Instantiate());
                     return new ExaminationResult($"A tray containing a range of different cables that have become intertwined. Amongst the jumble is a small {USBDrive.Name}, you empty the contents of the tray on to the shelf in front of you. It seems unusual to leave the {USBDrive.Name} here so you take it.");
                 }
 
