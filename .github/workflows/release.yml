@@ -1,0 +1,63 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      ver:
+        description: 'The version number, should be specified as a semantic version e.g: X.Y.Z'
+        required: true
+      release-notes:
+        description: 'The versions release notes'
+        required: true
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+         repository: benpollarduk/sshh
+         token: ${{ secrets.PAT }}
+
+    - name: Setup environment
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build -c Release
+
+    - name: Run tests with coverlet
+      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+
+    - name: Tag the commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
+        git push --tags
+      
+    # - name: Upload coverage reports to Codecov
+    #  uses: codecov/codecov-action@v3
+    #  env:
+    #    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+    - name: Create GitHub release
+      uses: actions/create-release@v1
+      with:
+        tag_name: "${{ inputs.ver }}"
+        release_name: "${{ inputs.ver }}"
+        body: "${{ inputs.release-notes }}"
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
