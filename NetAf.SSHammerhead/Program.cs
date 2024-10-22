@@ -28,15 +28,15 @@ namespace NetAF.SSHammerHead
                     return overworld;
                 };
 
-                var creator = Game.Create("Trouble aboard the SS HammerHead",
+                var game = Game.Create("Trouble aboard the SS HammerHead",
                     "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\nA ship was hurriedly prepared and scrambled and made contact 27 days later.\n\nYou enter the outer most airlock and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.",
-                    "This is a short demo game using the NetAF.",
+                    "This is a short demo game using NetAF.",
                     overworldCreator,
                     new Player().Instantiate,
                     g => EndCheckResult.NotEnded,
                     CheckForGameOver);
 
-                Game.Execute(creator);
+                Game.Execute(game);
             }
             catch (Exception e)
             {
