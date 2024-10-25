@@ -1,5 +1,6 @@
 ﻿using NetAF.Rendering.FrameBuilders.Color;
 using NetAF.Rendering.FrameBuilders;
+using NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot;
 
 namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders
 {
@@ -38,11 +39,12 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders
             get
             {
                 var gridLayoutBuilder = new GridStringBuilder();
+                var botLayoutBuilder = new GridStringBuilder('[', ']', '+');
 
                 return new FrameBuilderCollection(
                     new ColorTitleFrameBuilder(gridLayoutBuilder),
-                    new Bot.ColorSceneFrameBuilder(gridLayoutBuilder, new  Bot.ColorRoomMapBuilder()),
-                    new Bot.ColorRegionMapFrameBuilder(gridLayoutBuilder, new Bot.ColorRegionMapBuilder()),
+                    new BotColorSceneFrameBuilder(botLayoutBuilder, new  BotColorRoomMapBuilder()),
+                    new BotColorRegionMapFrameBuilder(botLayoutBuilder, new BotColorRegionMapBuilder()),
                     new ColorHelpFrameBuilder(gridLayoutBuilder),
                     new ColorCompletionFrameBuilder(gridLayoutBuilder),
                     new ColorGameOverFrameBuilder(gridLayoutBuilder),

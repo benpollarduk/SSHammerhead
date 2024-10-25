@@ -4,13 +4,14 @@ using System.Linq;
 using NetAF.Assets.Locations;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Rendering.FrameBuilders.Color;
+using NetAF.SSHammerHead.Assets.Players;
 
 namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
 {
     /// <summary>
     /// Provides a color builder for region maps.
     /// </summary>
-    public sealed class ColorRegionMapBuilder : IRegionMapBuilder
+    public sealed class BotColorRegionMapBuilder : IRegionMapBuilder
     {
         #region Properties
 
@@ -32,12 +33,12 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
         /// <summary>
         /// Get or set the character to use for vertical boundaries.
         /// </summary>
-        public char VerticalBoundary { get; set; } = Convert.ToChar("|");
+        public char VerticalBoundary { get; set; } = Convert.ToChar("#");
 
         /// <summary>
         /// Get or set the character to use for horizontal boundaries.
         /// </summary>
-        public char HorizontalBoundary { get; set; } = Convert.ToChar("-");
+        public char HorizontalBoundary { get; set; } = Convert.ToChar("#");
 
         /// <summary>
         /// Get or set the character to use for lower levels.
@@ -57,27 +58,27 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
         /// <summary>
         /// Get or set the visited room boundary color.
         /// </summary>
-        public AnsiColor VisitedBoundaryColor { get; set; } = AnsiColor.White;
+        public AnsiColor VisitedBoundaryColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the unvisited room boundary color.
         /// </summary>
-        public AnsiColor UnvisitedBoundaryColor { get; set; } = AnsiColor.BrightBlack;
+        public AnsiColor UnvisitedBoundaryColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the player color.
         /// </summary>
-        public AnsiColor PlayerColor { get; set; } = AnsiColor.Blue;
+        public AnsiColor PlayerColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the locked exit color.
         /// </summary>
-        public AnsiColor LockedExitColor { get; set; } = AnsiColor.Red;
+        public AnsiColor LockedExitColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the lower level color.
         /// </summary>
-        public AnsiColor LowerLevelColor { get; set; } = AnsiColor.BrightBlack;
+        public AnsiColor LowerLevelColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set if lower floors should be shown.

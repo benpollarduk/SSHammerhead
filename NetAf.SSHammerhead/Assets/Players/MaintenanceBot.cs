@@ -2,6 +2,7 @@
 using NetAF.Assets.Characters;
 using NetAF.Commands;
 using NetAF.Interpretation;
+using NetAF.Rendering.FrameBuilders.Color;
 using NetAF.SSHammerhead.Assets.Players;
 using NetAF.Utilities;
 
@@ -11,9 +12,10 @@ namespace NetAF.SSHammerHead.Assets.Players
     {
         #region Constants
 
+        public static AnsiColor DisplayColor => AnsiColor.Red;
         public static Identifier Identifier => new Identifier(Name);
         private const string Name = "Bot";
-        private const string Description = "You are a first generation maintenance bot.";
+        private const string Description = "A first generation maintenance bot.";
 
         #endregion
 
@@ -21,11 +23,11 @@ namespace NetAF.SSHammerHead.Assets.Players
 
         public PlayableCharacter Instantiate()
         {
-            return new PlayableCharacter(Name, Description)
+            return new PlayableCharacter(Name, Description, false)
             {
                 Commands =
                 [
-                    new CustomCommand(new CommandHelp("Naomi", "Switch to Naomi."), true, (game, arguments) =>
+                    new CustomCommand(new CommandHelp("Abort", $"Abort remote control"), true, (game, arguments) =>
                     {
                         return PlayableCharacterManager.Switch(Naomi.Identifier, game);
                     })

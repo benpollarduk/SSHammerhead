@@ -3,13 +3,14 @@ using NetAF.Assets.Locations;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Rendering.FrameBuilders.Color;
 using NetAF.Rendering.Frames;
+using NetAF.SSHammerHead.Assets.Players;
 
 namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
 {
     /// <summary>
     /// Provides a builder of color region map frames.
     /// </summary>
-    public sealed class ColorRegionMapFrameBuilder : IRegionMapFrameBuilder
+    public sealed class BotColorRegionMapFrameBuilder : IRegionMapFrameBuilder
     {
         #region Fields
 
@@ -32,23 +33,23 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public AnsiColor BorderColor { get; set; } = AnsiColor.BrightBlack;
+        public AnsiColor BorderColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the title color.
         /// </summary>
-        public AnsiColor TitleColor { get; set; } = AnsiColor.White;
+        public AnsiColor TitleColor { get; set; } = MaintenanceBot.DisplayColor;
 
         #endregion
 
         #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the ColorRegionMapFrameBuilder class.
+        /// Initializes a new instance of the BotColorRegionMapFrameBuilder class.
         /// </summary>
         /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
         /// <param name="regionMapBuilder">A builder for region maps.</param>
-        public ColorRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder)
+        public BotColorRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder)
         {
             this.gridStringBuilder = gridStringBuilder;
             RegionMapBuilder = regionMapBuilder;
@@ -72,11 +73,14 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
 
             var availableWidth = width - 4;
             const int leftMargin = 2;
+     
+            gridStringBuilder.DrawWrapped("BOT::MODE::MAP", leftMargin, 1, availableWidth, TitleColor, out _, out var lastY);
+            gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
 
-            gridStringBuilder.DrawWrapped(region.Identifier.Name, leftMargin, 2, availableWidth, TitleColor, out _, out var lastY);
-            gridStringBuilder.DrawUnderline(leftMargin, lastY + 1, region.Identifier.Name.Length, TitleColor);
+            gridStringBuilder.DrawWrapped($"BOT::REGION::{region.Identifier.Name.ToUpper()}", leftMargin, lastY+2, availableWidth, TitleColor, out _, out lastY);
+            gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
 
-            RegionMapBuilder?.BuildRegionMap(gridStringBuilder, region, 2, lastY + 2, availableWidth, height - 4);
+            RegionMapBuilder?.BuildRegionMap(gridStringBuilder, region, leftMargin, lastY + 1, availableWidth, height - 4);
 
             return new GridTextFrame(gridStringBuilder, 0, 0, BackgroundColor) { AcceptsInput = false, ShowCursor = false };
         }

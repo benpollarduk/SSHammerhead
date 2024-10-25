@@ -5,13 +5,14 @@ using NetAF.Assets.Locations;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Rendering.FrameBuilders.Color;
+using NetAF.SSHammerHead.Assets.Players;
 
 namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
 {
     /// <summary>
     /// Provides a color room map builder.
     /// </summary>
-    public sealed class ColorRoomMapBuilder : IRoomMapBuilder
+    public sealed class BotColorRoomMapBuilder : IRoomMapBuilder
     {
         #region Properties
 
@@ -28,27 +29,27 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
         /// <summary>
         /// Get or set the character to use for vertical boundaries.
         /// </summary>
-        public char VerticalBoundary { get; set; } = Convert.ToChar("|");
+        public char VerticalBoundary { get; set; } = Convert.ToChar("#");
 
         /// <summary>
         /// Get or set the character to use for horizontal boundaries.
         /// </summary>
-        public char HorizontalBoundary { get; set; } = Convert.ToChar("-");
+        public char HorizontalBoundary { get; set; } = Convert.ToChar("#");
 
         /// <summary>
         /// Get or set the character to use for vertical exit borders.
         /// </summary>
-        public char VerticalExitBorder { get; set; } = Convert.ToChar("|");
+        public char VerticalExitBorder { get; set; } = Convert.ToChar("#");
 
         /// <summary>
         /// Get or set the character to use for horizontal exit borders.
         /// </summary>
-        public char HorizontalExitBorder { get; set; } = Convert.ToChar("-");
+        public char HorizontalExitBorder { get; set; } = Convert.ToChar("#");
 
         /// <summary>
         /// Get or set the character to use for corners.
         /// </summary>
-        public char Corner { get; set; } = Convert.ToChar("+");
+        public char Corner { get; set; } = Convert.ToChar("#");
 
         /// <summary>
         /// Get or set the padding between the key and the map.
@@ -58,27 +59,27 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
         /// <summary>
         /// Get or set the room boundary color.
         /// </summary>
-        public AnsiColor BoundaryColor { get; set; } = AnsiColor.BrightBlack;
+        public AnsiColor BoundaryColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the item or character color.
         /// </summary>
-        public AnsiColor ItemOrCharacterColor { get; set; } = AnsiColor.Blue;
+        public AnsiColor ItemOrCharacterColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the locked exit color.
         /// </summary>
-        public AnsiColor LockedExitColor { get; set; } = AnsiColor.Red;
+        public AnsiColor LockedExitColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the visited exit color.
         /// </summary>
-        public AnsiColor VisitedExitColor { get; set; } = AnsiColor.Yellow;
+        public AnsiColor VisitedExitColor { get; set; } = MaintenanceBot.DisplayColor;
 
         /// <summary>
         /// Get or set the unvisited exit color.
         /// </summary>
-        public AnsiColor UnvisitedExitColor { get; set; } = AnsiColor.Green;
+        public AnsiColor UnvisitedExitColor { get; set; } = MaintenanceBot.DisplayColor;
 
         #endregion
 
