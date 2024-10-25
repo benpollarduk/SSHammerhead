@@ -44,7 +44,7 @@ namespace NetAF.SSHammerhead
                                Introduction,
                                Descritpion,
                                overworldCreator,
-                               new Player().Instantiate,
+                               new Naomi().Instantiate,
                                g => EndCheckResult.NotEnded,
                                CheckForGameOver);
 

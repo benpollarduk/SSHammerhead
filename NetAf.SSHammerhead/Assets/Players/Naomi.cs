@@ -1,15 +1,20 @@
-﻿using NetAF.Assets.Characters;
+﻿using NetAF.Assets;
+using NetAF.Assets.Characters;
 using NetAF.Assets.Interaction;
+using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Interpretation;
+using NetAF.SSHammerhead.Assets.Players;
 using NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Items;
 using NetAF.Utilities;
 
 namespace NetAF.SSHammerHead.Assets.Players
 {
-    public class Player : IAssetTemplate<PlayableCharacter>
+    public class Naomi : IAssetTemplate<PlayableCharacter>
     {
         #region Constants
 
+        public static Identifier Identifier => new Identifier(Name);
         private const string Name = "Naomi";
         private const string Description = "You, Naomi Watts, are a 45 year old shuttle mechanic.";
 
@@ -33,7 +38,14 @@ namespace NetAF.SSHammerHead.Assets.Players
                         return new InteractionResult(InteractionEffect.NoEffect, i, "Peering in to the mirror you can see yourself looking back through your helmets visor.");
 
                     return new InteractionResult(InteractionEffect.NoEffect, i);
-                }
+                },
+                Commands =
+                [
+                    new CustomCommand(new CommandHelp("Bot", "Switch to the bot."), true, (game, arguments) =>
+                    {
+                        return PlayableCharacterManager.Switch(MaintenanceBot.Identifier, game);
+                    })
+                ]
             };
 
             return player;
