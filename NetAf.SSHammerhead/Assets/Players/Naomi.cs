@@ -43,7 +43,7 @@ namespace NetAF.SSHammerHead.Assets.Players
                 [
                     new CustomCommand(new CommandHelp("Bot", "Switch to the bot."), true, (game, arguments) =>
                     {
-                        return PlayableCharacterManager.Switch(MaintenanceBot.Identifier, game);
+                        return PlayableCharacterManager.Switch(SpiderBot.Identifier, game);
                     })
                 ]
             };

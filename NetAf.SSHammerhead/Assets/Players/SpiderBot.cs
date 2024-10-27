@@ -8,14 +8,14 @@ using NetAF.Utilities;
 
 namespace NetAF.SSHammerHead.Assets.Players
 {
-    public class MaintenanceBot : IAssetTemplate<PlayableCharacter>
+    public class SpiderBot : IAssetTemplate<PlayableCharacter>
     {
         #region Constants
 
         public static AnsiColor DisplayColor => AnsiColor.Red;
         public static Identifier Identifier => new Identifier(Name);
         private const string Name = "Bot";
-        private const string Description = "A first generation maintenance bot.";
+        private const string Description = "A first generation spider bot, main purpose low scale maintenance operations.";
 
         #endregion
 

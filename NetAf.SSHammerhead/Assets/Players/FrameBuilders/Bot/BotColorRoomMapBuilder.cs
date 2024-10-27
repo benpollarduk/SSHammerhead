@@ -59,27 +59,27 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
         /// <summary>
         /// Get or set the room boundary color.
         /// </summary>
-        public AnsiColor BoundaryColor { get; set; } = MaintenanceBot.DisplayColor;
+        public AnsiColor BoundaryColor { get; set; } = SpiderBot.DisplayColor;
 
         /// <summary>
         /// Get or set the item or character color.
         /// </summary>
-        public AnsiColor ItemOrCharacterColor { get; set; } = MaintenanceBot.DisplayColor;
+        public AnsiColor ItemOrCharacterColor { get; set; } = SpiderBot.DisplayColor;
 
         /// <summary>
         /// Get or set the locked exit color.
         /// </summary>
-        public AnsiColor LockedExitColor { get; set; } = MaintenanceBot.DisplayColor;
+        public AnsiColor LockedExitColor { get; set; } = SpiderBot.DisplayColor;
 
         /// <summary>
         /// Get or set the visited exit color.
         /// </summary>
-        public AnsiColor VisitedExitColor { get; set; } = MaintenanceBot.DisplayColor;
+        public AnsiColor VisitedExitColor { get; set; } = SpiderBot.DisplayColor;
 
         /// <summary>
         /// Get or set the unvisited exit color.
         /// </summary>
-        public AnsiColor UnvisitedExitColor { get; set; } = MaintenanceBot.DisplayColor;
+        public AnsiColor UnvisitedExitColor { get; set; } = SpiderBot.DisplayColor;
 
         #endregion
 

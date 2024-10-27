@@ -33,12 +33,12 @@ namespace NetAF.SSHammerhead.Assets.Players.FrameBuilders.Bot
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public AnsiColor BorderColor { get; set; } = MaintenanceBot.DisplayColor;
+        public AnsiColor BorderColor { get; set; } = SpiderBot.DisplayColor;
 
         /// <summary>
         /// Get or set the title color.
         /// </summary>
-        public AnsiColor TitleColor { get; set; } = MaintenanceBot.DisplayColor;
+        public AnsiColor TitleColor { get; set; } = SpiderBot.DisplayColor;
 
         #endregion
 

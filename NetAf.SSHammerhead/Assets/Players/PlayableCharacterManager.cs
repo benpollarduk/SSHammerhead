@@ -15,7 +15,7 @@ namespace NetAF.SSHammerhead.Assets.Players
         private static Dictionary<string, PlayableCharacterRecord> Records = new()
         {
             { Naomi.Identifier.IdentifiableName, new PlayableCharacterRecord(null, new RoomPosition(null, -1, -3, -2), FrameBuilders.FrameBuilderCollections.Naomi) },
-            { MaintenanceBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new MaintenanceBot().Instantiate(), new RoomPosition(null, 2, 1, 0), FrameBuilders.FrameBuilderCollections.Bot) },
+            { SpiderBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new SpiderBot().Instantiate(), new RoomPosition(null, 2, 1, 0), FrameBuilders.FrameBuilderCollections.Bot) },
         };
 
         /// <summary>
