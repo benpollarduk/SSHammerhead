@@ -1,4 +1,5 @@
 ﻿using NetAF.Assets.Locations;
+using NetAF.Interpretation;
 using NetAF.Logic;
 using NetAF.SSHammerhead.Assets.Players;
 using NetAF.SSHammerhead.Assets.Players.FrameBuilders;
@@ -51,18 +52,24 @@ namespace NetAF.SSHammerhead
 
             GameSetupCallback setup = g =>
             {
+                // get start positions
                 g.Overworld.FindRegion(SSHammerHead.Assets.Regions.SSHammerHead.SSHammerHead.Name, out var sshh);
                 g.Overworld.FindRegion(MaintenanceTunnels.Name, out var tunnels);
                 sshh.TryFindRoom(Airlock.Name, out var naomiStart);
                 tunnels.TryFindRoom(MaintenanceTunnelA.Name, out var botStart);
 
+                // create default configurations
                 Dictionary<string, PlayableCharacterRecord> records = new()
                 {
-                    { Naomi.Identifier.IdentifiableName, new PlayableCharacterRecord(g.Player, sshh, naomiStart, FrameBuilderCollections.Naomi) },
-                    { SpiderBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new SpiderBot().Instantiate(), tunnels, botStart, FrameBuilderCollections.Bot) },
+                    { Naomi.Identifier.IdentifiableName, new PlayableCharacterRecord(g.Player, sshh, naomiStart, FrameBuilderCollections.Naomi, "Whoops") },
+                    { SpiderBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new SpiderBot().Instantiate(), tunnels, botStart, FrameBuilderCollections.Bot, "ERROR") },
                 };
 
+                // setup for players
                 PlayableCharacterManager.Setup(records);
+
+                // setup for Naomi
+                PlayableCharacterManager.ApplyConfiguration(Naomi.Identifier, g);
             };
 
             return Game.Create(

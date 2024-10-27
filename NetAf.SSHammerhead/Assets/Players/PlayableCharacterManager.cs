@@ -44,10 +44,28 @@ namespace NetAF.SSHammerhead.Assets.Players
             // switch player
             game.ChangePlayer(Records[playerIdentifier.IdentifiableName].Instance);
 
-            // change appearance
-            game.ChangeFrameBuilders(Records[playerIdentifier.IdentifiableName].FrameBuilderCollection, false);
+            // apply configuration
+            ApplyConfiguration(playerIdentifier, game);
 
             return new Reaction(ReactionResult.OK, $"Switched to {playerIdentifier.Name}.");
+        }
+
+        /// <summary>
+        /// Apply a configuration for a player.
+        /// </summary>
+        /// <param name="playerIdentifier">The identifier of the player to switch to.</param>
+        /// <param name="game">The executing game.</param>
+        public static void ApplyConfiguration(Identifier playerIdentifier, Game game)
+        {
+            // get record
+            var record = Records[playerIdentifier.IdentifiableName];
+
+            // set error prefix
+            game.Configuration.ErrorPrefix = record.ErrorPrefix;
+
+            // change appearance
+            game.Configuration.FrameBuilders = record.FrameBuilderCollection;
+
         }
     }
 }
