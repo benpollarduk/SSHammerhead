@@ -35,7 +35,7 @@ namespace NetAF.SSHammerhead.Assets.Players
             var room = Records[playerIdentifier.IdentifiableName].Room;
             var roomPosition = Records[playerIdentifier.IdentifiableName].Region.GetPositionOfRoom(room);
             game.Overworld.Move(Records[playerIdentifier.IdentifiableName].Region);
-            var jumpResult = game.Overworld.CurrentRegion.JumpToRoom(roomPosition.X, roomPosition.Y, roomPosition.Z);
+            var jumpResult = Records[playerIdentifier.IdentifiableName].Region.JumpToRoom(roomPosition.X, roomPosition.Y, roomPosition.Z);
 
             // check the jump worked
             if (!jumpResult)

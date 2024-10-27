@@ -1,13 +1,13 @@
-﻿using NetAF.Assets;
-using NetAF.Assets.Locations;
+﻿using NetAF.Assets.Locations;
 using NetAF.Logic;
 using NetAF.SSHammerhead.Assets.Players;
+using NetAF.SSHammerhead.Assets.Players.FrameBuilders;
+using NetAF.SSHammerhead.Assets.Regions.MaintenanceTunnels;
+using NetAF.SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
 using NetAF.SSHammerHead.Assets.Players;
-using NetAF.SSHammerHead.Assets.Regions.SSHammerHead;
 using NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L0;
 using NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L2;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace NetAF.SSHammerhead
 {
@@ -42,21 +42,24 @@ namespace NetAF.SSHammerhead
             {
                 var overworldName = "CTY-1 Galaxy";
                 var ship = new SSHammerHead.Assets.Regions.SSHammerHead.SSHammerHead().Instantiate();
+                var maintenanceTunnels = new MaintenanceTunnels().Instantiate();
                 var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.");
                 overworld.AddRegion(ship);
+                overworld.AddRegion(maintenanceTunnels);
                 return overworld;
             };
 
             GameSetupCallback setup = g =>
             {
                 g.Overworld.FindRegion(SSHammerHead.Assets.Regions.SSHammerHead.SSHammerHead.Name, out var sshh);
-                var naomiStart = sshh.ToMatrix().ToRooms().FirstOrDefault(x => x.Identifier.Equals(Airlock.Name));
-                var botStart = sshh.ToMatrix().ToRooms().FirstOrDefault(x => x.Identifier.Equals(Bridge.Name));
+                g.Overworld.FindRegion(MaintenanceTunnels.Name, out var tunnels);
+                sshh.TryFindRoom(Airlock.Name, out var naomiStart);
+                tunnels.TryFindRoom(MaintenanceTunnelA.Name, out var botStart);
 
                 Dictionary<string, PlayableCharacterRecord> records = new()
                 {
-                    { Naomi.Identifier.IdentifiableName, new PlayableCharacterRecord(g.Player, sshh, naomiStart, Assets.Players.FrameBuilders.FrameBuilderCollections.Naomi) },
-                    { SpiderBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new SpiderBot().Instantiate(), sshh, botStart, Assets.Players.FrameBuilders.FrameBuilderCollections.Bot) },
+                    { Naomi.Identifier.IdentifiableName, new PlayableCharacterRecord(g.Player, sshh, naomiStart, FrameBuilderCollections.Naomi) },
+                    { SpiderBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new SpiderBot().Instantiate(), tunnels, botStart, FrameBuilderCollections.Bot) },
                 };
 
                 PlayableCharacterManager.Setup(records);
