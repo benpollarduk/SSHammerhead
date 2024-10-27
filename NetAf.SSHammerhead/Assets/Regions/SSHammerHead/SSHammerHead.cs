@@ -12,7 +12,7 @@ namespace NetAF.SSHammerHead.Assets.Regions.SSHammerHead
     {
         #region Constants
 
-        private const string Name = "SS Hammerhead";
+        internal const string Name = "SS Hammerhead";
         private static readonly string Description = "The star ship Hammerhead.";
 
         #endregion

@@ -12,11 +12,12 @@ namespace NetAF.SSHammerhead.Assets.Players
     /// </summary>
     internal static class PlayableCharacterManager
     {
-        private static Dictionary<string, PlayableCharacterRecord> Records = new()
+        private static Dictionary<string, PlayableCharacterRecord> Records = new();
+
+        public static void Setup(Dictionary<string, PlayableCharacterRecord> e)
         {
-            { Naomi.Identifier.IdentifiableName, new PlayableCharacterRecord(null, new RoomPosition(null, -1, -3, -2), FrameBuilders.FrameBuilderCollections.Naomi) },
-            { SpiderBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new SpiderBot().Instantiate(), new RoomPosition(null, 2, 1, 0), FrameBuilders.FrameBuilderCollections.Bot) },
-        };
+            Records = e;
+        }
 
         /// <summary>
         /// Switch to a player.
@@ -27,11 +28,13 @@ namespace NetAF.SSHammerhead.Assets.Players
         public static Reaction Switch(Identifier playerIdentifier, Game game)
         {
             // store current player location
-            Records[game.Player.Identifier.IdentifiableName].Instance = game.Player;
-            Records[game.Player.Identifier.IdentifiableName].RoomPosition = game.Overworld.CurrentRegion.GetPositionOfRoom(game.Overworld.CurrentRegion.CurrentRoom);
+            Records[game.Player.Identifier.IdentifiableName].Region = game.Overworld.CurrentRegion;
+            Records[game.Player.Identifier.IdentifiableName].Room = game.Overworld.CurrentRegion.CurrentRoom;
 
             // set location
-            var roomPosition = Records[playerIdentifier.IdentifiableName].RoomPosition;
+            var room = Records[playerIdentifier.IdentifiableName].Room;
+            var roomPosition = Records[playerIdentifier.IdentifiableName].Region.GetPositionOfRoom(room);
+            game.Overworld.Move(Records[playerIdentifier.IdentifiableName].Region);
             var jumpResult = game.Overworld.CurrentRegion.JumpToRoom(roomPosition.X, roomPosition.Y, roomPosition.Z);
 
             // check the jump worked
@@ -42,7 +45,7 @@ namespace NetAF.SSHammerhead.Assets.Players
             game.ChangePlayer(Records[playerIdentifier.IdentifiableName].Instance);
 
             // change appearance
-            game.FrameBuilders = Records[playerIdentifier.IdentifiableName].FrameBuilderCollection;
+            game.ChangeFrameBuilders(Records[playerIdentifier.IdentifiableName].FrameBuilderCollection, false);
 
             return new Reaction(ReactionResult.OK, $"Switched to {playerIdentifier.Name}.");
         }

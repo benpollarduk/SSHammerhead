@@ -7,7 +7,7 @@ namespace NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L2
     {
         #region Constants
 
-        private const string Name = "Bridge";
+        public const string Name = "Bridge";
         private const string Description = "";
 
         #endregion
