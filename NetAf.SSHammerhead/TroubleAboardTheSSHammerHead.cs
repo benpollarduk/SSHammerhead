@@ -1,14 +1,11 @@
 ﻿using NetAF.Assets.Locations;
-using NetAF.Interpretation;
 using NetAF.Logic;
-using NetAF.SSHammerhead.Assets.Players;
 using NetAF.SSHammerhead.Assets.Players.FrameBuilders;
+using NetAF.SSHammerhead.Assets.Players.Management;
 using NetAF.SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using NetAF.SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
 using NetAF.SSHammerHead.Assets.Players;
 using NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L0;
-using NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L2;
-using System.Collections.Generic;
 
 namespace NetAF.SSHammerhead
 {
@@ -39,7 +36,7 @@ namespace NetAF.SSHammerhead
 
         internal static GameCreationCallback Create()
         {
-            OverworldCreationCallback overworldCreator = () =>
+            static Overworld overworldCreator()
             {
                 var overworldName = "CTY-1 Galaxy";
                 var ship = new SSHammerHead.Assets.Regions.SSHammerHead.SSHammerHead().Instantiate();
@@ -48,9 +45,9 @@ namespace NetAF.SSHammerhead
                 overworld.AddRegion(ship);
                 overworld.AddRegion(maintenanceTunnels);
                 return overworld;
-            };
+            }
 
-            GameSetupCallback setup = g =>
+            static void setup(Game g)
             {
                 // get start positions
                 g.Overworld.FindRegion(SSHammerHead.Assets.Regions.SSHammerHead.SSHammerHead.Name, out var sshh);
@@ -58,19 +55,13 @@ namespace NetAF.SSHammerhead
                 sshh.TryFindRoom(Airlock.Name, out var naomiStart);
                 tunnels.TryFindRoom(MaintenanceTunnelA.Name, out var botStart);
 
-                // create default configurations
-                Dictionary<string, PlayableCharacterRecord> records = new()
-                {
-                    { Naomi.Identifier.IdentifiableName, new PlayableCharacterRecord(g.Player, sshh, naomiStart, FrameBuilderCollections.Naomi, "Whoops") },
-                    { SpiderBot.Identifier.IdentifiableName, new PlayableCharacterRecord(new SpiderBot().Instantiate(), tunnels, botStart, FrameBuilderCollections.Bot, "ERROR") },
-                };
+                // setup players
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, FrameBuilderCollections.Naomi, "Whoops"));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(new SpiderBot().Instantiate(), tunnels, botStart, FrameBuilderCollections.Bot, "ERROR"));
 
-                // setup for players
-                PlayableCharacterManager.Setup(records);
-
-                // setup for Naomi
-                PlayableCharacterManager.ApplyConfiguration(Naomi.Identifier, g);
-            };
+                // setup for current player
+                PlayableCharacterManager.ApplyConfiguration(g.Player, g);
+            }
 
             return Game.Create(
                 new GameInfo(Title, Description, "Ben Pollard"), 

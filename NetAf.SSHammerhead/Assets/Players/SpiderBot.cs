@@ -3,7 +3,7 @@ using NetAF.Assets.Characters;
 using NetAF.Commands;
 using NetAF.Interpretation;
 using NetAF.Rendering.FrameBuilders.Color;
-using NetAF.SSHammerhead.Assets.Players;
+using NetAF.SSHammerhead.Assets.Players.Management;
 using NetAF.Utilities;
 
 namespace NetAF.SSHammerHead.Assets.Players
@@ -13,7 +13,7 @@ namespace NetAF.SSHammerHead.Assets.Players
         #region Constants
 
         public static AnsiColor DisplayColor => AnsiColor.Red;
-        public static Identifier Identifier => new Identifier(Name);
+        public static Identifier Identifier => new(Name);
         private const string Name = "Bot";
         private const string Description = "A first generation spider bot, main purpose low scale maintenance operations.";
 

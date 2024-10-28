@@ -4,7 +4,7 @@ using NetAF.Assets.Interaction;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Interpretation;
-using NetAF.SSHammerhead.Assets.Players;
+using NetAF.SSHammerhead.Assets.Players.Management;
 using NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Items;
 using NetAF.Utilities;
 
@@ -14,7 +14,7 @@ namespace NetAF.SSHammerHead.Assets.Players
     {
         #region Constants
 
-        public static Identifier Identifier => new Identifier(Name);
+        public static Identifier Identifier => new(Name);
         private const string Name = "Naomi";
         private const string Description = "You, Naomi Watts, are a 45 year old shuttle mechanic.";
 
