@@ -20,7 +20,7 @@ namespace SSHammerhead
 
         private const string Introduction = "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\n" +
             "A ship was hurriedly prepared and scrambled and made contact 27 days later.\n\n" +
-            "You enter the outer most airlock and it closes behind you. " +
+            "You enter the outer most airlock, and it closes behind you. " +
             "With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.";
 
         private const string Description = "This is a short demo game using NetAF.";

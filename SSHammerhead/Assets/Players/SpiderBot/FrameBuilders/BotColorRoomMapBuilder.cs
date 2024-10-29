@@ -370,11 +370,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 
             var maxCommandLength = keyLines.Max(x => x.Key.Length);
             var maxWidth = maxCommandLength + endX + 1;
-            var startKeyY = endY + KeyPadding;
+            endY = endY + KeyPadding;
             var startKeyX = Math.Max(endX + 4 - maxCommandLength / 2, 0);
 
             foreach (var keyLine in keyLines)
-                gridStringBuilder.DrawWrapped(keyLine.Key, startKeyX, startKeyY, maxWidth, keyLine.Value, out endX, out endY);
+                gridStringBuilder.DrawWrapped(keyLine.Key, startKeyX, endY + 1, maxWidth, keyLine.Value, out endX, out endY);
         }
 
         #endregion
