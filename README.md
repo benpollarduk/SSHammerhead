@@ -5,6 +5,11 @@ A text adventure written using NetAF.
 
 [![main-ci](https://github.com/benpollarduk/ss-hammerhead/actions/workflows/main-ci.yml/badge.svg)](https://github.com/benpollarduk/ss-hammerhead/actions/workflows/main-ci.yml)
 [![GitHub release](https://img.shields.io/github/release/benpollarduk/ss-hammerhead.svg)](https://github.com/benpollarduk/ss-hammerhead/releases)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=benpollarduk_SSHammerhead&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=benpollarduk_SSHammerhead)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=benpollarduk_SSHammerhead&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=benpollarduk_SSHammerhead)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=benpollarduk_SSHammerhead&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=benpollarduk_SSHammerhead)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=benpollarduk_SSHammerhead&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=benpollarduk_SSHammerhead)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=benpollarduk_SSHammerhead&metric=bugs)](https://sonarcloud.io/summary/new_code?id=benpollarduk_SSHammerhead)
 [![License](https://img.shields.io/github/license/benpollarduk/ss-hammerhead.svg)](https://opensource.org/licenses/MIT)
 
 </div>
