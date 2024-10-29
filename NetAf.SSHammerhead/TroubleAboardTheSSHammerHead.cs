@@ -1,11 +1,12 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Logic;
-using NetAF.SSHammerhead.Assets.Players.FrameBuilders;
 using NetAF.SSHammerhead.Assets.Players.Management;
+using NetAF.SSHammerhead.Assets.Players.Naomi;
+using NetAF.SSHammerhead.Assets.Players.SpiderBot;
+using NetAF.SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using NetAF.SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using NetAF.SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
-using NetAF.SSHammerHead.Assets.Players;
-using NetAF.SSHammerHead.Assets.Regions.SSHammerHead.Rooms.L0;
+using NetAF.SSHammerHead.Assets.Regions.Core.Rooms.L0;
 
 namespace NetAF.SSHammerhead
 {
@@ -39,7 +40,7 @@ namespace NetAF.SSHammerhead
             static Overworld overworldCreator()
             {
                 var overworldName = "CTY-1 Galaxy";
-                var ship = new SSHammerHead.Assets.Regions.SSHammerHead.SSHammerHead().Instantiate();
+                var ship = new SSHammerHead.Assets.Regions.Core.SSHammerHead().Instantiate();
                 var maintenanceTunnels = new MaintenanceTunnels().Instantiate();
                 var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.");
                 overworld.AddRegion(ship);
@@ -50,14 +51,14 @@ namespace NetAF.SSHammerhead
             static void setup(Game g)
             {
                 // get start positions
-                g.Overworld.FindRegion(SSHammerHead.Assets.Regions.SSHammerHead.SSHammerHead.Name, out var sshh);
+                g.Overworld.FindRegion(SSHammerHead.Assets.Regions.Core.SSHammerHead.Name, out var sshh);
                 g.Overworld.FindRegion(MaintenanceTunnels.Name, out var tunnels);
                 sshh.TryFindRoom(Airlock.Name, out var naomiStart);
                 tunnels.TryFindRoom(MaintenanceTunnelA.Name, out var botStart);
 
                 // setup players
-                PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, FrameBuilderCollections.Naomi, "Whoops"));
-                PlayableCharacterManager.Add(new PlayableCharacterRecord(new SpiderBot().Instantiate(), tunnels, botStart, FrameBuilderCollections.Bot, "ERROR"));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, Naomi.FrameBuilderCollection, Naomi.ErrorPrefix));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(new SpiderBot().Instantiate(), tunnels, botStart, SpiderBot.FrameBuilderCollection, SpiderBot.ErrorPrefix));
 
                 // setup for current player
                 PlayableCharacterManager.ApplyConfiguration(g.Player, g);

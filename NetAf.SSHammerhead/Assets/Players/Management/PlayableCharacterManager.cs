@@ -1,10 +1,8 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Characters;
 using NetAF.Assets.Interaction;
-using NetAF.Assets.Locations;
 using NetAF.Logic;
 using System.Collections.Generic;
-using System.Data;
 
 namespace NetAF.SSHammerhead.Assets.Players.Management
 {

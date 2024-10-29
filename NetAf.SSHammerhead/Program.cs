@@ -6,7 +6,7 @@ namespace NetAF.SSHammerHead
 {
     internal static class Program
     {
-        private static void Main(string[] args)
+        private static void Main(string[] _)
         {
             try
             {
