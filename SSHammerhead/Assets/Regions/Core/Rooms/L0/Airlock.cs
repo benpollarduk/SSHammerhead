@@ -47,7 +47,23 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
         public Room Instantiate()
         {
-            var room = new Room(Name, Description, new Exit(Direction.East, true), new Exit(Direction.West, true));
+            Room room = null;
+
+            var spaceExit = new Exit(Direction.West, true) 
+            { 
+                Description = new Description("An incredibly sturdy metal door with  small reinforced glass porthole." +
+                "Peering through the porthole you can see stars in all directions, surrounded by the void of space.")
+            };
+
+            var shipExit = new Exit(Direction.East, true)
+            {
+                Description = new ConditionalDescription(
+                    "A locked and incredibly sturdy metal door, presumably leading in to the ship.",
+                    "The sturdy metal door that separates the airlock from the engine room.",
+                    () => room.FindExit(Direction.East, false, out var e) && e.IsLocked)
+            };
+            
+            room = new Room(Name, Description, spaceExit, shipExit);
 
             var controlPanel = new Item("Control Panel", "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".") { Commands = CreateControlPannelCommands(room) };
 
