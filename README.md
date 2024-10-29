@@ -29,7 +29,7 @@ to progress through the story and unravel the mysteries of the ship.
 
 ![image](https://github.com/user-attachments/assets/79b3b6cd-7ecd-4d4e-a2b8-47a6f2b06732)
 
-Take control of the mighty Spider Maintenance Bot and use it to explore inaccessible regions of the ship from a different perspective:
+Take control of the mighty *Spider Maintenance Bot* and use it to explore inaccessible regions of the ship from a different perspective:
 
 ![image](https://github.com/user-attachments/assets/429e50d4-57ba-4c51-9126-bf06a11cb629)
 
