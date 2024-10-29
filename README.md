@@ -18,6 +18,10 @@ A text adventure written using NetAF.
 *Trouble aboard the SS Hammerhead* is a text adventure set within a small ship that is drifting through space. Can you unravel the mystery or succumb to the ship? It aims to provide an extended tutorial for the [NetAF](https://github.com/benpollarduk/netaf) library.
 
 > **NOTE:** *Trouble aboard the SS Hammerhead* is a short text adventure that is very early in development and remains a work in progress.
+>
+> Very little work has been done on the writing and story so far.
+>
+> Currently all effort is being spent making sure that the various mechanics and ideas are being tested to ensure that NetAF is capable of providing as rich of an experience as desired.
 
 ### Story
 After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system. A ship was hurriedly prepared and scrambled and made contact 27 days later.
