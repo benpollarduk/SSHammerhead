@@ -15,11 +15,13 @@ A text adventure written using NetAF.
 </div>
 
 ## Overview
-*Trouble aboard the SS Hammerhead* is a text adventure set within a small ship that is drifting through space. Can you unravel the mystery or succumb to the ship? It aims to provide an extended tutorial for the [NetAF](https://github.com/benpollarduk/netaf) library.
+*Trouble aboard the SS Hammerhead* is a text adventure set within a small ship that is drifting through space. Can you unravel the mystery and make it out alive before you succumb to whatever horrors lie in wait on the ship? 
 
-> **NOTE:** *Trouble aboard the SS Hammerhead* is a short text adventure that is very early in development and remains a work in progress.
+While a game in its own right, *Trouble aboard the SS Hammerhead* aims to provide an extended tutorial for the [NetAF](https://github.com/benpollarduk/netaf) library.
+
+> **NOTE:** *Trouble aboard the SS Hammerhead* is very early in development and remains a work in progress.
 >
-> Very little work has been done on the writing and story so far.
+> Very little work has been done on the writing and overall story so far.
 >
 > Currently all effort is being spent making sure that the various mechanics and ideas are being tested to ensure that NetAF is capable of providing as rich of an experience as desired.
 
