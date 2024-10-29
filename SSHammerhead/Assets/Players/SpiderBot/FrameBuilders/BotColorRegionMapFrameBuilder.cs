@@ -9,11 +9,13 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
     /// <summary>
     /// Provides a builder of color region map frames.
     /// </summary>
-    public sealed class BotColorRegionMapFrameBuilder : IRegionMapFrameBuilder
+    /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
+    /// <param name="regionMapBuilder">A builder for region maps.</param>
+    public sealed class BotColorRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder) : IRegionMapFrameBuilder
     {
         #region Fields
 
-        private readonly GridStringBuilder gridStringBuilder;
+        private readonly GridStringBuilder gridStringBuilder = gridStringBuilder;
 
         #endregion
 
@@ -22,7 +24,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <summary>
         /// Get the region map builder.
         /// </summary>
-        private IRegionMapBuilder RegionMapBuilder { get; }
+        private IRegionMapBuilder RegionMapBuilder { get; } = regionMapBuilder;
 
         /// <summary>
         /// Get or set the background color.
@@ -32,27 +34,12 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public AnsiColor BorderColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor BorderColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the title color.
         /// </summary>
-        public AnsiColor TitleColor { get; set; } = SpiderBot.DisplayColor;
-
-        #endregion
-
-        #region Constructors
-
-        /// <summary>
-        /// Initializes a new instance of the BotColorRegionMapFrameBuilder class.
-        /// </summary>
-        /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-        /// <param name="regionMapBuilder">A builder for region maps.</param>
-        public BotColorRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder)
-        {
-            this.gridStringBuilder = gridStringBuilder;
-            RegionMapBuilder = regionMapBuilder;
-        }
+        public AnsiColor TitleColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         #endregion
 

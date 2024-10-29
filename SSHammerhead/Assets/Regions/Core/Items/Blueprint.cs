@@ -11,7 +11,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         #region Constants
 
         internal const string Name = "Blueprint";
-        private const string Description = "A wall mounted blueprint of the ship, entire SS Hammerhead. The blueprint shows the ship from various angles with details of each area.";
+        private const string Description = "A wall mounted blueprint of the ship, entire SS Hammerhead. " +
+            "The blueprint shows the ship from various angles with details of each area.";
 
         #endregion
 

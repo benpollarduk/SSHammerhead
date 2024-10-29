@@ -1,15 +1,11 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Characters;
 using NetAF.Assets.Interaction;
-using NetAF.Commands;
 using NetAF.Extensions;
-using NetAF.Interpretation;
 using NetAF.Rendering.FrameBuilders.Color;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
-using SSHammerhead.Assets.Players.Management;
-using SSHammerhead.Assets.Players.SpiderBot;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {
@@ -20,7 +16,7 @@ namespace SSHammerhead.Assets.Players.Naomi
         public static Identifier Identifier => new(Name);
         public const string ErrorPrefix = "Uh-oh";
         private const string Name = "Naomi";
-        private const string Description = "You, Naomi Watts, are a 45 year old shuttle mechanic.";
+        private const string Description = "You, Naomi Martin, are a 32 year old shuttle mechanic.";
 
         public static FrameBuilderCollection FrameBuilderCollection
         {
@@ -61,14 +57,7 @@ namespace SSHammerhead.Assets.Players.Naomi
                         return new InteractionResult(InteractionEffect.NoEffect, i, "Peering in to the mirror you can see yourself looking back through your helmets visor.");
 
                     return new InteractionResult(InteractionEffect.NoEffect, i);
-                },
-                Commands =
-                [
-                    new CustomCommand(new CommandHelp("Bot", "Switch to the bot."), true, (game, arguments) =>
-                    {
-                        return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
-                    })
-                ]
+                }
             };
 
             return player;

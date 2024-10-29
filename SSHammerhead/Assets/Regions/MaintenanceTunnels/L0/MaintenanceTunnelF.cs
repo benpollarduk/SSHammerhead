@@ -3,11 +3,11 @@ using NetAF.Utilities;
 
 namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 {
-    internal class MaintenanceTunnelA : IAssetTemplate<Room>
+    internal class MaintenanceTunnelF : IAssetTemplate<Room>
     {
         #region Constants
 
-        public const string Name = "Maintenance Tunnel A";
+        public const string Name = "Maintenance Tunnel F";
         private const string Description = "";
 
         #endregion

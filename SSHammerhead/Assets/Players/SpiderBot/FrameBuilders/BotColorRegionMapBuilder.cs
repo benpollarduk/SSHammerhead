@@ -57,27 +57,27 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <summary>
         /// Get or set the visited room boundary color.
         /// </summary>
-        public AnsiColor VisitedBoundaryColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor VisitedBoundaryColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the unvisited room boundary color.
         /// </summary>
-        public AnsiColor UnvisitedBoundaryColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor UnvisitedBoundaryColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the player color.
         /// </summary>
-        public AnsiColor PlayerColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor PlayerColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the locked exit color.
         /// </summary>
-        public AnsiColor LockedExitColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor LockedExitColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the lower level color.
         /// </summary>
-        public AnsiColor LowerLevelColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor LowerLevelColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set if lower floors should be shown.

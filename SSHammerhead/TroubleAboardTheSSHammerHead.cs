@@ -1,4 +1,6 @@
 ﻿using NetAF.Assets.Locations;
+using NetAF.Commands;
+using NetAF.Interpretation;
 using NetAF.Logic;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
@@ -16,10 +18,10 @@ namespace SSHammerhead
 
         private const string Title = "Trouble aboard the SS HammerHead";
 
-        private const string Introduction = "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\n"
-                                            + "A ship was hurriedly prepared and scrambled and made contact 27 days later.\n\n"
-                                            + "You enter the outer most airlock and it closes behind you. "
-                                            + "With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.";
+        private const string Introduction = "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\n" +
+            "A ship was hurriedly prepared and scrambled and made contact 27 days later.\n\n" +
+            "You enter the outer most airlock and it closes behind you. " +
+            "With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.";
 
         private const string Description = "This is a short demo game using NetAF.";
 
@@ -45,6 +47,19 @@ namespace SSHammerhead
                 var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.");
                 overworld.AddRegion(ship);
                 overworld.AddRegion(maintenanceTunnels);
+
+                overworld.Commands =
+                [
+                    new CustomCommand(new CommandHelp("dev-n", $"Switch Naomi"), false, (game, arguments) =>
+                    {
+                        return PlayableCharacterManager.Switch(NaomiTemplate.Identifier, game);
+                    }),
+                    new CustomCommand(new CommandHelp("dev-b", $"Switch Spider Bot"), false, (game, arguments) =>
+                    {
+                        return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
+                    })
+                ];
+
                 return overworld;
             }
 

@@ -36,22 +36,22 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <summary>
         /// Get or set the border color.
         /// </summary>
-        public AnsiColor BorderColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor BorderColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the text color.
         /// </summary>
-        public AnsiColor TextColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor TextColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the input color.
         /// </summary>
-        public AnsiColor InputColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor InputColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the commands color.
         /// </summary>
-        public AnsiColor CommandsColor { get; set; } = SpiderBot.DisplayColor;
+        public AnsiColor CommandsColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set if messages should be displayed in isolation.

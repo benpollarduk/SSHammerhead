@@ -3,6 +3,8 @@ using NetAF.Assets.Locations;
 using NetAF.Extensions;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
+using SSHammerhead.Assets.Regions.Core.Rooms.L1;
+using SSHammerhead.Assets.Regions.Core.Rooms.L2;
 
 namespace SSHammerhead.Assets.Regions.Core
 {

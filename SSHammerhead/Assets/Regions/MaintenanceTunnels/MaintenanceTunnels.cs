@@ -2,7 +2,7 @@
 using NetAF.Extensions;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
-using System.Linq;
+using System;
 
 namespace SSHammerhead.Assets.Regions.MaintenanceTunnels
 {
@@ -22,12 +22,17 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels
             var regionMaker = new RegionMaker(Name, Description)
             {
                 // L0
-                [0, 0, 0] = new MaintenanceTunnelA().Instantiate(),
-                [1, 0, 0] = new MaintenanceTunnelB().Instantiate()
+                [0, 2, 0] = new MaintenanceTunnelA().Instantiate(),
+                [1, 2, 0] = new MaintenanceTunnelB().Instantiate(),
+                [2, 2, 0] = new MaintenanceTunnelC().Instantiate(),
+                [2, 1, 0] = new MaintenanceTunnelD().Instantiate(),
+                [2, 0, 0] = new MaintenanceTunnelE().Instantiate(),
+                [1, 0, 0] = new MaintenanceTunnelF().Instantiate()
             };
 
             // start in maintenance tunnel A
-            return regionMaker.Make(regionMaker.GetRoomPositions().FirstOrDefault(r => MaintenanceTunnelA.Name.EqualsIdentifier(r.Room.Identifier)));
+            var start = Array.Find(regionMaker.GetRoomPositions(), r => MaintenanceTunnelA.Name.EqualsIdentifier(r.Room.Identifier));
+            return regionMaker.Make(start);
         }
 
         #endregion
