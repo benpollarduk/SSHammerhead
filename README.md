@@ -28,7 +28,7 @@ Take control of the mighty Spider Maintenance Bot and use it to explore inaccess
 
 ![image](https://github.com/user-attachments/assets/429e50d4-57ba-4c51-9126-bf06a11cb629)
 
-The *SS Hammerhead** itself is a multi-level ship, you will need to work your way towards the bridge as you progress through the game. What will you find when you get there, and importantly,
+The *SS Hammerhead* itself is a multi-level ship, you will need to work your way towards the bridge as you progress through the game. What will you find when you get there, and importantly,
 are you truly aboard on your own?
 
 ![image](https://github.com/user-attachments/assets/a244495a-dc2f-4196-b95b-eb3935c9770e)
