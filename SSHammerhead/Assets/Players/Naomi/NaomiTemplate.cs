@@ -62,7 +62,7 @@ namespace SSHammerhead.Assets.Players.Naomi
                 Commands =
                 [
                     new Save() { IsPlayerVisible = false },
-                    new Load() { IsPlayerVisible = false }
+                    new LoadWithRestore() { IsPlayerVisible = false }
                 ]
             };
 

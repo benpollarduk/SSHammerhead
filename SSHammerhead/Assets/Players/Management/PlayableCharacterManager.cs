@@ -2,6 +2,7 @@
 using NetAF.Assets.Characters;
 using NetAF.Assets.Interaction;
 using NetAF.Logic;
+using System;
 using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Players.Management
@@ -55,25 +56,32 @@ namespace SSHammerhead.Assets.Players.Management
         public static Reaction Switch(PlayableCharacter player, Game game)
         {
             // get records
-            var currentPlayerRecord = GetRecord(game.Player.Identifier);
             var newPlayerRecord = GetRecord(player.Identifier);
 
-            // store current player location
-            currentPlayerRecord.Region = game.Overworld.CurrentRegion;
-            currentPlayerRecord.Room = game.Overworld.CurrentRegion.CurrentRoom;
+            // get previous player location
+            var previous = Array.Find(game.GetInactivePlayerLocations(), x => x.PlayerIdentifier.Equals(player.Identifier));
 
-            // switch player
-            game.ChangePlayer(newPlayerRecord.Instance, false);
+            // if a previous location found
+            if (previous != null)
+            {
+                // switch player
+                game.ChangePlayer(newPlayerRecord.Instance, false);
+            }
+            else
+            {
+                // switch player
+                game.ChangePlayer(newPlayerRecord.Instance, false);
 
-            // set location
-            var room = newPlayerRecord.Room;
-            var roomPosition = newPlayerRecord.Region.GetPositionOfRoom(room);
-            game.Overworld.Move(newPlayerRecord.Region);
-            var jumpResult = newPlayerRecord.Region.JumpToRoom(roomPosition.X, roomPosition.Y, roomPosition.Z);
+                // set start location
+                var room = newPlayerRecord.StartRoom;
+                var roomPosition = newPlayerRecord.StartRegion.GetPositionOfRoom(room);
+                game.Overworld.Move(newPlayerRecord.StartRegion);
+                var jumpResult = newPlayerRecord.StartRegion.JumpToRoom(roomPosition.X, roomPosition.Y, roomPosition.Z);
 
-            // check the jump worked
-            if (!jumpResult)
-                return new Reaction(ReactionResult.Error, $"Could not switch to {newPlayerRecord.Instance.Identifier.Name}.");
+                // check the jump worked
+                if (!jumpResult)
+                    return new Reaction(ReactionResult.Error, $"Could not switch to {newPlayerRecord.Instance.Identifier.Name}.");
+            }
 
             // apply configuration
             ApplyConfiguration(newPlayerRecord.Instance, game);
