@@ -16,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
 
         public Room Instantiate()
         {
-            return new Room(Name, Description, new Exit(Direction.North));
+            return new Room(Name, Description, [new Exit(Direction.North)]);
         }
 
         #endregion

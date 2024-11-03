@@ -45,21 +45,22 @@ namespace SSHammerhead
                 var overworldName = "CTY-1 Galaxy";
                 var ship = new SSHammerHead().Instantiate();
                 var maintenanceTunnels = new MaintenanceTunnels().Instantiate();
-                var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.");
-                overworld.AddRegion(ship);
-                overworld.AddRegion(maintenanceTunnels);
 
-                overworld.Commands =
+                CustomCommand[] commands =
                 [
-                    new CustomCommand(new CommandHelp("dev-n", $"Switch Naomi"), false, (game, arguments) =>
+                    new CustomCommand(new CommandHelp("dev-n", $"Switch Naomi"), false, true, (game, arguments) =>
                     {
                         return PlayableCharacterManager.Switch(NaomiTemplate.Identifier, game);
                     }),
-                    new CustomCommand(new CommandHelp("dev-b", $"Switch Spider Bot"), false, (game, arguments) =>
+                    new CustomCommand(new CommandHelp("dev-b", $"Switch Spider Bot"), false, true, (game, arguments) =>
                     {
                         return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
                     })
                 ];
+
+                var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.", commands: commands);
+                overworld.AddRegion(ship);
+                overworld.AddRegion(maintenanceTunnels);
 
                 return overworld;
             }

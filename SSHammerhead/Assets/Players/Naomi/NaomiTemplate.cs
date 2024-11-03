@@ -7,6 +7,7 @@ using NetAF.Rendering.FrameBuilders;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Commands.Persistence;
+using NetAF.Commands;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {
@@ -44,29 +45,25 @@ namespace SSHammerhead.Assets.Players.Naomi
 
         public PlayableCharacter Instantiate()
         {
-            var player = new PlayableCharacter(Name, Description, new Hammer().Instantiate(), new Mirror().Instantiate())
+            CustomCommand[] commands =
+            [
+                new Save() { IsPlayerVisible = false },
+                new LoadWithRestore() { IsPlayerVisible = false }
+            ];
+
+            return new(Name, Description, [new Hammer().Instantiate(), new Mirror().Instantiate()], commands: commands, interaction: (i) =>
             {
-                Interaction = (i) =>
-                {
-                    if (i == null)
-                        return new InteractionResult(InteractionEffect.NoEffect, null);
+                if (i == null)
+                    return new InteractionResult(InteractionEffect.NoEffect, null);
 
-                    if (Hammer.Name.EqualsIdentifier(i.Identifier))
-                        return new InteractionResult(InteractionEffect.FatalEffect, i, "You swing wildly at your own head. The first few blows connect and knock you down. You are dead.");
+                if (Hammer.Name.EqualsIdentifier(i.Identifier))
+                    return new InteractionResult(InteractionEffect.FatalEffect, i, "You swing wildly at your own head. The first few blows connect and knock you down. You are dead.");
 
-                    if (Mirror.Name.EqualsIdentifier(i.Identifier))
-                        return new InteractionResult(InteractionEffect.NoEffect, i, "Peering in to the mirror you can see yourself looking back through your helmets visor.");
+                if (Mirror.Name.EqualsIdentifier(i.Identifier))
+                    return new InteractionResult(InteractionEffect.NoEffect, i, "Peering in to the mirror you can see yourself looking back through your helmets visor.");
 
-                    return new InteractionResult(InteractionEffect.NoEffect, i);
-                },
-                Commands =
-                [
-                    new Save() { IsPlayerVisible = false },
-                    new LoadWithRestore() { IsPlayerVisible = false }
-                ]
-            };
-
-            return player;
+                return new InteractionResult(InteractionEffect.NoEffect, i);
+            });
         }
 
         #endregion

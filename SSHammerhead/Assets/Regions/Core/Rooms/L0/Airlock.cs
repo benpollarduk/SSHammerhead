@@ -23,7 +23,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
         private static CustomCommand[] CreateControlPannelCommands(Room room)
         {
-            var redButtonCommand = new CustomCommand(new CommandHelp("Press red", "Press the red button on the control panel."), true, (game, arguments) =>
+            var redButtonCommand = new CustomCommand(new CommandHelp("Press red", "Press the red button on the control panel."), true, true, (game, arguments) =>
             {
                 room.FindExit(Direction.West, true, out var west);
                 west.Unlock();
@@ -31,7 +31,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 return new Reaction(ReactionResult.Fatal, result);
             });
 
-            var greenButtonCommand = new CustomCommand(new CommandHelp("Press green", "Press the green button on the control panel."), true, (game, arguments) =>
+            var greenButtonCommand = new CustomCommand(new CommandHelp("Press green", "Press the green button on the control panel."), true, true, (game, arguments) =>
             {
                 room.FindExit(Direction.East, true, out var east);
                 east.Unlock();
@@ -49,39 +49,32 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
         {
             Room room = null;
 
-            var spaceExit = new Exit(Direction.West, true) 
-            { 
-                Description = new Description("An incredibly sturdy metal door with  small reinforced glass porthole." +
-                "Peering through the porthole you can see stars in all directions, surrounded by the void of space.")
-            };
+            Description spaceExitDescription = new("An incredibly sturdy metal door with  small reinforced glass porthole." +
+                                                   "Peering through the porthole you can see stars in all directions, surrounded by the void of space.");
 
-            var shipExit = new Exit(Direction.East, true)
-            {
-                Description = new ConditionalDescription(
-                    "A locked and incredibly sturdy metal door, presumably leading in to the ship.",
-                    "The sturdy metal door that separates the airlock from the engine room.",
-                    () => room.FindExit(Direction.East, false, out var e) && e.IsLocked)
-            };
+            var spaceExit = new Exit(Direction.West, true, description: spaceExitDescription);
+
+            var shipExitDescription = new ConditionalDescription("A locked and incredibly sturdy metal door, presumably leading in to the ship.",
+                                                                 "The sturdy metal door that separates the airlock from the engine room.",
+                                                                 () => room.FindExit(Direction.East, false, out var e) && e.IsLocked);
+
+            var shipExit = new Exit(Direction.East, true, description: shipExitDescription);
             
-            room = new Room(Name, Description, spaceExit, shipExit);
+            room = new Room(Name, Description, [spaceExit, shipExit]);
 
             var brokenControlPanel = new BrokenControlPanel().Instantiate();
             room.AddItem(brokenControlPanel);
 
-            var controlPanel = new Item("Control Panel", "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".")
+            var controlPanel = new Item("Control Panel", "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".", commands: CreateControlPannelCommands(room), interaction: (item) =>
             {
-                Commands = CreateControlPannelCommands(room),
-                Interaction = (item) =>
+                if (Hammer.Name.EqualsIdentifier(item.Identifier))
                 {
-                    if (Hammer.Name.EqualsIdentifier(item.Identifier))
-                    {
-                        brokenControlPanel.IsPlayerVisible = true;
-                        return new InteractionResult(InteractionEffect.TargetUsedUp, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
-                    }
-
-                    return new InteractionResult(InteractionEffect.NoEffect, item);
+                    brokenControlPanel.IsPlayerVisible = true;
+                    return new InteractionResult(InteractionEffect.TargetUsedUp, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
                 }
-            };
+
+                return new InteractionResult(InteractionEffect.NoEffect, item);
+            });
 
 
             room.AddItem(controlPanel);

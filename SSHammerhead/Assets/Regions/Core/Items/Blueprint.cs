@@ -20,7 +20,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         private static CustomCommand[] CreateCommands()
         {
-            var checkCommand = new CustomCommand(new CommandHelp($"Check {Name}", $"Check the {Name} in detail."), true, (game, arguments) =>
+            var checkCommand = new CustomCommand(new CommandHelp($"Check {Name}", $"Check the {Name} in detail."), true, true, (game, arguments) =>
             {
                 game.Overworld.CurrentRegion.VisibleWithoutDiscovery = true;
                 return new Reaction(ReactionResult.OK, $"You check the {Name} in detail. You know understand the internal layout of the ship.");
@@ -35,7 +35,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         public Item Instantiate()
         {
-            return new Item(Name, Description) { Commands = CreateCommands() };
+            return new Item(Name, Description, commands: CreateCommands());
         }
 
         #endregion

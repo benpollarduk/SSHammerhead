@@ -46,16 +46,13 @@ namespace SSHammerhead.Assets.Players.SpiderBot
 
         public PlayableCharacter Instantiate()
         {
-            return new PlayableCharacter(Name, Description, false)
-            {
-                Commands =
-                [
-                    new CustomCommand(new CommandHelp("Abort", $"Abort remote control"), true, (game, arguments) =>
-                    {
-                        return PlayableCharacterManager.Switch(Naomi.NaomiTemplate.Identifier, game);
-                    })
-                ]
-            };
+            return new PlayableCharacter(Name, Description, false, commands:
+            [
+                new CustomCommand(new CommandHelp("Abort", $"Abort remote control"), true, true, (game, arguments) =>
+                {
+                    return PlayableCharacterManager.Switch(Naomi.NaomiTemplate.Identifier, game);
+                })
+            ]);
         }
 
         #endregion

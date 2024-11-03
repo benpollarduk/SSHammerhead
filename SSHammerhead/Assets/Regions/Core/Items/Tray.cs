@@ -1,10 +1,9 @@
 ﻿using NetAF.Assets;
-using NetAF.Extensions;
 using NetAF.Utilities;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
 {
-    public class Tray : IAssetTemplate<Item>
+    public class Tray(ExaminationCallback examination) : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -17,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         public Item Instantiate()
         {
-            return new(Name, Description);
+            return new(Name, Description, examination: examination);
         }
 
         #endregion
