@@ -1,4 +1,5 @@
-﻿using NetAF.Assets.Locations;
+﻿using NetAF.Assets;
+using NetAF.Assets.Locations;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 
@@ -19,9 +20,21 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
         public Room Instantiate()
         {
+            var emptyTray = new EmptyTray().Instantiate();
+            var tray = new Tray().Instantiate();
+
+            tray.Examination = x =>
+            {
+                emptyTray.IsPlayerVisible = true;
+                tray.IsPlayerVisible = false;
+                x.Scene.Examiner.AddItem(new USBDrive().Instantiate());
+                return new ExaminationResult($"A tray containing a range of different cables that have become intertwined. Amongst the jumble is a small {USBDrive.Name}, you empty the contents of the tray on to the shelf in front of you. It seems unusual to leave the {USBDrive.Name} here so you take it.");
+            };
+
             var room = new Room(Name, Description, new Exit(Direction.West));
             room.AddItem(new Blueprint().Instantiate());
-            room.AddItem(new Tray().Instantiate());
+            room.AddItem(tray);
+            room.AddItem(emptyTray);
             room.AddItem(new MaintenanceControlPanel().Instantiate());
             return room;
         }

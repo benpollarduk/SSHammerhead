@@ -16,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         public Item Instantiate()
         {
-            return new Item(Name, Description);
+            return new Item(Name, Description) { IsPlayerVisible = false };
         }
 
         #endregion

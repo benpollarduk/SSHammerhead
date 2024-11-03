@@ -65,19 +65,24 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             
             room = new Room(Name, Description, spaceExit, shipExit);
 
-            var controlPanel = new Item("Control Panel", "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".") { Commands = CreateControlPannelCommands(room) };
+            var brokenControlPanel = new BrokenControlPanel().Instantiate();
+            room.AddItem(brokenControlPanel);
 
-            controlPanel.Interaction = (item) =>
+            var controlPanel = new Item("Control Panel", "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".")
             {
-                if (Hammer.Name.EqualsIdentifier(item.Identifier))
+                Commands = CreateControlPannelCommands(room),
+                Interaction = (item) =>
                 {
-                    room.RemoveItem(controlPanel);
-                    room.AddItem(new BrokenControlPanel().Instantiate());
-                    return new InteractionResult(InteractionEffect.ItemMorphed, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
-                }
+                    if (Hammer.Name.EqualsIdentifier(item.Identifier))
+                    {
+                        brokenControlPanel.IsPlayerVisible = true;
+                        return new InteractionResult(InteractionEffect.TargetUsedUp, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
+                    }
 
-                return new InteractionResult(InteractionEffect.NoEffect, item);
+                    return new InteractionResult(InteractionEffect.NoEffect, item);
+                }
             };
+
 
             room.AddItem(controlPanel);
 

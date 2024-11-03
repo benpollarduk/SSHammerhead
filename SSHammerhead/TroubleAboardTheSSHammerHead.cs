@@ -1,11 +1,13 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
+using NetAF.Commands.Persistence;
 using NetAF.Interpretation;
 using NetAF.Logic;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.Core;
+using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
@@ -57,7 +59,9 @@ namespace SSHammerhead
                     new CustomCommand(new CommandHelp("dev-b", $"Switch Spider Bot"), false, (game, arguments) =>
                     {
                         return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
-                    })
+                    }),
+                    new Save() { IsPlayerVisible = false },
+                    new Load() { IsPlayerVisible = false }
                 ];
 
                 return overworld;
@@ -71,12 +75,19 @@ namespace SSHammerhead
                 sshh.TryFindRoom(Airlock.Name, out var naomiStart);
                 tunnels.TryFindRoom(MaintenanceTunnelA.Name, out var botStart);
 
+                // get bot instance
+                var bot = new SpiderBotTemplate().Instantiate();
+
                 // setup players
                 PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, NaomiTemplate.FrameBuilderCollection, NaomiTemplate.ErrorPrefix));
-                PlayableCharacterManager.Add(new PlayableCharacterRecord(new SpiderBotTemplate().Instantiate(), tunnels, botStart, SpiderBotTemplate.FrameBuilderCollection, SpiderBotTemplate.ErrorPrefix));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(bot, tunnels, botStart, SpiderBotTemplate.FrameBuilderCollection, SpiderBotTemplate.ErrorPrefix));
 
                 // setup for current player
                 PlayableCharacterManager.ApplyConfiguration(g.Player, g);
+
+                // register any items that aren't present in creation
+                g.Catalog.Register(new USBDrive());
+                g.Catalog.Register(bot);
             }
 
             return Game.Create(

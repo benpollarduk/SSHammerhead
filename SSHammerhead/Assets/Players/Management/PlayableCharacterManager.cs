@@ -11,9 +11,19 @@ namespace SSHammerhead.Assets.Players.Management
     /// </summary>
     internal static class PlayableCharacterManager
     {
+        #region StaticFields
+
         private static readonly List<PlayableCharacterRecord> records = [];
 
+        #endregion
+
+        #region StaticProperties
+
         private static PlayableCharacterRecord GetRecord(Identifier identifier) => records.Find(x => x.Instance.Identifier.Equals(identifier));
+
+        #endregion
+
+        #region StaticMethods
 
         /// <summary>
         /// Add a record.
@@ -52,6 +62,9 @@ namespace SSHammerhead.Assets.Players.Management
             currentPlayerRecord.Region = game.Overworld.CurrentRegion;
             currentPlayerRecord.Room = game.Overworld.CurrentRegion.CurrentRoom;
 
+            // switch player
+            game.ChangePlayer(newPlayerRecord.Instance, false);
+
             // set location
             var room = newPlayerRecord.Room;
             var roomPosition = newPlayerRecord.Region.GetPositionOfRoom(room);
@@ -61,9 +74,6 @@ namespace SSHammerhead.Assets.Players.Management
             // check the jump worked
             if (!jumpResult)
                 return new Reaction(ReactionResult.Error, $"Could not switch to {newPlayerRecord.Instance.Identifier.Name}.");
-
-            // switch player
-            game.ChangePlayer(newPlayerRecord.Instance);
 
             // apply configuration
             ApplyConfiguration(newPlayerRecord.Instance, game);
@@ -87,5 +97,7 @@ namespace SSHammerhead.Assets.Players.Management
             // change appearance
             game.Configuration.FrameBuilders = record.FrameBuilderCollection;
         }
+
+        #endregion
     }
 }

@@ -20,6 +20,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         {
             var brokenControlPanel = new Item(Name, Description)
             {
+                IsPlayerVisible = false,
                 Interaction = (item) =>
                 {
                     if (Hammer.Name.EqualsIdentifier(item.Identifier))
