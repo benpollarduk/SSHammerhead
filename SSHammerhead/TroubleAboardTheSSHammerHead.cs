@@ -1,6 +1,5 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
-using NetAF.Commands.Persistence;
 using NetAF.Interpretation;
 using NetAF.Logic;
 using SSHammerhead.Assets.Players.Management;
@@ -59,9 +58,7 @@ namespace SSHammerhead
                     new CustomCommand(new CommandHelp("dev-b", $"Switch Spider Bot"), false, (game, arguments) =>
                     {
                         return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
-                    }),
-                    new Save() { IsPlayerVisible = false },
-                    new Load() { IsPlayerVisible = false }
+                    })
                 ];
 
                 return overworld;

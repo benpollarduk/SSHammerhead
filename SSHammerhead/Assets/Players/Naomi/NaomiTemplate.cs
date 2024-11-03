@@ -6,6 +6,7 @@ using NetAF.Rendering.FrameBuilders.Color;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
+using NetAF.Commands.Persistence;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {
@@ -57,7 +58,12 @@ namespace SSHammerhead.Assets.Players.Naomi
                         return new InteractionResult(InteractionEffect.NoEffect, i, "Peering in to the mirror you can see yourself looking back through your helmets visor.");
 
                     return new InteractionResult(InteractionEffect.NoEffect, i);
-                }
+                },
+                Commands =
+                [
+                    new Save() { IsPlayerVisible = false },
+                    new Load() { IsPlayerVisible = false }
+                ]
             };
 
             return player;
