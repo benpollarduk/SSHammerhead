@@ -1,6 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Characters;
 using NetAF.Commands;
+using NetAF.Commands.Persistence;
 using NetAF.Interpretation;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Rendering.FrameBuilders.Color;
@@ -51,7 +52,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                 new CustomCommand(new CommandHelp("Abort", $"Abort remote control"), true, true, (game, arguments) =>
                 {
                     return PlayableCharacterManager.Switch(Naomi.NaomiTemplate.Identifier, game);
-                })
+                }),
+                new Save() { IsPlayerVisible = false },
+                new LoadWithRestore() { IsPlayerVisible = false }
             ]);
         }
 
