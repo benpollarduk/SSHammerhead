@@ -62,7 +62,7 @@ namespace SSHammerhead.Assets.Players.Management
             var previous = Array.Find(game.GetInactivePlayerLocations(), x => x.PlayerIdentifier.Equals(player.Identifier));
 
             // if a previous location found
-            if (previous != null)
+            if (previous != default(PlayableCharacterLocation))
             {
                 // switch player
                 game.ChangePlayer(newPlayerRecord.Instance, false);
