@@ -140,7 +140,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                         var contextualCommand = contextualCommands[index];
                         gridStringBuilder.DrawWrapped(contextualCommand.Command.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                         gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
-                        gridStringBuilder.DrawWrapped(contextualCommand.Description.ToUpper(), descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
+                        gridStringBuilder.DrawWrapped(contextualCommand.Description.ToUpper().EnsureFinishedSentence(), descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
 
                         // only continue if not run out of space - the 1 is for the border the ...
                         if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt >= height)
