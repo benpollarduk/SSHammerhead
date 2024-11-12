@@ -2,12 +2,12 @@
 using NetAF.Assets.Characters;
 using NetAF.Assets.Interaction;
 using NetAF.Extensions;
-using NetAF.Rendering.FrameBuilders.Color;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Commands.Persistence;
 using NetAF.Commands;
+using NetAF.Rendering.FrameBuilders.Console;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {
@@ -27,15 +27,15 @@ namespace SSHammerhead.Assets.Players.Naomi
                 var gridLayoutBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new ColorTitleFrameBuilder(gridLayoutBuilder),
-                    new ColorSceneFrameBuilder(gridLayoutBuilder, new ColorRoomMapBuilder()),
-                    new ColorRegionMapFrameBuilder(gridLayoutBuilder, new ColorRegionMapBuilder()),
-                    new ColorHelpFrameBuilder(gridLayoutBuilder),
-                    new ColorCompletionFrameBuilder(gridLayoutBuilder),
-                    new ColorGameOverFrameBuilder(gridLayoutBuilder),
-                    new ColorAboutFrameBuilder(gridLayoutBuilder),
-                    new ColorTransitionFrameBuilder(gridLayoutBuilder),
-                    new ColorConversationFrameBuilder(gridLayoutBuilder));
+                    new ConsoleTitleFrameBuilder(gridLayoutBuilder),
+                    new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder)),
+                    new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder)),
+                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
+                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
+                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
+                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
+                    new ConsoleTransitionFrameBuilder(gridLayoutBuilder),
+                    new ConsoleConversationFrameBuilder(gridLayoutBuilder));
             }
         }
 

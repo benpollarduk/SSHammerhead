@@ -1,7 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Color;
+using NetAF.Rendering.FrameBuilders.Console;
 using NetAF.Rendering.Frames;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
@@ -11,7 +11,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="regionMapBuilder">A builder for region maps.</param>
-    public sealed class BotColorRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder) : IRegionMapFrameBuilder
+    public sealed class BotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder) : IRegionMapFrameBuilder
     {
         #region Fields
 
@@ -66,7 +66,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             gridStringBuilder.DrawWrapped($"BOT::REGION::{region.Identifier.Name.ToUpper()}", leftMargin, lastY + 2, availableWidth, TitleColor, out _, out lastY);
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
 
-            RegionMapBuilder?.BuildRegionMap(gridStringBuilder, region, leftMargin, lastY + 1, availableWidth, height - 4);
+            RegionMapBuilder?.BuildRegionMap(region, leftMargin, lastY + 1, availableWidth, height - 4);
 
             return new GridTextFrame(gridStringBuilder, 0, 0, BackgroundColor) { AcceptsInput = false, ShowCursor = false };
         }

@@ -4,10 +4,11 @@ using NetAF.Commands;
 using NetAF.Commands.Persistence;
 using NetAF.Interpretation;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Color;
+using NetAF.Rendering.FrameBuilders.Console;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using System;
 
 namespace SSHammerhead.Assets.Players.SpiderBot
 {
@@ -29,15 +30,15 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                 var botLayoutBuilder = new GridStringBuilder('[', ']', '+');
 
                 return new FrameBuilderCollection(
-                    new ColorTitleFrameBuilder(gridLayoutBuilder),
-                    new BotColorSceneFrameBuilder(botLayoutBuilder, new BotColorRoomMapBuilder()),
-                    new BotColorRegionMapFrameBuilder(botLayoutBuilder, new BotColorRegionMapBuilder()),
-                    new ColorHelpFrameBuilder(gridLayoutBuilder),
-                    new ColorCompletionFrameBuilder(gridLayoutBuilder),
-                    new ColorGameOverFrameBuilder(gridLayoutBuilder),
-                    new ColorAboutFrameBuilder(gridLayoutBuilder),
-                    new ColorTransitionFrameBuilder(gridLayoutBuilder),
-                    new ColorConversationFrameBuilder(gridLayoutBuilder));
+                    new ConsoleTitleFrameBuilder(gridLayoutBuilder),
+                    new BotConsoleSceneFrameBuilder(botLayoutBuilder, new BotConsoleRoomMapBuilder(botLayoutBuilder)),
+                    new BotConsoleRegionMapFrameBuilder(botLayoutBuilder, new BotConsoleRegionMapBuilder(botLayoutBuilder)),
+                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
+                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
+                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
+                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
+                    new ConsoleTransitionFrameBuilder(gridLayoutBuilder),
+                    new ConsoleConversationFrameBuilder(gridLayoutBuilder));
             }
         }
 

@@ -4,14 +4,15 @@ using System.Linq;
 using NetAF.Assets.Locations;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Color;
+using NetAF.Rendering.FrameBuilders.Console;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
     /// <summary>
-    /// Provides a color room map builder.
+    /// Provides a console room map builder.
     /// </summary>
-    public sealed class BotColorRoomMapBuilder : IRoomMapBuilder
+    /// <param name="gridStringBuilder">The string builder to use.</param>
+    public sealed class BotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder) : IRoomMapBuilder
     {
         #region Properties
 
@@ -370,7 +371,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 
             var maxCommandLength = keyLines.Max(x => x.Key.Length);
             var maxWidth = maxCommandLength + endX + 1;
-            endY = endY + KeyPadding;
+            endY += KeyPadding;
             var startKeyX = Math.Max(endX + 4 - maxCommandLength / 2, 0);
 
             foreach (var keyLine in keyLines)
@@ -384,7 +385,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <summary>
         /// Build a map for a room.
         /// </summary>
-        /// <param name="gridStringBuilder">The string builder to use.</param>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
         /// <param name="key">The key type.</param>
@@ -392,7 +392,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <param name="startY">The start position, x.</param>
         /// <param name="endX">The end position, x.</param>
         /// <param name="endY">The end position, x.</param>
-        public void BuildRoomMap(GridStringBuilder gridStringBuilder, Room room, ViewPoint viewPoint, KeyType key, int startX, int startY, out int endX, out int endY)
+        public void BuildRoomMap(Room room, ViewPoint viewPoint, KeyType key, int startX, int startY, out int endX, out int endY)
         {
             DrawNorthBorder(room, viewPoint, gridStringBuilder, startX, startY);
             DrawSouthBorder(room, viewPoint, gridStringBuilder, startX, startY);

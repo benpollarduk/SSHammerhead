@@ -7,17 +7,17 @@ using NetAF.Extensions;
 using NetAF.Interpretation;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Color;
+using NetAF.Rendering.FrameBuilders.Console;
 using NetAF.Rendering.Frames;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
     /// <summary>
-    /// Provides a builder for color scene frames.
+    /// Provides a builder for console scene frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="roomMapBuilder">A builder to use for room maps.</param>
-    public sealed class BotColorSceneFrameBuilder(GridStringBuilder gridStringBuilder, IRoomMapBuilder roomMapBuilder) : ISceneFrameBuilder
+    public sealed class BotConsoleSceneFrameBuilder(GridStringBuilder gridStringBuilder, IRoomMapBuilder roomMapBuilder) : ISceneFrameBuilder
     {
         #region Fields
 
@@ -109,7 +109,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
                 lastY += 2;
 
-                roomMapBuilder?.BuildRoomMap(gridStringBuilder, room, viewPoint, keyType, width / 2 - 4, lastY + 8, out _, out lastY);
+                roomMapBuilder?.BuildRoomMap(room, viewPoint, keyType, width / 2 - 4, lastY + 8, out _, out lastY);
 
                 if (!DisplayMessagesInIsolation && displayMessage)
                 {

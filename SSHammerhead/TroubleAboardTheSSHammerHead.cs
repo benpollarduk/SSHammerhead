@@ -93,7 +93,7 @@ namespace SSHammerhead
                 Introduction,
                 AssetGenerator.Custom(overworldCreator, () => new NaomiTemplate().Instantiate()),
                 new GameEndConditions(GameEndConditions.NotEnded, CheckForGameOver),
-                GameConfiguration.Default,
+                ConsoleGameConfiguration.Default,
                 setup);
 
         }

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using NetAF.Assets.Locations;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Color;
+using NetAF.Rendering.FrameBuilders.Console;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
     /// <summary>
-    /// Provides a color builder for region maps.
+    /// Provides a console builder for region maps.
     /// </summary>
-    public sealed class BotColorRegionMapBuilder : IRegionMapBuilder
+    /// <param name="gridStringBuilder">The string builder to use.</param>
+    public sealed class BotConsoleRegionMapBuilder(GridStringBuilder gridStringBuilder) : IRegionMapBuilder
     {
         #region Properties
 
@@ -95,8 +96,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <param name="left">The left of the room.</param>
         /// <param name="top">The top of the room.</param>
         /// <param name="isCurrentRoom">True if this is the current room.</param>
-        /// <param name="gridStringBuilder">The string builder to use.</param>
-        private void DrawCurrentFloorRoom(Room room, int left, int top, bool isCurrentRoom, GridStringBuilder gridStringBuilder)
+        private void DrawCurrentFloorRoom(Room room, int left, int top, bool isCurrentRoom)
         {
             var color = room.HasBeenVisited ? VisitedBoundaryColor : UnvisitedBoundaryColor;
 
@@ -185,8 +185,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="left">The left of the room.</param>
         /// <param name="top">The top of the room.</param>
-        /// <param name="gridStringBuilder">The string builder to use.</param>
-        private void DrawLowerLevelRoom(int left, int top, GridStringBuilder gridStringBuilder)
+        private void DrawLowerLevelRoom(int left, int top)
         {
             for (var y = 0; y < 3; y++)
                 for (var x = 0; x < 5; x++)
@@ -249,13 +248,12 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <summary>
         /// Build a map of a region.
         /// </summary>
-        /// <param name="gridStringBuilder">The string builder to use.</param>
         /// <param name="region">The region.</param>
         /// <param name="x">The x position to start building at.</param>
         /// <param name="y">The y position to start building at.</param>
         /// <param name="maxWidth">The maximum horizontal space available in which to build the map.</param>
         /// <param name="maxHeight">The maximum vertical space available in which to build the map.</param>
-        public void BuildRegionMap(GridStringBuilder gridStringBuilder, Region region, int x, int y, int maxWidth, int maxHeight)
+        public void BuildRegionMap(Region region, int x, int y, int maxWidth, int maxHeight)
         {
             var matrix = region.ToMatrix();
             var currentRoom = region.GetPositionOfRoom(region.CurrentRoom);
@@ -300,7 +298,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 foreach (var position in lowerLevelRooms)
                 {
                     if (TryConvertMatrixPositionToGridLayoutPosition(x, y, maxWidth, maxHeight, matrix, position.X, position.Y, currentRoom.X, currentRoom.Y, out var left, out var top))
-                        DrawLowerLevelRoom(left, top, gridStringBuilder);
+                        DrawLowerLevelRoom(left, top);
                 }
             }
 
@@ -315,7 +313,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             foreach (var position in currentLevelRooms)
             {
                 if (TryConvertMatrixPositionToGridLayoutPosition(x, y, maxWidth, maxHeight, matrix, position.X, position.Y, currentRoom.X, currentRoom.Y, out var left, out var top))
-                    DrawCurrentFloorRoom(position.Room, left, top, position.Room == region.CurrentRoom, gridStringBuilder);
+                    DrawCurrentFloorRoom(position.Room, left, top, position.Room == region.CurrentRoom);
             }
         }
 
