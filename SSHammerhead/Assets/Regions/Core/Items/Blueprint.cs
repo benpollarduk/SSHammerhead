@@ -1,7 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Interaction;
 using NetAF.Commands;
-using NetAF.Interpretation;
 using NetAF.Utilities;
 
 namespace SSHammerhead.Assets.Regions.Core.Items

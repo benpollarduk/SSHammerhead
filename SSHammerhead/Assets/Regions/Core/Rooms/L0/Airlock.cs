@@ -3,7 +3,6 @@ using NetAF.Assets.Interaction;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
-using NetAF.Interpretation;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 

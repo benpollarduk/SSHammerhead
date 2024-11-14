@@ -1,6 +1,5 @@
 ﻿using NetAF.Assets;
 using NetAF.Commands;
-using NetAF.Interpretation;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot;

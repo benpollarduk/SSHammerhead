@@ -2,13 +2,11 @@
 using NetAF.Assets.Characters;
 using NetAF.Commands;
 using NetAF.Commands.Persistence;
-using NetAF.Interpretation;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Rendering.FrameBuilders.Console;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using System;
 
 namespace SSHammerhead.Assets.Players.SpiderBot
 {
@@ -37,7 +35,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                     new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
                     new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
                     new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new ConsoleTransitionFrameBuilder(gridLayoutBuilder),
+                    new ConsoleReactionFrameBuilder(gridLayoutBuilder),
                     new ConsoleConversationFrameBuilder(gridLayoutBuilder));
             }
         }

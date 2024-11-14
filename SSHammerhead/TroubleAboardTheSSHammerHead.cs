@@ -1,6 +1,5 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
-using NetAF.Interpretation;
 using NetAF.Logic;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
