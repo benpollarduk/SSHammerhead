@@ -227,11 +227,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <param name="availableSize">The available size, in the grid.</param>
         /// <param name="matrix">The matrix.</param>
         /// <param name="roomPosition">The position of the room, in the matrix.</param>
-        /// <param name="playerPosition">The x position of the player, in the matrix.</param>
+        /// <param name="focusPosition">The focus position, in the matrix.</param>
         /// <param name="gridLeft">The left position to begin rendering the room at, in the grid.</param>
         /// <param name="gridTop">The top position to begin rendering the room at, in the grid.</param>
         /// <returns>True if the matrix position could be converted to a grid position and fit in the available space.</returns>
-        private static bool TryConvertMatrixPositionToGridLayoutPosition(Point2D gridStartPosition, Size availableSize, Matrix matrix, Point2D roomPosition, Point2D playerPosition, out int gridLeft, out int gridTop)
+        private static bool TryConvertMatrixPositionToGridLayoutPosition(Point2D gridStartPosition, Size availableSize, Matrix matrix, Point2D roomPosition, Point2D focusPosition, out int gridLeft, out int gridTop)
         {
             const int roomWidth = 5;
             const int roomHeight = 3;
@@ -243,9 +243,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             // check if map will fit
             if (matrix.Width * roomWidth > availableSize.Width || matrix.Height * roomHeight > availableSize.Height)
             {
-                // centralise on player
-                gridLeft += availableSize.Width / 2 - playerPosition.X * roomWidth + roomWidth / 2;
-                gridTop += availableSize.Height / 2 + (playerPosition.Y - matrix.Height) * roomHeight - roomHeight / 2;
+                // centralise on focus position
+                gridLeft += availableSize.Width / 2 - focusPosition.X * roomWidth + roomWidth / 2;
+                gridTop += availableSize.Height / 2 + (focusPosition.Y - matrix.Height) * roomHeight - roomHeight / 2;
             }
             else
             {
@@ -318,7 +318,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 
                 foreach (var position in lowerLevelRooms)
                 {
-                    if (TryConvertMatrixPositionToGridLayoutPosition(new Point2D(x, y), new Size(maxAvailableWidth, maxSize.Height), matrix, new Point2D(position.Position.X, position.Position.Y), new Point2D(playerRoom.Position.X, playerRoom.Position.Y), out var left, out var top))
+                    if (TryConvertMatrixPositionToGridLayoutPosition(new Point2D(x, y), new Size(maxAvailableWidth, maxSize.Height), matrix, new Point2D(position.Position.X, position.Position.Y), new Point2D(focusPosition.X, focusPosition.Y), out var left, out var top))
                         DrawLowerLevelRoom(new Point2D(left, top));
                 }
             }
@@ -331,7 +331,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 
             foreach (var position in focusLevelRooms)
             {
-                if (TryConvertMatrixPositionToGridLayoutPosition(new Point2D(x, y), new Size(maxAvailableWidth, maxSize.Height), matrix, new Point2D(position.Position.X, position.Position.Y), new Point2D(playerRoom.Position.X, playerRoom.Position.Y), out var left, out var top))
+                if (TryConvertMatrixPositionToGridLayoutPosition(new Point2D(x, y), new Size(maxAvailableWidth, maxSize.Height), matrix, new Point2D(position.Position.X, position.Position.Y), new Point2D(focusPosition.X, focusPosition.Y), out var left, out var top))
                     DrawCurrentFloorRoom(position.Room, new Point2D(left, top), position.Room == playerRoom.Room, position.Position.Equals(focusPosition));
             }
 
