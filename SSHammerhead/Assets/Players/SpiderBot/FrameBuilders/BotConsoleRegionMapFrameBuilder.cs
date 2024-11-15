@@ -87,7 +87,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 
             if (contextualCommands?.Any() ?? false)
             {
-                const int requiredSpaceForDivider = 2;
+                const int requiredSpaceForDivider = 1;
                 const int requiredSpaceForPrompt = 3;
                 const int requiredSpaceForCommandHeader = 2;
                 var requiredYToFitAllCommands = size.Height - requiredSpaceForCommandHeader - requiredSpaceForPrompt - requiredSpaceForDivider - contextualCommands.Length;
@@ -95,12 +95,13 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 lastY = yStart;
 
                 gridStringBuilder.DrawHorizontalDivider(lastY, BorderColor);
-                gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 2, availableWidth, CommandsColor, out _, out lastY);
+                gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
 
                 var maxCommandLength = contextualCommands.Max(x => x.Command.Length);
                 const int padding = 4;
                 var dashStartX = leftMargin + maxCommandLength + padding;
                 var descriptionStartX = dashStartX + 2;
+                lastY++;
 
                 for (var index = 0; index < contextualCommands.Length; index++)
                 {
@@ -108,6 +109,13 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                     gridStringBuilder.DrawWrapped(contextualCommand.Command.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                     gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
                     gridStringBuilder.DrawWrapped(contextualCommand.Description.ToUpper().EnsureFinishedSentence(), descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
+
+                    // only continue if not run out of space - the 1 is for the border the ...
+                    if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt >= size.Height)
+                    {
+                        gridStringBuilder.DrawWrapped("...", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                        break;
+                    }
                 }
             }
 
