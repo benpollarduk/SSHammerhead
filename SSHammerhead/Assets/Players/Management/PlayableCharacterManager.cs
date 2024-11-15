@@ -76,7 +76,7 @@ namespace SSHammerhead.Assets.Players.Management
                 var room = newPlayerRecord.StartRoom;
                 var roomPosition = newPlayerRecord.StartRegion.GetPositionOfRoom(room);
                 game.Overworld.Move(newPlayerRecord.StartRegion);
-                var jumpResult = newPlayerRecord.StartRegion.JumpToRoom(roomPosition.X, roomPosition.Y, roomPosition.Z);
+                var jumpResult = newPlayerRecord.StartRegion.JumpToRoom(roomPosition.Position);
 
                 // check the jump worked
                 if (!jumpResult)

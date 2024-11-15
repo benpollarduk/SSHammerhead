@@ -1,8 +1,12 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Commands;
+using NetAF.Extensions;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Rendering.FrameBuilders.Console;
 using NetAF.Rendering.Frames;
+using System;
+using System.Linq;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
@@ -41,6 +45,16 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         public AnsiColor TitleColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
+        /// <summary>
+        /// Get or set the commands color.
+        /// </summary>
+        public AnsiColor CommandsColor { get; set; } = SpiderBotTemplate.DisplayColor;
+
+        /// <summary>
+        /// Get or set the input color.
+        /// </summary>
+        public AnsiColor InputColor { get; set; } = SpiderBotTemplate.DisplayColor;
+
         #endregion
 
         #region Implementation of IRegionMapFrameBuilder
@@ -49,15 +63,17 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// Build a frame.
         /// </summary>
         /// <param name="region">The region.</param>
-        /// <param name="width">The width of the frame.</param>
-        /// <param name="height">The height of the frame.</param>
-        public IFrame Build(Region region, int width, int height)
+        /// <param name="focusPosition">The position to focus on.</param>
+        /// <param name="contextualCommands">The contextual commands to display.</param>
+        /// <param name="size">The size of the frame.</param>
+        public IFrame Build(Region region, Point3D focusPosition, CommandHelp[] contextualCommands, Size size)
         {
-            gridStringBuilder.Resize(new Size(width, height));
+            gridStringBuilder.Resize(size);
 
             gridStringBuilder.DrawBoundary(BorderColor);
 
-            var availableWidth = width - 4;
+            var availableWidth = size.Width - 4;
+            var availableHeight = size.Height - 2;
             const int leftMargin = 2;
 
             gridStringBuilder.DrawWrapped("BOT::MODE::MAP", leftMargin, 1, availableWidth, TitleColor, out _, out var lastY);
@@ -66,9 +82,44 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             gridStringBuilder.DrawWrapped($"BOT::REGION::{region.Identifier.Name.ToUpper()}", leftMargin, lastY + 2, availableWidth, TitleColor, out _, out lastY);
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
 
-            RegionMapBuilder?.BuildRegionMap(region, leftMargin, lastY + 1, availableWidth, height - 4);
+            int commandSpace = 0;
+            var mapStartY = lastY + 2;
 
-            return new GridTextFrame(gridStringBuilder, 0, 0, BackgroundColor) { ShowCursor = false };
+            if (contextualCommands?.Any() ?? false)
+            {
+                const int requiredSpaceForDivider = 2;
+                const int requiredSpaceForPrompt = 3;
+                const int requiredSpaceForCommandHeader = 2;
+                var requiredYToFitAllCommands = size.Height - requiredSpaceForCommandHeader - requiredSpaceForPrompt - requiredSpaceForDivider - contextualCommands.Length;
+                var yStart = Math.Max(requiredYToFitAllCommands, lastY);
+                lastY = yStart;
+
+                gridStringBuilder.DrawHorizontalDivider(lastY, BorderColor);
+                gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 2, availableWidth, CommandsColor, out _, out lastY);
+
+                var maxCommandLength = contextualCommands.Max(x => x.Command.Length);
+                const int padding = 4;
+                var dashStartX = leftMargin + maxCommandLength + padding;
+                var descriptionStartX = dashStartX + 2;
+
+                for (var index = 0; index < contextualCommands.Length; index++)
+                {
+                    var contextualCommand = contextualCommands[index];
+                    gridStringBuilder.DrawWrapped(contextualCommand.Command.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped(contextualCommand.Description.ToUpper().EnsureFinishedSentence(), descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
+                }
+            }
+
+            var startMapPosition = new Point2D(leftMargin, mapStartY);
+            var mapSize = new Size(availableWidth, size.Height - 4 - commandSpace);
+
+            RegionMapBuilder?.BuildRegionMap(region, startMapPosition, focusPosition, mapSize);
+
+            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
+            gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+
+            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor) { ShowCursor = true };
         }
 
         #endregion

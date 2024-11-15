@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
@@ -85,47 +86,46 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 
         #region Methods
 
+
         /// <summary>
         /// Draw the north border.
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
-        private void DrawNorthBorder(Room room, ViewPoint viewPoint, GridStringBuilder gridStringBuilder, int startX, int startY)
+        /// <param name="startPosition">The start position.</param>
+        private void DrawNorthBorder(Room room, ViewPoint viewPoint, Point2D startPosition)
         {
-            gridStringBuilder.SetCell(startX, startY, Corner, BoundaryColor);
-            gridStringBuilder.SetCell(startX + 1, startY, HorizontalBoundary, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X, startPosition.Y, Corner, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 1, startPosition.Y, HorizontalBoundary, BoundaryColor);
 
             if (room.HasLockedExitInDirection(Direction.North))
             {
-                gridStringBuilder.SetCell(startX + 2, startY, VerticalExitBorder, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 4, startY, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(startX + 6, startY, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y, VerticalExitBorder, BoundaryColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.North))
             {
-                gridStringBuilder.SetCell(startX + 2, startY, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y, VerticalExitBorder, BoundaryColor);
 
                 if (viewPoint[Direction.North]?.HasBeenVisited ?? false)
-                    gridStringBuilder.SetCell(startX + 4, startY, Convert.ToChar("n"), VisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y, Convert.ToChar("n"), VisitedExitColor);
                 else
-                    gridStringBuilder.SetCell(startX + 4, startY, Convert.ToChar("N"), UnvisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y, Convert.ToChar("N"), UnvisitedExitColor);
 
-                gridStringBuilder.SetCell(startX + 6, startY, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y, VerticalExitBorder, BoundaryColor);
             }
             else
             {
-                gridStringBuilder.SetCell(startX + 2, startY, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 3, startY, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 4, startY, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 5, startY, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 6, startY, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 3, startPosition.Y, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 5, startPosition.Y, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y, HorizontalBoundary, BoundaryColor);
             }
 
-            gridStringBuilder.SetCell(startX + 7, startY, HorizontalBoundary, BoundaryColor);
-            gridStringBuilder.SetCell(startX + 8, startY, Corner, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 7, startPosition.Y, HorizontalBoundary, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y, Corner, BoundaryColor);
         }
 
         /// <summary>
@@ -133,42 +133,40 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
-        private void DrawSouthBorder(Room room, ViewPoint viewPoint, GridStringBuilder gridStringBuilder, int startX, int startY)
+        /// <param name="startPosition">The start position.</param>
+        private void DrawSouthBorder(Room room, ViewPoint viewPoint, Point2D startPosition)
         {
-            gridStringBuilder.SetCell(startX, startY + 6, Corner, BoundaryColor);
-            gridStringBuilder.SetCell(startX + 1, startY + 6, HorizontalBoundary, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 6, Corner, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 1, startPosition.Y + 6, HorizontalBoundary, BoundaryColor);
 
             if (room.HasLockedExitInDirection(Direction.South))
             {
-                gridStringBuilder.SetCell(startX + 2, startY + 6, VerticalExitBorder, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 4, startY + 6, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(startX + 6, startY + 6, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y + 6, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y + 6, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y + 6, VerticalExitBorder, BoundaryColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.South))
             {
-                gridStringBuilder.SetCell(startX + 2, startY + 6, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y + 6, VerticalExitBorder, BoundaryColor);
 
                 if (viewPoint[Direction.South]?.HasBeenVisited ?? false)
-                    gridStringBuilder.SetCell(startX + 4, startY + 6, Convert.ToChar("s"), VisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y + 6, Convert.ToChar("s"), VisitedExitColor);
                 else
-                    gridStringBuilder.SetCell(startX + 4, startY + 6, Convert.ToChar("S"), UnvisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y + 6, Convert.ToChar("S"), UnvisitedExitColor);
 
-                gridStringBuilder.SetCell(startX + 6, startY + 6, VerticalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y + 6, VerticalExitBorder, BoundaryColor);
             }
             else
             {
-                gridStringBuilder.SetCell(startX + 2, startY + 6, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 3, startY + 6, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 4, startY + 6, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 5, startY + 6, HorizontalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 6, startY + 6, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y + 6, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 3, startPosition.Y + 6, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y + 6, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 5, startPosition.Y + 6, HorizontalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y + 6, HorizontalBoundary, BoundaryColor);
             }
 
-            gridStringBuilder.SetCell(startX + 7, startY + 6, HorizontalBoundary, BoundaryColor);
-            gridStringBuilder.SetCell(startX + 8, startY + 6, Corner, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 7, startPosition.Y + 6, HorizontalBoundary, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 6, Corner, BoundaryColor);
         }
 
         /// <summary>
@@ -176,38 +174,36 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
-        private void DrawEastBorder(Room room, ViewPoint viewPoint, GridStringBuilder gridStringBuilder, int startX, int startY)
+        /// <param name="startPosition">The start position.</param>
+        private void DrawEastBorder(Room room, ViewPoint viewPoint, Point2D startPosition)
         {
-            gridStringBuilder.SetCell(startX + 8, startY + 1, VerticalBoundary, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 1, VerticalBoundary, BoundaryColor);
 
             if (room.HasLockedExitInDirection(Direction.East))
             {
-                gridStringBuilder.SetCell(startX + 8, startY + 2, HorizontalExitBorder, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 8, startY + 3, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(startX + 8, startY + 4, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 2, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 3, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 4, HorizontalExitBorder, BoundaryColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.East))
             {
-                gridStringBuilder.SetCell(startX + 8, startY + 2, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 2, HorizontalExitBorder, BoundaryColor);
 
                 if (viewPoint[Direction.East]?.HasBeenVisited ?? false)
-                    gridStringBuilder.SetCell(startX + 8, startY + 3, Convert.ToChar("e"), VisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 3, Convert.ToChar("e"), VisitedExitColor);
                 else
-                    gridStringBuilder.SetCell(startX + 8, startY + 3, Convert.ToChar("E"), UnvisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 3, Convert.ToChar("E"), UnvisitedExitColor);
 
-                gridStringBuilder.SetCell(startX + 8, startY + 4, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 4, HorizontalExitBorder, BoundaryColor);
             }
             else
             {
-                gridStringBuilder.SetCell(startX + 8, startY + 2, VerticalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 8, startY + 3, VerticalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX + 8, startY + 4, VerticalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 2, VerticalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 3, VerticalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 4, VerticalBoundary, BoundaryColor);
             }
 
-            gridStringBuilder.SetCell(startX + 8, startY + 5, VerticalExitBorder, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X + 8, startPosition.Y + 5, VerticalExitBorder, BoundaryColor);
         }
 
         /// <summary>
@@ -215,38 +211,36 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
-        private void DrawWestBorder(Room room, ViewPoint viewPoint, GridStringBuilder gridStringBuilder, int startX, int startY)
+        /// <param name="startPosition">The start position.</param>
+        private void DrawWestBorder(Room room, ViewPoint viewPoint, Point2D startPosition)
         {
-            gridStringBuilder.SetCell(startX, startY + 1, VerticalBoundary, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 1, VerticalBoundary, BoundaryColor);
 
             if (room.HasLockedExitInDirection(Direction.West))
             {
-                gridStringBuilder.SetCell(startX, startY + 2, HorizontalExitBorder, BoundaryColor);
-                gridStringBuilder.SetCell(startX, startY + 3, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(startX, startY + 4, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 2, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 3, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 4, HorizontalExitBorder, BoundaryColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.West))
             {
-                gridStringBuilder.SetCell(startX, startY + 2, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 2, HorizontalExitBorder, BoundaryColor);
 
                 if (viewPoint[Direction.West]?.HasBeenVisited ?? false)
-                    gridStringBuilder.SetCell(startX, startY + 3, Convert.ToChar("w"), VisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 3, Convert.ToChar("w"), VisitedExitColor);
                 else
-                    gridStringBuilder.SetCell(startX, startY + 3, Convert.ToChar("W"), UnvisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 3, Convert.ToChar("W"), UnvisitedExitColor);
 
-                gridStringBuilder.SetCell(startX, startY + 4, HorizontalExitBorder, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 4, HorizontalExitBorder, BoundaryColor);
             }
             else
             {
-                gridStringBuilder.SetCell(startX, startY + 2, VerticalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX, startY + 3, VerticalBoundary, BoundaryColor);
-                gridStringBuilder.SetCell(startX, startY + 4, VerticalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 2, VerticalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 3, VerticalBoundary, BoundaryColor);
+                gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 4, VerticalBoundary, BoundaryColor);
             }
 
-            gridStringBuilder.SetCell(startX, startY + 5, VerticalExitBorder, BoundaryColor);
+            gridStringBuilder.SetCell(startPosition.X, startPosition.Y + 5, VerticalExitBorder, BoundaryColor);
         }
 
         /// <summary>
@@ -254,21 +248,19 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
-        private void DrawUpExit(Room room, ViewPoint viewPoint, GridStringBuilder gridStringBuilder, int startX, int startY)
+        /// <param name="startPosition">The start position.</param>
+        private void DrawUpExit(Room room, ViewPoint viewPoint, Point2D startPosition)
         {
             if (room.HasLockedExitInDirection(Direction.Up))
             {
-                gridStringBuilder.SetCell(startX + 2, startY + 2, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y + 2, LockedExit, LockedExitColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.Up))
             {
                 if (viewPoint[Direction.Up]?.HasBeenVisited ?? false)
-                    gridStringBuilder.SetCell(startX + 2, startY + 2, Convert.ToChar("u"), VisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y + 2, Convert.ToChar("u"), VisitedExitColor);
                 else
-                    gridStringBuilder.SetCell(startX + 2, startY + 2, Convert.ToChar("U"), UnvisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 2, startPosition.Y + 2, Convert.ToChar("U"), UnvisitedExitColor);
             }
         }
 
@@ -277,21 +269,19 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
-        private void DrawDownExit(Room room, ViewPoint viewPoint, GridStringBuilder gridStringBuilder, int startX, int startY)
+        /// <param name="startPosition">The start position.</param>
+        private void DrawDownExit(Room room, ViewPoint viewPoint, Point2D startPosition)
         {
             if (room.HasLockedExitInDirection(Direction.Down))
             {
-                gridStringBuilder.SetCell(startX + 6, startY + 2, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y + 2, LockedExit, LockedExitColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.Down))
             {
                 if (viewPoint[Direction.Down]?.HasBeenVisited ?? false)
-                    gridStringBuilder.SetCell(startX + 6, startY + 2, Convert.ToChar("d"), VisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y + 2, Convert.ToChar("d"), VisitedExitColor);
                 else
-                    gridStringBuilder.SetCell(startX + 6, startY + 2, Convert.ToChar("D"), UnvisitedExitColor);
+                    gridStringBuilder.SetCell(startPosition.X + 6, startPosition.Y + 2, Convert.ToChar("D"), UnvisitedExitColor);
             }
         }
 
@@ -299,13 +289,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// Draw the item or character.
         /// </summary>
         /// <param name="room">The room.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
-        private void DrawItemOrCharacter(Room room, GridStringBuilder gridStringBuilder, int startX, int startY)
+        /// <param name="startPosition">The start position.</param>
+        private void DrawItemOrCharacter(Room room, Point2D startPosition)
         {
             if (Array.Exists(room.Items, x => x.IsPlayerVisible) || Array.Exists(room.Characters, x => x.IsPlayerVisible))
-                gridStringBuilder.SetCell(startX + 4, startY + 3, ItemOrCharacterInRoom, ItemOrCharacterColor);
+                gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y + 3, ItemOrCharacterInRoom, ItemOrCharacterColor);
         }
 
         /// <summary>
@@ -314,12 +302,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
         /// <param name="key">The key type.</param>
-        /// <param name="gridStringBuilder">The builder to use for the map.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
+        /// <param name="startPosition">The start position.</param>
         /// <param name="endX">The end position, x.</param>
         /// <param name="endY">The end position, x.</param>
-        private void DrawKey(Room room, ViewPoint viewPoint, KeyType key, GridStringBuilder gridStringBuilder, int startX, int startY, out int endX, out int endY)
+        private void DrawKey(Room room, ViewPoint viewPoint, KeyType key, Point2D startPosition, out int endX, out int endY)
         {
             var keyLines = new Dictionary<string, AnsiColor>();
             var lockedExitString = $"{LockedExit} = Locked Exit";
@@ -363,8 +349,8 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                     throw new NotImplementedException();
             }
 
-            endX = startX;
-            endY = startY + 7;
+            endX = startPosition.X;
+            endY = startPosition.Y + 7;
 
             if (keyLines.Count == 0)
                 return;
@@ -388,23 +374,22 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
         /// <param name="key">The key type.</param>
-        /// <param name="startX">The start position, x.</param>
-        /// <param name="startY">The start position, x.</param>
+        /// <param name="startPosition">The start position.</param>
         /// <param name="endX">The end position, x.</param>
         /// <param name="endY">The end position, x.</param>
-        public void BuildRoomMap(Room room, ViewPoint viewPoint, KeyType key, int startX, int startY, out int endX, out int endY)
+        public void BuildRoomMap(Room room, ViewPoint viewPoint, KeyType key, Point2D startPosition, out int endX, out int endY)
         {
-            DrawNorthBorder(room, viewPoint, gridStringBuilder, startX, startY);
-            DrawSouthBorder(room, viewPoint, gridStringBuilder, startX, startY);
-            DrawEastBorder(room, viewPoint, gridStringBuilder, startX, startY);
-            DrawWestBorder(room, viewPoint, gridStringBuilder, startX, startY);
-            DrawUpExit(room, viewPoint, gridStringBuilder, startX, startY);
-            DrawDownExit(room, viewPoint, gridStringBuilder, startX, startY);
-            DrawItemOrCharacter(room, gridStringBuilder, startX, startY);
-            DrawKey(room, viewPoint, key, gridStringBuilder, startX, startY, out endX, out endY);
+            DrawNorthBorder(room, viewPoint, startPosition);
+            DrawSouthBorder(room, viewPoint, startPosition);
+            DrawEastBorder(room, viewPoint, startPosition);
+            DrawWestBorder(room, viewPoint, startPosition);
+            DrawUpExit(room, viewPoint, startPosition);
+            DrawDownExit(room, viewPoint, startPosition);
+            DrawItemOrCharacter(room, startPosition);
+            DrawKey(room, viewPoint, key, startPosition, out endX, out endY);
 
-            if (endY < startY + 6)
-                endY = startY + 6;
+            if (endY < startPosition.Y + 6)
+                endY = startPosition.Y + 6;
         }
 
         #endregion
