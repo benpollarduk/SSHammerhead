@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF" Version="2.6.7" />
+    <PackageReference Include="NetAF" Version="2.6.5" />
   </ItemGroup>
 
 </Project>
