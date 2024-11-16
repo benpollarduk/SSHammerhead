@@ -38,7 +38,7 @@ namespace NetAF.Commands.Persistence
             // setup for current player
             PlayableCharacterManager.ApplyConfiguration(game.Player, game);
 
-            return new(ReactionResult.OK, $"Loaded.");
+            return new(ReactionResult.Inform, $"Loaded.");
         }
 
         #endregion

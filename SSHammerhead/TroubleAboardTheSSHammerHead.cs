@@ -1,6 +1,8 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Logic;
+using NetAF.Logic.Callbacks;
+using NetAF.Logic.Configuration;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Players.SpiderBot;

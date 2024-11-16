@@ -86,7 +86,7 @@ namespace SSHammerhead.Assets.Players.Management
             // apply configuration
             ApplyConfiguration(newPlayerRecord.Instance, game);
 
-            return new Reaction(ReactionResult.OK, $"Switched to {newPlayerRecord.Instance.Identifier.Name}.");
+            return new Reaction(ReactionResult.Inform, $"Switched to {newPlayerRecord.Instance.Identifier.Name}.");
         }
 
         /// <summary>

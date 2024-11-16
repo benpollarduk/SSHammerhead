@@ -295,13 +295,15 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                     var roomsOnThisFloor = rooms.Where(r => region.GetPositionOfRoom(r).Position.Z == floor).ToArray();
 
                     // only draw levels indicators where a region is visible without discovery or a room on the floor has been visited
-                    if (!region.VisibleWithoutDiscovery && !Array.Exists(roomsOnThisFloor, r => r.HasBeenVisited))
+                    if (!region.IsVisibleWithoutDiscovery && !Array.Exists(roomsOnThisFloor, r => r.HasBeenVisited))
                         continue;
 
+                    var isFocusFloor = floor == focusFloor;
+
                     if (floor == playerFloor)
-                        gridStringBuilder.DrawWrapped($"{CurrentFloorIndicator} L{floor}", x, ++y, maxAvailableWidth, VisitedBoundaryColor, out _, out _);
+                        gridStringBuilder.DrawWrapped($"{CurrentFloorIndicator} L{floor}", x, ++y, maxAvailableWidth, isFocusFloor ? FocusedBoundaryColor : VisitedBoundaryColor, out _, out _);
                     else
-                        gridStringBuilder.DrawWrapped($"L{floor}", x + 2, ++y, maxAvailableWidth, LowerLevelColor, out _, out _);
+                        gridStringBuilder.DrawWrapped($"L{floor}", x + 2, ++y, maxAvailableWidth, isFocusFloor ? FocusedBoundaryColor : LowerLevelColor, out _, out _);
                 }
 
                 x += indicatorLength;
@@ -313,7 +315,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             {
                 List<RoomPosition> lowerLevelRooms = [.. visitedRoomPositions.Where(r => r.Position.Z < focusFloor)];
 
-                if (region.VisibleWithoutDiscovery)
+                if (region.IsVisibleWithoutDiscovery)
                     lowerLevelRooms.AddRange(unvisitedRoomPositions.Where(r => r.Position.Z < focusFloor));
 
                 foreach (var position in lowerLevelRooms)
@@ -326,7 +328,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             // now focus level
             List<RoomPosition> focusLevelRooms = [.. visitedRoomPositions.Where(r => r.Position.Z == focusFloor)];
 
-            if (region.VisibleWithoutDiscovery)
+            if (region.IsVisibleWithoutDiscovery)
                 focusLevelRooms.AddRange(unvisitedRoomPositions.Where(r => r.Position.Z == focusFloor));
 
             foreach (var position in focusLevelRooms)

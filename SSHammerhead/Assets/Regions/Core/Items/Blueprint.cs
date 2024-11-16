@@ -21,8 +21,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         {
             var checkCommand = new CustomCommand(new CommandHelp($"Check {Name}", $"Check the {Name} in detail."), true, true, (game, arguments) =>
             {
-                game.Overworld.CurrentRegion.VisibleWithoutDiscovery = true;
-                return new Reaction(ReactionResult.OK, $"You check the {Name} in detail. You know understand the internal layout of the ship.");
+                game.Overworld.CurrentRegion.IsVisibleWithoutDiscovery = true;
+                return new Reaction(ReactionResult.Inform, $"You check the {Name} in detail. You know understand the internal layout of the ship.");
             });
 
             return [checkCommand];
