@@ -68,10 +68,10 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                 {
                     brokenControlPanel.IsPlayerVisible = true;
-                    return new Interaction(InteractionResult.TargetExpired, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
+                    return new Interaction(InteractionResult.TargetExpires, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
                 }
 
-                return new Interaction(InteractionResult.NeitherItemOrTargetExpired, item);
+                return new Interaction(InteractionResult.NoChange, item);
             });
 
 
