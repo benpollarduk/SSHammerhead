@@ -1,5 +1,4 @@
 ﻿using NetAF.Assets;
-using NetAF.Assets.Interaction;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
@@ -69,10 +68,10 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                 {
                     brokenControlPanel.IsPlayerVisible = true;
-                    return new InteractionResult(InteractionEffect.TargetUsedUp, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
+                    return new Interaction(InteractionResult.TargetExpired, item, $"Slamming the {Hammer.Name} in to the control panel causes it to hiss and smoke pours out. Other than the odd spark it is now lifeless.");
                 }
 
-                return new InteractionResult(InteractionEffect.NoEffect, item);
+                return new Interaction(InteractionResult.NeitherItemOrTargetExpired, item);
             });
 
 
