@@ -1,6 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Characters;
-using NetAF.Assets.Interaction;
+using NetAF.Commands;
 using NetAF.Logic;
 using System;
 using System.Collections.Generic;

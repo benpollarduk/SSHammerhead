@@ -1,5 +1,4 @@
-﻿using NetAF.Assets.Interaction;
-using NetAF.Persistence.Json;
+﻿using NetAF.Persistence.Json;
 using SSHammerhead.Assets.Players.Management;
 
 namespace NetAF.Commands.Persistence
