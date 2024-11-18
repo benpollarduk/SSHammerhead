@@ -15,7 +15,6 @@ namespace SSHammerhead.Assets.Players.Naomi
         #region Constants
 
         public static Identifier Identifier => new(Name);
-        public const string ErrorPrefix = "Uh-oh";
         private const string Name = "Naomi";
         private const string Description = "You, Naomi Martin, are a 32-year-old shuttle mechanic.";
 

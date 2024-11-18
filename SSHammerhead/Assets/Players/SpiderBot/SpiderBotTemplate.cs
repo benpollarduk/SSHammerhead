@@ -16,7 +16,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot
 
         public static AnsiColor DisplayColor => AnsiColor.Green;
         public static Identifier Identifier => new(Name);
-        public const string ErrorPrefix = "ERROR";
         private const string Name = "Bot";
         private const string Description = "A first generation spider bot, main purpose low scale maintenance operations.";
 

@@ -99,9 +99,6 @@ namespace SSHammerhead.Assets.Players.Management
             // get record
             var record = GetRecord(player.Identifier);
 
-            // set error prefix
-            game.Configuration.ErrorPrefix = record.ErrorPrefix;
-
             // change appearance
             game.Configuration.FrameBuilders = record.FrameBuilderCollection;
         }
