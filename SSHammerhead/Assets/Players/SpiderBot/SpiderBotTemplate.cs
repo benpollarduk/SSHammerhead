@@ -30,6 +30,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                     new ConsoleTitleFrameBuilder(gridLayoutBuilder),
                     new BotConsoleSceneFrameBuilder(botLayoutBuilder, new BotConsoleRoomMapBuilder(botLayoutBuilder)),
                     new BotConsoleRegionMapFrameBuilder(botLayoutBuilder, new BotConsoleRegionMapBuilder(botLayoutBuilder)),
+                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
                     new ConsoleHelpFrameBuilder(gridLayoutBuilder),
                     new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
                     new ConsoleGameOverFrameBuilder(gridLayoutBuilder),

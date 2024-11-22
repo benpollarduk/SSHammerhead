@@ -97,7 +97,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 gridStringBuilder.DrawHorizontalDivider(lastY, BorderColor);
                 gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
 
-                var maxCommandLength = contextualCommands.Max(x => x.Command.Length);
+                var maxCommandLength = contextualCommands.Max(x => x.DisplayCommand.Length);
                 const int padding = 4;
                 var dashStartX = leftMargin + maxCommandLength + padding;
                 var descriptionStartX = dashStartX + 2;
@@ -106,7 +106,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 for (var index = 0; index < contextualCommands.Length; index++)
                 {
                     var contextualCommand = contextualCommands[index];
-                    gridStringBuilder.DrawWrapped(contextualCommand.Command.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                     gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
                     gridStringBuilder.DrawWrapped(contextualCommand.Description.ToUpper().EnsureFinishedSentence(), descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
 

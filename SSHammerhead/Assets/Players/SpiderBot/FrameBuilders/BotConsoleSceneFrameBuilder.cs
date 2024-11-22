@@ -110,7 +110,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 for (var index = 0; index < contextualCommands.Length; index++)
                 {
                     var contextualCommand = contextualCommands[index];
-                    gridStringBuilder.DrawWrapped(contextualCommand.Command.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                     gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
                     gridStringBuilder.DrawWrapped(contextualCommand.Description.ToUpper().EnsureFinishedSentence(), descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
 

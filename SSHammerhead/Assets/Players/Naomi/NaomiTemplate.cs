@@ -28,6 +28,7 @@ namespace SSHammerhead.Assets.Players.Naomi
                     new ConsoleTitleFrameBuilder(gridLayoutBuilder),
                     new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder)),
+                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
                     new ConsoleHelpFrameBuilder(gridLayoutBuilder),
                     new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
                     new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
