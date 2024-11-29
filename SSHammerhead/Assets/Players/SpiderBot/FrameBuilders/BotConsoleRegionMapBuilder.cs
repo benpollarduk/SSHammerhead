@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Rendering.Console;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Console;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
@@ -287,7 +287,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             var rooms = matrix.ToRooms().Where(r => r != null).ToArray();
             var unvisitedRoomPositions = rooms.Select(region.GetPositionOfRoom).Where(r => !r.Room.HasBeenVisited).ToList();
             var visitedRoomPositions = rooms.Select(region.GetPositionOfRoom).Where(r => r.Room.HasBeenVisited).ToList();
-            var multiLevel = matrix.Depth > 1;
+            var multiLevel = matrix.Depth > 1 && (region.IsVisibleWithoutDiscovery || matrix.FindAllZWithVisitedRooms().Length > 1);
             var indicatorLength = 3 + matrix.Depth.ToString().Length;
             var maxAvailableWidth = maxSize.Width;
             var x = startPosition.X;
@@ -308,7 +308,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                     var isFocusFloor = floor == focusFloor;
 
                     if (floor == playerFloor)
-                        gridStringBuilder.DrawWrapped($"{CurrentFloorIndicator} L{floor}", x, ++y, maxAvailableWidth, isFocusFloor ? FocusedBoundaryColor : VisitedBoundaryColor, out _, out _);
+                        gridStringBuilder.DrawWrapped($"{CurrentFloorIndicator} L{floor}", x, ++y, maxAvailableWidth, VisitedBoundaryColor, out _, out _);
                     else
                         gridStringBuilder.DrawWrapped($"L{floor}", x + 2, ++y, maxAvailableWidth, isFocusFloor ? FocusedBoundaryColor : LowerLevelColor, out _, out _);
                 }

@@ -1,4 +1,5 @@
-﻿using NetAF.Assets.Locations;
+﻿using NetAF.Assets;
+using NetAF.Assets.Locations;
 using NetAF.Utilities;
 
 namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
@@ -8,7 +9,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
         #region Constants
 
         public const string Name = "Maintenance Tunnel A";
-        private const string Description = "";
+        private const string Description = "A small maintenance tunnel to allow the maintenance bots to traverse the ship.";
 
         #endregion
 
@@ -16,7 +17,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 
         public Room Instantiate()
         {
-            return new(Name, Description, [new Exit(Direction.East)]);
+            return new(Name, Description, [new Exit(Direction.East)], examination: request => new Examination(Description));
         }
 
         #endregion

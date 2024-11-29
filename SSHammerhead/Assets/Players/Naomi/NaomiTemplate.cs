@@ -6,7 +6,8 @@ using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Commands.Persistence;
 using NetAF.Commands;
-using NetAF.Rendering.FrameBuilders.Console;
+using NetAF.Rendering.Console.FrameBuilders;
+using NetAF.Rendering.Console;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {
@@ -25,7 +26,7 @@ namespace SSHammerhead.Assets.Players.Naomi
                 var gridLayoutBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridLayoutBuilder),
+                    new NaomiTitleFrameBuilder(gridLayoutBuilder),
                     new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder)),
                     new ConsoleCommandListFrameBuilder(gridLayoutBuilder),

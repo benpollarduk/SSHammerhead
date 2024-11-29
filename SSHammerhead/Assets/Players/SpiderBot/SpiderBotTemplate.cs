@@ -2,8 +2,9 @@
 using NetAF.Assets.Characters;
 using NetAF.Commands;
 using NetAF.Commands.Persistence;
+using NetAF.Rendering.Console;
+using NetAF.Rendering.Console.FrameBuilders;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Console;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
@@ -14,7 +15,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
     {
         #region Constants
 
-        public static AnsiColor DisplayColor => AnsiColor.Green;
+        public static AnsiColor DisplayColor { get; } = new AnsiColor(100, 255, 100);
         public static Identifier Identifier => new(Name);
         private const string Name = "Bot";
         private const string Description = "A first generation spider bot, main purpose low scale maintenance operations.";
@@ -35,7 +36,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                     new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
                     new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
                     new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new ConsoleReactionFrameBuilder(gridLayoutBuilder),
+                    new BotConsoleReactionFrameBuilder(botLayoutBuilder),
                     new ConsoleConversationFrameBuilder(gridLayoutBuilder));
             }
         }

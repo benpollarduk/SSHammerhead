@@ -6,9 +6,8 @@ using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Rendering;
+using NetAF.Rendering.Console;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Console;
-using NetAF.Rendering.Frames;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
@@ -66,6 +65,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <param name="contextualCommands">The contextual commands to display.</param>
         /// <param name="keyType">The type of key to use.</param>
         /// <param name="size">The size of the frame.</param>
+        /// <returns>The frame.</returns>
         public IFrame Build(Room room, ViewPoint viewPoint, PlayableCharacter player, CommandHelp[] contextualCommands, KeyType keyType, Size size)
         {
             var availableWidth = size.Width - 4;
@@ -101,7 +101,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 gridStringBuilder.DrawHorizontalDivider(lastY + linePadding, BorderColor);
                 gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 3, availableWidth, CommandsColor, out _, out lastY);
 
-                var maxCommandLength = contextualCommands.Max(x => x.Command.Length);
+                var maxCommandLength = contextualCommands.Max(x => x.DisplayCommand.Length);
                 const int padding = 4;
                 var dashStartX = leftMargin + maxCommandLength + padding;
                 var descriptionStartX = dashStartX + 2;
