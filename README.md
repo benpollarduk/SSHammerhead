@@ -20,6 +20,8 @@ While a game in its own right, *Trouble aboard the SS Hammerhead* aims to provid
 >
 > Currently all effort is being spent making sure that the various mechanics and ideas are being tested to ensure that NetAF is capable of providing as rich of an experience as desired.
 
+![image](https://github.com/user-attachments/assets/8233c658-c446-4b00-afef-240bf1137e16)
+
 ### Story
 After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system. A ship was hurriedly prepared and scrambled and made contact 27 days later.
 You enter the outermost airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.
@@ -28,16 +30,16 @@ You enter the outermost airlock, and it closes behind you. With a sense of foreb
 You take the role of Naomi Martin a 32-year-old shuttle mechanic. Throughout the course of the story you must navigate through the ship and interact with the various items and the environment
 to progress through the story and unravel the mysteries of the ship.
 
-![image](https://github.com/user-attachments/assets/79b3b6cd-7ecd-4d4e-a2b8-47a6f2b06732)
+![image](https://github.com/user-attachments/assets/515cdbf0-86e5-4439-b2ce-53cc5f539d37)
 
 Take control of the mighty *Spider Maintenance Bot* and use it to explore inaccessible regions of the ship from a different perspective:
 
-![image](https://github.com/user-attachments/assets/429e50d4-57ba-4c51-9126-bf06a11cb629)
+![image](https://github.com/user-attachments/assets/a701d488-9cf9-4510-b96b-34c59f94630a)
 
 The *SS Hammerhead* itself is a multi-level ship, you will need to work your way towards the bridge as you progress through the game. What will you find when you get there, and importantly,
 are you truly aboard on your own?
 
-![image](https://github.com/user-attachments/assets/a244495a-dc2f-4196-b95b-eb3935c9770e)
+![image](https://github.com/user-attachments/assets/eba11609-3b24-4083-868a-d30c743b87d9)
 
 ### Commands
 The following NetAF commands are supported for interacting with game elements:
@@ -58,6 +60,8 @@ The following NetAF global commands are also supported:
 * **New** - start a new game.
 
 There are many other commands that can be used to interact with the environment throughout the course of the game.
+
+![image](https://github.com/user-attachments/assets/51369b53-7176-42a4-85e1-84cb761b902a)
 
 ## Getting Started
 
