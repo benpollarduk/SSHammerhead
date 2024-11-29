@@ -28,7 +28,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 emptyTray.IsPlayerVisible = true;
                 tray.IsPlayerVisible = false;
                 x.Scene.Examiner.AddItem(new USBDrive().Instantiate());
-                return new ExaminationResult($"A tray containing a range of different cables that have become intertwined. Amongst the jumble is a small {USBDrive.Name}, you empty the contents of the tray on to the shelf in front of you. It seems unusual to leave the {USBDrive.Name} here so you take it.");
+                return new Examination($"A tray containing a range of different cables that have become intertwined. Amongst the jumble is a small {USBDrive.Name}, you empty the contents of the tray on to the shelf in front of you. It seems unusual to leave the {USBDrive.Name} here so you take it.");
             }).Instantiate();
 
             var room = new Room(Name, Description, [new Exit(Direction.West)]);

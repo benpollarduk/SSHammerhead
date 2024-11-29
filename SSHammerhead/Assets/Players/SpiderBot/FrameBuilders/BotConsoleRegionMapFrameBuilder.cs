@@ -2,9 +2,9 @@
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Rendering;
+using NetAF.Rendering.Console;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Console;
-using NetAF.Rendering.Frames;
 using System;
 using System.Linq;
 
@@ -66,6 +66,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <param name="focusPosition">The position to focus on.</param>
         /// <param name="contextualCommands">The contextual commands to display.</param>
         /// <param name="size">The size of the frame.</param>
+        /// <returns>The frame.</returns>
         public IFrame Build(Region region, Point3D focusPosition, CommandHelp[] contextualCommands, Size size)
         {
             gridStringBuilder.Resize(size);

@@ -4,8 +4,8 @@ using System.Linq;
 using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Rendering;
+using NetAF.Rendering.Console;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Rendering.FrameBuilders.Console;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {

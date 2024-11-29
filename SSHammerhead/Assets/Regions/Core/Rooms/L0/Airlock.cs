@@ -2,6 +2,8 @@
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Logic.Modes;
+using NetAF.Rendering.Console.FrameBuilders;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 
@@ -57,8 +59,18 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                                                                  () => room.FindExit(Direction.East, false, out var e) && e.IsLocked);
 
             var shipExit = new Exit(Direction.East, true, description: shipExitDescription);
-            
-            room = new Room(Name, Description, [spaceExit, shipExit]);
+
+            var introduction = "You enter the outer most airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.";
+
+            room = new Room(Name, Description, introduction, exits: [spaceExit, shipExit], commands:
+            [
+                new CustomCommand(new CommandHelp("Peer", "Peer through the porthole in the outer airlock door."), true, true, (g, _) =>
+                {
+                    var builder = new NaomiSpaceViewFrameBuilder(new NetAF.Rendering.Console.GridStringBuilder());
+                    g.ChangeMode(new VisualMode(builder.Build(string.Empty, string.Empty, new NetAF.Rendering.Console.GridVisualBuilder(NetAF.Rendering.Console.AnsiColor.Black, NetAF.Rendering.Console.AnsiColor.White), g.Configuration.DisplaySize)));
+                    return new Reaction(ReactionResult.GameModeChanged, string.Empty);
+                })
+            ]);
 
             var brokenControlPanel = new BrokenControlPanel().Instantiate();
             room.AddItem(brokenControlPanel);
@@ -73,7 +85,6 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
                 return new Interaction(InteractionResult.NoChange, item);
             });
-
 
             room.AddItem(controlPanel);
 
