@@ -1,5 +1,4 @@
 ﻿using NetAF.Assets;
-using NetAF.Rendering.FrameBuilders;
 using System;
 
 namespace NetAF.Rendering.Console.FrameBuilders
@@ -8,7 +7,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
     /// Provides a builder of space view frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiSpaceViewFrameBuilder(GridStringBuilder gridStringBuilder) : IVisualFrameBuilder
+    public sealed class NaomiSpaceViewFrameBuilder(GridStringBuilder gridStringBuilder)
     {
         #region Properties
 
@@ -24,7 +23,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
 
         #endregion
 
-        #region Implementation of IVisualFrameBuilder
+        #region Methods
 
         /// <summary>
         /// Build a frame.
@@ -34,7 +33,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
         /// <param name="gridVisualBuilder">The grid visual builder</param>
         /// <param name="size">The size of the frame.</param>
         /// <returns>The frame.</returns>
-        public IFrame Build(string title, string description, GridVisualBuilder gridVisualBuilder, Size size)
+        public IFrame Build(GridVisualBuilder gridVisualBuilder, Size size)
         {
             gridStringBuilder.Resize(size);
 

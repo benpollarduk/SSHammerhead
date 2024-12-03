@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF" Version="2.9.5" />
+    <PackageReference Include="NetAF" Version="2.9.6" />
     <PackageReference Include="NetAF.Imaging" Version="1.0.3" />
   </ItemGroup>
 
