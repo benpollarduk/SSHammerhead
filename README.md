@@ -30,7 +30,7 @@ You enter the outermost airlock, and it closes behind you. With a sense of foreb
 You take the role of Naomi Martin a 32-year-old shuttle mechanic. Throughout the course of the story you must navigate through the ship and interact with the various items and the environment
 to progress through the story and unravel the mysteries of the ship.
 
-![image](https://github.com/user-attachments/assets/515cdbf0-86e5-4439-b2ce-53cc5f539d37)
+![image](https://github.com/user-attachments/assets/5c1f74e7-0d34-4250-909d-6d2d6ba82f26)
 
 Take control of the mighty *Spider Maintenance Bot* and use it to explore inaccessible regions of the ship from a different perspective:
 
