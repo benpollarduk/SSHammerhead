@@ -1,6 +1,5 @@
 ﻿using NetAF.Assets;
 using NetAF.Imaging;
-using NetAF.Imaging.Textures;
 using NetAF.Rendering.FrameBuilders;
 
 namespace NetAF.Rendering.Console.FrameBuilders
