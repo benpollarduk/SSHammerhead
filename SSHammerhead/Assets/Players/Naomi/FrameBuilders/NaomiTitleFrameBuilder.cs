@@ -57,7 +57,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
 
             gridStringBuilder.DrawWrapped(description, 2, lastY + 3, availableWidth, DescriptionColor, out _, out lastY);
 
-            var imageBuilder = VisualHelper.FromImage("Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console, new BrightnessTexturizer(BrightnessTexturizer.Hatching, 40));
+            var imageBuilder = VisualHelper.FromImage("Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
 
             var output = new GridVisualBuilder(BackgroundColor, TitleColor);
             output.Resize(size);

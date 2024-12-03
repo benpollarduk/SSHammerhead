@@ -52,7 +52,15 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             Description spaceExitDescription = new("An incredibly sturdy metal door with  small reinforced glass porthole." +
                                                    "Peering through the porthole you can see stars in all directions, surrounded by the void of space.");
 
-            var spaceExit = new Exit(Direction.West, true, description: spaceExitDescription);
+            var spaceExit = new Exit(Direction.West, true, description: spaceExitDescription, commands:
+            [
+                new CustomCommand(new CommandHelp("Peer", "Peer through the porthole in the outer airlock door."), true, true, (g, _) =>
+                {
+                    var builder = new NaomiSpaceViewFrameBuilder(new NetAF.Rendering.Console.GridStringBuilder());
+                    g.ChangeMode(new VisualMode(builder.Build(string.Empty, string.Empty, new NetAF.Rendering.Console.GridVisualBuilder(NetAF.Rendering.Console.AnsiColor.Black, NetAF.Rendering.Console.AnsiColor.White), g.Configuration.DisplaySize)));
+                    return new Reaction(ReactionResult.GameModeChanged, string.Empty);
+                })
+            ]);
 
             var shipExitDescription = new ConditionalDescription("A locked and incredibly sturdy metal door, presumably leading in to the ship.",
                                                                  "The sturdy metal door that separates the airlock from the engine room.",
@@ -62,15 +70,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
             var introduction = "You enter the outer most airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.";
 
-            room = new Room(Name, Description, introduction, exits: [spaceExit, shipExit], commands:
-            [
-                new CustomCommand(new CommandHelp("Peer", "Peer through the porthole in the outer airlock door."), true, true, (g, _) =>
-                {
-                    var builder = new NaomiSpaceViewFrameBuilder(new NetAF.Rendering.Console.GridStringBuilder());
-                    g.ChangeMode(new VisualMode(builder.Build(string.Empty, string.Empty, new NetAF.Rendering.Console.GridVisualBuilder(NetAF.Rendering.Console.AnsiColor.Black, NetAF.Rendering.Console.AnsiColor.White), g.Configuration.DisplaySize)));
-                    return new Reaction(ReactionResult.GameModeChanged, string.Empty);
-                })
-            ]);
+            room = new Room(Name, Description, introduction, exits: [spaceExit, shipExit]);
 
             var brokenControlPanel = new BrokenControlPanel().Instantiate();
             room.AddItem(brokenControlPanel);
