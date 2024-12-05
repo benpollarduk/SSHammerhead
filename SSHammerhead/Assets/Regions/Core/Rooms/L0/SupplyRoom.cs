@@ -35,6 +35,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             room.AddItem(new Blueprint().Instantiate());
             room.AddItem(tray);
             room.AddItem(emptyTray);
+            room.AddItem(new LockedMaintenanceControlPanel().Instantiate());
             room.AddItem(new MaintenanceControlPanel().Instantiate());
             return room;
         }

@@ -32,7 +32,7 @@ namespace NetAF.Commands.Persistence
             if (!result)
                 return new(ReactionResult.Error, $"Failed to load: {message}");
 
-            restorePoint.Game.Restore(game);
+            game.RestoreFrom(restorePoint.Game);
 
             // setup for current player
             PlayableCharacterManager.ApplyConfiguration(game.Player, game);

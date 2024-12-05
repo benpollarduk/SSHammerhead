@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Core.Items;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 {
@@ -18,7 +19,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
         public Room Instantiate()
         {
-            return new Room(Name, Description, [new Exit(Direction.Up, true), new Exit(Direction.East), new Exit(Direction.West)]);
+            return new Room(Name, Description, [new Exit(Direction.Up, true), new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate()]);
         }
 
         #endregion
