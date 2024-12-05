@@ -65,7 +65,7 @@ namespace SSHammerhead.Assets.Players.Management
             if (previous != default(PlayableCharacterLocation))
             {
                 // switch player
-                game.ChangePlayer(newPlayerRecord.Instance, false);
+                game.ChangePlayer(newPlayerRecord.Instance);
             }
             else
             {
