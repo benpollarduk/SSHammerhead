@@ -59,7 +59,7 @@ namespace SSHammerhead.Assets.Players.Management
             var newPlayerRecord = GetRecord(player.Identifier);
 
             // get previous player location
-            var previous = Array.Find(game.GetInactivePlayerLocations(), x => x.PlayerIdentifier.Equals(player.Identifier));
+            var previous = Array.Find(game.GetInactivePlayerLocations(), x => player.Identifier.Equals(x.PlayerIdentifier));
 
             // if a previous location found
             if (previous != default(PlayableCharacterLocation))

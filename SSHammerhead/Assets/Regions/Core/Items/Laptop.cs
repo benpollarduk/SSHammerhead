@@ -26,7 +26,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                     "\"Another day being responsible for the everyday maintenance of this hunk we call home. At least the maintenance control system with the spider bot gives me " +
                     "more free time these days. All that free time gives me more time to hang out and listen to music, chilling out looking at that the stars, particularly " +
                     $"that constellation outside of the air lock. There is something about it that calls to me.{StringUtilities.Newline}{StringUtilities.Newline}{StringUtilities.Newline}" +
-                    "Anyway, back to work, good old Dillon, working like a dog!\"";
+                    "Anyway, back to work. Good old Scott, - always working like a dog!\"";
                     return new Interaction(InteractionResult.NoChange, item, usbInteraction);
                 }
 

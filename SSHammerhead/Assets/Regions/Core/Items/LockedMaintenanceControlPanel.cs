@@ -9,11 +9,12 @@ namespace SSHammerhead.Assets.Regions.Core.Items
     {
         #region Constants
 
-        private const string User = "Dillon";
+        private const string User = "Scott";
         private const string UnlockCode = "7";
         internal const string Name = "Locked Maintenance Control Panel";
         private const string Description = "A small control panel for the Spider Bot maintenance system. " +
-            "It has a very basic black and green display but it is functional enough to allow the user to remotely control the Spider Bot system. The system requires a password to unlock.";
+            "It has a very basic black and green display but it is functional enough to allow the user to remotely " +
+            "control the Spider Bot system. The system requires a password to unlock.";
 
         #endregion
 
@@ -24,7 +25,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
             Item item = null;
             item = new(Name, Description, commands:
             [
-                new CustomCommand(new CommandHelp("Logon", "Enter a user name and password.", instructions: "Enter a user name and password, separated by a space. For example: user password"), true, true, (game, arguments) =>
+                new CustomCommand(new CommandHelp("Login", "Login to the maintenance control system", displayAs: "Login __ __", instructions: "Enter a user name and password, separated by a space. For example: user password"), true, true, (game, arguments) =>
                 {
                     if (arguments.Length == 2) 
                     {
