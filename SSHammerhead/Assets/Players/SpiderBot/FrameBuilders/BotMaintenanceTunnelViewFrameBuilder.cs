@@ -2,6 +2,7 @@
 using NetAF.Assets.Locations;
 using NetAF.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 using System;
 using System.ComponentModel;
 
@@ -55,6 +56,11 @@ namespace NetAF.Rendering.Console.FrameBuilders
         /// </summary>
         public char ScrewCharacter { get; set; } = '#';
 
+        /// <summary>
+        /// Get or set the access ID character.
+        /// </summary>
+        public char AccessIDCharacter { get; set; } = '#';
+
         #endregion
 
         #region Methods
@@ -101,7 +107,6 @@ namespace NetAF.Rendering.Console.FrameBuilders
             }
         }
 
-
         /// <summary>
         /// Draw a screw.
         /// </summary>
@@ -113,6 +118,19 @@ namespace NetAF.Rendering.Console.FrameBuilders
             gridStringBuilder.SetCell(left, bottom, ScrewCharacter, foreground);
             gridStringBuilder.SetCell(left + 1, bottom, ScrewCharacter, foreground);
             gridStringBuilder.SetCell(left + 2, bottom, ScrewCharacter, foreground);
+        }
+
+        /// <summary>
+        /// Draw the access ID.
+        /// </summary>
+        /// <param name="left">The left of the access ID.</param>
+        /// <param name="bottom">The bottom of the access ID.</param>
+        /// <param name="foreground">The foreground color.</param>
+        private void DrawAccessID(int left, int bottom, AnsiColor foreground)
+        {
+            gridStringBuilder.SetCell(left, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 1, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 2, bottom, AccessIDCharacter, foreground);
         }
 
         /// <summary>
@@ -150,8 +168,13 @@ namespace NetAF.Rendering.Console.FrameBuilders
             {
                 DrawSection(left, top, right, bottom, section, ScanColor);
 
-                if (i == 2 && room.Attributes.Any("Screw"))
-                    DrawScrew((size.Width / 2) - 1, bottom - 1, ScanColor);
+                if (i == 2)
+                {
+                    if (room.Attributes.Any("Screw"))
+                        DrawScrew((size.Width / 2) - 1, bottom - 1, ScanColor);
+                    else if (room.FindItem(AccessID.Name, out _))
+                        DrawAccessID((size.Width / 2) - 1, bottom - 1, ScanColor);
+                }
 
                 left += section * 2;
                 top += section;

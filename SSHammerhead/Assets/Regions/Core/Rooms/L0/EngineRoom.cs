@@ -1,7 +1,9 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Extensions;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 {
@@ -22,9 +24,21 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
         public Room Instantiate()
         {
             Room room = null;
+            Exit up = null;
+
+            up = new Exit(Direction.Up, true, interaction: (item) =>
+            {
+                if (AccessID.Name.EqualsIdentifier(item.Identifier))
+                {
+                    up.Unlock();
+                    return new Interaction(InteractionResult.ItemExpires, item, $"You slot the {AccessID.Name} into the door and it opens.");
+                }
+
+                return new Interaction(InteractionResult.NoChange, item);
+            });
 
             var description = new ConditionalDescription(PostItDescription, NoPostItDescription, () => room.FindItem(PostIt.Name, out _));
-            room = new Room(new Identifier(Name), description, [new Exit(Direction.Up, true), new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
+            room = new Room(new Identifier(Name), description, [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
 
             return room;
         }
