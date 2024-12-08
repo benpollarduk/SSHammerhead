@@ -27,6 +27,14 @@ namespace SSHammerhead.Assets.Players.Management
         #region StaticMethods
 
         /// <summary>
+        /// Clear all records.
+        /// </summary>
+        public static void Clear()
+        {
+            records.Clear();
+        }
+
+        /// <summary>
         /// Add a record.
         /// </summary>
         /// <param name="identifier">The identifier for the player.</param>
