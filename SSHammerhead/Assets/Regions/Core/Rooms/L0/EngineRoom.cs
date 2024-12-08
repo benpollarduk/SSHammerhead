@@ -26,12 +26,12 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             Room room = null;
             Exit up = null;
 
-            up = new Exit(Direction.Up, true, interaction: (item) =>
+            up = new Exit(Direction.Up, true, new Identifier("Hatch"), interaction: (item) =>
             {
-                if (AccessID.Name.EqualsIdentifier(item.Identifier))
+                if (PadlockKey.Name.EqualsIdentifier(item.Identifier))
                 {
                     up.Unlock();
-                    return new Interaction(InteractionResult.ItemExpires, item, $"You slot the {AccessID.Name} into the door and it opens.");
+                    return new Interaction(InteractionResult.ItemExpires, item, $"You slot the {PadlockKey.Name} into the padlock locking the hatch and twist. The padlock springs open.");
                 }
 
                 return new Interaction(InteractionResult.NoChange, item);
