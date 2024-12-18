@@ -20,8 +20,6 @@ While a game in its own right, *Trouble aboard the SS Hammerhead* aims to provid
 >
 > Currently all effort is being spent making sure that the various mechanics and ideas are being tested to ensure that NetAF is capable of providing as rich of an experience as desired.
 
-![image](https://github.com/user-attachments/assets/8233c658-c446-4b00-afef-240bf1137e16)
-
 ### Story
 After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system. A ship was hurriedly prepared and scrambled and made contact 27 days later.
 You enter the outermost airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.
