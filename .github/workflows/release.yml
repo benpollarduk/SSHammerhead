@@ -26,6 +26,7 @@ jobs:
       with:
          repository: benpollarduk/ss-hammerhead
          token: ${{ secrets.PAT }}
+         fetch-depth: 0
 
     - name: Setup environment
       uses: actions/setup-dotnet@v3
@@ -43,7 +44,7 @@ jobs:
 
     - name: Update version in installer
       run: |
-        cd ${{ runner.workSpace }}
+        cd ${{ github.workspace }}
         $filePath = "SSHammerhead/SSHammerhead.Installer/SSHammerhead.Installer.iss"
         $newVersion = "${{ github.event.inputs.ver }}"
         (Get-Content $filePath) -replace '#define ApplicationVersion "1.0.0"', "#define ApplicationVersion `"$newVersion`"" | Set-Content $filePath
