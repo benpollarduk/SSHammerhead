@@ -52,6 +52,12 @@ jobs:
       with:
         path: SSHammerhead.Installer/SSHammerhead.Installer.iss
 
+    - name: Save installer as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: installer
+        path: SSHammerhead.Installer/output/*.exe
+
     - name: Tag the commit
       run: |
         git config --local user.email "action@github.com"
