@@ -41,6 +41,17 @@ jobs:
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
+    - name: Update version in installer
+      run: |
+        $filePath = "SSHammerhead.Installer/SSHammerhead.Installer.iss"
+        $newVersion = "${{ github.event.inputs.ver }}"
+        (Get-Content $filePath) -replace '#define ApplicationVersion "1.0.0"', "#define ApplicationVersion `"$newVersion`"" | Set-Content $filePath
+
+    - name: Compile .iss to .exe installer
+      uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+      with:
+        path: SSHammerhead.Installer/SSHammerhead.Installer.iss
+
     - name: Tag the commit
       run: |
         git config --local user.email "action@github.com"
