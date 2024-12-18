@@ -44,7 +44,7 @@ jobs:
     - name: Update version in installer
       run: |
         cd ${{ runner.workSpace }}
-        $filePath = "SSHammerhead.Installer/SSHammerhead.Installer.iss"
+        $filePath = "SSHammerhead/SSHammerhead.Installer/SSHammerhead.Installer.iss"
         $newVersion = "${{ github.event.inputs.ver }}"
         (Get-Content $filePath) -replace '#define ApplicationVersion "1.0.0"', "#define ApplicationVersion `"$newVersion`"" | Set-Content $filePath
 
