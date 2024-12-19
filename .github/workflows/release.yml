@@ -39,11 +39,6 @@ jobs:
     - name: Build
       run: dotnet build -c Release
 
-    - name: List files - workspace
-      run: |
-        cd "${{ github.workspace }}"
-        dir
-
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
@@ -64,7 +59,7 @@ jobs:
     - name: Upload installer as artifact
       uses: actions/upload-artifact@v3
       with:
-        name: installer
+        name: "SSHammerhead_${{ github.event.inputs.ver }}_Setup"
         path: .inno/output/*.exe
 
     - name: Tag the commit
@@ -74,11 +69,6 @@ jobs:
         git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
         git push --tags
       
-    # - name: Upload coverage reports to Codecov
-    #  uses: codecov/codecov-action@v3
-    #  env:
-    #    CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-
     - name: Create GitHub release
       uses: actions/create-release@v1
       with:
