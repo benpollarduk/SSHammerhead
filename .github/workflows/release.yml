@@ -77,7 +77,8 @@ jobs:
         cd SSHammerhead-docs
         git init
         git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git
-        git fetch
+        git fetch origin main
+	git reset --hard origin/main
         git checkout main
         git rm -r --ignore-unmatch .
         cp -r ${{ github.workspace }}\docs\docfx\_site\* .
