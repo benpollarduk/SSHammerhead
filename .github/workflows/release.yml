@@ -69,13 +69,11 @@ jobs:
       run: docfx docs/docfx/docfx.json
 
     - name: Create temporary directory for website
-      id: tempdir
-      run: |
-        export TEMP_WEB_DIR=$(mktemp -d)
+      run: mkdir "${{ runner.temp }}/docs"
 
     - name: Copy website files
       run: |
-        cd "$TEMP_WEB_DIR"
+        cd "${{ runner.temp }}/docs"
         git init
         git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git
         git fetch origin main
@@ -85,14 +83,14 @@ jobs:
 
     - name: Create installer directory
       run: |
-        mkdir -p "$TEMP_WEB_DIR/installer"
+        mkdir -p "${{ runner.temp }}/docs/installer"
 
     - name: Copy installer file to website's installer directory
       run: |
         source="${{ github.workspace }}/.inno/output/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-        destination="$TEMP_WEB_DIR/installer/SSHammerhead_Setup.exe"
+        destination="${{ runner.temp }}/docs/installer/SSHammerhead_Setup.exe"
         cp "$source" "$destination"
-        versioned_destination="$TEMP_WEB_DIR/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        versioned_destination="${{ runner.temp }}/docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
         cp "$source" "$versioned_destination"
 
     - name: Commit and push changes to SSHammerhead-docs
