@@ -51,16 +51,13 @@ namespace SSHammerhead.Assets.Players.Naomi
                 new LoadWithRestore() { IsPlayerVisible = false }
             ];
 
-            return new(Name, Description, [new Hammer().Instantiate(), new Mirror().Instantiate()], commands: commands, interaction: (i) =>
+            return new(Name, Description, [new Hammer().Instantiate()], commands: commands, interaction: (i) =>
             {
                 if (i == null)
                     return new Interaction(InteractionResult.NoChange, null);
 
                 if (Hammer.Name.EqualsIdentifier(i.Identifier))
                     return new Interaction(InteractionResult.TargetExpires, i, "You swing wildly at your own head. The first few blows connect and knock you down. You are dead.");
-
-                if (Mirror.Name.EqualsIdentifier(i.Identifier))
-                    return new Interaction(InteractionResult.NoChange, i, "Peering in to the mirror you can see yourself looking back through your helmets visor.");
 
                 return new Interaction(InteractionResult.NoChange, i);
             });

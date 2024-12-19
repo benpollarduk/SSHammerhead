@@ -1,9 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
-using NetAF.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot;
-using System;
-using System.ComponentModel;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 
 namespace NetAF.Rendering.Console.FrameBuilders
 {
@@ -36,6 +34,11 @@ namespace NetAF.Rendering.Console.FrameBuilders
         public AnsiColor ScanColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
+        /// Get or set the padlock key color.
+        /// </summary>
+        public AnsiColor PadlockKeyColor { get; set; } = NetAFPalette.NetAFRed;
+
+        /// <summary>
         /// Get or set the section diagonal character.
         /// </summary>
         public char SectionDiagonalCharacter { get; set; } = '.';
@@ -51,9 +54,9 @@ namespace NetAF.Rendering.Console.FrameBuilders
         public char SectionHorizontalCharacter { get; set; } = '.';
 
         /// <summary>
-        /// Get or set the screw character.
+        /// Get or set the access ID character.
         /// </summary>
-        public char ScrewCharacter { get; set; } = '#';
+        public char AccessIDCharacter { get; set; } = '#';
 
         #endregion
 
@@ -101,18 +104,29 @@ namespace NetAF.Rendering.Console.FrameBuilders
             }
         }
 
-
         /// <summary>
-        /// Draw a screw.
+        /// Draw the padlock key.
         /// </summary>
-        /// <param name="left">The left of the screw.</param>
-        /// <param name="bottom">The bottom of the screw.</param>
+        /// <param name="left">The left of the padlock key.</param>
+        /// <param name="bottom">The bottom of the padlock key.</param>
         /// <param name="foreground">The foreground color.</param>
-        private void DrawScrew(int left, int bottom, AnsiColor foreground)
+        private void DrawPadlockKey(int left, int bottom, AnsiColor foreground)
         {
-            gridStringBuilder.SetCell(left, bottom, ScrewCharacter, foreground);
-            gridStringBuilder.SetCell(left + 1, bottom, ScrewCharacter, foreground);
-            gridStringBuilder.SetCell(left + 2, bottom, ScrewCharacter, foreground);
+            // draw key
+            gridStringBuilder.SetCell(left, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left, bottom - 1, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 1, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 2, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 2, bottom - 1, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 3, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 4, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 5, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 6, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 7, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 8, bottom, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 6, bottom - 1, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 7, bottom - 1, AccessIDCharacter, foreground);
+            gridStringBuilder.SetCell(left + 8, bottom - 1, AccessIDCharacter, foreground);
         }
 
         /// <summary>
@@ -150,8 +164,8 @@ namespace NetAF.Rendering.Console.FrameBuilders
             {
                 DrawSection(left, top, right, bottom, section, ScanColor);
 
-                if (i == 2 && room.Attributes.Any("Screw"))
-                    DrawScrew((size.Width / 2) - 1, bottom - 1, ScanColor);
+                if (i == 2 && room.FindItem(PadlockKey.Name, out _))
+                    DrawPadlockKey((size.Width / 2) - 5, bottom - 1, PadlockKeyColor);
 
                 left += section * 2;
                 top += section;

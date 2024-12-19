@@ -1,14 +1,14 @@
 ﻿using NetAF.Assets;
 using NetAF.Utilities;
 
-namespace SSHammerhead.Assets.Regions.Core.Items
+namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Items
 {
-    public class Mirror : IAssetTemplate<Item>
+    public class PadlockKey : IAssetTemplate<Item>
     {
         #region Constants
 
-        internal const string Name = "Mirror";
-        private const string Description = "A thin telescopic pole with small mirror on the end, enables you to see in tight spaces.";
+        internal const string Name = "Padlock Key";
+        private const string Description = "A small key that looks as if it fits a padlock.";
 
         #endregion
 

@@ -1,6 +1,10 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Commands;
 using NetAF.Utilities;
+using SixLabors.ImageSharp.Metadata;
+using SSHammerhead.Assets.Regions.Core.Rooms.L0;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 
 namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 {
@@ -17,7 +21,29 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 
         public Room Instantiate()
         {
-            return new(Name, Description, [new Exit(Direction.East)], examination: request => new Examination(Description));
+            CustomCommand shunt = null;
+
+            shunt = new CustomCommand(new CommandHelp("Shunt", $"Shunt the {PadlockKey.Name} towards the vent."), true, false, (game, arguments) =>
+            {
+                shunt.IsPlayerVisible = false;
+
+                if (game.Player.FindItem(PadlockKey.Name, out var accessID))
+                    game.Player.RemoveItem(accessID);
+                else if (game.Overworld.CurrentRegion.CurrentRoom.FindItem(PadlockKey.Name, out accessID))
+                    game.Overworld.CurrentRegion.CurrentRoom.RemoveItem(accessID);
+
+                if (accessID != null)
+                {   
+                    game.Overworld.FindRegion(Core.SSHammerHead.Name, out var ship);
+
+                    if (ship.TryFindRoom(SupplyRoom.Name, out var supplyRoom))
+                        supplyRoom.AddItem(accessID);
+                }
+
+                return new Reaction(ReactionResult.Inform, $"The spider bot lurches forward and shunts the {PadlockKey.Name} down the vent. It falls in to the {SupplyRoom.Name}.");
+            });
+
+            return new(Name, Description, [new Exit(Direction.East)], items: [new PadlockKey().Instantiate()], examination: request => new Examination(Description), commands: [shunt]);
         }
 
         #endregion

@@ -76,6 +76,9 @@ namespace SSHammerhead
                 // get bot instance
                 var bot = new SpiderBotTemplate().Instantiate();
 
+                // clear previous
+                PlayableCharacterManager.Clear();
+
                 // setup players
                 PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, NaomiTemplate.FrameBuilderCollection));
                 PlayableCharacterManager.Add(new PlayableCharacterRecord(bot, tunnels, botStart, SpiderBotTemplate.FrameBuilderCollection));

@@ -20,13 +20,17 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         public Item Instantiate()
         {
-            return new(Name, Description, commands:
+            Item item = new(Name, Description, commands:
             [
                 new CustomCommand(new CommandHelp("Start Maintenance", "Use the Spider Bot."), true, true, (game, arguments) =>
                 {
                     return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
                 })
             ]);
+
+            item.IsPlayerVisible = false;
+
+            return item;
         }
 
         #endregion

@@ -18,7 +18,7 @@ env:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout repository
@@ -26,6 +26,7 @@ jobs:
       with:
          repository: benpollarduk/ss-hammerhead
          token: ${{ secrets.PAT }}
+         fetch-depth: 0
 
     - name: Setup environment
       uses: actions/setup-dotnet@v3
@@ -38,8 +39,33 @@ jobs:
     - name: Build
       run: dotnet build -c Release
 
+    - name: List files - workspace
+      run: |
+        cd "${{ github.workspace }}"
+        dir
+
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+
+    - name: Update version in installer script
+      run: |
+        cd "${{ github.workspace }}"
+        $filePath = ".inno/setup.iss"
+        $newVersion = "${{ github.event.inputs.ver }}"
+        $content = Get-Content $filePath
+        $content -replace '#define ApplicationVersion "1.0.0"', "#define ApplicationVersion `"$newVersion`"" | Set-Content -Path $filePath
+      shell: pwsh
+
+    - name: Compile .iss to .exe installer
+      uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
+      with:
+        path: .inno/setup.iss
+
+    - name: Upload installer as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: installer
+        path: .inno/output/*.exe
 
     - name: Tag the commit
       run: |

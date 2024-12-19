@@ -9,7 +9,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
     {
         #region Constants
 
-        private const string Name = "Supply Room";
+        public const string Name = "Supply Room";
         private static readonly string Description = "The supply room is the rough shape and size of the air lock, " +
             "but has been used by the crew as a makeshift supply room, containing everything from spare parts for the ship to first aid kits. " +
             "On one wall is a small control panel, the outer bezel proudly displaying the Spider Bot branding.";
@@ -35,6 +35,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             room.AddItem(new Blueprint().Instantiate());
             room.AddItem(tray);
             room.AddItem(emptyTray);
+            room.AddItem(new LockedMaintenanceControlPanel().Instantiate());
             room.AddItem(new MaintenanceControlPanel().Instantiate());
             return room;
         }

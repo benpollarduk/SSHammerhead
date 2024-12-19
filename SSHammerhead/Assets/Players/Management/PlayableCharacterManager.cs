@@ -27,6 +27,14 @@ namespace SSHammerhead.Assets.Players.Management
         #region StaticMethods
 
         /// <summary>
+        /// Clear all records.
+        /// </summary>
+        public static void Clear()
+        {
+            records.Clear();
+        }
+
+        /// <summary>
         /// Add a record.
         /// </summary>
         /// <param name="identifier">The identifier for the player.</param>
@@ -59,13 +67,13 @@ namespace SSHammerhead.Assets.Players.Management
             var newPlayerRecord = GetRecord(player.Identifier);
 
             // get previous player location
-            var previous = Array.Find(game.GetInactivePlayerLocations(), x => x.PlayerIdentifier.Equals(player.Identifier));
+            var previous = Array.Find(game.GetInactivePlayerLocations(), x => player.Identifier.Equals(x.PlayerIdentifier));
 
             // if a previous location found
             if (previous != default(PlayableCharacterLocation))
             {
                 // switch player
-                game.ChangePlayer(newPlayerRecord.Instance, false);
+                game.ChangePlayer(newPlayerRecord.Instance);
             }
             else
             {

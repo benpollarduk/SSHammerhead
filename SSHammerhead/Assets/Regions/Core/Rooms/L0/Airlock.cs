@@ -32,10 +32,12 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 return new Reaction(ReactionResult.Inform, "You press the red button on the control panel. The airlock door that leads to outer space opens and in an instant you are sucked out. As you drift in to outer space the SS Hammerhead becomes smaller and smaller until you can no longer see it. You die all alone.");
             });
 
-            var greenButtonCommand = new CustomCommand(new CommandHelp("Press green", "Press the green button on the control panel."), true, true, (game, arguments) =>
+            CustomCommand greenButtonCommand = null;
+            greenButtonCommand = new CustomCommand(new CommandHelp("Press green", "Press the green button on the control panel."), true, true, (game, arguments) =>
             {
                 room.FindExit(Direction.East, true, out var east);
                 east.Unlock();
+                greenButtonCommand.IsPlayerVisible = false;
                 return new Reaction(ReactionResult.Inform, "You press the green button on the control panel. The airlock door that leads to The SS Hammerhead opens.");
             });
 
@@ -50,8 +52,9 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
         {
             Room room = null;
 
-            Description spaceExitDescription = new("An incredibly sturdy metal door with  small reinforced glass porthole." +
-                                                   "Peering through the porthole you can see stars in all directions, surrounded by the void of space.");
+            Description spaceExitDescription = new("An incredibly sturdy metal door with  small reinforced glass porthole. " +
+                                                   "Peering through the porthole you can see stars in all directions, surrounded by the void of space. One constellation in particular jumps out - " +
+                                                   "a constellation in the shape of the number 7.");
 
             var spaceExit = new Exit(Direction.West, true, description: spaceExitDescription, commands:
             [
