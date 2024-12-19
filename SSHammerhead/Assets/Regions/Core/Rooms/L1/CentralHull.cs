@@ -7,7 +7,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
     {
         #region Constants
 
-        private const string Name = "Central Hull";
+        public const string Name = "Central Hull";
         private const string Description = "This area appears to be roughly in the centre of the ship. Dimly lit corridors lead to the north, east, south and west, and a ladder leads back down to the engine room. This feels like a hub of sorts.";
 
         #endregion

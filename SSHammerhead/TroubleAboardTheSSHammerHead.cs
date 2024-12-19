@@ -9,6 +9,7 @@ using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.Core;
 using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
+using SSHammerhead.Assets.Regions.Core.Rooms.L1;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
 
@@ -34,6 +35,14 @@ namespace SSHammerhead
         {
             if (!game.Player.IsAlive)
                 return new EndCheckResult(true, "You are dead.", "You have succumbed to the horrors of space.");
+
+            return EndCheckResult.NotEnded;
+        }
+
+        private static EndCheckResult CheckForCompletion(Game game)
+        {
+            if (!game.Overworld.CurrentRegion.CurrentRoom.Identifier.Equals(CentralHull.Name))
+                return new EndCheckResult(true, "Ending reached.", "You have reached the end of the game! More to be developed soon.");
 
             return EndCheckResult.NotEnded;
         }
@@ -95,7 +104,7 @@ namespace SSHammerhead
                 new GameInfo(Title, Description, "Ben Pollard"),
                 Introduction,
                 AssetGenerator.Custom(overworldCreator, () => new NaomiTemplate().Instantiate()),
-                new GameEndConditions(GameEndConditions.NotEnded, CheckForGameOver),
+                new GameEndConditions(CheckForCompletion, CheckForGameOver),
                 ConsoleGameConfiguration.Default,
                 setup);
 
