@@ -68,10 +68,13 @@ jobs:
     - name: Build documentation
       run: docfx docs/docfx/docfx.json
 
+    - name: Create directoris for website
+      run: |
+        mkdir ${{ github.workspace }}\SSHammerhead-docs
+        mkdir ${{ github.workspace }}\SSHammerhead-docs\installer
+
     - name: Copy website files, commit and push changes to SSHammerhead-docs
       run: |
-        mkdir SSHammerhead-docs
-        mkdir SSHammerhead-docs/installer
         cd SSHammerhead-docs
         git init
         git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git
