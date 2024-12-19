@@ -69,7 +69,7 @@ jobs:
       run: docfx docs/docfx/docfx.json
 
     - name: Create temporary directory for website
-      run: mkdir "${{ runner.temp }}/docs"
+      run: mkdir "${{ runner.temp }}\docs"
 
     - name: Copy website files
       run: |
@@ -79,19 +79,20 @@ jobs:
         git fetch origin main
         git checkout main
         git rm -r --ignore-unmatch . || true
-        cp -r ${{ github.workspace }}/docs/docfx/_site/* .
+        cp -r ${{ github.workspace }}\docs\docfx\_site\* .
 
     - name: Create installer directory
       run: |
-        mkdir -p "${{ runner.temp }}/docs/installer"
+        mkdir -p "${{ runner.temp }}\docs\installer"
 
     - name: Copy installer file to website's installer directory
       run: |
-        source="${{ github.workspace }}/.inno/output/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-        destination="${{ runner.temp }}/docs/installer/SSHammerhead_Setup.exe"
-        cp "$source" "$destination"
-        versioned_destination="${{ runner.temp }}/docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-        cp "$source" "$versioned_destination"
+          $source = "${{ github.workspace }}\.inno\output\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+          $destination = "${{ runner.temp }}\docs\installer\SSHammerhead_Setup.exe"
+          Copy-Item -Path $source -Destination $destination -Force
+          $versioned_destination = "${{ runner.temp }}\docs\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+          Copy-Item -Path $source -Destination $versioned_destination -Force
+        shell: pwsh
 
     - name: Commit and push changes to SSHammerhead-docs
       run: |
