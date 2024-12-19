@@ -81,7 +81,7 @@ jobs:
 
     - name: Copy website files
       run: |
-        cd "${{ runner.temp }}/docs"
+        cd "${{ runner.temp }}\docs"
         cp -r ${{ github.workspace }}\docs\docfx\_site\* .
 
     - name: Create installer directory
@@ -99,6 +99,7 @@ jobs:
 
     - name: Commit and push changes to SSHammerhead-docs
       run: |
+        cd "${{ runner.temp }}\docs"
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git fetch origin main
