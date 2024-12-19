@@ -44,18 +44,13 @@ jobs:
         cd "${{ github.workspace }}"
         dir
 
-    - name: List files - installer
-      run: |
-        cd "${{ github.workspace }}"/SSHammerhead.Installer
-        dir
-
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
     - name: Update version in installer script
       run: |
         cd "${{ github.workspace }}"
-        $filePath = "SSHammerhead.Installer/SSHammerhead.Installer.iss"
+        $filePath = ".inno/setup.iss"
         $newVersion = "${{ github.event.inputs.ver }}"
         $content = Get-Content $filePath
         $content -replace '#define ApplicationVersion "1.0.0"', "#define ApplicationVersion `"$newVersion`"" | Set-Content -Path $filePath
@@ -64,13 +59,13 @@ jobs:
     - name: Compile .iss to .exe installer
       uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
       with:
-        path: SSHammerhead.Installer/SSHammerhead.Installer.iss
+        path: .inno/setup.iss
 
     - name: Upload installer as artifact
       uses: actions/upload-artifact@v3
       with:
         name: installer
-        path: SSHammerhead.Installer/output/*.exe
+        path: .inno/output/*.exe
 
     - name: Tag the commit
       run: |
