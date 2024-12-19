@@ -72,6 +72,8 @@ jobs:
         $source = "${{ github.workspace }}\.inno\output\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
         $destination = "${{ github.workspace }}\SSHammerhead-docs\installer\SSHammerhead_Setup.exe"
         Copy-Item -Path $source -Destination $destination -Force
+        $destination = "${{ github.workspace }}\SSHammerhead-docs\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        Copy-Item -Path $source -Destination $destination -Force
       shell: pwsh
 
     - name: Update docfx
@@ -92,6 +94,9 @@ jobs:
         git checkout main
         git rm -r --ignore-unmatch .
         cp -r ${{ github.workspace }}\docs\docfx\_site\* .
+
+    - name: Commit and push changes to SSHammerhead-docs
+      run: |
         git add .
         git commit -m "Update documentation"
         git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git HEAD:main
