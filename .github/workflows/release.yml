@@ -39,11 +39,22 @@ jobs:
     - name: Build
       run: dotnet build -c Release
 
+    - name: List files - workspace
+      run: |
+        cd "${{ github.workspace }}"
+        dir
+
+    - name: List files - installer
+      run: |
+        cd "${{ github.workspace }}"/SSHammerhead.Installer
+        dir
+
     - name: Run tests with coverlet
       run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
     - name: Update version in installer script
       run: |
+        cd "${{ github.workspace }}"
         $filePath = "SSHammerhead.Installer/SSHammerhead.Installer.iss"
         $newVersion = "${{ github.event.inputs.ver }}"
         $content = Get-Content $filePath
