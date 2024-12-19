@@ -80,8 +80,8 @@ jobs:
         git fetch
         git checkout main
         git rm -r --ignore-unmatch .
-        cp -r ../docs/docfx/_site/* .
-        cp -r ../.inno/output/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe installer/SSHammerhead_Setup.exe
+        cp -r ${{ github.workspace }}\docs\docfx\_site\* .
+        cp -r ${{ github.workspace }}\.inno\output\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe ${{ github.workspace }}\SSHammerhead-docs\installer\SSHammerhead_Setup.exe
         git add .
         git commit -m "Update documentation"
         git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git HEAD:main
