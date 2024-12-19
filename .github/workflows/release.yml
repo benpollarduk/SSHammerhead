@@ -87,12 +87,12 @@ jobs:
 
     - name: Copy installer file to website's installer directory
       run: |
-          $source = "${{ github.workspace }}\.inno\output\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-          $destination = "${{ runner.temp }}\docs\installer\SSHammerhead_Setup.exe"
-          Copy-Item -Path $source -Destination $destination -Force
-          $versioned_destination = "${{ runner.temp }}\docs\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-          Copy-Item -Path $source -Destination $versioned_destination -Force
-        shell: pwsh
+        $source = "${{ github.workspace }}\.inno\output\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        $destination = "${{ runner.temp }}\docs\installer\SSHammerhead_Setup.exe"
+        Copy-Item -Path $source -Destination $destination -Force
+        $versioned_destination = "${{ runner.temp }}\docs\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        Copy-Item -Path $source -Destination $versioned_destination -Force
+      shell: pwsh
 
     - name: Commit and push changes to SSHammerhead-docs
       run: |
