@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Persistence | NetAF </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Persistence | NetAF ">
+    
+    
+      <link rel="shortcut icon" href="../images/logo.png">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="NetAF">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="persistence">Persistence</h1>
+
+<h2 id="overview">Overview</h2>
+<p>NetAF provides persistence for game states. This allows a game to be saved and restored at any time.</p>
+<h2 id="saving">Saving</h2>
+<h3 id="creating-a-restore-point">Creating a restore point</h3>
+<p>A named restore point can be created at any time by using the RestorePoint class:</p>
+<pre><code class="lang-c-sharp">var restorePoint = RestorePoint.Create(&quot;File 1&quot;, game);
+</code></pre>
+<p>RestorePoint will serialize the state of the game so that it can be restored later. However it still needs to be
+saved to file if persistence is required.</p>
+<h3 id="saving-a-restore-point-to-file">Saving a restore point to file</h3>
+<p>NetAF uses Json for persistence as default, provided by the JsonSave class:</p>
+<pre><code class="lang-csharp">JsonSave.ToFile(@&quot;C:\save.json&quot;, restorePoint, out _);
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> The extension is not important. Any extension can be used.</p>
+</blockquote>
+<h2 id="loading">Loading</h2>
+<h3 id="loading-a-restore-point-from-file">Loading a restore point from file</h3>
+<p>A restore point can be loaded from file using the JsonSave class:</p>
+<pre><code class="lang-c-sharp">JsonSave.FromFile(@&quot;C:\save.json&quot;, out var restorePoint, out _);
+</code></pre>
+<h3 id="applying-a-restore-point-to-a-game">Applying a restore point to a game</h3>
+<p>The restore point can then be applied to a game to restore the state of the game:</p>
+<pre><code class="lang-c-sharp">restorePoint.Game.Restore(game);
+</code></pre>
+<h2 id="commands">Commands</h2>
+<p>To simplify adding persistence to your game the <em>Save</em> and <em>Load</em> commands have been added.</p>
+<p>Both <em>Save</em> and <em>Load</em> are custom commands, which means they can be applied to any <em>IExaminable</em>. This gives
+you the power to choose how you implement saving and loading. Add these commands to the <em>PlayableCharacter</em> or
+<em>Overworld</em> to have them always available, or add them to items, rooms or any other in game object.</p>
+<pre><code class="lang-c-sharp">Item typewriter = new(&quot;Typewriter&quot;, &quot;An old style typewriter&quot;)
+{
+    Commands =
+    [
+        new Save(),
+        new Load()
+    ]
+};
+</code></pre>
+<h2 id="registering-dynamically-loaded-content">Registering dynamically loaded content</h2>
+<p>It is recommended to <em>add</em> and <em>remove</em> content in the game by using the <em>IsPlayerVisible</em> property. This allows all content to
+be loaded when a game is created, which in turn allows serialization to function correctly. When a game is instantiated
+an instance of <em>AssetCatalog</em> is created which is a key component of serialization. If you choose to
+dynamically add an <em>Item</em>, <em>NonPlayableCharacter</em> or <em>Room</em> while a game is executing it may not serialize correctly
+as it will not be in the games <em>AssetCatalog</em>. This may be acceptable, however if you wish for the <em>IExaminable</em> to be
+serialized you need to register the instance of the <em>IExaminable</em> with the games <em>AssetCatalog</em>.</p>
+<pre><code class="lang-c-sharp">Item sword = new(&quot;Sword&quot;, &quot;The sword of destiny&quot;);
+game.Catalog.Register(sword);
+</code></pre>
+<p>By registering with the <em>AssetCatalog</em> the game will be able to resolve references to the object when deserialization
+is applied.</p>
+<h2 id="sequencing">Sequencing</h2>
+<h3 id="save">Save</h3>
+<p><img src="../images/persistence-save.png" alt="Persistence-Save"></p>
+<h3 id="load">Load</h3>
+<p><img src="../images/persistence-load.png" alt="Persistence-Load"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benpollarduk/ss-hammerhead/blob/finishing-l0/docs/docfx/docs/persistence.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

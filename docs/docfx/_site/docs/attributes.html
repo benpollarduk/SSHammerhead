@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Attributes | NetAF </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Attributes | NetAF ">
+    
+    
+      <link rel="shortcut icon" href="../images/logo.png">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="NetAF">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="attributes">Attributes</h1>
+
+<h2 id="overview">Overview</h2>
+<p>All examinable objects can have attributes. Attributes provide a way of adding a lot of depth to games. For example, attributes could be used to buy and sell items, contain a characters XP or HP or even provide a way to add durability to items.</p>
+<h2 id="use">Use</h2>
+<p>To add to an existing attribute or to create a new one use the <strong>Add</strong> method.</p>
+<pre><code class="lang-csharp">var player = new PlayableCharacter(&quot;Player&quot;, string.Empty);
+player.Attributes.Add(&quot;$&quot;, 10);
+</code></pre>
+<p>To subtract from an existing attribute use the <strong>Subtract</strong> method.</p>
+<pre><code class="lang-csharp">player.Attributes.Subtract(&quot;$&quot;, 10);
+</code></pre>
+<p>Attributes values can be capped. In this example the $ attribute is limited to a range of 0 - 100. Adding or subtracting will not cause the value of the attribute to change outside of this range.</p>
+<pre><code class="lang-csharp">var cappedAttribute = new Attribute(&quot;$&quot;, &quot;Dollars.&quot;, 0, 100);
+player.Attributes.Add(cappedAttribute, 50);
+</code></pre>
+<h2 id="an-example---buying-an-item-from-a-nonplayablecharacter">An example - buying an Item from a NonPlayableCharacter.</h2>
+<p>The following is an example of buying an Item from NonPlayableCharacter. Here a trader has a spade. The player can only buy the spade if they have at least $5. The conversation will jump to the correct paragraph based on if they choose to buy the spade or not. If the player chooses to buy the spade and has enough $ the transaction is made and the spade changes hands.</p>
+<pre><code class="lang-csharp">const string currency = &quot;$&quot;;
+
+var player = new PlayableCharacter(&quot;Player&quot;, string.Empty);
+player.Attributes.Add(currency, 10);
+
+var trader = new NonPlayableCharacter(&quot;Trader&quot;, string.Empty);
+var spade = new Item(&quot;Spade&quot;, string.Empty);
+trader.AcquireItem(spade);
+
+trader.Conversation = new Conversation(
+    new Paragraph(&quot;What will you buy?&quot;)
+    {
+        Responses =
+        [
+            new Response(&quot;Spade&quot;, new ByCallback(() =&gt;
+                player.Attributes.GetValue(currency) &gt;= 5
+                    ? new ToName(&quot;BoughtSpade&quot;)
+                    : new ToName(&quot;NotEnough&quot;))),
+            new Response(&quot;Nothing&quot;, new Last())
+        ]
+    },
+    new Paragraph(&quot;Here it is.&quot;, _ =&gt;
+    {
+        player.Attributes.Subtract(currency, 5);
+        trader.Attributes.Add(currency, 5);
+        trader.Give(spade, player);
+    }, new First(), &quot;BoughtSpade&quot;),
+    new Paragraph(&quot;You don't have enough money.&quot;, new First(), &quot;NotEnough&quot;),
+    new Paragraph(&quot;Fine.&quot;)
+);
+</code></pre>
+<p>This is just one example of using attributes to add depth to a game.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benpollarduk/ss-hammerhead/blob/finishing-l0/docs/docfx/docs/attributes.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

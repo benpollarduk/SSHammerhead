@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+      <title>Getting Started | NetAF </title>
+      <meta name="viewport" content="width=device-width">
+      <meta name="title" content="Getting Started | NetAF ">
+    
+    
+      <link rel="shortcut icon" href="../images/logo.png">
+      <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+      <link rel="stylesheet" href="../styles/docfx.css">
+      <link rel="stylesheet" href="../styles/main.css">
+      <meta property="docfx:navrel" content="../toc.html">
+      <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="../">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../images/logo.png" alt="NetAF">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first=First data-prev=Previous data-next=Next data-last=Last></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<h2 id="adding-the-nuget-package-to-your-project">Adding the NuGet package to your project</h2>
+<p>You need to pull NetAF into your project. The easiest way to do this is to add the NuGet package. The latest package and installation instructions are available <a href="https://github.com/benpollarduk/netaf/pkgs/nuget/NetAF">here</a>.</p>
+<h2 id="first-game">First Game</h2>
+<p>Once the package has been installed it's time to jump in and start building your first game.</p>
+<h3 id="setup">Setup</h3>
+<p>To start with create a new Console application. Regardless of target framework, it should look something like this:</p>
+<pre><code class="lang-csharp">namespace NetAF.GettingStarted
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+           
+        }
+    }
+}
+</code></pre>
+<h3 id="adding-a-playablecharacter">Adding a PlayableCharacter</h3>
+<p>Every game requires a character to play as, lets add that next:</p>
+<pre><code class="lang-csharp">private static PlayableCharacter CreatePlayer()
+{
+    return new PlayableCharacter(&quot;Dave&quot;, &quot;A young boy on a quest to find the meaning of life.&quot;);
+}
+</code></pre>
+<p>In this example whenever <strong>CreatePlayer</strong> is called a new <strong>PlayableCharacter</strong> will be created. The character is called &quot;Dave&quot; and has a description that describes him as &quot;A young boy on a quest to find the meaning of life.&quot;.</p>
+<h3 id="creating-the-game-world">Creating the game world</h3>
+<p>The game world consists of a hierarchy of three tiers: <strong>Overworld</strong>, <strong>Region</strong> and <strong>Room</strong>. We will create a simple <strong>Region</strong> with two <strong>Rooms</strong>. We can do this directly in the <strong>Main</strong> function for simplicity. To start with lets make the <strong>Rooms</strong>:</p>
+<pre><code class="lang-csharp">private static void Main(string[] args)
+{
+    var cavern = new Room(&quot;Cavern&quot;, &quot;A dark cavern set in to the base of the mountain.&quot;, new Exit(Direction.North));
+
+    var tunnel = new Room(&quot;Tunnel&quot;, &quot;A dark tunnel leading inside the mountain.&quot;, new Exit(Direction.South));
+}
+</code></pre>
+<p>Although the <strong>Rooms</strong> haven't been added to a <strong>Region</strong> yet there are exits in place that will allow the player to move between them.</p>
+<p>Games are boring without <strong>Items</strong> to interact with, let's add an item to the tunnel:</p>
+<pre><code class="lang-csharp">var holyGrail = new Item(&quot;Holy Grail&quot;, &quot;A dull golden cup, looks pretty old.&quot;, true);
+
+tunnel.AddItem(holyGrail);
+</code></pre>
+<p>Looking good, but the <strong>Rooms</strong> need to be contained within a <strong>Region</strong>. <strong>RegionMaker</strong> simplifies this process, but sometimes creating a <strong>Region</strong> directly may be more appropriate if more control is needed. Here we will use <strong>RegionMaker</strong>:</p>
+<pre><code class="lang-csharp">var regionMaker = new RegionMaker(&quot;Mountain&quot;, &quot;An imposing volcano just East of town.&quot;)
+{
+    [0, 0, 0] = cavern,
+    [0, 1, 0] = tunnel
+};
+</code></pre>
+<p>This needs more breaking down. The <strong>RegionMaker</strong> will create a region called &quot;Mountain&quot; with a description of &quot;An imposing volcano just East of town.&quot;. The region will contain two rooms, the cavern and the tunnel. The cavern will be added at position <em>x</em> 0, <em>y</em> 0, <em>z</em> 0. The tunnel will be added at position <em>x</em> 0, <em>y</em> 1, <em>z</em> 0, north of the cavern.</p>
+<p>The game world is nearly complete, but the <strong>Region</strong> needs to exist within an <strong>Overworld</strong> for it to be finished. We will use <strong>OverworldMaker</strong> to achieve this:</p>
+<pre><code class="lang-csharp">var overworldMaker = new OverworldMaker(&quot;Daves World&quot;, &quot;An ancient kingdom.&quot;, regionMaker);
+</code></pre>
+<p>This will create an <strong>Overworld</strong> called &quot;Daves World&quot; which is described as &quot;An ancient kingdom&quot; and contains a single <strong>Region</strong>.</p>
+<p>All together the code looks like this:</p>
+<pre><code class="lang-csharp">var cavern = new Room(&quot;Cavern&quot;, &quot;A dark cavern set in to the base of the mountain.&quot;, new Exit(Direction.North));
+
+var tunnel = new Room(&quot;Tunnel&quot;, &quot;A dark tunnel leading inside the mountain.&quot;, new Exit(Direction.South));
+
+var holyGrail = new Item(&quot;Holy Grail&quot;, &quot;A dull golden cup, looks pretty old.&quot;, true);
+
+tunnel.AddItem(holyGrail);
+
+var regionMaker = new RegionMaker(&quot;Mountain&quot;, &quot;An imposing volcano just East of town.&quot;)
+{
+    [0, 0, 0] = cavern,
+    [0, 1, 0] = tunnel
+};
+
+var overworldMaker = new OverworldMaker(&quot;Daves World&quot;, &quot;An ancient kingdom.&quot;, regionMaker);
+</code></pre>
+<h3 id="checking-if-the-game-is-complete">Checking if the game is complete</h3>
+<p>For a game to come to an end it needs to reach either a game over state or a completion state.</p>
+<p>Firstly lets look at the logic that determines if the game is complete. An <strong>EndCheck</strong> is required, which returns an <strong>EndCheckResult</strong> that determines if the game is complete.</p>
+<p>In this example lets make a method that determines if the game is complete. The game is complete if the player has the holy grail:</p>
+<pre><code class="lang-csharp">private static EndCheckResult IsGameComplete(Game game)
+{
+    if (!game.Player.FindItem(&quot;Holy Grail&quot;, out _))
+        return EndCheckResult.NotEnded;
+
+    return new EndCheckResult(true, &quot;Game Complete&quot;, &quot;You have the Holy Grail!&quot;);
+}
+</code></pre>
+<p>If the player has the holy grail then the <strong>EndCheckResult</strong> will return that the game has ended, and have a title that will read &quot;Game Complete&quot; and a description that reads &quot;You have the Holy Grail!&quot;.</p>
+<p>A common game over state may be if the player dies:</p>
+<pre><code class="lang-csharp">private static EndCheckResult IsGameOver(Game game)
+{
+    if (game.Player.IsAlive)
+        return EndCheckResult.NotEnded;
+
+    return new EndCheckResult(true, &quot;Game Over&quot;, &quot;You died!&quot;);
+}
+</code></pre>
+<h3 id="creating-the-game">Creating the game</h3>
+<p>The game now has all the required assets and logic it just needs some boilerplate to tie everything together before it is ready to play.</p>
+<p>A <strong>GameCreationCallback</strong> is required to instantiate an instance of a <strong>Game</strong>. This is so that new instances of the <strong>Game</strong> can be created as required.</p>
+<pre><code class="lang-csharp">var gameCreator = Game.Create(
+                new GameInfo(&quot;The Life of Dave&quot;, &quot;A very low budget adventure.&quot;, &quot;Ben Pollard&quot;),
+                &quot;Dave awakes to find himself in a cavern...&quot;,
+                AssetGenerator.Custom(overworldMaker.Make, CreatePlayer),
+                new GameEndConditions(IsGameComplete, IsGameOver),
+                ConsoleGameConfiguration.Default);
+</code></pre>
+<p>This requires some breaking down. The <strong>Game</strong> class has a <strong>Create</strong> method that can be used to create instances of <strong>Game</strong>. This takes the following arguments:</p>
+<ul>
+<li><strong>GameInfo</strong> - information about the game.</li>
+<li><strong>Introduction</strong> - an introduction to the game.</li>
+<li><strong>AssetGenerator</strong> - a generator for game assets.</li>
+<li><strong>GameEndConditions</strong> - conditions for determining if the game has been completed or otherwise ended.</li>
+<li><strong>GameConfiguration</strong> - a configuration for the game, including display size, error prefix and other elements.</li>
+</ul>
+<h3 id="executing-the-game">Executing the game</h3>
+<p>The game is executed simply by calling the static <strong>Execute</strong> method on <strong>Game</strong> and passing in the game creation callback.</p>
+<pre><code class="lang-csharp">Game.Execute(gameCreator);
+</code></pre>
+<h3 id="bringing-it-all-together">Bringing it all together</h3>
+<p>The full example code should look like this:</p>
+<pre><code class="lang-csharp">using NetAF.Assets;
+using NetAF.Assets.Characters;
+using NetAF.Assets.Locations;
+using NetAF.Logic;
+using NetAF.Logic.Coniguration;
+using NetAF.Utilities;
+
+namespace NetAF.GettingStarted
+{
+    internal class Program
+    {
+        private static EndCheckResult IsGameComplete(Game game)
+        {
+            if (!game.Player.FindItem(&quot;Holy Grail&quot;, out _))
+                return EndCheckResult.NotEnded;
+
+            return new EndCheckResult(true, &quot;Game Complete&quot;, &quot;You have the Holy Grail!&quot;);
+        }
+
+        private static EndCheckResult IsGameOver(Game game)
+        {
+            if (game.Player.IsAlive)
+                return EndCheckResult.NotEnded;
+
+            return new EndCheckResult(true, &quot;Game Over&quot;, &quot;You died!&quot;);
+        }
+
+        private static PlayableCharacter CreatePlayer()
+        {
+            return new PlayableCharacter(&quot;Dave&quot;, &quot;A young boy on a quest to find the meaning of life.&quot;);
+        }
+
+        private static void Main(string[] args)
+        {
+            var cavern = new Room(&quot;Cavern&quot;, &quot;A dark cavern set in to the base of the mountain.&quot;, new Exit(Direction.North));
+
+            var tunnel = new Room(&quot;Tunnel&quot;, &quot;A dark tunnel leading inside the mountain.&quot;, new Exit(Direction.South));
+
+            var holyGrail = new Item(&quot;Holy Grail&quot;, &quot;A dull golden cup, looks pretty old.&quot;, true);
+
+            tunnel.AddItem(holyGrail);
+
+            var regionMaker = new RegionMaker(&quot;Mountain&quot;, &quot;An imposing volcano just East of town.&quot;)
+            {
+                [0, 0, 0] = cavern,
+                [0, 1, 0] = tunnel
+            };
+
+            var overworldMaker = new OverworldMaker(&quot;Daves World&quot;, &quot;An ancient kingdom.&quot;, regionMaker);
+
+            var gameCreator = Game.Create(
+                new GameInfo(&quot;The Life of Dave&quot;, &quot;A very low budget adventure.&quot;, &quot;Ben Pollard&quot;),
+                &quot;Dave awakes to find himself in a cavern...&quot;,
+                AssetGenerator.Custom(overworldMaker.Make, CreatePlayer),
+                new GameEndConditions(IsGameComplete, IsGameOver),
+                ConsoleGameConfiguration.Default);
+
+            Game.Execute(gameCreator);
+        }
+    }
+}
+</code></pre>
+<p>Simply build and run the application and congratulations, you have a working NetAF game!</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                  <li>
+                    <a href="https://github.com/benpollarduk/ss-hammerhead/blob/finishing-l0/docs/docfx/docs/getting-started.md/#L1" class="contribution-link">Edit this page</a>
+                  </li>
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+                <h5>In this article</h5>
+                <div></div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+      
+      <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
