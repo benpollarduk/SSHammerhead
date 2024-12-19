@@ -62,10 +62,9 @@ jobs:
         name: "SSHammerhead_${{ github.event.inputs.ver }}_Setup"
         path: .inno/output/*.exe
 
-    - name: Create directories for website
+    - name: Create directory for website
       run: |
         mkdir ${{ github.workspace }}\SSHammerhead-docs
-        mkdir ${{ github.workspace }}\SSHammerhead-docs\installer
 
     - name: Update docfx
       run: dotnet tool update -g docfx
@@ -83,6 +82,10 @@ jobs:
         git checkout main
         git rm -r --ignore-unmatch .
         cp -r ${{ github.workspace }}\docs\docfx\_site\* .
+
+    - name: Create installer directory
+      run: |
+        mkdir ${{ github.workspace }}\SSHammerhead-docs\installer
 
     - name: Copy installer file to websites installer directory
       run: |
