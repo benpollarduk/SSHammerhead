@@ -7,6 +7,8 @@ _layout: landing
 ## Download
 Download the latest [installer](https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_Setup.exe).
 
+![image](~/images/screenshots/title.png)
+
 ## Premise
 After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system. A ship was hurriedly prepared and scrambled and made contact 27 days later.
 You enter the outermost airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.
@@ -14,7 +16,7 @@ You enter the outermost airlock, and it closes behind you. With a sense of foreb
 You take the role of Naomi Martin a 32-year-old shuttle mechanic. Throughout the course of the story you must navigate through the ship and interact with the various items and the environment
 to progress through the story and unravel the mysteries of the ship.
 
-![image](~/images/screenshots/title.png)
+![image](~/images/screenshots/room.png)
 
 Take control of the mighty *Spider Maintenance Bot* and use it to explore inaccessible regions of the ship from a different perspective:
 
