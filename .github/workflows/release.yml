@@ -71,14 +71,17 @@ jobs:
     - name: Create temporary directory for website
       run: mkdir "${{ runner.temp }}\docs"
 
-    - name: Copy website files
+    - name: Checkout existing website
       run: |
         cd "${{ runner.temp }}/docs"
         git init
         git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git
         git fetch origin main
         git checkout main
-        git rm -r --ignore-unmatch . || true
+
+    - name: Copy website files
+      run: |
+        cd "${{ runner.temp }}/docs"
         cp -r ${{ github.workspace }}\docs\docfx\_site\* .
 
     - name: Create installer directory
@@ -98,12 +101,15 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        git fetch
+        git pull
         git add .
         git commit -m "Update documentation"
         git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git HEAD:main
 
     - name: Tag the commit
       run: |
+        cd ${{ github.workspace }}
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
