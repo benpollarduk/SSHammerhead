@@ -13,6 +13,46 @@
       "version": ""
     },
     {
+      "type": "Resource",
+      "source_relative_path": "images/screenshots/map.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/screenshots/map.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/screenshots/spiderbot.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/screenshots/spiderbot.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/screenshots/starfield.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/screenshots/starfield.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/screenshots/title.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/screenshots/title.png"
+        }
+      },
+      "version": ""
+    },
+    {
       "type": "Conceptual",
       "source_relative_path": "index.md",
       "output": {
