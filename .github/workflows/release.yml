@@ -72,12 +72,8 @@ jobs:
         $date = Get-Date -Format "MM/dd/yyyy"
         $windowsLink = "[SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe](https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe)"
         $releaseNotes = "${{ github.event.inputs.release-notes }}"
-        $newRow = "| $version | $date | $windowsLink | $releaseNotes |"
-        Write-Output "New row will be $newRow"
         $content = Get-Content $filePath
-        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', "$newRow" | Set-Content -Path $filePath
-        $content = Get-Content $filePath
-        Write-Output "File content is now $content"
+        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', "\| `"$version`" \| `"$date`" \| `"$windowsLink`" \| `"$releaseNotes`" \|" | Set-Content -Path $filePath
       shell: pwsh
 
     - name: Build documentation
@@ -94,6 +90,12 @@ jobs:
         git fetch origin main
         git checkout main
 
+    - name: Delete existing website files and directories
+      run: |
+        cd "${{ runner.temp }}\website"
+        git rm -r *
+        git clean -fd
+
     - name: Copy website files
       run: |
         cd "${{ runner.temp }}\website"
@@ -101,9 +103,7 @@ jobs:
 
     - name: Create installer directory
       run: |
-        if (-not (Test-Path -Path "${{ runner.temp }}\website\installer")) {
-          mkdir -p "${{ runner.temp }}\website\installer"
-        }
+        mkdir -p "${{ runner.temp }}\website\installer"
 
     - name: Copy installer file to website's installer directory
       run: |

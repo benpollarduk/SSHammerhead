@@ -7,7 +7,7 @@ _layout: landing
 ![image](~/images/screenshots/title.png)
 
 ## Download
-Visit the [downloads](docs/download.md) page to download the latest version.
+Visit the [downloads](docs/download.md) page to download the latest installer.
 
 ## Premise
 After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system. A ship was hurriedly prepared and scrambled and made contact 27 days later.
