@@ -97,7 +97,7 @@ jobs:
     - name: Copy website files
       run: |
         cd "${{ runner.temp }}\website"
-        cp -r ${{ github.workspace }}\website\docfx\_site\* .
+        cp -r ${{ github.workspace }}\docs\docfx\_site\* .
 
     - name: Create installer directory
       run: |
