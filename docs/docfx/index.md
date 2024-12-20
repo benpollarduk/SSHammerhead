@@ -5,7 +5,7 @@ _layout: landing
 *Trouble aboard the SS Hammerhead* is a text adventure written using [NetAF](https://github.com/benpollarduk/NetAF) set within a small ship that is drifting through space. Can you unravel the mystery and make it out alive before you succumb to whatever horrors lie in wait on the ship? 
 
 ## Download
-Download the latest [installer](https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_Setup.exe).
+Visit the [downloads](docs/download.md) page to download the latest version.
 
 ![image](~/images/screenshots/title.png)
 

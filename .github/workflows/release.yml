@@ -65,6 +65,17 @@ jobs:
     - name: Update docfx
       run: dotnet tool update -g docfx
 
+    - name: Update links in download page of documentation site
+      run: |
+        cd "${{ github.workspace }}"
+        $filePath = "docs/docfx/docs/download.md"
+        $version = "${{ github.event.inputs.ver }}"
+        $date = Get-Date -Format "MM/dd/yyyy"
+        $windowsLink = "https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        $content = Get-Content $filePath
+        $content -replace '| VERSION_NUMBER | DATE  |  WINDOWS_LINK |', "| $version | $date | $windowsLink |" | Set-Content -Path $filePath
+      shell: pwsh
+
     - name: Build documentation
       run: docfx docs/docfx/docfx.json
 
@@ -91,10 +102,8 @@ jobs:
     - name: Copy installer file to website's installer directory
       run: |
         $source = "${{ github.workspace }}\.inno\output\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-        $destination = "${{ runner.temp }}\docs\installer\SSHammerhead_Setup.exe"
+        $destination = "${{ runner.temp }}\docs\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
         Copy-Item -Path $source -Destination $destination -Force
-        $versioned_destination = "${{ runner.temp }}\docs\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-        Copy-Item -Path $source -Destination $versioned_destination -Force
       shell: pwsh
 
     - name: Commit and push changes to SSHammerhead-docs

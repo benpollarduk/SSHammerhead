@@ -398,5 +398,10 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Inno output
-SSHammerhead.Installer/Debug
-SSHammerhead.Installer/Output
+.inno/Debug
+.inno/Output
+
+# DocFx
+docs/docfx/.cache
+docs/docfx/_site/
+docs/docfx/api/

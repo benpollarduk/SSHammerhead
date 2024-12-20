@@ -1,2 +1,4 @@
 - name: Home
-  href:
+  href: index.md
+- name: Download
+  href: docs/download.md
