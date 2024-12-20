@@ -75,7 +75,7 @@ jobs:
         $newRow = "| $version | $date | $windowsLink | $releaseNotes |"
         Write-Output "New row will be $newRow"
         $content = Get-Content $filePath
-        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', $newRow | Set-Content -Path $filePath
+        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', "$newRow" | Set-Content -Path $filePath
         $content = Get-Content $filePath
         Write-Output "File content is now $content"
       shell: pwsh
