@@ -67,8 +67,7 @@ jobs:
 
     - name: Update links in download page of documentation site
       run: |
-        cd "${{ github.workspace }}"
-        $filePath = "docs/docfx/docs/download.md"
+        $filePath = "${{ github.workspace }}\docs\docfx\docs\download.md"
         $version = "${{ github.event.inputs.ver }}"
         $date = Get-Date -Format "MM/dd/yyyy"
         $windowsLink = "https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
