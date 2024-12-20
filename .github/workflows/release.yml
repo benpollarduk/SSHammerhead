@@ -92,9 +92,11 @@ jobs:
 
     - name: Delete existing website files and directories
       run: |
-        cd "${{ runner.temp }}\website"
-        git rm -r *
-        git clean -fd
+        $directory = "${{ runner.temp }}\website"
+        Get-ChildItem -Path $directory -Force -Recurse | Where-Object {
+            $_.FullName -notmatch "\\\.git($|\\)"
+        } | Remove-Item -Force -Recurse
+      shell: pwsh
 
     - name: Copy website files
       run: |
