@@ -72,8 +72,10 @@ jobs:
         $date = Get-Date -Format "MM/dd/yyyy"
         $windowsLink = "[SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe](https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe)"
         $releaseNotes = "${{ github.event.inputs.release-notes }}"
-        $content = Get-Content $filePath
-        $content -replace 'PLACE_HOLDER', "\| $version \| $date \| $windowsLink \| $releaseNotes \|" | Set-Content -Path $filePath
+        Add-Content -Path $filePath -Value "**Version:** $version"
+        Add-Content -Path $filePath -Value "**Date:** $date"
+        Add-Content -Path $filePath -Value "**Download:** $windowsLink"
+        Add-Content -Path $filePath -Value "**Release Notes:** $releaseNotesk"
       shell: pwsh
 
     - name: Build documentation
