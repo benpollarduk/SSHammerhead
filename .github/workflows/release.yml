@@ -75,7 +75,7 @@ jobs:
         $newRow = "| $version | $date | $windowsLink | $releaseNotes |"
         Write-Output "New row will be $newRow"
         $content = Get-Content $filePath
-        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', "$newRow" | Set-Content -Path $filePath
+        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', "'"$newRow'"" | Set-Content -Path $filePath
         Write-Output "File content is $content"
       shell: pwsh
 
@@ -83,7 +83,7 @@ jobs:
       run: docfx docs/docfx/docfx.json
 
     - name: Create temporary directory for website
-      run: mkdir "${{ runner.temp }}\docs"
+      run: mkdir "${{ runner.temp }}\website"
 
     - name: Checkout existing website
       run: |
