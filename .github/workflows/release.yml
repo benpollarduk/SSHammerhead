@@ -75,7 +75,7 @@ jobs:
         Add-Content -Path $filePath -Value "**Version:** $version"
         Add-Content -Path $filePath -Value "**Date:** $date"
         Add-Content -Path $filePath -Value "**Download:** $windowsLink"
-        Add-Content -Path $filePath -Value "**Release Notes:** $releaseNotesk"
+        Add-Content -Path $filePath -Value "**Release Notes:** $releaseNotes"
       shell: pwsh
 
     - name: Build documentation
