@@ -72,8 +72,18 @@ jobs:
         $version = "${{ github.event.inputs.ver }}"
         $date = Get-Date -Format "MM/dd/yyyy"
         $windowsLink = "https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        $releaseNotes = "${{ github.event.inputs.release-notes }}"
         $content = Get-Content $filePath
-        $content -replace '| VERSION_NUMBER | DATE  |  WINDOWS_LINK |', "| $version | $date | $windowsLink |" | Set-Content -Path $filePath
+        $newRow = "| $version | $date | $windowsLink | $releaseNotes |"
+
+        if ($content -match "\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|") {
+            $updatedContent = $content -replace "(\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|.*)", "`$1`n$newRow"
+        } else {
+            Write-Error "Table header not found in file: $filePath"
+            exit 1
+        }
+
+        $updatedContent | Set-Content -Path $filePath | Set-Content -Path $filePath
       shell: pwsh
 
     - name: Build documentation
