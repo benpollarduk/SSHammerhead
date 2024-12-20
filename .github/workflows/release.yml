@@ -101,7 +101,9 @@ jobs:
 
     - name: Create installer directory
       run: |
-        mkdir -p "${{ runner.temp }}\website\installer"
+        if (-not (Test-Path -Path "${{ runner.temp }}\website\installer")) {
+          mkdir -p "${{ runner.temp }}\website\installer"
+        }
 
     - name: Copy installer file to website's installer directory
       run: |
