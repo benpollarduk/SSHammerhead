@@ -73,7 +73,7 @@ jobs:
         $windowsLink = "[SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe](https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe)"
         $releaseNotes = "${{ github.event.inputs.release-notes }}"
         $content = Get-Content $filePath
-        $content -replace 'PLACE_HOLDER', "\| `"$version`" \| `"$date`" \| `"$windowsLink`" \| `"$releaseNotes`" \|" | Set-Content -Path $filePath
+        $content -replace 'PLACE_HOLDER', "\| $version \| $date \| $windowsLink \| $releaseNotes \|" | Set-Content -Path $filePath
       shell: pwsh
 
     - name: Build documentation
