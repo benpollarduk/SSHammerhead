@@ -72,9 +72,11 @@ jobs:
         $date = Get-Date -Format "MM/dd/yyyy"
         $windowsLink = "https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
         $releaseNotes = "${{ github.event.inputs.release-notes }}"
-        $content = Get-Content $filePath
         $newRow = "| $version | $date | $windowsLink | $releaseNotes |"
+        Write-Output "New row will be $newRow"
+        $content = Get-Content $filePath
         $content -replace '| VERSION_NUMBER | DATE  | WINDOWS_LINK  | RELEASE_NOTES |', $newRow | Set-Content -Path $filePath
+        Write-Output "File content is $content"
       shell: pwsh
 
     - name: Build documentation
