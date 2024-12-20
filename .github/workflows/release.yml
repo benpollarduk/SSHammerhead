@@ -70,12 +70,12 @@ jobs:
         $filePath = "${{ github.workspace }}\docs\docfx\docs\download.md"
         $version = "${{ github.event.inputs.ver }}"
         $date = Get-Date -Format "MM/dd/yyyy"
-        $windowsLink = "https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        $windowsLink = "[SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe](https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe)"
         $releaseNotes = "${{ github.event.inputs.release-notes }}"
         $newRow = "| $version | $date | $windowsLink | $releaseNotes |"
         Write-Output "New row will be $newRow"
         $content = Get-Content $filePath
-        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', $newRow | Set-Content -Path $filePath
+        $content -replace '\| VERSION_NUMBER \| DATE \| WINDOWS_LINK \| RELEASE_NOTES \|', "$newRow" | Set-Content -Path $filePath
         Write-Output "File content is $content"
       shell: pwsh
 
@@ -87,7 +87,7 @@ jobs:
 
     - name: Checkout existing website
       run: |
-        cd "${{ runner.temp }}/docs"
+        cd "${{ runner.temp }}\website"
         git init
         git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git
         git fetch origin main
@@ -95,23 +95,23 @@ jobs:
 
     - name: Copy website files
       run: |
-        cd "${{ runner.temp }}\docs"
-        cp -r ${{ github.workspace }}\docs\docfx\_site\* .
+        cd "${{ runner.temp }}\website"
+        cp -r ${{ github.workspace }}\website\docfx\_site\* .
 
     - name: Create installer directory
       run: |
-        mkdir -p "${{ runner.temp }}\docs\installer"
+        mkdir -p "${{ runner.temp }}\website\installer"
 
     - name: Copy installer file to website's installer directory
       run: |
         $source = "${{ github.workspace }}\.inno\output\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
-        $destination = "${{ runner.temp }}\docs\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
+        $destination = "${{ runner.temp }}\website\installer\SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe"
         Copy-Item -Path $source -Destination $destination -Force
       shell: pwsh
 
     - name: Commit and push changes to SSHammerhead-docs
       run: |
-        cd "${{ runner.temp }}\docs"
+        cd "${{ runner.temp }}\website"
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git fetch origin main
