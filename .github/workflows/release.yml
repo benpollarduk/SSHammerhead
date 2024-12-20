@@ -72,9 +72,9 @@ jobs:
         $date = Get-Date -Format "MM/dd/yyyy"
         $windowsLink = "[SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe](https://benpollarduk.github.io/SSHammerhead-docs/installer/SSHammerhead_${{ github.event.inputs.ver }}_Setup.exe)"
         $releaseNotes = "${{ github.event.inputs.release-notes }}"
-        Add-Content -Path $filePath -Value "**Version:** $version"
-        Add-Content -Path $filePath -Value "**Date:** $date"
-        Add-Content -Path $filePath -Value "**Download:** $windowsLink"
+        Add-Content -Path $filePath -Value "**Version:** $version`n"
+        Add-Content -Path $filePath -Value "**Date:** $date`n"
+        Add-Content -Path $filePath -Value "**Download:** $windowsLink`n"
         Add-Content -Path $filePath -Value "**Release Notes:** $releaseNotes"
       shell: pwsh
 
