@@ -48,7 +48,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
 
         public PlayableCharacter Instantiate()
         {
-            return new PlayableCharacter(Name, Description, false, commands:
+            return new PlayableCharacter(Name, Description, false, false, commands:
             [
                 new CustomCommand(new CommandHelp("Abort", $"Abort remote control"), true, true, (game, arguments) =>
                 {
