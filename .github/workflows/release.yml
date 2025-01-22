@@ -121,8 +121,6 @@ jobs:
         cd "${{ runner.temp }}\website"
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        git fetch origin main
-        git reset --hard origin/main
         git add .
         git commit -m "Update documentation"
         git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git HEAD:main
