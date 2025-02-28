@@ -1,8 +1,8 @@
 ﻿using NetAF.Assets;
 using NetAF.Extensions;
 using NetAF.Rendering;
-using NetAF.Rendering.Console;
 using NetAF.Rendering.FrameBuilders;
+using NetAF.Targets.Console.Rendering;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {

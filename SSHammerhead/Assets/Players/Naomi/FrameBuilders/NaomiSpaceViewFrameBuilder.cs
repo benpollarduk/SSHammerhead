@@ -1,4 +1,5 @@
 ﻿using NetAF.Assets;
+using NetAF.Targets.Console.Rendering;
 using System;
 
 namespace NetAF.Rendering.Console.FrameBuilders

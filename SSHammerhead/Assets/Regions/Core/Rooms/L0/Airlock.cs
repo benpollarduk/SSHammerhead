@@ -3,8 +3,8 @@ using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic.Modes;
-using NetAF.Rendering.Console;
 using NetAF.Rendering.Console.FrameBuilders;
+using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 

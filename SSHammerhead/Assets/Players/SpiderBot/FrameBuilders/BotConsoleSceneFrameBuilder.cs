@@ -6,8 +6,8 @@ using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Rendering;
-using NetAF.Rendering.Console;
 using NetAF.Rendering.FrameBuilders;
+using NetAF.Targets.Console.Rendering;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
@@ -87,7 +87,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
             lastY += 2;
 
-            roomMapBuilder?.BuildRoomMap(room, viewPoint, keyType, new Point2D(size.Width / 2 - 4, lastY + 8), out _, out lastY);
+            if (roomMapBuilder is IConsoleRoomMapBuilder consoleRoomMapBuilder)
+                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, keyType, new Point2D(size.Width / 2 - 4, lastY + 8), out _, out lastY);
+            else
+                roomMapBuilder?.BuildRoomMap(room, viewPoint, keyType);
 
             if (contextualCommands != null && contextualCommands.Length > 0)
             {

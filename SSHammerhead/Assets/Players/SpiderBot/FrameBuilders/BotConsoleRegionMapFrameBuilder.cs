@@ -3,8 +3,8 @@ using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Rendering;
-using NetAF.Rendering.Console;
 using NetAF.Rendering.FrameBuilders;
+using NetAF.Targets.Console.Rendering;
 using System;
 using System.Linq;
 
@@ -123,7 +123,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             var startMapPosition = new Point2D(leftMargin, mapStartY);
             var mapSize = new Size(availableWidth, size.Height - 4 - commandSpace);
 
-            RegionMapBuilder?.BuildRegionMap(region, startMapPosition, focusPosition, mapSize);
+            if (RegionMapBuilder is IConsoleRegionMapBuilder consoleRegionMapBuilder)
+                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, startMapPosition, mapSize);
+            else
+                RegionMapBuilder?.BuildRegionMap(region, focusPosition);
 
             gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
             gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);

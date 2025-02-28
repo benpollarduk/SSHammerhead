@@ -4,8 +4,7 @@ using System.Linq;
 using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Rendering;
-using NetAF.Rendering.Console;
-using NetAF.Rendering.FrameBuilders;
+using NetAF.Targets.Console.Rendering;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
@@ -13,7 +12,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
     /// Provides a console room map builder.
     /// </summary>
     /// <param name="gridStringBuilder">The string builder to use.</param>
-    public sealed class BotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder) : IRoomMapBuilder
+    public sealed class BotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder) : IConsoleRoomMapBuilder
     {
         #region Properties
 
@@ -85,7 +84,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         #endregion
 
         #region Methods
-
 
         /// <summary>
         /// Draw the north border.
@@ -367,6 +365,21 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         #endregion
 
         #region Implementation of IRoomMapBuilder
+
+        /// <summary>
+        /// Build a map for a room.
+        /// </summary>
+        /// <param name="room">The room.</param>
+        /// <param name="viewPoint">The viewpoint from the room.</param>
+        /// <param name="key">The key type.</param>
+        public void BuildRoomMap(Room room, ViewPoint viewPoint, KeyType key)
+        {
+            BuildRoomMap(room, viewPoint, key, new Point2D(0, 0), out _, out _);
+        }
+
+        #endregion
+
+        #region Implementation of IConsoleRoomMapBuilder
 
         /// <summary>
         /// Build a map for a room.

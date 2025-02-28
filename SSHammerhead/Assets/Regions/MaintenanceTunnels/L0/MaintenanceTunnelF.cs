@@ -2,7 +2,6 @@
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Utilities;
-using SixLabors.ImageSharp.Metadata;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 

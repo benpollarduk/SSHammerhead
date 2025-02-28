@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 
