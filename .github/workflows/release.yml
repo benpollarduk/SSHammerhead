@@ -57,7 +57,7 @@ jobs:
         path: .inno/setup.iss
 
     - name: Upload installer as artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: "SSHammerhead_${{ github.event.inputs.ver }}_Setup"
         path: .inno/output/*.exe
