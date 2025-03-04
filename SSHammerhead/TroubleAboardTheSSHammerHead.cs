@@ -2,6 +2,7 @@
 using NetAF.Commands;
 using NetAF.Logic;
 using NetAF.Logic.Callbacks;
+using NetAF.Logic.Configuration;
 using NetAF.Targets.Console;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
@@ -15,7 +16,7 @@ using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
 
 namespace SSHammerhead
 {
-    internal static class TroubleAboardTheSSHammerHead
+    public static class TroubleAboardTheSSHammerHead
     {
         #region Constants
 
@@ -47,7 +48,7 @@ namespace SSHammerhead
             return EndCheckResult.NotEnded;
         }
 
-        internal static GameCreationCallback Create()
+        public static GameCreationCallback Create(IGameConfiguration configuration)
         {
             static Overworld overworldCreator()
             {
@@ -105,7 +106,7 @@ namespace SSHammerhead
                 Introduction,
                 AssetGenerator.Custom(overworldCreator, () => new NaomiTemplate().Instantiate()),
                 new GameEndConditions(CheckForCompletion, CheckForGameOver),
-                ConsoleGameConfiguration.Default,
+                configuration,
                 setup);
 
         }
