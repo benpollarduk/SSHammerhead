@@ -1,5 +1,8 @@
-﻿using NetAF.Logic;
+﻿using NetAF.Assets;
+using NetAF.Logic;
 using NetAF.Rendering;
+using NetAF.Targets.Console.Rendering;
+using System.Text;
 
 namespace SSHammerhead.Blazor
 {
@@ -77,6 +80,42 @@ namespace SSHammerhead.Blazor
 
         #endregion
 
+        #region StaticMethods
+
+        /// <summary>
+        /// Convert an instance of IConsoleFrame to a HTML string.
+        /// </summary>
+        /// <param name="frame">The frame to convert.</param>
+        /// <param name="size">The size of the frame.</param>
+        /// <returns>The converted string.</returns>
+        internal static string Convert(IConsoleFrame frame, Size size)
+        {
+            StringBuilder stringBuilder = new();
+
+            static string toHex(AnsiColor color)
+            {
+                return $"#{color.R:X2}{color.G:X2}{color.B:X2}";
+            }
+
+            for (var row = 0; row < size.Height; row++)
+            {
+                for (var column = 0; column < size.Width; column++)
+                {
+                    var cell = frame.GetCell(column, row);
+                    var character = cell.Character == 0 ? ' ' : cell.Character;
+                    var span = $"<span style=\"background-color: {toHex(cell.Background)}; color: {toHex(cell.Foreground)}; display: inline-block; line-height: 1;\">{character}</span>";
+                    stringBuilder.Append(span);
+                }
+
+                stringBuilder.Append("<br>");
+            }
+
+            // append as raw HTML using styling to specify monospace for correct horizontal alignment and pre to preserve whitespace
+            return $"<pre style=\"font-family: 'Courier New', Courier, monospace;\">{stringBuilder}</pre>";
+        }
+
+        #endregion
+
         #region Implementation of IIOAdapter
 
         /// <summary>
@@ -95,9 +134,11 @@ namespace SSHammerhead.Blazor
         /// <param name="frame">The frame to render.</param>
         public void RenderFrame(IFrame frame)
         {
-            // convert the Console frame to an HTML frame
-
-            frame.Render(presenter);
+            // convert the console frame to an HTML frame if possible
+            if (frame is IConsoleFrame ansiFrame)
+                presenter.Present(Convert(ansiFrame, Game.Configuration.DisplaySize));
+            else
+                frame.Render(presenter);
         }
 
         /// <summary>

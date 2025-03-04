@@ -51,7 +51,7 @@
         Task.Run(() =>
         {
             adapter = new ConsoleToHtmlAdapter(this);
-            GameConfiguration configuration = new(adapter, FrameBuilderCollections.Html, new(80, 50));
+            GameConfiguration configuration = new(adapter, FrameBuilderCollections.Console, new(80, 50));
             Game.Execute(TroubleAboardTheSSHammerHead.Create(configuration));
         });
     }
