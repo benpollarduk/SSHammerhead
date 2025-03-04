@@ -1,0 +1,73 @@
+﻿@page "/"
+@using NetAF.Logic.Configuration
+@using NetAF.Logic.Modes
+@using NetAF.Rendering.FrameBuilders
+@implements IFramePresenter
+@rendermode InteractiveServer
+
+<PageTitle>SSHammerhead</PageTitle>
+
+<div>
+    @((MarkupString)frameAsHtml)
+</div>
+
+<br />
+
+@if (showInput)
+{
+    <input type="text" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+}
+
+@if (showAcknowledge)
+{
+    <button class="btn btn-primary" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+}
+
+@code {
+    private string frameAsHtml = string.Empty;
+    private ConsoleToHtmlAdapter? adapter;
+    private string text = string.Empty;
+    private bool showInput = false;
+    private bool showAcknowledge = false;
+    private ElementReference acknowledgeButton;
+    private ElementReference textInput;
+
+    private void Acknowledge()
+    {
+        adapter?.AcknowledgeReceived();
+    }
+
+    private void HandleInput(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(text))
+        {
+            adapter?.InputReceived(text);
+            text = string.Empty;
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+        Task.Run(() =>
+        {
+            adapter = new ConsoleToHtmlAdapter(this);
+            GameConfiguration configuration = new(adapter, FrameBuilderCollections.Html, new(80, 50));
+            Game.Execute(TroubleAboardTheSSHammerHead.Create(configuration));
+        });
+    }
+
+    public async void Present(string frame)
+    {
+        frameAsHtml = frame;
+        showInput = adapter?.Game?.Mode?.Type == GameModeType.Interactive;
+        showAcknowledge = adapter?.Game?.Mode?.Type == GameModeType.Information;
+
+        await InvokeAsync(StateHasChanged);
+
+        if (showInput && textInput.Context != null)
+            await textInput.FocusAsync();
+
+        if (showAcknowledge && acknowledgeButton.Context != null)
+            await acknowledgeButton.FocusAsync();
+    }
+}
