@@ -9,7 +9,8 @@ namespace NetAF.Rendering.Console.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
+    /// <param name="imageRoot">The image root. Leave blank for a relative path to the build directory.</param>
+    public sealed class NaomiTitleFrameBuilder(GridStringBuilder gridStringBuilder, string imageRoot = "") : ITitleFrameBuilder
     {
         #region Properties
 
@@ -57,12 +58,12 @@ namespace NetAF.Rendering.Console.FrameBuilders
 
             gridStringBuilder.DrawWrapped(description, 2, lastY + 3, availableWidth, DescriptionColor, out _, out lastY);
 
-            var imageBuilder = VisualHelper.FromImage("Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
-
             var output = new GridVisualBuilder(BackgroundColor, TitleColor);
             output.Resize(size);
 
             output.Overlay(0, 0, gridStringBuilder);
+            
+            var imageBuilder = VisualHelper.FromImage($"{imageRoot}Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
             output.Overlay((size.Width / 2) - (imageBuilder.DisplaySize.Width / 2), (size.Height / 2) - (imageBuilder.DisplaySize.Height / 2) + lastY / 2, imageBuilder);
 
             return new GridVisualFrame(output) { ShowCursor = false };

@@ -4,12 +4,9 @@ using NetAF.Commands;
 using NetAF.Commands.Persistence;
 using NetAF.Logic.Modes;
 using NetAF.Rendering.Console.FrameBuilders;
-using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
-using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 
 namespace SSHammerhead.Assets.Players.SpiderBot
 {
@@ -21,27 +18,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot
         public static Identifier Identifier => new(Name);
         private const string Name = "Bot";
         private const string Description = "A first generation spider bot, main purpose low scale maintenance operations.";
-
-        public static FrameBuilderCollection FrameBuilderCollection
-        {
-            get
-            {
-                var gridLayoutBuilder = new GridStringBuilder();
-                var botLayoutBuilder = new GridStringBuilder('[', ']', '+');
-
-                return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridLayoutBuilder),
-                    new BotConsoleSceneFrameBuilder(botLayoutBuilder, new BotConsoleRoomMapBuilder(botLayoutBuilder)),
-                    new BotConsoleRegionMapFrameBuilder(botLayoutBuilder, new BotConsoleRegionMapBuilder(botLayoutBuilder)),
-                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
-                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
-                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
-                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new BotConsoleReactionFrameBuilder(botLayoutBuilder),
-                    new ConsoleConversationFrameBuilder(gridLayoutBuilder));
-            }
-        }
 
         #endregion
 

@@ -1,12 +1,12 @@
 ﻿using NetAF.Logic;
 using NetAF.Logic.Configuration;
-using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console;
 using SSHammerhead;
+using SSHammerhead.Console;
 
 try
 {
-    Game.Execute(TroubleAboardTheSSHammerHead.Create(new GameConfiguration(new ConsoleAdapter(), FrameBuilderCollections.Console, new(80, 50))));
+    Game.Execute(TroubleAboardTheSSHammerHead.Create(new GameConfiguration(new ConsoleAdapter(), FrameBuilderCollections.Naomi, new(80, 50)), FrameBuilderCollections.Naomi, FrameBuilderCollections.Bot));
 }
 catch (Exception e)
 {

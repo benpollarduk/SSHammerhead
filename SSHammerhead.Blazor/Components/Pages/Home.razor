@@ -1,11 +1,10 @@
 ﻿@page "/"
 @using NetAF.Logic.Configuration
 @using NetAF.Logic.Modes
-@using NetAF.Rendering.FrameBuilders
 @implements IFramePresenter
 @rendermode InteractiveServer
 
-<PageTitle>SSHammerhead</PageTitle>
+<PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
 
 <div>
     @((MarkupString)frameAsHtml)
@@ -51,8 +50,8 @@
         Task.Run(() =>
         {
             adapter = new ConsoleToHtmlAdapter(this);
-            GameConfiguration configuration = new(adapter, FrameBuilderCollections.Console, new(80, 50));
-            Game.Execute(TroubleAboardTheSSHammerHead.Create(configuration));
+            GameConfiguration configuration = new(adapter, FrameBuilderCollections.Naomi, new(80, 50));
+            Game.Execute(TroubleAboardTheSSHammerHead.Create(configuration, FrameBuilderCollections.Naomi, FrameBuilderCollections.Bot));
         });
     }
 
