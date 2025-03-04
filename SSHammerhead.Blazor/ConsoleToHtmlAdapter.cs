@@ -24,7 +24,7 @@ namespace SSHammerhead.Blazor
         /// <summary>
         /// Get the game.
         /// </summary>
-        public Game Game { get; private set; }
+        public Game? Game { get; private set; }
 
         #endregion
 
@@ -107,11 +107,12 @@ namespace SSHammerhead.Blazor
                     stringBuilder.Append(span);
                 }
 
-                stringBuilder.Append("<br>");
+                if (row < size.Height - 1)
+                    stringBuilder.Append("<br>");
             }
 
             // append as raw HTML using styling to specify monospace for correct horizontal alignment and pre to preserve whitespace
-            return $"<pre style=\"font-family: 'Courier New', Courier, monospace;\">{stringBuilder}</pre>";
+            return $"<pre style=\"font-family: 'Courier New', Courier, monospace; line-height: 1; font-size: 1em;\">{stringBuilder}</pre>";
         }
 
         #endregion
