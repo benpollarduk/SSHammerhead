@@ -16,7 +16,8 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="roomMapBuilder">A builder to use for room maps.</param>
-    public sealed class BotConsoleSceneFrameBuilder(GridStringBuilder gridStringBuilder, IRoomMapBuilder roomMapBuilder) : ISceneFrameBuilder
+    /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
+    public sealed class BotConsoleSceneFrameBuilder(GridStringBuilder gridStringBuilder, IRoomMapBuilder roomMapBuilder, bool renderPrompt = true) : ISceneFrameBuilder
     {
         #region Fields
 
@@ -95,8 +96,8 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             if (contextualCommands != null && contextualCommands.Length > 0)
             {
                 const int requiredSpaceForDivider = 3;
-                const int requiredSpaceForPrompt = 3;
                 const int requiredSpaceForCommandHeader = 2;
+                int requiredSpaceForPrompt = renderPrompt ? 3 : 1;
                 var requiredYToFitAllCommands = size.Height - requiredSpaceForCommandHeader - requiredSpaceForPrompt - requiredSpaceForDivider - contextualCommands.Length;
                 var yStart = Math.Max(requiredYToFitAllCommands, lastY);
                 lastY = yStart;
@@ -126,8 +127,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 }
             }
 
-            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
-            gridStringBuilder.DrawWrapped(">>>", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+            if (renderPrompt)
+            {
+                gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
+                gridStringBuilder.DrawWrapped(">>>", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+            }
 
             return new GridTextFrame(gridStringBuilder, 6, availableHeight, BackgroundColor);
         }
