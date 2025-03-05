@@ -14,13 +14,31 @@
 
 @if (showInput)
 {
-    <input type="text" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+    <div class="container-stretch">
+        <input class="input-stretch" type="text" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+    </div>
 }
 
 @if (showAcknowledge)
 {
-    <button class="btn btn-primary" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+    <div class="container-stretch">
+        <button class="btn btn-primary btn-stretch" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+    </div>
 }
+
+<style>
+    .container-stretch {
+        display: flex;
+    }
+
+    .btn-stretch {
+        width: 100%;
+    }
+
+    .input-stretch {
+        width: 100%;
+    }
+</style>
 
 @code {
     private string frameAsHtml = string.Empty;
