@@ -16,7 +16,7 @@ InfoBeforeFile=Eula.txt
 AlwaysShowDirOnReadyPage=yes
 
 [Files]
-Source: "..\SSHammerhead\bin\Release\*"; DestDir:"{app}"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
+Source: "..\SSHammerhead.Console\bin\Release\*"; DestDir:"{app}"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
 
 [Icons]
 Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"
