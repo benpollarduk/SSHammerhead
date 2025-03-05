@@ -405,3 +405,6 @@ FodyWeavers.xsd
 docs/docfx/.cache
 docs/docfx/_site/
 docs/docfx/api/
+
+# Blazor - images are copied in dynamically on build
+SSHammerhead.Blazor/wwwroot/Images
