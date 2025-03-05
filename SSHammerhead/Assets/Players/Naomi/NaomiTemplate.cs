@@ -1,14 +1,10 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Characters;
 using NetAF.Extensions;
-using NetAF.Rendering.FrameBuilders;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Commands.Persistence;
 using NetAF.Commands;
-using NetAF.Rendering.Console.FrameBuilders;
-using NetAF.Targets.Console.Rendering.FrameBuilders;
-using NetAF.Targets.Console.Rendering;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {
@@ -19,26 +15,6 @@ namespace SSHammerhead.Assets.Players.Naomi
         public static Identifier Identifier => new(Name);
         private const string Name = "Naomi";
         private const string Description = "You, Naomi Martin, are a 32-year-old shuttle mechanic.";
-
-        public static FrameBuilderCollection FrameBuilderCollection
-        {
-            get
-            {
-                var gridLayoutBuilder = new GridStringBuilder();
-
-                return new FrameBuilderCollection(
-                    new NaomiTitleFrameBuilder(gridLayoutBuilder),
-                    new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder)),
-                    new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder)),
-                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
-                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
-                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
-                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new ConsoleReactionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleConversationFrameBuilder(gridLayoutBuilder));
-            }
-        }
 
         #endregion
 

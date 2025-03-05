@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NetAF" Version="2.10.6" />
+    <PackageReference Include="NetAF.Imaging" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SSHammerhead\SSHammerhead.csproj" />
+  </ItemGroup>
+
+  <Target Name="CopyImages" AfterTargets="Build">
+    <ItemGroup>
+      <SourceImages Include="$(SolutionDir)SSHammerhead\bin\$(Configuration)\net8.0\Images\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SourceImages)" DestinationFolder="$(ProjectDir)wwwroot\Images\" />
+  </Target>
+
+</Project>

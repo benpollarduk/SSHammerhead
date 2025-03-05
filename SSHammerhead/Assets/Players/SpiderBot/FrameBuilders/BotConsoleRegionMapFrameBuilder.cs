@@ -15,7 +15,8 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="regionMapBuilder">A builder for region maps.</param>
-    public sealed class BotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder) : IRegionMapFrameBuilder
+    /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
+    public sealed class BotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder, bool renderPrompt = true) : IRegionMapFrameBuilder
     {
         #region Fields
 
@@ -89,8 +90,8 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             if (contextualCommands?.Any() ?? false)
             {
                 const int requiredSpaceForDivider = 1;
-                const int requiredSpaceForPrompt = 3;
                 const int requiredSpaceForCommandHeader = 2;
+                int requiredSpaceForPrompt = renderPrompt ? 3 : 1;
                 var requiredYToFitAllCommands = size.Height - requiredSpaceForCommandHeader - requiredSpaceForPrompt - requiredSpaceForDivider - contextualCommands.Length;
                 var yStart = Math.Max(requiredYToFitAllCommands, lastY);
                 lastY = yStart;
@@ -128,8 +129,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             else
                 RegionMapBuilder?.BuildRegionMap(region, focusPosition);
 
-            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
-            gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+            if (renderPrompt)
+            {
+                gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
+                gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+            }
 
             return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor) { ShowCursor = true };
         }

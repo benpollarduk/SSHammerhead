@@ -2,7 +2,8 @@
 using NetAF.Commands;
 using NetAF.Logic;
 using NetAF.Logic.Callbacks;
-using NetAF.Targets.Console;
+using NetAF.Logic.Configuration;
+using NetAF.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Players.SpiderBot;
@@ -15,7 +16,7 @@ using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
 
 namespace SSHammerhead
 {
-    internal static class TroubleAboardTheSSHammerHead
+    public static class TroubleAboardTheSSHammerHead
     {
         #region Constants
 
@@ -47,7 +48,7 @@ namespace SSHammerhead
             return EndCheckResult.NotEnded;
         }
 
-        internal static GameCreationCallback Create()
+        public static GameCreationCallback Create(IGameConfiguration configuration, FrameBuilderCollection naomiFrameBuilders, FrameBuilderCollection botFrameBuilders)
         {
             static Overworld overworldCreator()
             {
@@ -74,7 +75,7 @@ namespace SSHammerhead
                 return overworld;
             }
 
-            static void setup(Game g)
+            static void setup(Game g, FrameBuilderCollection naomiFrameBuilders, FrameBuilderCollection botFrameBuilders)
             {
                 // get start positions
                 g.Overworld.FindRegion(SSHammerHead.Name, out var sshh);
@@ -89,8 +90,8 @@ namespace SSHammerhead
                 PlayableCharacterManager.Clear();
 
                 // setup players
-                PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, NaomiTemplate.FrameBuilderCollection));
-                PlayableCharacterManager.Add(new PlayableCharacterRecord(bot, tunnels, botStart, SpiderBotTemplate.FrameBuilderCollection));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, naomiFrameBuilders));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(bot, tunnels, botStart, botFrameBuilders));
 
                 // setup for current player
                 PlayableCharacterManager.ApplyConfiguration(g.Player, g);
@@ -105,8 +106,8 @@ namespace SSHammerhead
                 Introduction,
                 AssetGenerator.Custom(overworldCreator, () => new NaomiTemplate().Instantiate()),
                 new GameEndConditions(CheckForCompletion, CheckForGameOver),
-                ConsoleGameConfiguration.Default,
-                setup);
+                configuration,
+                g => setup(g, naomiFrameBuilders, botFrameBuilders));
 
         }
 
