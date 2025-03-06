@@ -68,9 +68,6 @@ jobs:
         dotnet publish -c Release -o dist
       shell: bash
 
-    - name: Debug - list files
-      run: ls
-
     - name: Create temporary directory for Blazor app
       run: mkdir "${{ runner.temp }}\blazor"
 
@@ -99,11 +96,6 @@ jobs:
       run: |
         cd "${{ runner.temp }}\blazor"
         touch .nojekyll
-
-    - name: Debug - list files
-      run: |
-        cd "${{ runner.temp }}\blazor"
-        ls
 
     - name: Update the base in index.html
       run: |
