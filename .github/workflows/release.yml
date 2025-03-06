@@ -131,14 +131,6 @@ jobs:
         git commit -m "Update documentation"
         git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git HEAD:main
 
-    - name: Tag the commit
-      run: |
-        cd ${{ github.workspace }}
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
-        git push --tags
-
     - name: Create temporary directory for Blazor app
       run: mkdir "${{ runner.temp }}\blazor"
 
@@ -184,6 +176,14 @@ jobs:
         git add .
         git commit -m "Update app"
         git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead.git HEAD:blazor-publish
+  
+    - name: Tag the commit
+      run: |
+        cd ${{ github.workspace }}
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git tag -a "${{ inputs.ver }}" -m "${{ inputs.ver }} tagged during GitHub action"
+        git push --tags
 
     - name: Create GitHub release
       uses: actions/create-release@v1
