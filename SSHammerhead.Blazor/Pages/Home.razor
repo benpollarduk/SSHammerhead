@@ -1,8 +1,8 @@
 ﻿@page "/"
 @using NetAF.Logic.Configuration
 @using NetAF.Logic.Modes
+@using NetAF.Rendering.FrameBuilders
 @implements IFramePresenter
-@rendermode InteractiveServer
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
 
@@ -41,8 +41,8 @@
 </style>
 
 @code {
+    private HtmlAdapter? htmlAdapter;
     private string frameAsHtml = string.Empty;
-    private ConsoleToHtmlAdapter? adapter;
     private string text = string.Empty;
     private bool showInput = false;
     private bool showAcknowledge = false;
@@ -51,33 +51,36 @@
 
     private void Acknowledge()
     {
-        adapter?.AcknowledgeReceived();
+        htmlAdapter?.AcknowledgeReceived();
+        GameExecutor.Update();
     }
 
     private void HandleInput(KeyboardEventArgs e)
     {
         if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(text))
         {
-            adapter?.InputReceived(text);
+            htmlAdapter?.InputReceived(text);
+            GameExecutor.Update(text);
+
             text = string.Empty;
         }
     }
 
     protected override void OnInitialized()
     {
-        Task.Run(() =>
-        {
-            adapter = new ConsoleToHtmlAdapter(this);
-            GameConfiguration configuration = new(adapter, FrameBuilderCollections.Naomi, new(80, 40));
-            Game.Execute(TroubleAboardTheSSHammerHead.Create(configuration, FrameBuilderCollections.Naomi, FrameBuilderCollections.Bot));
-        });
+        if (GameExecutor.IsExecuting)
+            return;
+
+        htmlAdapter = new ConsoleToHtmlAdapter(this);
+        GameConfiguration configuration = new(htmlAdapter, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, new(80, 40));
+        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, SSHammerhead.Blazor.FrameBuilderCollections.Bot), GameExecutionMode.Manual);
     }
 
     public async void Present(string frame)
     {
         frameAsHtml = frame;
-        showInput = adapter?.Game?.Mode?.Type == GameModeType.Interactive;
-        showAcknowledge = adapter?.Game?.Mode?.Type == GameModeType.Information;
+        showInput = htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive;
+        showAcknowledge = htmlAdapter?.Game?.Mode?.Type == GameModeType.Information;
 
         await InvokeAsync(StateHasChanged);
 
