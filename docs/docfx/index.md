@@ -9,6 +9,9 @@ _layout: landing
 ## Download
 Visit the [downloads](docs/download.md) page to download the latest installer.
 
+## Play in Browser
+Visit [https://benpollarduk.github.io/sshammerhead/](https://benpollarduk.github.io/SSHammerhead/) to play in the bowser. **Note:** This is an experimental feature and hasn't been optimised.
+
 ## Premise
 After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system. A ship was hurriedly prepared and scrambled and made contact 27 days later.
 You enter the outermost airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.
