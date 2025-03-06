@@ -68,6 +68,59 @@ jobs:
         dotnet publish -c Release -o dist
       shell: bash
 
+    - name: Debug - list files
+      run: ls
+
+    - name: Create temporary directory for Blazor app
+      run: mkdir "${{ runner.temp }}\blazor"
+
+    - name: Checkout existing Blazor app
+      run: |
+        cd "${{ runner.temp }}\blazor"
+        git init
+        git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead.git
+        git fetch origin blazor-publish
+        git checkout blazor-publish
+
+    - name: Delete existing Blazor files and directories
+      run: |
+        $directory = "${{ runner.temp }}\blazor"
+        Get-ChildItem -Path $directory -Force -Recurse | Where-Object {
+            $_.FullName -notmatch "\\\.git($|\\)"
+        } | Remove-Item -Force -Recurse
+      shell: pwsh
+
+    - name: Copy Blazor files
+      run: |
+        cd "${{ runner.temp }}\blazor"
+        cp -r ${{ github.workspace }}\SSHammerhead.Blazor\dist\wwwroot* . -Force
+      
+    - name: Add .nojekyll file
+      run: |
+        cd "${{ runner.temp }}\blazor"
+        touch .nojekyll
+
+    - name: Debug - list files
+      run: |
+        cd "${{ runner.temp }}\blazor"
+        ls
+
+    - name: Update the base in index.html
+      run: |
+        cd "${{ runner.temp }}\blazor"
+        $filePath = "index.html"
+        (Get-Content $filePath) -replace '<base href="" />', '<base href="https://benpollarduk.github.io/sshammerhead/" />' | Set-Content -Path $filePath
+      shell: pwsh
+
+    - name: Commit and push changes to blazor-publish
+      run: |
+        cd "${{ runner.temp }}\blazor"
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git commit -m "Update app"
+        git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead.git HEAD:blazor-publish
+      
     - name: Update docfx
       run: dotnet tool update -g docfx
 
@@ -131,51 +184,6 @@ jobs:
         git commit -m "Update documentation"
         git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead-docs.git HEAD:main
 
-    - name: Create temporary directory for Blazor app
-      run: mkdir "${{ runner.temp }}\blazor"
-
-    - name: Checkout existing Blazor app
-      run: |
-        cd "${{ runner.temp }}\blazor"
-        git init
-        git remote add origin https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead.git
-        git fetch origin blazor-publish
-        git checkout blazor-publish
-
-    - name: Delete existing Blazor files and directories
-      run: |
-        $directory = "${{ runner.temp }}\blazor"
-        Get-ChildItem -Path $directory -Force -Recurse | Where-Object {
-            $_.FullName -notmatch "\\\.git($|\\)"
-        } | Remove-Item -Force -Recurse
-      shell: pwsh
-
-    - name: Copy Blazor files
-      run: |
-        cd "${{ runner.temp }}\blazor"
-        cp -r ${{ github.workspace }}\SSHammerhead.Blazor\dist\wwwroot* . -Force
-      
-    - name: Add .nojekyll file
-      run: |
-        cd "${{ runner.temp }}\blazor"
-        touch .nojekyll
-
-    - name: Update the base in index.html
-      run: |
-        cd "${{ runner.temp }}\blazor"
-        $filePath = "index.html"
-        (Get-Content $filePath) -replace '<base href="" />', '<base href="https://benpollarduk.github.io/sshammerhead/" />' | Set-Content -Path $filePath
-      shell: pwsh
-
-    - name: Commit and push changes to blazor-publish
-      run: |
-        cd "${{ runner.temp }}\blazor"
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add .
-        git commit -m "Update app"
-        git push https://${{ secrets.PAT }}@github.com/benpollarduk/SSHammerhead.git HEAD:blazor-publish
-  
     - name: Tag the commit
       run: |
         cd ${{ github.workspace }}
