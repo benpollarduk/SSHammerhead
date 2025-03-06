@@ -68,7 +68,12 @@ Clone the repo.
 ```bash
 git clone https://github.com/benpollarduk/ss-hammerhead.git
 ```
-Build and run the solution.
+Build and run either *SSHammerhead.Console* or *SSHammerhead.Blazor* to run the console or web app respectively.
+
+### Play in Browser
+You can now play in the browser. This is a trial feature and can be clunky. The HTML frame builders from NetAF aren't currently sophisticated enough to handle all of the various frames so the console frame builders have been used to provide an emulation of the console of sorts.
+
+To play in the browser click [here](https://benpollarduk.github.io/SSHammerhead/).
 
 ## For Open Questions
 Visit https://github.com/benpollarduk/ss-hammerhead/issues
