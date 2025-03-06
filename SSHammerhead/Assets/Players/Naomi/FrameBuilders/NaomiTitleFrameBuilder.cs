@@ -2,6 +2,7 @@
 using NetAF.Imaging;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
+using System;
 
 namespace NetAF.Rendering.Console.FrameBuilders
 {
@@ -9,8 +10,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    /// <param name="imageRoot">The image root. Leave blank for a relative path to the build directory.</param>
-    public sealed class NaomiTitleFrameBuilder(GridStringBuilder gridStringBuilder, string imageRoot = "") : ITitleFrameBuilder
+    public sealed class NaomiTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
     {
         #region Properties
 
@@ -63,8 +63,15 @@ namespace NetAF.Rendering.Console.FrameBuilders
 
             output.Overlay(0, 0, gridStringBuilder);
             
-            var imageBuilder = VisualHelper.FromImage($"{imageRoot}Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
-            output.Overlay((size.Width / 2) - (imageBuilder.DisplaySize.Width / 2), (size.Height / 2) - (imageBuilder.DisplaySize.Height / 2) + lastY / 2, imageBuilder);
+            try
+            {
+                var imageBuilder = VisualHelper.FromImage("Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
+                output.Overlay((size.Width / 2) - (imageBuilder.DisplaySize.Width / 2), (size.Height / 2) - (imageBuilder.DisplaySize.Height / 2) + lastY / 2, imageBuilder);
+            }
+            catch(Exception)
+            {
+
+            }
 
             return new GridVisualFrame(output) { ShowCursor = false };
         }
