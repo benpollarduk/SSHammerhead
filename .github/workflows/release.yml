@@ -93,7 +93,7 @@ jobs:
     - name: Copy Blazor files
       run: |
         cd "${{ runner.temp }}\blazor"
-        cp -r ${{ github.workspace }}\SSHammerhead.Blazor\dist\wwwroot* . -Force
+        cp -r ${{ github.workspace }}\SSHammerhead.Blazor\dist\wwwroot\* . -Force
       
     - name: Add .nojekyll file
       run: |
