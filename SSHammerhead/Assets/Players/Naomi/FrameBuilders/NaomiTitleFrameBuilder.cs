@@ -10,7 +10,8 @@ namespace NetAF.Rendering.Console.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
+    /// <param name="root">The root directory to be used when locating images. For paths relative to the working directory use string.Empty.</param>
+    public sealed class NaomiTitleFrameBuilder(GridStringBuilder gridStringBuilder, string root = "") : ITitleFrameBuilder
     {
         #region Properties
 
@@ -65,7 +66,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
             
             try
             {
-                var imageBuilder = VisualHelper.FromImage("Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
+                var imageBuilder = VisualHelper.FromImage($"{root}Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
                 output.Overlay((size.Width / 2) - (imageBuilder.DisplaySize.Width / 2), (size.Height / 2) - (imageBuilder.DisplaySize.Height / 2) + lastY / 2, imageBuilder);
             }
             catch(Exception)
