@@ -21,7 +21,7 @@ namespace SSHammerhead.Blazor
                 var gridLayoutBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiTitleFrameBuilder(gridLayoutBuilder),
+                    new NaomiTitleFrameBuilder(gridLayoutBuilder, "wwwroot/"),
                     new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder), false),
                     new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder), false),
                     new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
