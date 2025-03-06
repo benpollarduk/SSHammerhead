@@ -72,7 +72,7 @@
             return;
 
         htmlAdapter = new ConsoleToHtmlAdapter(this);
-        GameConfiguration configuration = new(htmlAdapter, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, new(80, 40));
+        GameConfiguration configuration = new(htmlAdapter, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, new(80, 48));
         GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, SSHammerhead.Blazor.FrameBuilderCollections.Bot), GameExecutionMode.Manual);
     }
 
