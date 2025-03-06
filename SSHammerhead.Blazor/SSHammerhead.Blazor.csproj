@@ -17,6 +17,13 @@
     <ProjectReference Include="..\SSHammerhead\SSHammerhead.csproj" />
   </ItemGroup>
 
+  <Target Name="CopyImages" AfterTargets="Build">
+    <ItemGroup>
+      <SourceImages Include="$(SolutionDir)SSHammerhead\bin\$(Configuration)\net8.0\Images\*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SourceImages)" DestinationFolder="$(ProjectDir)wwwroot\Images\" />
+  </Target>
+
   <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
