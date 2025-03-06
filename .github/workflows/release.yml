@@ -101,7 +101,7 @@ jobs:
       run: |
         cd "${{ runner.temp }}\blazor"
         $filePath = "index.html"
-        (Get-Content $filePath) -replace '<base href="" />', '<base href="https://benpollarduk.github.io/sshammerhead/" />' | Set-Content -Path $filePath
+        (Get-Content $filePath) -replace '<base href="" />', '<base href="/sshammerhead/" />' | Set-Content -Path $filePath
       shell: pwsh
 
     - name: Commit and push changes to blazor-publish
