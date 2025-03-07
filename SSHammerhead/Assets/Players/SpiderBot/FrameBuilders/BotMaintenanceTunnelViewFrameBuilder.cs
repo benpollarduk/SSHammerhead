@@ -1,10 +1,10 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
-using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 
-namespace NetAF.Rendering.Console.FrameBuilders
+namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of maintenance tunnel view frames.
@@ -166,7 +166,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
                 DrawSection(left, top, right, bottom, section, ScanColor);
 
                 if (i == 2 && room.FindItem(PadlockKey.Name, out _))
-                    DrawPadlockKey((size.Width / 2) - 5, bottom - 1, PadlockKeyColor);
+                    DrawPadlockKey(size.Width / 2 - 5, bottom - 1, PadlockKeyColor);
 
                 left += section * 2;
                 top += section;

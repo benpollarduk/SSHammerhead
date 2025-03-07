@@ -1,8 +1,8 @@
-﻿using NetAF.Rendering.Console.FrameBuilders;
-using NetAF.Rendering.FrameBuilders;
+﻿using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
 
 namespace SSHammerhead.Console
 {
@@ -21,7 +21,7 @@ namespace SSHammerhead.Console
                 var gridLayoutBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiTitleFrameBuilder(gridLayoutBuilder),
+                    new NaomiConsoleTitleFrameBuilder(gridLayoutBuilder),
                     new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder)),
                     new ConsoleCommandListFrameBuilder(gridLayoutBuilder),

@@ -3,9 +3,9 @@ using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic.Modes;
-using NetAF.Rendering.Console.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
 using SSHammerhead.Assets.Regions.Core.Items;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
@@ -60,7 +60,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             [
                 new CustomCommand(new CommandHelp("Peer", "Peer through the porthole in the outer airlock door."), true, true, (g, _) =>
                 {
-                    var builder = new NaomiSpaceViewFrameBuilder(new GridStringBuilder());
+                    var builder = new NaomiConsoleSpaceViewFrameBuilder(new GridStringBuilder());
                     g.ChangeMode(new VisualMode(builder.Build(new GridVisualBuilder(AnsiColor.Black, AnsiColor.White), g.Configuration.DisplaySize)));
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);
                 })

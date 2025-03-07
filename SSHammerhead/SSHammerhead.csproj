@@ -21,7 +21,7 @@
 
   <ItemGroup>
     <PackageReference Include="NetAF" Version="3.0.0" />
-    <PackageReference Include="NetAF.Imaging" Version="1.1.0" />
+    <PackageReference Include="NetAF.Imaging" Version="1.1.2" />
   </ItemGroup>
 
 </Project>

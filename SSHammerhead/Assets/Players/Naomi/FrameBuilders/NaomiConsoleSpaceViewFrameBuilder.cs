@@ -1,14 +1,15 @@
 ﻿using NetAF.Assets;
+using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using System;
 
-namespace NetAF.Rendering.Console.FrameBuilders
+namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of space view frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiSpaceViewFrameBuilder(GridStringBuilder gridStringBuilder)
+    public sealed class NaomiConsoleSpaceViewFrameBuilder(GridStringBuilder gridStringBuilder)
     {
         #region Properties
 
@@ -102,7 +103,7 @@ namespace NetAF.Rendering.Console.FrameBuilders
             gridVisualBuilder.SetCell(centerX + 1, centerY - 2, numberCharacter, numberColor);
             gridVisualBuilder.SetCell(centerX + 2, centerY, numberCharacter, numberColor);
             gridVisualBuilder.SetCell(centerX + 3, centerY - 2, numberCharacter, numberColor);
-            gridVisualBuilder.SetCell(centerX + 2, centerY -1, numberCharacter, numberColor);
+            gridVisualBuilder.SetCell(centerX + 2, centerY - 1, numberCharacter, numberColor);
             gridVisualBuilder.SetCell(centerX - 1, centerY + 1, numberCharacter, numberColor);
             gridVisualBuilder.SetCell(centerX - 3, centerY + 2, numberCharacter, numberColor);
             gridVisualBuilder.SetCell(centerX - 4, centerY + 3, numberCharacter, numberColor);

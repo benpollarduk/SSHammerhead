@@ -1,7 +1,9 @@
-﻿using NetAF.Persistence.Json;
+﻿using NetAF.Commands;
+using NetAF.Logic;
+using NetAF.Persistence.Json;
 using SSHammerhead.Assets.Players.Management;
 
-namespace NetAF.Commands.Persistence
+namespace SSHammerhead.Commands
 {
     /// <summary>
     /// Represents the LoadWithRestore command.
@@ -25,7 +27,7 @@ namespace NetAF.Commands.Persistence
         /// <param name="game">The game to load.</param>
         /// <param name="args">The arguments. The file path must be the first element in the array.</param>
         /// <returns>The reaction.</returns>
-        private static Reaction LoadGameFromFile(Logic.Game game, string[] args)
+        private static Reaction LoadGameFromFile(Game game, string[] args)
         {
             var result = JsonSave.FromFile(args[0], out var restorePoint, out var message);
 

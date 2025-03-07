@@ -1,17 +1,15 @@
 ﻿using NetAF.Assets;
-using NetAF.Imaging;
+using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
-using System;
 
-namespace NetAF.Rendering.Console.FrameBuilders
+namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    /// <param name="root">The root directory to be used when locating images. For paths relative to the working directory use string.Empty.</param>
-    public sealed class NaomiTitleFrameBuilder(GridStringBuilder gridStringBuilder, string root = "") : ITitleFrameBuilder
+    public sealed class NaomiHtmlTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
     {
         #region Properties
 
@@ -63,16 +61,6 @@ namespace NetAF.Rendering.Console.FrameBuilders
             output.Resize(size);
 
             output.Overlay(0, 0, gridStringBuilder);
-            
-            try
-            {
-                var imageBuilder = VisualHelper.FromImage($"{root}Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console);
-                output.Overlay((size.Width / 2) - (imageBuilder.DisplaySize.Width / 2), (size.Height / 2) - (imageBuilder.DisplaySize.Height / 2) + lastY / 2, imageBuilder);
-            }
-            catch(Exception)
-            {
-
-            }
 
             return new GridVisualFrame(output) { ShowCursor = false };
         }

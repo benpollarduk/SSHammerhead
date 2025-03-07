@@ -1,8 +1,9 @@
-﻿using NetAF.Rendering.Console.FrameBuilders;
-using NetAF.Rendering.FrameBuilders;
+﻿using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
+using NetAF.Targets.Html.Rendering;
 
 namespace SSHammerhead.Blazor
 {
@@ -21,7 +22,7 @@ namespace SSHammerhead.Blazor
                 var gridLayoutBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiTitleFrameBuilder(gridLayoutBuilder, "wwwroot/"),
+                    new NaomiHtmlTitleFrameBuilder(gridLayoutBuilder),
                     new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder), false),
                     new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder), false),
                     new ConsoleCommandListFrameBuilder(gridLayoutBuilder),

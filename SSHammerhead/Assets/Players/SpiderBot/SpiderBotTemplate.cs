@@ -3,10 +3,11 @@ using NetAF.Assets.Characters;
 using NetAF.Commands;
 using NetAF.Commands.Persistence;
 using NetAF.Logic.Modes;
-using NetAF.Rendering.Console.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
+using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Commands;
 
 namespace SSHammerhead.Assets.Players.SpiderBot
 {
