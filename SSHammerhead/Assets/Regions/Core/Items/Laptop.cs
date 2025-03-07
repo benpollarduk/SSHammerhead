@@ -23,10 +23,10 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                 {
                     var usbInteraction = $"Loading the {USBDrive.Name} into the laptop causes a window showing the files on the {USBDrive.Name} to pop up. There is a single file, README.txt. " +
                     $"You open it and a text editor window is shown displaying the following:{StringUtilities.Newline}{StringUtilities.Newline}{StringUtilities.Newline}" +
-                    "\"Another day being responsible for the everyday maintenance of this hunk we call home. At least the maintenance control system with the spider bot gives me " +
-                    "more free time these days. All that free time gives me more time to hang out and listen to music, chilling out looking at that the stars, particularly " +
+                    "\"Another day being responsible for the everyday maintenance of this hunk we call home. Atleast the maintenance control system with the spider bot gives me " +
+                    "more free time these days. More time to hang out and listen to music, chilling out looking at that the stars, particularly " +
                     $"that constellation outside of the air lock. There is something about it that calls to me.{StringUtilities.Newline}{StringUtilities.Newline}{StringUtilities.Newline}" +
-                    "Anyway, back to work. Good old Scott, - always working like a dog!\"";
+                    "Anyway, back to work. Good old Scott - always working like a dog!\"";
                     return new Interaction(InteractionResult.NoChange, item, usbInteraction);
                 }
 
