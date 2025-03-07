@@ -14,31 +14,13 @@
 
 @if (showInput)
 {
-    <div class="container-stretch">
-        <input class="input-stretch" type="text" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
-    </div>
+    <input class="input-stretch" type="text" width="150" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
 }
 
 @if (showAcknowledge)
 {
-    <div class="container-stretch">
-        <button class="btn btn-primary btn-stretch" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
-    </div>
+    <button class="btn btn-primary btn-stretch" width="150" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
 }
-
-<style>
-    .container-stretch {
-        display: flex;
-    }
-
-    .btn-stretch {
-        width: 100%;
-    }
-
-    .input-stretch {
-        width: 100%;
-    }
-</style>
 
 @code {
     private HtmlAdapter? htmlAdapter;

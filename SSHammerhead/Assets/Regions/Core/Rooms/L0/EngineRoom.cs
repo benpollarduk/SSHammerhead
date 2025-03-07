@@ -25,8 +25,9 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
         {
             Room room = null;
             Exit up = null;
+            ConditionalDescription hatchDescription = new("A hatch leading up into the higher levels of the ship. A large padlock is securing it shut.", "A hatch leading up into the higher levels of the ship.", () => up.IsLocked);
 
-            up = new Exit(Direction.Up, true, new Identifier("Hatch"), interaction: (item) =>
+            up = new Exit(Direction.Up, true, new Identifier("Hatch"), hatchDescription, interaction: (item) =>
             {
                 if (PadlockKey.Name.EqualsIdentifier(item.Identifier))
                 {
@@ -37,8 +38,9 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 return new Interaction(InteractionResult.NoChange, item);
             });
 
-            var description = new ConditionalDescription(PostItDescription, NoPostItDescription, () => room.FindItem(PostIt.Name, out _));
-            room = new Room(new Identifier(Name), description, [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
+
+            var roomDescription = new ConditionalDescription(PostItDescription, NoPostItDescription, () => room.FindItem(PostIt.Name, out _));
+            room = new Room(new Identifier(Name), roomDescription, [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
 
             return room;
         }
