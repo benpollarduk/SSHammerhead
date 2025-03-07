@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "E2tC5FpM",
+  "version": "xrgej49z",
   "assets": [
     {
       "hash": "sha256-NxGRIv/DffJVEAfQRzOjBHeJSqbbU0XY17OhBBQWY1A=",
@@ -66,23 +66,23 @@ self.assetsManifest = {
       "url": "_framework/Microsoft.JSInterop.wasm"
     },
     {
-      "hash": "sha256-vUzjhgsOyxhl0NKSZaNSDT0/3NqMTF6EvQuKea0I+qU=",
+      "hash": "sha256-Ex8wGQKsccrt6+uq5ReAJa4IxCKBNDHnkAm9LDMAQF8=",
       "url": "_framework/NetAF.Imaging.wasm"
     },
     {
-      "hash": "sha256-3a3BRby9vcbGzjp0PPh7lyIKwovlppmwTzIslIctZvc=",
+      "hash": "sha256-Vknaa4ZH5pXll6Ic6unKc1VHem/1AvGRE6YUU+3gwKQ=",
       "url": "_framework/NetAF.wasm"
     },
     {
-      "hash": "sha256-FLElM97hmF6xIjPhQK3ZY58OugTPr3nSfwu3fbyaD/0=",
+      "hash": "sha256-gmbd0nlqm0mh5byGtCCgQ2C54GW8xbRFplXbpYRvou0=",
       "url": "_framework/SSHammerhead.Blazor.wasm"
     },
     {
-      "hash": "sha256-hVWKiBewQQ8GyX9iu6eQC5+lhT41P0J4oBfFgOekmk4=",
+      "hash": "sha256-Fk23PV1E539EV7247ffAiA3vh+i0vhCdoviN5f+IqNE=",
       "url": "_framework/SSHammerhead.wasm"
     },
     {
-      "hash": "sha256-quTdcuYxpH2Eic95dsz2WKfb8X2yh6gLpUxgvsf/lEE=",
+      "hash": "sha256-TdkHu+os0/tB3ZX4s7eT0xKw8tJVW1Y5WU0ZM2Xptp8=",
       "url": "_framework/SixLabors.ImageSharp.wasm"
     },
     {
@@ -134,7 +134,7 @@ self.assetsManifest = {
       "url": "_framework/System.Runtime.InteropServices.JavaScript.wasm"
     },
     {
-      "hash": "sha256-6CnffrmOtwdTNjGeTkQcZ0uA3d0iZOtTvEQ/CtYuinY=",
+      "hash": "sha256-Vs2v9cTVo4+MSE7y6P1XrRhb/UxLKUCyC1VFXS82CgQ=",
       "url": "_framework/System.Runtime.wasm"
     },
     {
@@ -166,7 +166,7 @@ self.assetsManifest = {
       "url": "_framework/System.Threading.wasm"
     },
     {
-      "hash": "sha256-bh9C2ew1rErHS295+74Z50clrutvq1YaPEi90Ngy6eE=",
+      "hash": "sha256-eZTRCPhYlQahI5W7zjlk7l97X+8Mbvj8mCW7UH0t5Jo=",
       "url": "_framework/blazor.boot.json"
     },
     {
@@ -218,7 +218,15 @@ self.assetsManifest = {
       "url": "icon.png"
     },
     {
-      "hash": "sha256-ntfrs8N6JE26RmtiYmwo/Bvnw28E3Uydw0K28934y/g=",
+      "hash": "sha256-39/XGmcWXJwgT7bxVN1faGnaJT4DUY/ubTkIRlhUEkI=",
+      "url": "icon192x192.png"
+    },
+    {
+      "hash": "sha256-PQyH9bVa7YsYj7tSNHLobEdERWv/zr2VnR4Pe+f7Vcs=",
+      "url": "icon512x512.png"
+    },
+    {
+      "hash": "sha256-p5pkKXTWFGVzsdlH1yL6bgirnz7wYJ6BngI3m0evHk0=",
       "url": "index.html"
     },
     {
