@@ -8,7 +8,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         #region Constants
 
         internal const string Name = "Hammer";
-        private const string Description = "A small utility hammer use for small engineering tasks.";
+        private const string Description = "A small utility hammer use for light engineering tasks.";
 
         #endregion
 
