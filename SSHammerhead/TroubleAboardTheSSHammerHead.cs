@@ -1,8 +1,6 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Logic;
-using NetAF.Logic.Callbacks;
-using NetAF.Logic.Configuration;
 using NetAF.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
@@ -48,7 +46,7 @@ namespace SSHammerhead
             return EndCheckResult.NotEnded;
         }
 
-        public static GameCreationCallback Create(IGameConfiguration configuration, FrameBuilderCollection naomiFrameBuilders, FrameBuilderCollection botFrameBuilders)
+        public static GameCreator Create(GameConfiguration configuration, FrameBuilderCollection naomiFrameBuilders, FrameBuilderCollection botFrameBuilders)
         {
             static Overworld overworldCreator()
             {

@@ -1,5 +1,4 @@
 ﻿@page "/"
-@using NetAF.Logic.Configuration
 @using NetAF.Logic.Modes
 @using NetAF.Rendering.FrameBuilders
 @implements IFramePresenter
@@ -50,7 +49,7 @@
 
         htmlAdapter = new HtmlAdapter(this);
         GameConfiguration configuration = new(htmlAdapter, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, new(80, 48));
-        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, SSHammerhead.Blazor.FrameBuilderCollections.Bot), GameExecutionMode.Manual);
+        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, SSHammerhead.Blazor.FrameBuilderCollections.Bot));
     }
 
     public async void Present(string frame)
