@@ -1,7 +1,12 @@
 ﻿@page "/"
+@using Microsoft.JSInterop
+@using Microsoft.AspNetCore.Components.Forms
 @using NetAF.Logic.Modes
+@using NetAF.Persistence
+@using NetAF.Persistence.Json
 @using NetAF.Rendering.FrameBuilders
 @using System.Reflection
+@inject IJSRuntime JSRuntime
 @implements IFramePresenter
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
@@ -16,13 +21,24 @@
 
 @if (showInput)
 {
-    <input type="text" style="width: 530px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+    <input type="text" style="width: 530px; height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
 }
 
 @if (showAcknowledge)
 {
-    <button class="btn btn-primary" style="width: 530px; font-size: 16px;" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+    <button class="btn btn-primary" style="width: 530px; height:35px; font-size: 16px;" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
 }
+
+<br />
+<br />
+
+<div style="font-size: 11px;">
+    <p>Restore point:</p>
+    <span>Save: </span>
+    <button class="btn btn-primary" style="font-size: 11px;" @onclick="DownloadRestorePoint">Create</button>
+    <span>Load: </span>
+    <InputFile style="font-size: 11px;" OnChange="@UploadRestorePoint" />
+</div>
 
 @code {
     private string version = string.Empty;
@@ -75,4 +91,48 @@
         if (showAcknowledge && acknowledgeButton.Context != null)
             await acknowledgeButton.FocusAsync();
     }
+
+    private async void DownloadRestorePoint()
+    {
+        if (htmlAdapter?.Game == null)
+            return;
+
+        var name = $"restore-{(htmlAdapter.Game?.Overworld?.CurrentRegion?.CurrentRoom?.Identifier.Name ?? "start")}".ToLower();
+        var restorePoint = RestorePoint.Create(name, htmlAdapter.Game);
+        var serialisation = JsonSave.ToJson(restorePoint);
+        await JSRuntime.InvokeVoidAsync("saveAsFile", $"{name}.json", serialisation);
+    }
+
+    private async Task UploadRestorePoint(InputFileChangeEventArgs e)
+    {
+        try
+        {
+            var file = e.File;
+            MemoryStream ms = new MemoryStream();
+            await e.File.OpenReadStream().CopyToAsync(ms);
+            var bytes = ms.ToArray();
+            var json = System.Text.Encoding.UTF8.GetString(bytes);
+            var restorePoint = JsonSave.FromJson(json);
+            htmlAdapter?.Game?.RestoreFrom(restorePoint.Game);
+            GameExecutor.Update();
+        }
+        catch (Exception ex)
+        {
+            await JSRuntime.InvokeVoidAsync("showMessageBox", $"Exception caught uploading restore point: {ex.Message}");
+        }
+    }
 }
+
+<script>
+    window.saveAsFile = (filename, json) => {
+        const link = document.createElement('a');
+        link.href = `data:application/json,${json}`;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    window.showMessageBox = (message) => {
+        alert(message);
+    };
+</script>
