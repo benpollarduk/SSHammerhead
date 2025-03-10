@@ -68,7 +68,7 @@ jobs:
         $filePath = "SSHammerhead.Blazor/SSHammerhead.Blazor.csproj"
         $newVersion = "${{ github.event.inputs.ver }}"
         $content = Get-Content $filePath
-        $content -replace '<Version>0.0.0</Version>', "<Version>`"$newVersion`"</Version>" | Set-Content -Path $filePath
+        $content -replace '<Version>0.0.0</Version>', "<Version>${newVersion}</Version>" | Set-Content -Path $filePath
       shell: pwsh
 
     - name: Publish Blazor app
