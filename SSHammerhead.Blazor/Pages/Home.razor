@@ -1,9 +1,14 @@
 ﻿@page "/"
 @using NetAF.Logic.Modes
 @using NetAF.Rendering.FrameBuilders
+@using System.Reflection
 @implements IFramePresenter
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
+
+<div style="font-size: 8px; color: #FFFFFF60">
+    <p>Version: @version</p>
+</div>
 
 <div style="font-size: 11px;">
     @((MarkupString)frameAsHtml)
@@ -20,6 +25,7 @@
 }
 
 @code {
+    private string version = string.Empty;
     private HtmlAdapter? htmlAdapter;
     private string frameAsHtml = string.Empty;
     private string text = string.Empty;
@@ -44,6 +50,9 @@
 
     protected override void OnInitialized()
     {
+        var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
+        version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" :"unknown";
+
         if (GameExecutor.IsExecuting)
             return;
 
