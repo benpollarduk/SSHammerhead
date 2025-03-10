@@ -97,7 +97,7 @@
         if (htmlAdapter?.Game == null)
             return;
 
-        var name = $"restore-{(htmlAdapter.Game?.Overworld?.CurrentRegion?.CurrentRoom?.Identifier.Name ?? "start")}".ToLower();
+        var name = $"restore-{(htmlAdapter.Game?.Overworld?.CurrentRegion?.CurrentRoom?.Identifier.Name ?? "start")}".ToLower().Replace(' ', '');
         var restorePoint = RestorePoint.Create(name, htmlAdapter.Game);
         var serialisation = JsonSave.ToJson(restorePoint);
         await JSRuntime.InvokeVoidAsync("saveAsFile", $"{name}.json", serialisation);
