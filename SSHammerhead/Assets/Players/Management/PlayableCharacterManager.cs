@@ -10,7 +10,7 @@ namespace SSHammerhead.Assets.Players.Management
     /// <summary>
     /// Provides functionality for managing playable characters.
     /// </summary>
-    internal static class PlayableCharacterManager
+    public static class PlayableCharacterManager
     {
         #region StaticFields
 

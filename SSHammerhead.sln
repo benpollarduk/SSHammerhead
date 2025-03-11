@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSHammerhead", "SSHammerhea
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSHammerhead.Console", "SSHammerhead.Console\SSHammerhead.Console.csproj", "{7DC0AA99-9305-441E-8252-98A44DBB21B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SSHammerhead.Blazor", "SSHammerhead.Blazor\SSHammerhead.Blazor.csproj", "{D8D00E3E-CA87-4AE3-95BE-3DA92851F92E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SSHammerhead.Blazor", "SSHammerhead.Blazor\SSHammerhead.Blazor.csproj", "{D8D00E3E-CA87-4AE3-95BE-3DA92851F92E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

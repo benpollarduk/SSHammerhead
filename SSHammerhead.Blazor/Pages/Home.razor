@@ -6,6 +6,7 @@
 @using NetAF.Persistence.Json
 @using NetAF.Rendering.FrameBuilders
 @using System.Reflection
+@using SSHammerhead.Assets.Players.Management
 @inject IJSRuntime JSRuntime
 @implements IFramePresenter
 
@@ -35,9 +36,9 @@
 <div style="font-size: 11px;">
     <p>Restore point:</p>
     <span>Save: </span>
-    <button class="btn btn-primary" style="font-size: 11px;" @onclick="DownloadRestorePoint">Create</button>
+    <button class="btn btn-primary" style="font-size: 11px;" disabled="@disableSaveAndLoad" @onclick="DownloadRestorePoint">Create</button>
     <span>Load: </span>
-    <InputFile style="font-size: 11px;" OnChange="@UploadRestorePoint" />
+    <InputFile style="font-size: 11px;" disabled="@disableSaveAndLoad" OnChange="@UploadRestorePoint" />
 </div>
 
 @code {
@@ -47,6 +48,7 @@
     private string text = string.Empty;
     private bool showInput = false;
     private bool showAcknowledge = false;
+    private bool disableSaveAndLoad = true;
     private ElementReference acknowledgeButton;
     private ElementReference textInput;
 
@@ -82,6 +84,7 @@
         frameAsHtml = frame;
         showInput = htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive;
         showAcknowledge = htmlAdapter?.Game?.Mode?.Type == GameModeType.Information;
+        disableSaveAndLoad = htmlAdapter?.Game?.Mode?.Type != GameModeType.Interactive;
 
         await InvokeAsync(StateHasChanged);
 
@@ -107,13 +110,19 @@
     {
         try
         {
+            var game = htmlAdapter?.Game;
+
+            if (game == null)
+                return;
+
             var file = e.File;
             MemoryStream ms = new MemoryStream();
             await e.File.OpenReadStream().CopyToAsync(ms);
             var bytes = ms.ToArray();
             var json = System.Text.Encoding.UTF8.GetString(bytes);
             var restorePoint = JsonSave.FromJson(json);
-            htmlAdapter?.Game?.RestoreFrom(restorePoint.Game);
+            game.RestoreFrom(restorePoint.Game);
+            PlayableCharacterManager.ApplyConfiguration(game.Player, game);
             GameExecutor.Update();
         }
         catch (Exception ex)
