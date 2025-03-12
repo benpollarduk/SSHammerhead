@@ -4,6 +4,10 @@ using NetAF.Imaging.Textures;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
+using SSHammerhead.ImageHandling;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 {
@@ -11,7 +15,8 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiConsoleTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
+    /// <param name="imageProvider">A provider to use images.</param>
+    public sealed class NaomiConsoleTitleFrameBuilder(GridStringBuilder gridStringBuilder, IImageProvider imageProvider) : ITitleFrameBuilder
     {
         #region Properties
 
@@ -64,8 +69,16 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 
             output.Overlay(0, 0, gridStringBuilder);
 
-            var imageBuilder = VisualHelper.FromImage("Images/space.jpg", new(availableWidth, size.Height - 4), CellAspectRatio.Console, new NoTexturizer());
-            output.Overlay(size.Width / 2 - imageBuilder.DisplaySize.Width / 2, size.Height / 2 - imageBuilder.DisplaySize.Height / 2 + lastY / 2, imageBuilder);
+            try
+            {
+                var stream = imageProvider.GetImageAsStream("Images/space.png");
+                var imageBuilder = VisualHelper.FromImage(stream, new(availableWidth, size.Height - 4), CellAspectRatio.Console, new NoTexturizer());
+                output.Overlay(size.Width / 2 - imageBuilder.DisplaySize.Width / 2, size.Height / 2 - imageBuilder.DisplaySize.Height / 2 + lastY / 2, imageBuilder);
+            }
+            catch (Exception e) 
+            {
+                Debug.WriteLine($"Exception caught appending image: {e.Message}");
+            }
 
             return new GridVisualFrame(output) { ShowCursor = false };
         }

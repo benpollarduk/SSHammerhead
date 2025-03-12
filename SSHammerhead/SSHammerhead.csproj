@@ -11,16 +11,17 @@
 
   <ItemGroup>
     <None Remove="Images\space.jpg" />
+    <None Remove="Images\space.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\space.jpg">
+    <Content Include="Images\space.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF" Version="3.1.2" />
+    <PackageReference Include="NetAF" Version="3.2.0" />
     <PackageReference Include="NetAF.Imaging" Version="1.1.2" />
   </ItemGroup>
 

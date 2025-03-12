@@ -66,8 +66,10 @@
         }
     }
 
-    protected override void OnInitialized()
+    protected async override void OnInitialized()
     {
+        await ImageCache.CacheAllImages();
+
         var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
         version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" :"unknown";
 
