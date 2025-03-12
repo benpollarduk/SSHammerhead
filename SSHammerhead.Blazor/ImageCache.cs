@@ -7,12 +7,21 @@ namespace SSHammerhead.Blazor
     /// </summary>
     internal static class ImageCache
     {
+        #region Constants
+
+        /// <summary>
+        /// Get the base url.
+        /// </summary>
+        private static string BaseUrl = @"https://benpollarduk.github.io/SSHammerhead/";
+
+        #endregion
+
         #region StaticProperties
 
         /// <summary>
         /// Get the provider of cached images.
         /// </summary>
-        internal static readonly CachedImageProvider Provider = new(@"https://benpollarduk.github.io/SSHammerhead/");
+        internal static readonly CachedImageProvider Provider = new(BaseUrl);
 
         #endregion
 
