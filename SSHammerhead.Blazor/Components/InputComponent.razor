@@ -1,22 +1,42 @@
 ﻿@using NetAF.Logic.Modes
 
-@if (showInput)
+<div style="display: flex; align-items: center; @(!showInput && !showCommandPicker ? "display: none;" : "")">
+    <span style="font-size: 11px; margin-right: 10px;">Input mode: </span>
+    <input type="radio" value="@InputMode.Text"checked="@(selectedInputMode.Equals(InputMode.Text))" @onchange="OnChange" />
+    <span style="font-size: 11px; margin-right: 10px;">@InputMode.Text </span>
+    <input type="radio" value="@InputMode.Pick" checked="@(selectedInputMode.Equals(InputMode.Pick))" @onchange="OnChange" />
+    <span style="font-size: 11px;">@InputMode.Pick</span>
+</div>
+
+<div style="@(!showInput ? "display: none;" : "")">
+    <input type="text" style="width: @(contentWidth); height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+</div>
+
+@if (showInput && showCommandPicker)
 {
-    <input type="text" style="width: 530px; height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+    <br/>
 }
 
-@if (showAcknowledge)
-{
-    <button class="btn btn-primary" style="width: 530px; height:35px; font-size: 16px;" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
-}
+<div style="width: @(contentWidth); @(!showCommandPicker ? "display: none;" : "")">
+    <CommandPickerComponent @ref="commandPickerComponent" />
+</div>
+
+<div style="@(!showAcknowledge ? "display: none;" : "")">
+    <button class="btn btn-primary" style="width: @(contentWidth); height:35px; font-size: 16px;" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+</div>
 
 @code {
     private string text = string.Empty;
-    private bool showInput = false;
-    private bool showAcknowledge = false;
+    private bool showInput = true;
+    private bool showAcknowledge = true;
+    private bool showCommandPicker = true;
     private ElementReference acknowledgeButton;
     private ElementReference textInput;
     private HtmlAdapter? htmlAdapter;
+    private CommandPickerComponent? commandPickerComponent;
+    private string contentWidth = "530px";
+    private InputMode selectedInputMode = InputMode.Text;
+    private enum InputMode { Text, Pick };
 
     private void Acknowledge()
     {
@@ -32,22 +52,47 @@
         }
     }
 
+    private async void UpdateInputMode()
+    {
+        showInput = (htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive) && (selectedInputMode == InputMode.Text);
+        showCommandPicker = (htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive) && (selectedInputMode == InputMode.Pick);
+        showAcknowledge = htmlAdapter?.Game?.Mode?.Type == GameModeType.Information;
+
+        await InvokeAsync(StateHasChanged);
+    }
+
     public async void Update()
     {
-        showInput = htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive;
-        showAcknowledge = htmlAdapter?.Game?.Mode?.Type == GameModeType.Information;
+        UpdateInputMode();
+        commandPickerComponent?.Clear();
+
+        await InvokeAsync(StateHasChanged);
+
+        if (htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive)
+        {
+            var commands = htmlAdapter?.Game?.GetContextualCommands()?.ToArray() ?? [];
+            commandPickerComponent?.Update(commands);
+        }
 
         if (showInput && textInput.Context != null)
             await textInput.FocusAsync();
 
         if (showAcknowledge && acknowledgeButton.Context != null)
             await acknowledgeButton.FocusAsync();
-
-        await InvokeAsync(StateHasChanged);
     }
 
     public void SetAdapter(HtmlAdapter adapter)
     {
         htmlAdapter = adapter;
+        commandPickerComponent?.SetAdapter(adapter);
+    }
+
+    private void OnChange(ChangeEventArgs args)
+    {
+        if (Enum.TryParse<InputMode>(args?.Value?.ToString() ?? string.Empty, out var mode))
+        {
+            selectedInputMode = mode;
+            UpdateInputMode();
+        }
     }
 }

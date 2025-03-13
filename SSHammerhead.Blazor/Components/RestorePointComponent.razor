@@ -6,11 +6,10 @@
 @using SSHammerhead.Assets.Players.Management
 @inject IJSRuntime JSRuntime
 
-<div style="font-size: 11px;">
-    <p>Restore point:</p>
-    <span>Save: </span>
+<div>
+    <span style="font-size: 11px;">Restore point: </span>
     <button class="btn btn-primary" style="font-size: 11px;" disabled="@disableSaveAndLoad" @onclick="DownloadRestorePoint">Create</button>
-    <span>Load: </span>
+    <span style="font-size: 11px;">Load: </span>
     <InputFile style="font-size: 11px;" disabled="@disableSaveAndLoad" OnChange="@UploadRestorePoint" />
 </div>
 

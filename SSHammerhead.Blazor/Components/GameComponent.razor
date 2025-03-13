@@ -19,9 +19,11 @@
     private OutputComponent? outputComponent;
     private InputComponent? inputComponent;
     private RestorePointComponent? restorePointComponent;
+    private HtmlAdapter? htmlAdapter;
 
     public void SetAdapter(HtmlAdapter htmlAdapter)
     {
+        this.htmlAdapter = htmlAdapter;
         inputComponent?.SetAdapter(htmlAdapter);
         restorePointComponent?.SetAdapter(htmlAdapter);
     }

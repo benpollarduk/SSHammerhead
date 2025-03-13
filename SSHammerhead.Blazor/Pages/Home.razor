@@ -9,18 +9,14 @@
     <p>Version: @version</p>
 </div>
 
-@if (gameRunning)
-{
-    <div>
-        <GameComponent @ref="gameComponent" />
-    </div>
-}
-else
-{
-    <div style="font-size: 16px;">
-        <p>Please standby, setting up...</p>
-    </div>
-}
+<div style="@(!gameRunning ? "display: none;" : "")">
+    <GameComponent @ref="gameComponent" />
+</div>
+
+<div style="font-size: 16px; @(gameRunning ? "display: none;" : "")">
+    <p>Please standby, setting up...</p>
+</div>
+
 
 @code {
     private string version = string.Empty;
