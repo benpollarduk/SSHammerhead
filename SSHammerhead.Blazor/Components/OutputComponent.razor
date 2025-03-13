@@ -1,0 +1,13 @@
+﻿<div style="font-size: 11px;">
+    @((MarkupString)frameAsHtml)
+</div>
+
+@code {
+    private string frameAsHtml = string.Empty;
+
+    public async void Update(string frame)
+    {
+        frameAsHtml = frame;
+        await InvokeAsync(StateHasChanged);
+    }
+}

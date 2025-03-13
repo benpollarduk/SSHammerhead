@@ -1,0 +1,53 @@
+﻿@using NetAF.Logic.Modes
+
+@if (showInput)
+{
+    <input type="text" style="width: 530px; height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+}
+
+@if (showAcknowledge)
+{
+    <button class="btn btn-primary" style="width: 530px; height:35px; font-size: 16px;" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+}
+
+@code {
+    private string text = string.Empty;
+    private bool showInput = false;
+    private bool showAcknowledge = false;
+    private ElementReference acknowledgeButton;
+    private ElementReference textInput;
+    private HtmlAdapter? htmlAdapter;
+
+    private void Acknowledge()
+    {
+        GameExecutor.Update();
+    }
+
+    private void HandleInput(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(text))
+        {
+            GameExecutor.Update(text);
+            text = string.Empty;
+        }
+    }
+
+    public async void Update()
+    {
+        showInput = htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive;
+        showAcknowledge = htmlAdapter?.Game?.Mode?.Type == GameModeType.Information;
+
+        if (showInput && textInput.Context != null)
+            await textInput.FocusAsync();
+
+        if (showAcknowledge && acknowledgeButton.Context != null)
+            await acknowledgeButton.FocusAsync();
+
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void SetAdapter(HtmlAdapter adapter)
+    {
+        htmlAdapter = adapter;
+    }
+}

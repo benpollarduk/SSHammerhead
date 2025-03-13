@@ -1,14 +1,7 @@
 ﻿@page "/"
-@using Microsoft.JSInterop
-@using Microsoft.AspNetCore.Components.Forms
-@using NetAF.Logic.Modes
-@using NetAF.Persistence
-@using NetAF.Persistence.Json
-@using NetAF.Rendering.FrameBuilders
-@using System.Reflection
 @using SSHammerhead.Assets.Players.Management
-@inject IJSRuntime JSRuntime
-@implements IFramePresenter
+@using SSHammerhead.Blazor.Components
+@using System.Reflection
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
 
@@ -16,134 +9,56 @@
     <p>Version: @version</p>
 </div>
 
-<div style="font-size: 11px;">
-    @((MarkupString)frameAsHtml)
-</div>
-
-@if (showInput)
+@if (gameRunning)
 {
-    <input type="text" style="width: 530px; height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+    <div>
+        <GameComponent @ref="gameComponent" />
+    </div>
 }
-
-@if (showAcknowledge)
+else
 {
-    <button class="btn btn-primary" style="width: 530px; height:35px; font-size: 16px;" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+    <div style="font-size: 16px;">
+        <p>Please standby, setting up...</p>
+    </div>
 }
-
-<br />
-<br />
-
-<div style="font-size: 11px;">
-    <p>Restore point:</p>
-    <span>Save: </span>
-    <button class="btn btn-primary" style="font-size: 11px;" disabled="@disableSaveAndLoad" @onclick="DownloadRestorePoint">Create</button>
-    <span>Load: </span>
-    <InputFile style="font-size: 11px;" disabled="@disableSaveAndLoad" OnChange="@UploadRestorePoint" />
-</div>
 
 @code {
     private string version = string.Empty;
-    private HtmlAdapter? htmlAdapter;
-    private string frameAsHtml = string.Empty;
-    private string text = string.Empty;
-    private bool showInput = false;
-    private bool showAcknowledge = false;
-    private bool disableSaveAndLoad = true;
-    private ElementReference acknowledgeButton;
-    private ElementReference textInput;
-
-    private void Acknowledge()
-    {
-        GameExecutor.Update();
-    }
-
-    private void HandleInput(KeyboardEventArgs e)
-    {
-        if (e.Key == "Enter" && !string.IsNullOrWhiteSpace(text))
-        {
-            GameExecutor.Update(text);
-            text = string.Empty;
-        }
-    }
+    private bool gameRunning = false;
+    private GameComponent? gameComponent;
 
     protected async override void OnInitialized()
     {
-        await ImageCache.CacheAllImages();
-
-        var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
-        version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" :"unknown";
-
         if (GameExecutor.IsExecuting)
             return;
 
-        htmlAdapter = new HtmlAdapter(this);
+        SetupVersion();
+
+        await ImageCache.CacheAllImages();
+
+        gameRunning = true;
+        await InvokeAsync(StateHasChanged);
+
+        var htmlAdapter = new HtmlAdapter(gameComponent);
+
+        SetupComponents(htmlAdapter);
+        BeginGame(htmlAdapter);
+    }
+
+    private void SetupVersion()
+    {
+        var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
+        version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" : "unknown";
+    }
+
+    private void BeginGame(HtmlAdapter htmlAdapter)
+    {
         GameConfiguration configuration = new(htmlAdapter, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, new(80, 48));
         GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, SSHammerhead.Blazor.FrameBuilderCollections.Bot));
     }
 
-    public async void Present(string frame)
+    private void SetupComponents(HtmlAdapter htmlAdapter)
     {
-        frameAsHtml = frame;
-        showInput = htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive;
-        showAcknowledge = htmlAdapter?.Game?.Mode?.Type == GameModeType.Information;
-        disableSaveAndLoad = htmlAdapter?.Game?.Mode?.Type != GameModeType.Interactive;
-
-        await InvokeAsync(StateHasChanged);
-
-        if (showInput && textInput.Context != null)
-            await textInput.FocusAsync();
-
-        if (showAcknowledge && acknowledgeButton.Context != null)
-            await acknowledgeButton.FocusAsync();
-    }
-
-    private async void DownloadRestorePoint()
-    {
-        if (htmlAdapter?.Game == null)
-            return;
-
-        var name = $"restore-{(htmlAdapter.Game?.Overworld?.CurrentRegion?.CurrentRoom?.Identifier.Name ?? "start")}".ToLower().Replace(' ', '-');
-        var restorePoint = RestorePoint.Create(name, htmlAdapter.Game);
-        var serialisation = JsonSave.ToJson(restorePoint);
-        await JSRuntime.InvokeVoidAsync("saveAsFile", $"{name}.json", serialisation);
-    }
-
-    private async Task UploadRestorePoint(InputFileChangeEventArgs e)
-    {
-        try
-        {
-            var game = htmlAdapter?.Game;
-
-            if (game == null)
-                return;
-
-            var file = e.File;
-            MemoryStream ms = new MemoryStream();
-            await e.File.OpenReadStream().CopyToAsync(ms);
-            var bytes = ms.ToArray();
-            var json = System.Text.Encoding.UTF8.GetString(bytes);
-            var restorePoint = JsonSave.FromJson(json);
-            game.RestoreFrom(restorePoint.Game);
-            PlayableCharacterManager.ApplyConfiguration(game.Player, game);
-            GameExecutor.Update();
-        }
-        catch (Exception ex)
-        {
-            await JSRuntime.InvokeVoidAsync("showMessageBox", $"Exception caught uploading restore point: {ex.Message}");
-        }
+        gameComponent?.SetAdapter(htmlAdapter);
     }
 }
-
-<script>
-    window.saveAsFile = (filename, json) => {
-        const link = document.createElement('a');
-        link.href = `data:application/json,${json}`;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-    window.showMessageBox = (message) => {
-        alert(message);
-    };
-</script>
