@@ -1,4 +1,6 @@
-﻿using SSHammerhead.ImageHandling;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using SSHammerhead.ImageHandling;
 
 namespace SSHammerhead.Blazor
 {
@@ -7,25 +9,31 @@ namespace SSHammerhead.Blazor
     /// </summary>
     internal static class ImageCache
     {
-        #region Constants
+        #region StaticFields
 
-        /// <summary>
-        /// Get the base url.
-        /// </summary>
-        private static string BaseUrl = @"https://benpollarduk.github.io/SSHammerhead/";
-
-        #endregion
-
-        #region StaticProperties
-
-        /// <summary>
-        /// Get the provider of cached images.
-        /// </summary>
-        internal static readonly CachedImageProvider Provider = new(BaseUrl);
+        private static CachedImageProvider? provider;
 
         #endregion
 
         #region StaticMethods
+
+        /// <summary>
+        /// Get the provider for cached images.
+        /// </summary>
+        /// <returns>The provider.</returns>
+        public static CachedImageProvider GetProvider()
+        {
+            if (provider == null)
+            {
+                var builder = WebAssemblyHostBuilder.CreateDefault();
+                var host = builder.Build();
+                var navigationManager = host.Services.GetRequiredService<NavigationManager>();
+                var baseUri = navigationManager.BaseUri;
+                provider = new CachedImageProvider(baseUri);
+            }
+
+            return provider;
+        }
 
         /// <summary>
         /// Cancel all images.
@@ -36,7 +44,7 @@ namespace SSHammerhead.Blazor
             string[] images = ["Images/space.png"];
 
             foreach (var image in images)
-                await Provider.CacheImageAsync(image);
+                await GetProvider().CacheImageAsync(image);
         }
 
         #endregion

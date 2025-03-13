@@ -3,7 +3,6 @@ using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
-using SSHammerhead.ImageHandling;
 
 namespace SSHammerhead.Blazor
 {
@@ -22,7 +21,7 @@ namespace SSHammerhead.Blazor
                 var gridLayoutBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiConsoleTitleFrameBuilder(gridLayoutBuilder, ImageCache.Provider),
+                    new NaomiConsoleTitleFrameBuilder(gridLayoutBuilder, ImageCache.GetProvider()),
                     new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder), false),
                     new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder), false),
                     new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
