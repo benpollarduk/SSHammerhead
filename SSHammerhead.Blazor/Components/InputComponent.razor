@@ -4,8 +4,8 @@
     <span style="font-size: 11px; margin-right: 10px;">Input mode: </span>
     <input type="radio" value="@InputMode.Text"checked="@(selectedInputMode.Equals(InputMode.Text))" @onchange="OnChange" />
     <span style="font-size: 11px; margin-right: 10px; margin-left: 5px;">@InputMode.Text </span>
-    <input type="radio" value="@InputMode.Pick" checked="@(selectedInputMode.Equals(InputMode.Pick))" @onchange="OnChange" />
-    <span style="font-size: 11px; margin-left: 5px;">@InputMode.Pick</span>
+    <input type="radio" value="@InputMode.List" checked="@(selectedInputMode.Equals(InputMode.List))" @onchange="OnChange" />
+    <span style="font-size: 11px; margin-left: 5px;">@InputMode.List</span>
 </div>
 
 @if (!showInput && showCommandPicker)
@@ -40,8 +40,8 @@
     private HtmlAdapter? htmlAdapter;
     private CommandPickerComponent? commandPickerComponent;
     private string contentWidth = "530px";
-    private InputMode selectedInputMode = InputMode.Pick;
-    private enum InputMode { Text, Pick };
+    private InputMode selectedInputMode = InputMode.List;
+    private enum InputMode { Text, List };
 
     private void Acknowledge()
     {
@@ -60,7 +60,7 @@
     private async void UpdateInputMode()
     {
         showInput = (htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive) && (selectedInputMode == InputMode.Text);
-        showCommandPicker = (htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive) && (selectedInputMode == InputMode.Pick);
+        showCommandPicker = (htmlAdapter?.Game?.Mode?.Type == GameModeType.Interactive) && (selectedInputMode == InputMode.List);
         showAcknowledge = htmlAdapter?.Game?.Mode?.Type == GameModeType.Information;
 
         await InvokeAsync(StateHasChanged);
