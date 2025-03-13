@@ -1,11 +1,11 @@
 ﻿@using NetAF.Logic.Modes
 
 <div style="display: flex; align-items: center; @(!showInput && !showCommandPicker ? "display: none;" : "")">
-    <span style="font-size: 11px; margin-right: 10px; margin-left: 5px;">Input mode: </span>
+    <span style="font-size: 11px; margin-right: 10px;">Input mode: </span>
     <input type="radio" value="@InputMode.Text"checked="@(selectedInputMode.Equals(InputMode.Text))" @onchange="OnChange" />
     <span style="font-size: 11px; margin-right: 10px; margin-left: 5px;">@InputMode.Text </span>
     <input type="radio" value="@InputMode.Pick" checked="@(selectedInputMode.Equals(InputMode.Pick))" @onchange="OnChange" />
-    <span style="font-size: 11px;">@InputMode.Pick</span>
+    <span style="font-size: 11px; margin-left: 5px;">@InputMode.Pick</span>
 </div>
 
 @if (!showInput && showCommandPicker)

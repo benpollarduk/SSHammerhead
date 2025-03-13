@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF" Version="3.2.3" />
+    <PackageReference Include="NetAF" Version="3.2.4" />
     <PackageReference Include="NetAF.Imaging" Version="1.1.3" />
   </ItemGroup>
 
