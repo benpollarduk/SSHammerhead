@@ -8,21 +8,13 @@
     <span style="font-size: 11px; margin-left: 5px;">@InputMode.List</span>
 </div>
 
-@if (!showInput && showCommandPicker)
-{
-    <br />
-}
-
 <div style="@(!showInput ? "display: none;" : "")">
+    <br />
     <input type="text" style="width: @(contentWidth); height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
 </div>
 
-@if (showInput && showCommandPicker)
-{
-    <br/>
-}
-
 <div style="width: @(contentWidth); @(!showCommandPicker ? "display: none;" : "")">
+    <br />
     <CommandPickerComponent @ref="commandPickerComponent" />
 </div>
 
