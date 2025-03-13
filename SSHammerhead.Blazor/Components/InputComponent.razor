@@ -1,12 +1,17 @@
 ﻿@using NetAF.Logic.Modes
 
 <div style="display: flex; align-items: center; @(!showInput && !showCommandPicker ? "display: none;" : "")">
-    <span style="font-size: 11px; margin-right: 10px;">Input mode: </span>
+    <span style="font-size: 11px; margin-right: 10px; margin-left: 5px;">Input mode: </span>
     <input type="radio" value="@InputMode.Text"checked="@(selectedInputMode.Equals(InputMode.Text))" @onchange="OnChange" />
-    <span style="font-size: 11px; margin-right: 10px;">@InputMode.Text </span>
+    <span style="font-size: 11px; margin-right: 10px; margin-left: 5px;">@InputMode.Text </span>
     <input type="radio" value="@InputMode.Pick" checked="@(selectedInputMode.Equals(InputMode.Pick))" @onchange="OnChange" />
     <span style="font-size: 11px;">@InputMode.Pick</span>
 </div>
+
+@if (!showInput && showCommandPicker)
+{
+    <br />
+}
 
 <div style="@(!showInput ? "display: none;" : "")">
     <input type="text" style="width: @(contentWidth); height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
@@ -35,7 +40,7 @@
     private HtmlAdapter? htmlAdapter;
     private CommandPickerComponent? commandPickerComponent;
     private string contentWidth = "530px";
-    private InputMode selectedInputMode = InputMode.Text;
+    private InputMode selectedInputMode = InputMode.Pick;
     private enum InputMode { Text, Pick };
 
     private void Acknowledge()

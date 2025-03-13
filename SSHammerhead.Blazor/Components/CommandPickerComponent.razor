@@ -30,7 +30,7 @@
     public async void Update(CommandHelp[] commands)
     {
         selectedCommand = null;
-        this.commands = commands;
+        this.commands = commands.OrderBy(x => x.Command).ToArray();
 
         Clear();
 
