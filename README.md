@@ -78,5 +78,7 @@ You can now play in the browser. This is a trial feature and can be clunky. The 
 
 To play in the browser click [here](https://benpollarduk.github.io/SSHammerhead/).
 
+![image](https://github.com/user-attachments/assets/56ce67e5-4634-40c9-ae8e-f4368890a6f6)
+
 ## For Open Questions
 Visit https://github.com/benpollarduk/ss-hammerhead/issues
