@@ -70,7 +70,11 @@ namespace SSHammerhead.ImageHandling
         public MemoryStream GetImageAsStream(string key)
         {
             cache.TryGetValue(key, out var stream);
-            return stream ?? new MemoryStream();
+
+            if (stream != null)
+                return new MemoryStream(stream.ToArray());
+            else
+                return new MemoryStream();
         }
 
         #endregion
