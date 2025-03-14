@@ -1,33 +1,74 @@
 ﻿@page "/"
+@using NetAF.Rendering.FrameBuilders
+@using SSHammerhead.Assets.Players.Management
+@using SSHammerhead.Blazor.Components
 @using System.Reflection
-@inject NavigationManager NavigationManager
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
 
-<h1>Trouble Aboard the SS Hammerhead</h1>
+<div style="@(modeSelected ? "display: none;" : "")">
+    <h1>Trouble Aboard the SS Hammerhead</h1>
 
-<div style="font-size: 8px; color: #FFFFFF60">
-    <p>Version: @version</p>
+    <div style="font-size: 8px; color: #FFFFFF60">
+        <p>Version: @version</p>
+    </div>
+
+    <div>
+        <p>Console emulation runs using frames created for display in the console. Run in this mode for a retro look and feel.</p>
+        <button class="btn btn-primary" @onclick="RunConsoleEmu">Run console emulation</button>
+    </div>
+
+    <br/>
+
+    <div>
+        <p>HTML runs using frames created for displaying in HTML. Run this mode for a mode modern, browser based experience.</p>
+        <button class="btn btn-primary" @onclick="RunHtml">Run HTML</button>
+    </div>
 </div>
 
-<div>
-    <p>Console emulation runs using frames created for display in the console. Run in this mode for a retro look and feel.</p>
-    <button class="btn btn-primary" @onclick="@(()=>NavigationManager.NavigateTo("/Console-Emu-Mode"))">Run console emulation</button>
-</div>
-
-<br/>
-
-<div>
-    <p>HTML runs using frames created for displaying in HTML. Run this mode for a mode modern, broswer based experience.</p>
-    <button class="btn btn-primary" @onclick="@(()=>NavigationManager.NavigateTo("/Html-Mode"))">Run Html</button>
+<div style="@(!modeSelected ? "display: none;" : "")">
+    <GameComponent @ref="gameComponent" />
 </div>
 
 @code {
+    private bool modeSelected = false;
     private string version = string.Empty;
+    private GameComponent? gameComponent;
 
-    protected override void OnInitialized()
+    protected override async void OnInitialized()
     {
         var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
         version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" : "unknown";
+
+        await ImageCache.CacheAllImages();
+    }
+
+    private void RunConsoleEmu()
+    {
+        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.BotConsoleEmulation);
+    }
+
+    private void RunHtml()
+    {
+        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml);
+    }
+
+    private void SetupComponents(HtmlAdapter htmlAdapter)
+    {
+        gameComponent?.SetAdapter(htmlAdapter);
+    }
+
+    private void BeginGame(FrameBuilderCollection naomiFrameBuilder, FrameBuilderCollection botFrameBuilder)
+    {
+        if (GameExecutor.IsExecuting)
+            GameExecutor.CancelExecution();
+
+        var htmlAdapter = new HtmlAdapter(gameComponent);
+        SetupComponents(htmlAdapter);
+
+        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, new(80, 48));
+        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, naomiFrameBuilder, botFrameBuilder));
+
+        modeSelected = true;
     }
 }
