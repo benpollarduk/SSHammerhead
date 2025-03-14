@@ -29,6 +29,7 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             builder.P(description);
             builder.Raw("<img src=\"Images/space.png\"/>");
             builder.Br();
+            builder.Br();
 
             return new HtmlFrame(builder);
         }
