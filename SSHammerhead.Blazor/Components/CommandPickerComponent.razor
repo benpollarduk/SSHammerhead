@@ -13,12 +13,10 @@
 </div>
 
 @code {
-
-    private record ButtonTemplate(string Text, string CssClass, string Style, EventCallback OnClick);
+    private const string BaseButtonStyle = "font-size: 11px; margin: 2px;";
+    private const string ButtonCssClass = "btn btn-primary";
     private List<ButtonTemplate> buttons = new List<ButtonTemplate>();
     private HtmlAdapter? htmlAdapter;
-    private string cssClass = "btn btn-primary";
-    private string style = "font-size: 11px; margin: 2px;";
     private CommandHelp? selectedCommand;
     private CommandHelp[] commands = [];
     public Dictionary<CommandCategory, string> CommandCategoryColors = new Dictionary<CommandCategory, string>()
@@ -33,6 +31,10 @@
         { CommandCategory.RegionMap, "navy" },
         { CommandCategory.Information, "crimson" }
     };
+    public string CommandButtonStyle { get; set; } = BaseButtonStyle;
+    public string CancelButtonStyle { get; set; } = BaseButtonStyle + " background: red;";
+    public string PromptButtonStyle { get; set; } = BaseButtonStyle + " background: darkorchid;";
+    private record ButtonTemplate(string Text, string CssClass, string Style, EventCallback OnClick);
 
     public void Clear()
     {
@@ -47,7 +49,7 @@
         Clear();
 
         foreach (var command in commands.Where(x => CommandCategoryColors.ContainsKey(x.Category)))
-            buttons.Add(new ButtonTemplate(command.Command, cssClass, style + $" background: {CommandCategoryColors[command.Category]};", EventCallback.Factory.Create(this, () => CommandButtonClicked(command))));
+            buttons.Add(new ButtonTemplate(command.Command, ButtonCssClass, CommandButtonStyle + $" background: {CommandCategoryColors[command.Category]};", EventCallback.Factory.Create(this, () => CommandButtonClicked(command))));
 
         await InvokeAsync(StateHasChanged);
     }
@@ -57,9 +59,9 @@
         buttons.Clear();
 
         foreach (var prompt in prompts)
-            buttons.Add(new ButtonTemplate(prompt.Entry, cssClass, style + " background: darkorchid;", EventCallback.Factory.Create(this, () => PromptButtonClicked(prompt.Entry))));
+            buttons.Add(new ButtonTemplate(prompt.Entry, ButtonCssClass, PromptButtonStyle, EventCallback.Factory.Create(this, () => PromptButtonClicked(prompt.Entry))));
 
-        buttons.Add(new ButtonTemplate("Clear", cssClass, style + " background: red;", EventCallback.Factory.Create(this, () => ClearButtonClicked())));
+        buttons.Add(new ButtonTemplate("Clear", ButtonCssClass, CancelButtonStyle, EventCallback.Factory.Create(this, () => ClearButtonClicked())));
         await InvokeAsync(StateHasChanged);
     }
 

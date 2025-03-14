@@ -7,9 +7,9 @@
 @inject IJSRuntime JSRuntime
 
 <div>
-    <span style="font-size: 11px;">Restore point: </span>
-    <button class="btn btn-primary" style="font-size: 11px;" disabled="@disableSaveAndLoad" @onclick="DownloadRestorePoint">Create</button>
-    <span style="font-size: 11px;">Load: </span>
+    <span style="font-size: 11px; margin-right: 5px;">Restore point:</span>
+    <button class="btn btn-primary" style="font-size: 11px;margin-right: 10px;" disabled="@disableSaveAndLoad" @onclick="DownloadRestorePoint">Create</button>
+    <span style="font-size: 11px;margin-right: 5px;">Load:</span>
     <InputFile style="font-size: 11px;" disabled="@disableSaveAndLoad" OnChange="@UploadRestorePoint" />
 </div>
 
