@@ -67,13 +67,12 @@ namespace SSHammerhead.Blazor
         {
             get
             {
-                var gridStringBuilder = new GridStringBuilder();
                 var htmlBuilder = new HtmlBuilder();
 
                 return new FrameBuilderCollection(
                     new NaomiHtmlTitleFrameBuilder(htmlBuilder),
-                    new HtmlSceneFrameBuilder(htmlBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
-                    new HtmlRegionMapFrameBuilder(htmlBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
+                    new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder)),
+                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder)),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
                     new HtmlHelpFrameBuilder(htmlBuilder),
                     new HtmlCompletionFrameBuilder(htmlBuilder),
