@@ -71,7 +71,7 @@ namespace SSHammerhead.Blazor
                 var htmlBuilder = new HtmlBuilder();
 
                 return new FrameBuilderCollection(
-                    new HtmlTitleFrameBuilder(htmlBuilder),
+                    new NaomiHtmlTitleFrameBuilder(htmlBuilder),
                     new HtmlSceneFrameBuilder(htmlBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
                     new HtmlRegionMapFrameBuilder(htmlBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
                     new HtmlCommandListFrameBuilder(htmlBuilder),

@@ -1,63 +1,33 @@
 ﻿@page "/"
-@using SSHammerhead.Assets.Players.Management
-@using SSHammerhead.Blazor.Components
 @using System.Reflection
+@inject NavigationManager NavigationManager
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
+
+<h1>Trouble Aboard the SS Hammerhead</h1>
 
 <div style="font-size: 8px; color: #FFFFFF60">
     <p>Version: @version</p>
 </div>
 
-<div style="@(!gameRunning ? "display: none;" : "")">
-    <GameComponent @ref="gameComponent" />
+<div>
+    <p>Console emulation runs using frames created for display in the console. Run in this mode for a retro look and feel.</p>
+    <button class="btn btn-primary" @onclick="@(()=>NavigationManager.NavigateTo("/Console-Emu-Mode"))">Run console emulation</button>
 </div>
 
-<div style="font-size: 24px; @(gameRunning ? "display: none;" : "")">
-    <p>Getting read, please standby...</p>
+<br/>
+
+<div>
+    <p>HTML runs using frames created for displaying in HTML. Run this mode for a mode modern, broswer based experience.</p>
+    <button class="btn btn-primary" @onclick="@(()=>NavigationManager.NavigateTo("/Html-Mode"))">Run Html</button>
 </div>
 
 @code {
     private string version = string.Empty;
-    private bool gameRunning = false;
-    private GameComponent? gameComponent;
-    private bool useConsoleEmulation = true;
 
-    protected async override void OnInitialized()
-    {
-        if (GameExecutor.IsExecuting)
-            return;
-
-        SetupVersion();
-
-        await ImageCache.CacheAllImages();
-
-        gameRunning = true;
-        await InvokeAsync(StateHasChanged);
-
-        var htmlAdapter = new HtmlAdapter(gameComponent);
-
-        SetupComponents(htmlAdapter);
-        BeginGame(htmlAdapter);
-    }
-
-    private void SetupVersion()
+    protected override void OnInitialized()
     {
         var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
         version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" : "unknown";
-    }
-
-    private void BeginGame(HtmlAdapter htmlAdapter)
-    {
-        var naomiFrameBuilders = useConsoleEmulation ? FrameBuilderCollections.NaomiConsoleEmulation : FrameBuilderCollections.NaomiHtml;
-        var botFrameBuilders = useConsoleEmulation ? FrameBuilderCollections.BotConsoleEmulation : FrameBuilderCollections.BotHtml;
-
-        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilders, new(80, 48));
-        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, naomiFrameBuilders, botFrameBuilders));
-    }
-
-    private void SetupComponents(HtmlAdapter htmlAdapter)
-    {
-        gameComponent?.SetAdapter(htmlAdapter);
     }
 }

@@ -1,0 +1,42 @@
+﻿@page "/html-mode"
+@using SSHammerhead.Assets.Players.Management
+@using SSHammerhead.Blazor.Components
+@using System.Reflection
+
+<PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
+
+<div style="@(!gameRunning ? "display: none;" : "")">
+    <GameComponent @ref="gameComponent" />
+</div>
+
+@code {
+    private bool gameRunning = false;
+    private GameComponent? gameComponent;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        if (GameExecutor.IsExecuting)
+            GameExecutor.CancelExecution();
+
+        var htmlAdapter = new HtmlAdapter(gameComponent);
+        SetupComponents(htmlAdapter);
+        BeginGame(htmlAdapter);
+
+        gameRunning = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void BeginGame(HtmlAdapter htmlAdapter)
+    {
+        GameConfiguration configuration = new(htmlAdapter, FrameBuilderCollections.NaomiHtml, new(80, 48));
+        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, FrameBuilderCollections.NaomiHtml, FrameBuilderCollections.BotHtml));
+    }
+
+    private void SetupComponents(HtmlAdapter htmlAdapter)
+    {
+        gameComponent?.SetAdapter(htmlAdapter);
+    }
+}

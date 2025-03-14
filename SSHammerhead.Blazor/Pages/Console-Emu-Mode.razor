@@ -1,0 +1,49 @@
+﻿@page "/console-emu-mode"
+@using SSHammerhead.Assets.Players.Management
+@using SSHammerhead.Blazor.Components
+@using System.Reflection
+
+<PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
+
+<div style="@(!gameRunning ? "display: none;" : "")">
+    <GameComponent @ref="gameComponent" />
+</div>
+
+<div style="font-size: 16px; @(gameRunning ? "display: none;" : "")">
+    <p>Getting read, please standby...</p>
+</div>
+
+@code {
+    private bool gameRunning = false;
+    private GameComponent? gameComponent;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        if (GameExecutor.IsExecuting)
+            GameExecutor.CancelExecution();
+
+        await ImageCache.CacheAllImages();
+
+        var htmlAdapter = new HtmlAdapter(gameComponent);
+
+        SetupComponents(htmlAdapter);
+        BeginGame(htmlAdapter);
+
+        gameRunning = true;
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void BeginGame(HtmlAdapter htmlAdapter)
+    {
+        GameConfiguration configuration = new(htmlAdapter, FrameBuilderCollections.NaomiConsoleEmulation, new(80, 48));
+        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, FrameBuilderCollections.NaomiConsoleEmulation, FrameBuilderCollections.BotConsoleEmulation));
+    }
+
+    private void SetupComponents(HtmlAdapter htmlAdapter)
+    {
+        gameComponent?.SetAdapter(htmlAdapter);
+    }
+}

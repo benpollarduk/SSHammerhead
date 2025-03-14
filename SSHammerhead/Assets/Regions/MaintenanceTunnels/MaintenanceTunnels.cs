@@ -22,12 +22,15 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels
             var regionMaker = new RegionMaker(Name, Description)
             {
                 // L0
-                [0, 2, 0] = new MaintenanceTunnelA().Instantiate(),
-                [1, 2, 0] = new MaintenanceTunnelB().Instantiate(),
-                [2, 2, 0] = new MaintenanceTunnelC().Instantiate(),
-                [2, 1, 0] = new MaintenanceTunnelD().Instantiate(),
-                [2, 0, 0] = new MaintenanceTunnelE().Instantiate(),
-                [1, 0, 0] = new MaintenanceTunnelF().Instantiate()
+                [0, 3, 0] = new MaintenanceTunnelA().Instantiate(),
+                [1, 3, 0] = new MaintenanceTunnelB().Instantiate(),
+                [2, 3, 0] = new MaintenanceTunnelC().Instantiate(),
+                [2, 2, 0] = new MaintenanceTunnelD().Instantiate(),
+                [2, 1, 0] = new MaintenanceTunnelE().Instantiate(),
+                [1, 1, 0] = new MaintenanceTunnelF().Instantiate(),
+                [3, 2, 0] = new MaintenanceTunnelG().Instantiate(),
+                [4, 2, 0] = new MaintenanceTunnelH().Instantiate(),
+                [2, 0, 0] = new MaintenanceTunnelI().Instantiate(),
             };
 
             // start in maintenance tunnel A

@@ -17,7 +17,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 
         public Room Instantiate()
         {
-            return new(Name, Description, [new Exit(Direction.West), new Exit(Direction.North)], examination: request => new Examination(Description));
+            return new(Name, Description, [new Exit(Direction.West), new Exit(Direction.North), new Exit(Direction.South)], examination: request => new Examination(Description));
         }
 
         #endregion
