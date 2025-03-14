@@ -19,19 +19,19 @@ namespace SSHammerhead.Console
         {
             get
             {
-                var gridLayoutBuilder = new GridStringBuilder();
+                var gridStringBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiConsoleTitleFrameBuilder(gridLayoutBuilder, new ConsoleImageProvider()),
-                    new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder)),
-                    new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder)),
-                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
-                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
-                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
-                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new ConsoleReactionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleConversationFrameBuilder(gridLayoutBuilder));
+                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder, new ConsoleImageProvider()),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
+                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
+                    new ConsoleCommandListFrameBuilder(gridStringBuilder),
+                    new ConsoleHelpFrameBuilder(gridStringBuilder),
+                    new ConsoleCompletionFrameBuilder(gridStringBuilder),
+                    new ConsoleGameOverFrameBuilder(gridStringBuilder),
+                    new ConsoleAboutFrameBuilder(gridStringBuilder),
+                    new ConsoleReactionFrameBuilder(gridStringBuilder),
+                    new ConsoleConversationFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -42,20 +42,20 @@ namespace SSHammerhead.Console
         {
             get
             {
-                var gridLayoutBuilder = new GridStringBuilder();
-                var botLayoutBuilder = new GridStringBuilder('[', ']', '+');
+                var gridStringBuilder = new GridStringBuilder();
+                var botStringBuilder = new GridStringBuilder('[', ']', '+');
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridLayoutBuilder),
-                    new BotConsoleSceneFrameBuilder(botLayoutBuilder, new BotConsoleRoomMapBuilder(botLayoutBuilder)),
-                    new BotConsoleRegionMapFrameBuilder(botLayoutBuilder, new BotConsoleRegionMapBuilder(botLayoutBuilder)),
-                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
-                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
-                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
-                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new BotConsoleReactionFrameBuilder(botLayoutBuilder),
-                    new ConsoleConversationFrameBuilder(gridLayoutBuilder));
+                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder)),
+                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder)),
+                    new ConsoleCommandListFrameBuilder(gridStringBuilder),
+                    new ConsoleHelpFrameBuilder(gridStringBuilder),
+                    new ConsoleCompletionFrameBuilder(gridStringBuilder),
+                    new ConsoleGameOverFrameBuilder(gridStringBuilder),
+                    new ConsoleAboutFrameBuilder(gridStringBuilder),
+                    new BotConsoleReactionFrameBuilder(botStringBuilder),
+                    new ConsoleConversationFrameBuilder(gridStringBuilder));
             }
         }
     }

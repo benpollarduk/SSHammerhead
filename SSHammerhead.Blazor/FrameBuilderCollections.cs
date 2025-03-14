@@ -3,6 +3,8 @@ using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
+using NetAF.Targets.Html.Rendering.FrameBuilders;
+using NetAF.Targets.Html.Rendering;
 
 namespace SSHammerhead.Blazor
 {
@@ -12,49 +14,97 @@ namespace SSHammerhead.Blazor
     internal static class FrameBuilderCollections
     {
         /// <summary>
-        /// Get the frame builders for Naomi.
+        /// Get the frame builders for Naomi, using console emulation.
         /// </summary>
-        internal static FrameBuilderCollection Naomi
+        internal static FrameBuilderCollection NaomiConsoleEmulation
         {
             get
             {
-                var gridLayoutBuilder = new GridStringBuilder();
+                var gridStringBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiConsoleTitleFrameBuilder(gridLayoutBuilder, ImageCache.GetProvider()),
-                    new ConsoleSceneFrameBuilder(gridLayoutBuilder, new ConsoleRoomMapBuilder(gridLayoutBuilder), false),
-                    new ConsoleRegionMapFrameBuilder(gridLayoutBuilder, new ConsoleRegionMapBuilder(gridLayoutBuilder), false),
-                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
-                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
-                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
-                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new ConsoleReactionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleConversationFrameBuilder(gridLayoutBuilder, false));
+                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder, ImageCache.GetProvider()),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder), false),
+                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder), false),
+                    new ConsoleCommandListFrameBuilder(gridStringBuilder),
+                    new ConsoleHelpFrameBuilder(gridStringBuilder),
+                    new ConsoleCompletionFrameBuilder(gridStringBuilder),
+                    new ConsoleGameOverFrameBuilder(gridStringBuilder),
+                    new ConsoleAboutFrameBuilder(gridStringBuilder),
+                    new ConsoleReactionFrameBuilder(gridStringBuilder),
+                    new ConsoleConversationFrameBuilder(gridStringBuilder, false));
             }
         }
 
         /// <summary>
-        /// Get the frame builders for the bot.
+        /// Get the frame builders for the bot, using console emulation.
         /// </summary>
-        internal static FrameBuilderCollection Bot
+        internal static FrameBuilderCollection BotConsoleEmulation
         {
             get
             {
-                var gridLayoutBuilder = new GridStringBuilder();
-                var botLayoutBuilder = new GridStringBuilder('[', ']', '+');
+                var gridStringBuilder = new GridStringBuilder();
+                var botStringBuilder = new GridStringBuilder('[', ']', '+');
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridLayoutBuilder),
-                    new BotConsoleSceneFrameBuilder(botLayoutBuilder, new BotConsoleRoomMapBuilder(botLayoutBuilder), false),
-                    new BotConsoleRegionMapFrameBuilder(botLayoutBuilder, new BotConsoleRegionMapBuilder(botLayoutBuilder), false),
-                    new ConsoleCommandListFrameBuilder(gridLayoutBuilder),
-                    new ConsoleHelpFrameBuilder(gridLayoutBuilder),
-                    new ConsoleCompletionFrameBuilder(gridLayoutBuilder),
-                    new ConsoleGameOverFrameBuilder(gridLayoutBuilder),
-                    new ConsoleAboutFrameBuilder(gridLayoutBuilder),
-                    new BotConsoleReactionFrameBuilder(botLayoutBuilder),
-                    new ConsoleConversationFrameBuilder(gridLayoutBuilder, false));
+                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder), false),
+                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder), false),
+                    new ConsoleCommandListFrameBuilder(gridStringBuilder),
+                    new ConsoleHelpFrameBuilder(gridStringBuilder),
+                    new ConsoleCompletionFrameBuilder(gridStringBuilder),
+                    new ConsoleGameOverFrameBuilder(gridStringBuilder),
+                    new ConsoleAboutFrameBuilder(gridStringBuilder),
+                    new BotConsoleReactionFrameBuilder(botStringBuilder),
+                    new ConsoleConversationFrameBuilder(gridStringBuilder, false));
+            }
+        }
+
+        /// <summary>
+        /// Get the frame builders for Naomi, using HTML.
+        /// </summary>
+        internal static FrameBuilderCollection NaomiHtml
+        {
+            get
+            {
+                var gridStringBuilder = new GridStringBuilder();
+                var htmlBuilder = new HtmlBuilder();
+
+                return new FrameBuilderCollection(
+                    new HtmlTitleFrameBuilder(htmlBuilder),
+                    new HtmlSceneFrameBuilder(htmlBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
+                    new HtmlRegionMapFrameBuilder(htmlBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
+                    new HtmlCommandListFrameBuilder(htmlBuilder),
+                    new HtmlHelpFrameBuilder(htmlBuilder),
+                    new HtmlCompletionFrameBuilder(htmlBuilder),
+                    new HtmlGameOverFrameBuilder(htmlBuilder),
+                    new HtmlAboutFrameBuilder(htmlBuilder),
+                    new HtmlReactionFrameBuilder(htmlBuilder),
+                    new HtmlConversationFrameBuilder(htmlBuilder));
+            }
+        }
+
+        /// <summary>
+        /// Get the frame builders for the bot, using HTML.
+        /// </summary>
+        internal static FrameBuilderCollection BotHtml
+        {
+            get
+            {
+                var botStringBuilder = new GridStringBuilder('[', ']', '+');
+                var htmlBuilder = new HtmlBuilder();
+
+                return new FrameBuilderCollection(
+                    new HtmlTitleFrameBuilder(htmlBuilder),
+                    new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder), false),
+                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder), false),
+                    new HtmlCommandListFrameBuilder(htmlBuilder),
+                    new HtmlHelpFrameBuilder(htmlBuilder),
+                    new HtmlCompletionFrameBuilder(htmlBuilder),
+                    new HtmlGameOverFrameBuilder(htmlBuilder),
+                    new HtmlAboutFrameBuilder(htmlBuilder),
+                    new BotConsoleReactionFrameBuilder(botStringBuilder),
+                    new HtmlConversationFrameBuilder(htmlBuilder));
             }
         }
     }

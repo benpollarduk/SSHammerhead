@@ -17,11 +17,11 @@
     <p>Getting read, please standby...</p>
 </div>
 
-
 @code {
     private string version = string.Empty;
     private bool gameRunning = false;
     private GameComponent? gameComponent;
+    private bool useConsoleEmulation = true;
 
     protected async override void OnInitialized()
     {
@@ -49,8 +49,11 @@
 
     private void BeginGame(HtmlAdapter htmlAdapter)
     {
-        GameConfiguration configuration = new(htmlAdapter, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, new(80, 48));
-        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, SSHammerhead.Blazor.FrameBuilderCollections.Naomi, SSHammerhead.Blazor.FrameBuilderCollections.Bot));
+        var naomiFrameBuilders = useConsoleEmulation ? FrameBuilderCollections.NaomiConsoleEmulation : FrameBuilderCollections.NaomiHtml;
+        var botFrameBuilders = useConsoleEmulation ? FrameBuilderCollections.BotConsoleEmulation : FrameBuilderCollections.BotHtml;
+
+        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilders, new(80, 48));
+        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, naomiFrameBuilders, botFrameBuilders));
     }
 
     private void SetupComponents(HtmlAdapter htmlAdapter)
