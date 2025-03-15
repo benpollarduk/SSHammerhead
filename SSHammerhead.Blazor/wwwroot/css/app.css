@@ -5,6 +5,7 @@ html, body {
     width: 100%;
     overflow-x: hidden;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
 h1:focus {
@@ -19,7 +20,7 @@ a, .btn-link {
     color: #fff;
     background-color: #1b6ec2;
     border-color: #1861ac;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {

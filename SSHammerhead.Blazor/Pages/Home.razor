@@ -51,7 +51,6 @@
 
     private void RunHtml()
     {
-        SceneMode.DisplayCommandList = false;
         BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml);
     }
 
@@ -68,7 +67,8 @@
         var htmlAdapter = new HtmlAdapter(gameComponent);
         SetupComponents(htmlAdapter);
 
-        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, new(80, 48));
+        SceneMode.DisplayCommandList = false;
+        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, new(80, 40));
         GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, naomiFrameBuilder, botFrameBuilder));
 
         modeSelected = true;
