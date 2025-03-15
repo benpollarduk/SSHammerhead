@@ -68,7 +68,7 @@
         SetupComponents(htmlAdapter);
 
         SceneMode.DisplayCommandList = false;
-        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, new(80, 40));
+        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, new(80, 48));
         GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, naomiFrameBuilder, botFrameBuilder));
 
         modeSelected = true;
