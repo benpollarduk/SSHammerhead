@@ -89,7 +89,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             lastY += 2;
 
             if (roomMapBuilder is IConsoleRoomMapBuilder consoleRoomMapBuilder)
-                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, keyType, new Point2D(size.Width / 2 - 4, lastY + 8), out _, out lastY);
+                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, keyType, new Point2D(size.Width / 2 - 4, lastY + 2), out _, out lastY);
             else
                 roomMapBuilder?.BuildRoomMap(room, viewPoint, keyType);
 
