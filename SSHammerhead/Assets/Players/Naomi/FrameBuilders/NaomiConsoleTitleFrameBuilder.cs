@@ -7,8 +7,6 @@ using NetAF.Targets.Console.Rendering;
 using SSHammerhead.ImageHandling;
 using System;
 using System.Diagnostics;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 {

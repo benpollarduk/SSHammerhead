@@ -1,25 +1,25 @@
 ﻿@using NetAF.Logic.Modes
 
 <div style="display: flex; align-items: center; @(!showInput && !showCommandPicker ? "display: none;" : "")">
-    <span style="font-size: 11px; margin-right: 10px;">Input mode: </span>
+    <span class="span-primary" style="margin-right: 10px;">Input mode: </span>
     <input type="radio" value="@InputMode.Text"checked="@(selectedInputMode.Equals(InputMode.Text))" @onchange="OnChange" />
-    <span style="font-size: 11px; margin-right: 10px; margin-left: 5px;">@InputMode.Text </span>
+    <span class="span-primary" style="margin-right: 10px; margin-left: 5px;">@InputMode.Text </span>
     <input type="radio" value="@InputMode.List" checked="@(selectedInputMode.Equals(InputMode.List))" @onchange="OnChange" />
-    <span style="font-size: 11px; margin-left: 5px;">@InputMode.List</span>
+    <span class="span-primary" style="margin-left: 5px;">@InputMode.List</span>
 </div>
 
 <div style="@(!showInput ? "display: none;" : "")">
     <br />
-    <input type="text" style="width: @(contentWidth); height:35px; font-size: 16px;" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
+    <input type="text" class="input-text" @ref="textInput" @bind="text" @onkeyup="HandleInput" />
 </div>
 
-<div style="width: @(contentWidth); @(!showCommandPicker ? "display: none;" : "")">
+<div style="@(!showCommandPicker ? "display: none;" : "")">
     <br />
     <CommandPickerComponent @ref="commandPickerComponent" />
 </div>
 
 <div style="@(!showAcknowledge ? "display: none;" : "")">
-    <button class="btn btn-primary" style="width: @(contentWidth); height:35px; font-size: 16px;" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
+    <button class="btn btn-primary btn-acknowledge" @ref="acknowledgeButton" @onclick="Acknowledge">OK</button>
 </div>
 
 @code {
@@ -31,7 +31,6 @@
     private ElementReference textInput;
     private HtmlAdapter? htmlAdapter;
     private CommandPickerComponent? commandPickerComponent;
-    private string contentWidth = "530px";
     private InputMode selectedInputMode = InputMode.List;
     private enum InputMode { Text, List };
 

@@ -71,8 +71,8 @@ namespace SSHammerhead.Blazor
 
                 return new FrameBuilderCollection(
                     new NaomiHtmlTitleFrameBuilder(htmlBuilder),
-                    new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder)),
-                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder)),
+                    new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder) { MaxSize = new(80, 7) }),
+                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { MaxSize = new(80, 20) }),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
                     new HtmlHelpFrameBuilder(htmlBuilder),
                     new HtmlCompletionFrameBuilder(htmlBuilder),

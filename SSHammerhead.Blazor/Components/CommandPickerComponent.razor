@@ -1,9 +1,9 @@
 ﻿@using NetAF.Commands
 
-<div>
+<div class="command-button-container">
     @if (selectedCommand != null)
     {
-        <span style="font-size: 11px;">@(selectedCommand.Command): </span>
+        <span class="span-primary">@(selectedCommand.Command): </span>
     }
 
     @foreach (var button in buttons)
@@ -13,8 +13,6 @@
 </div>
 
 @code {
-    private const string BaseButtonStyle = "font-size: 11px; margin: 2px;";
-    private const string ButtonCssClass = "btn btn-primary";
     private List<ButtonTemplate> buttons = new List<ButtonTemplate>();
     private HtmlAdapter? htmlAdapter;
     private CommandHelp? selectedCommand;
@@ -31,9 +29,6 @@
         { CommandCategory.RegionMap, "navy" },
         { CommandCategory.Information, "crimson" }
     };
-    public string CommandButtonStyle { get; set; } = BaseButtonStyle;
-    public string CancelButtonStyle { get; set; } = BaseButtonStyle + " background: red;";
-    public string PromptButtonStyle { get; set; } = BaseButtonStyle + " background: darkorchid;";
     private record ButtonTemplate(string Text, string CssClass, string Style, EventCallback OnClick);
 
     public void Clear()
@@ -49,7 +44,7 @@
         Clear();
 
         foreach (var command in commands.Where(x => CommandCategoryColors.ContainsKey(x.Category)))
-            buttons.Add(new ButtonTemplate(command.Command, ButtonCssClass, CommandButtonStyle + $" background: {CommandCategoryColors[command.Category]};", EventCallback.Factory.Create(this, () => CommandButtonClicked(command))));
+            buttons.Add(new ButtonTemplate(command.Command, "btn btn-primary", $"background: {CommandCategoryColors[command.Category]};", EventCallback.Factory.Create(this, () => CommandButtonClicked(command))));
 
         await InvokeAsync(StateHasChanged);
     }
@@ -59,9 +54,9 @@
         buttons.Clear();
 
         foreach (var prompt in prompts)
-            buttons.Add(new ButtonTemplate(prompt.Entry, ButtonCssClass, PromptButtonStyle, EventCallback.Factory.Create(this, () => PromptButtonClicked(prompt.Entry))));
+            buttons.Add(new ButtonTemplate(prompt.Entry, "btn btn-primary btn-prompt", string.Empty, EventCallback.Factory.Create(this, () => PromptButtonClicked(prompt.Entry))));
 
-        buttons.Add(new ButtonTemplate("Clear", ButtonCssClass, CancelButtonStyle, EventCallback.Factory.Create(this, () => ClearButtonClicked())));
+        buttons.Add(new ButtonTemplate("Clear", "btn btn-primary btn-cancel", string.Empty, EventCallback.Factory.Create(this, () => ClearButtonClicked())));
         await InvokeAsync(StateHasChanged);
     }
 
