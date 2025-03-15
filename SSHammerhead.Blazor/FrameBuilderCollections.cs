@@ -70,7 +70,7 @@ namespace SSHammerhead.Blazor
                 var htmlBuilder = new HtmlBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiHtmlTitleFrameBuilder(htmlBuilder),
+                    new NaomiHtmlTitleFrameBuilder(htmlBuilder, ImageCache.GetProvider()),
                     new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder) { MaxSize = new(80, 7) }),
                     new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { MaxSize = new(80, 20) }),
                     new HtmlCommandListFrameBuilder(htmlBuilder),

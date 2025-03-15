@@ -1,7 +1,13 @@
 ﻿using NetAF.Assets;
+using NetAF.Imaging.Textures;
+using NetAF.Imaging;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Html.Rendering;
+using SSHammerhead.ImageHandling;
+using System.Diagnostics;
+using System;
+using NetAF.Targets.Html;
 
 namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 {
@@ -9,7 +15,8 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="builder">A builder to use for the text layout.</param>
-    public sealed class NaomiHtmlTitleFrameBuilder(HtmlBuilder builder) : ITitleFrameBuilder
+    /// <param name="imageProvider">A provider to use images.</param>
+    public sealed class NaomiHtmlTitleFrameBuilder(HtmlBuilder builder, IImageProvider imageProvider) : ITitleFrameBuilder
     {
         #region Implementation of ITitleFrameBuilder
 
@@ -27,7 +34,20 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             builder.H1(title);
             builder.Br();
             builder.P(description);
-            builder.Raw("<img src=\"Images/space.png\"/>");
+
+            try
+            {
+                var imageSize = new Size(size.Width, size.Height / 2);
+                var stream = imageProvider.GetImageAsStream("Images/space.png");
+                var imageBuilder = VisualHelper.FromImage(stream, imageSize, CellAspectRatio.Console, new NoTexturizer());
+                var imageAsHtml = HtmlAdapter.ConvertGridVisualBuilderToHtmlString(imageBuilder);
+                builder.Raw(imageAsHtml);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Exception caught appending image: {e.Message}");
+            }
+
             builder.Br();
             builder.Br();
 

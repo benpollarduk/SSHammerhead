@@ -3,8 +3,6 @@ html, body {
     background-color: #222;
     color: #ccc;
     width: 100%;
-    overflow-x: hidden;
-    box-sizing: border-box;
     font-size: 16px;
 }
 
@@ -36,7 +34,7 @@ h1, h2, h3, h4 {
 }
 
 .span-primary {
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .valid.modified:not([type=checkbox]) {
