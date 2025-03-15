@@ -24,7 +24,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// <summary>
         /// Get or set the character used for representing there is an item or a character in the room.
         /// </summary>
-        public char ItemOrCharacterInRoom { get; set; } = '?';
+        public char ItemOrCharacterInRoom { get; set; } = '!';
 
         /// <summary>
         /// Get or set the character to use for vertical boundaries.
@@ -309,7 +309,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             var lockedExitString = $"{LockedExit} = Locked Exit";
             var notVisitedExitString = "N/E/S/W/U/D = Unvisited";
             var visitedExitString = "n/e/s/w/u/d = Visited";
-            var itemsString = $"{ItemOrCharacterInRoom} = Item(s) or Character(s) in Room";
+            var itemsString = $"{ItemOrCharacterInRoom} = Check";
 
             switch (key)
             {
