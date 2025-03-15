@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using NetAF.Logic.Modes
 @using NetAF.Rendering.FrameBuilders
 @using SSHammerhead.Assets.Players.Management
 @using SSHammerhead.Blazor.Components
@@ -50,6 +51,7 @@
 
     private void RunHtml()
     {
+        SceneMode.DisplayCommandList = false;
         BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml);
     }
 
