@@ -16,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
         internal const string Name = "Airlock";
         private static readonly string Description = "The airlock is a small, mostly empty, chamber with two thick doors. " +
-            "One leads in to the ship, the other back to deep space.";
+            "One leads into the ship, the other back to deep space.";
 
         #endregion
 
