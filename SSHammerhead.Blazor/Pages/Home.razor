@@ -48,12 +48,12 @@
 
     private void RunConsoleEmu()
     {
-        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.BotConsoleEmulation);
+        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.BotConsoleEmulation, new(80, 48));
     }
 
     private void RunHtml()
     {
-        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml);
+        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml, new(40, 30));
     }
 
     private void SetupComponents(HtmlAdapter htmlAdapter)
@@ -61,7 +61,7 @@
         gameComponent?.SetAdapter(htmlAdapter);
     }
 
-    private void BeginGame(FrameBuilderCollection naomiFrameBuilder, FrameBuilderCollection botFrameBuilder)
+    private void BeginGame(FrameBuilderCollection naomiFrameBuilder, FrameBuilderCollection botFrameBuilder, Size size)
     {
         if (GameExecutor.IsExecuting)
             GameExecutor.CancelExecution();
@@ -70,7 +70,7 @@
         SetupComponents(htmlAdapter);
 
         SceneMode.DisplayCommandList = false;
-        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, new(80, 48));
+        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, size);
         GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, naomiFrameBuilder, botFrameBuilder));
 
         modeSelected = true;
