@@ -99,10 +99,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                 gridStringBuilder.DrawHorizontalDivider(lastY, BorderColor);
                 gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
 
-                var maxCommandLength = contextualCommands.Max(x => x.DisplayCommand.Length);
-                const int padding = 4;
-                var dashStartX = leftMargin + maxCommandLength + padding;
-                var descriptionStartX = dashStartX + 2;
                 lastY++;
 
                 for (var index = 0; index < contextualCommands.Length; index++)
@@ -111,7 +107,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
                     gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                 
                     // only continue if not run out of space - the 1 is for the border the ...
-                    if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt >= size.Height)
+                    if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt >= size.Height - 1)
                     {
                         gridStringBuilder.DrawWrapped("...", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
                         break;

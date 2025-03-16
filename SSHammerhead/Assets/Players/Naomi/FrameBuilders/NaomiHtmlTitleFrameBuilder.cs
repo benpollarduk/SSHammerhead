@@ -37,9 +37,8 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 
             try
             {
-                var imageSize = new Size(size.Width, size.Height / 2);
                 var stream = imageProvider.GetImageAsStream("Images/space.png");
-                var imageBuilder = VisualHelper.FromImage(stream, imageSize, CellAspectRatio.Console, new NoTexturizer());
+                var imageBuilder = VisualHelper.FromImage(stream, size, CellAspectRatio.Console, new NoTexturizer());
                 var imageAsHtml = HtmlAdapter.ConvertGridVisualBuilderToHtmlString(imageBuilder);
                 builder.Raw(imageAsHtml);
             }
@@ -48,7 +47,6 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
                 Debug.WriteLine($"Exception caught appending image: {e.Message}");
             }
 
-            builder.Br();
             builder.Br();
 
             return new HtmlFrame(builder);
