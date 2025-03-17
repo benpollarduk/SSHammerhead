@@ -100,11 +100,6 @@ jobs:
       run: |
         cd "${{ runner.temp }}\blazor"
         cp -r ${{ github.workspace }}\SSHammerhead.Blazor\dist\wwwroot\* . -Force
-      
-    - name: Add .nojekyll file
-      run: |
-        cd "${{ runner.temp }}\blazor"
-        touch .nojekyll
 
     - name: Update the base in index.html
       run: |
