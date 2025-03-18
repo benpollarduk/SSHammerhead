@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using NetAF.Assets;
 using NetAF.Assets.Characters;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
-using NetAF.Extensions;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
