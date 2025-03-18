@@ -1,37 +1,5 @@
-/* /Components/CommandPickerComponent.razor.rz.scp.css */
-.btn-prompt[b-oi5680138p] {
-    background: darkorchid;
-}
+@import '_content/NetAF.Blazor/NetAF.Blazor.bundle.scp.css';
 
-.btn-cancel[b-oi5680138p] {
-    background: red;
-}
-
-.command-button-container[b-oi5680138p] {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-/* /Components/InputComponent.razor.rz.scp.css */
-.input-text[b-dtpck8y284] {
-    font-size: 16px;
-    width: 50%;
-}
-
-.btn-acknowledge[b-dtpck8y284] {
-    font-size: 16px;
-}
-/* /Components/OutputComponent.razor.rz.scp.css */
-.div-output[b-meyvm89s81] {
-    font-size: 16px;
-    white-space: normal;
-    overflow-wrap: break-word;
-}
-/* /Components/RestorePointComponent.razor.rz.scp.css */
-.inputfile-primary[b-cuoz9ewi84] {
-    font-size: 12px;
-}
 /* /Layout/MainLayout.razor.rz.scp.css */
 .page[b-2gqv31usyj] {
     position: relative;
