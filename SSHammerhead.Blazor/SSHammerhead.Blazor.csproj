@@ -12,6 +12,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />
     <PackageReference Include="NetAF" Version="3.2.15" />
+    <PackageReference Include="NetAF.Blazor" Version="1.0.0" />
     <PackageReference Include="NetAF.Imaging" Version="1.1.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.3" />
   </ItemGroup>
