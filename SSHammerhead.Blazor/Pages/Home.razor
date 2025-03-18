@@ -1,9 +1,9 @@
 ﻿@page "/"
 @using NetAF.Assets
+@using NetAF.Blazor.Components
 @using NetAF.Logic.Modes
 @using NetAF.Rendering.FrameBuilders
 @using SSHammerhead.Assets.Players.Management
-@using SSHammerhead.Blazor.Components
 @using System.Reflection
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
@@ -61,6 +61,9 @@
     private void SetupComponents(HtmlAdapter htmlAdapter)
     {
         gameComponent?.SetAdapter(htmlAdapter);
+
+        if (gameComponent?.RestorePointComponent != null)
+            gameComponent.RestorePointComponent.PostRestoreCallback = g => PlayableCharacterManager.ApplyConfiguration(g.Player, g);
     }
 
     private void BeginGame(FrameBuilderCollection naomiFrameBuilder, FrameBuilderCollection botFrameBuilder, Size size)
