@@ -52,13 +52,14 @@ The following NetAF commands are supported for interacting with game elements:
 * **N, S, E, W, U, D** - traverse through the rooms of the ship.
 
 The following NetAF global commands are also supported:
-* **About** - display version information.
-* **CommandsOn / CommandsOff** - toggle commands on/off.
-* **Exit** - exit the game.
-* **Help** - display the help screen.
-* **KeyOn / KeyOff** - turn the Key on/off.
-* **Map** - display the map.
-* **New** - start a new game.
+  * **About** - display version information.
+  * **Exit** - exit the game.
+  * **Help X** - display the help screen for a command, where X is the command.
+  * **Commands** - display the command list.
+  * **Commands On / Commands Off** - toggle commands on/off.
+  * **Key On / Key Off** - turn the Key on/off.
+  * **Map** - display the map.
+  * **New** - start a new game.
 
 There are many other commands that can be used to interact with the environment throughout the course of the game.
 
