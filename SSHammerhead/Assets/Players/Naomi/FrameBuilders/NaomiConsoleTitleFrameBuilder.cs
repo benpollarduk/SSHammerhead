@@ -71,7 +71,7 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             try
             {
                 var stream = imageProvider.GetImageAsStream("Images/space.png");
-                var imageBuilder = VisualHelper.FromImage(stream, new(availableWidth, size.Height - 4), CellAspectRatio.Console, new NoTexturizer());
+                var imageBuilder = VisualHelper.FromImage(stream, new(availableWidth, size.Height - 4), CellAspectRatio.Console, new BrightnessTexturizer());
                 output.Overlay(size.Width / 2 - imageBuilder.DisplaySize.Width / 2, size.Height / 2 - imageBuilder.DisplaySize.Height / 2 + lastY / 2, imageBuilder);
             }
             catch (Exception e) 
