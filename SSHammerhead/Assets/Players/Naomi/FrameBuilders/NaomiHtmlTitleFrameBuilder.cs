@@ -38,7 +38,7 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             try
             {
                 var stream = imageProvider.GetImageAsStream("Images/space.png");
-                var imageBuilder = VisualHelper.FromImage(stream, size, CellAspectRatio.Console, new BrightnessTexturizer());
+                var imageBuilder = VisualHelper.FromImage(stream, size, CellAspectRatio.Console, new NoTexturizer());
                 var imageAsHtml = HtmlAdapter.ConvertGridVisualBuilderToHtmlString(imageBuilder);
                 builder.Raw(imageAsHtml);
             }
