@@ -44,7 +44,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                     return Scanner.PerformScan(Name, new(Composition));
 
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
-                    return new Interaction(InteractionResult.NoChange, item, $"Smacking the control panel won't unlock it, a label on the side of it proudly states that it is 'Utility Tested Tough!'.");
+                    return new Interaction(InteractionResult.NoChange, item, $"Smacking the control panel is futile, a label on the side of it proudly states that it is 'Utility Tested Tough!'.");
 
                 return new Interaction(InteractionResult.NoChange, item);
             };
