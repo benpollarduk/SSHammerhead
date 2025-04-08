@@ -1,9 +1,11 @@
 ﻿using NetAF.Assets;
+using NetAF.Extensions;
 using NetAF.Utilities;
+using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
 {
-    public class PostIt : IAssetTemplate<Item>
+    internal class PostIt : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -17,11 +19,28 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #endregion
 
+        #region StaticProperties
+
+        private static readonly Dictionary<string, float> Composition = new()
+        {
+            { "Paper", 94f },
+            { "Ink", 1.02f },
+            { "Glue", 3.6f }
+        };
+
+        #endregion
+
         #region Implementation of IAssetTemplate<Item>
 
         public Item Instantiate()
         {
-            return new Item(Name, Description, true);
+            return new Item(Name, Description, true, interaction: (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(Composition));
+
+                return new Interaction(InteractionResult.NoChange, item);
+            });
         }
 
         #endregion

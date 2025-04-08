@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Core.Items;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
 {
@@ -8,7 +9,9 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
         #region Constants
 
         public const string Name = "Central Hull";
-        private const string Description = "This area appears to be roughly in the centre of the ship. Dimly lit corridors lead to the north, east, south and west, and a ladder leads back down to the engine room. This feels like a hub of sorts.";
+        private const string Description = "This area appears to be roughly in the centre of the ship. " +
+            "Dimly lit corridors lead to the north, east, south and west, and a ladder leads back down to the engine room. " +
+            "This feels like a hub of sorts. A tool chest overflowing with tools of different sorts sits against the north wall.";
 
         #endregion
 
@@ -16,7 +19,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
 
         public Room Instantiate()
         {
-            return new Room(Name, Description, [new Exit(Direction.North), new Exit(Direction.South), new Exit(Direction.West), new Exit(Direction.East), new Exit(Direction.Down)]);
+            return new Room(Name, Description, [new Exit(Direction.North, true), new Exit(Direction.South, true), new Exit(Direction.West, true), new Exit(Direction.East, true), new Exit(Direction.Down)], [new Scanner().Instantiate()]);
         }
 
         #endregion

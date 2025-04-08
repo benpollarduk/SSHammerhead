@@ -1,12 +1,14 @@
 ﻿using NetAF.Assets;
 using NetAF.Commands;
+using NetAF.Extensions;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot;
+using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
 {
-    public class MaintenanceControlPanel : IAssetTemplate<Item>
+    internal class MaintenanceControlPanel : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -16,11 +18,38 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #endregion
 
+        #region StaticProperties
+
+        private static readonly Dictionary<string, float> Composition = new()
+        {
+            { "Steel", 5.68f },
+            { "Aluminum", 4.82f },
+            { "Glass", 21.1f },
+            { "Copper", 4.3f },
+            { "Zinc", 3.64f },
+            { "Plastic", 76.4f },
+            { "Silver", 0.2f },
+            { "Gold", 0.03f },
+        };
+
+        #endregion
+
         #region Implementation of IAssetTemplate<Item>
 
         public Item Instantiate()
         {
-            Item item = new(Name, Description, commands:
+            InteractionCallback interation = (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(Composition));
+
+                if (Hammer.Name.EqualsIdentifier(item.Identifier))
+                    return new Interaction(InteractionResult.NoChange, item, $"Smacking the control panel won't unlock it, a label on the side of it proudly states that it is 'Utility Tested Tough!'.");
+
+                return new Interaction(InteractionResult.NoChange, item);
+            };
+
+            Item item = new(Name, Description, interaction: interation, commands:
             [
                 new CustomCommand(new CommandHelp("Start Maintenance", "Use the Spider Bot."), true, true, (game, arguments) =>
                 {

@@ -1,9 +1,11 @@
 ﻿using NetAF.Assets;
+using NetAF.Extensions;
 using NetAF.Utilities;
+using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
 {
-    public class EmptyTray : IAssetTemplate<Item>
+    internal class EmptyTray : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -12,11 +14,30 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #endregion
 
+        #region StaticProperties
+
+        private static readonly Dictionary<string, float> Composition = new()
+        {
+            { "Plastic", 99.1f },
+            { "Steel alloy", 0.3f }
+        };
+
+        #endregion
+
         #region Implementation of IAssetTemplate<Item>
 
         public Item Instantiate()
         {
-            return new Item(Name, Description) { IsPlayerVisible = false };
+            return new Item(Name, Description, interaction: (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(Composition));
+
+                return new Interaction(InteractionResult.NoChange, item);
+            })
+            { 
+                IsPlayerVisible = false 
+            };
         }
 
         #endregion

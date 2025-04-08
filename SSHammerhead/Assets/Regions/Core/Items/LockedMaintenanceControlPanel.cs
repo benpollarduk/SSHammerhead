@@ -2,10 +2,11 @@
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Utilities;
+using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
 {
-    public class LockedMaintenanceControlPanel : IAssetTemplate<Item>
+    internal class LockedMaintenanceControlPanel : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -18,12 +19,39 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #endregion
 
+        #region StaticProperties
+
+        private static readonly Dictionary<string, float> Composition = new()
+        {
+            { "Steel", 5.68f },
+            { "Aluminum", 4.82f },
+            { "Glass", 21.1f },
+            { "Copper", 4.3f },
+            { "Zinc", 3.64f },
+            { "Plastic", 76.4f },
+            { "Silver", 0.2f },
+            { "Gold", 0.03f },
+        };
+
+        #endregion
+
         #region Implementation of IAssetTemplate<Item>
 
         public Item Instantiate()
         {
+            InteractionCallback interation = (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(Composition));
+
+                if (Hammer.Name.EqualsIdentifier(item.Identifier))
+                    return new Interaction(InteractionResult.NoChange, item, $"Smacking the control panel is futile, a label on the side of it proudly states that it is 'Utility Tested Tough!'.");
+
+                return new Interaction(InteractionResult.NoChange, item);
+            };
+
             Item item = null;
-            item = new(Name, Description, commands:
+            item = new(Name, Description, interaction: interation, commands:
             [
                 new CustomCommand(new CommandHelp("Login", "Login to the maintenance control system", displayAs: "Login __ __", instructions: "Enter a user name and password, separated by a space. For example: user password"), true, true, (game, arguments) =>
                 {

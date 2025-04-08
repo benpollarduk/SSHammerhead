@@ -7,6 +7,7 @@ using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
 using SSHammerhead.Assets.Regions.Core.Items;
+using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 {
@@ -81,6 +82,21 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
             var controlPanel = new Item("Control Panel", "A small wall mounted control panel. Written on the top of the panel in a formal font are the words \"Airlock Control\". It has two buttons, green and red. Above the green button is written \"Enter\" and above the red \"Exit\".", commands: CreateControlPannelCommands(room), interaction: (item) =>
             {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                {
+                    Dictionary<string, float> composition = new()
+                    {
+                        { "Steel", 13.47f },
+                        { "Copper", 4.3f },
+                        { "Zinc", 3.31f },
+                        { "Plastic", 36.7f },
+                        { "Silver", 1.2f },
+                        { "Gold", 0.01f },
+                    };
+
+                    return Scanner.PerformScan("Control Panel", new(composition));
+                }
+
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                 {
                     brokenControlPanel.IsPlayerVisible = true;

@@ -8,7 +8,7 @@ using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.Core;
 using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
-using SSHammerhead.Assets.Regions.Core.Rooms.L1;
+using SSHammerhead.Assets.Regions.Core.Rooms.L2;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
 
@@ -40,7 +40,7 @@ namespace SSHammerhead
 
         private static EndCheckResult CheckForCompletion(Game game)
         {
-            if (game.Overworld.CurrentRegion.CurrentRoom.Identifier.Equals(CentralHull.Name))
+            if (game.Overworld.CurrentRegion.CurrentRoom.Identifier.Equals(Bridge.Name))
                 return new EndCheckResult(true, "Ending reached.", "You have reached the end of the game! More to be developed soon.");
 
             return EndCheckResult.NotEnded;

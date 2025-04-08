@@ -1,9 +1,11 @@
 ﻿using NetAF.Assets;
+using NetAF.Extensions;
 using NetAF.Utilities;
+using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
 {
-    public class Hammer : IAssetTemplate<Item>
+    internal class Hammer : IAssetTemplate<Item>
     {
         #region Constants
 
@@ -12,11 +14,27 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #endregion
 
+        #region StaticProperties
+
+        private static readonly Dictionary<string, float> Composition = new()
+        {
+            { "Stainless steel", 49.9f },
+            { "Rubber", 12.3f }
+        };
+
+        #endregion
+
         #region Implementation of IAssetTemplate<Item>
 
         public Item Instantiate()
         {
-            return new Item(Name, Description, true);
+            return new Item(Name, Description, true, interaction: (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(Composition));
+
+                return new Interaction(InteractionResult.NoChange, item);
+            });
         }
 
         #endregion
