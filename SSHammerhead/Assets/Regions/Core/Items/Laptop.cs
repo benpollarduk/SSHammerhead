@@ -50,6 +50,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                     "more free time these days. More time to hang out and listen to music, chilling out looking at that the stars, particularly " +
                     $"that constellation outside of the air lock. There is something about it that calls to me.{StringUtilities.Newline}{StringUtilities.Newline}{StringUtilities.Newline}" +
                     "Anyway, back to work. Good old Scott - always working like a dog!\"";
+
                     return new Interaction(InteractionResult.NoChange, item, usbInteraction);
                 }
 

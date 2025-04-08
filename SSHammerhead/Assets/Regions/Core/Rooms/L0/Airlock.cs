@@ -19,6 +19,8 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
         private static readonly string Description = "The airlock is a small, mostly empty, chamber with two thick doors. " +
             "One leads into the ship, the other back to deep space.";
 
+        internal const string PeerLogName = "Peer";
+
         #endregion
 
         #region StaticMethods
@@ -63,6 +65,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 {
                     var builder = new NaomiConsoleSpaceViewFrameBuilder(new GridStringBuilder());
                     g.ChangeMode(new VisualMode(builder.Build(new GridVisualBuilder(AnsiColor.Black, AnsiColor.White), g.Configuration.DisplaySize)));
+                    g.LogManager.Add(new(PeerLogName, "The constellation outside the airlock appears as a 7."));
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);
                 })
             ]);

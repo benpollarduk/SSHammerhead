@@ -2,6 +2,7 @@
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
@@ -67,6 +68,9 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                         {
                             item.IsPlayerVisible = false;
                             controlPanel.IsPlayerVisible = true;
+
+                            game.LogManager.Expire(Airlock.PeerLogName);
+
                             return new Reaction(ReactionResult.Inform, "The control panel beeps to confirm the correct user name and password were entered.");
                         }
 
