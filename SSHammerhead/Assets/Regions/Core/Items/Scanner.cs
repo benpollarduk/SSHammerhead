@@ -23,7 +23,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
             description.AppendLine($"Scanned {targetName}, composition is as follows:");
 
-            foreach (var element in composition.Elements.OrderBy(x => x.Value))
+            foreach (var element in composition.Elements.OrderByDescending(x => x.Value))
                 description.AppendLine($"-{element.Key}: {element.Value}%");
 
             var remaining = 100 - composition.Elements.Values.Sum();
