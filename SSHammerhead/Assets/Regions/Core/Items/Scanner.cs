@@ -21,7 +21,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         {
             StringBuilder description = new();
 
-            description.AppendLine($"Scanned {targetName}, compositions is as follows:");
+            description.AppendLine($"Scanned {targetName}, composition is as follows:");
 
             foreach (var element in composition.Elements.OrderBy(x => x.Value))
                 description.AppendLine($"-{element.Key}: {element.Value}%");
