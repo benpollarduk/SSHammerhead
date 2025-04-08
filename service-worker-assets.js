@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "sMTCCW8o",
+  "version": "b9PDbQIf",
   "assets": [
     {
       "hash": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=",
@@ -82,15 +82,15 @@ self.assetsManifest = {
       "url": "_framework/NetAF.Imaging.wasm"
     },
     {
-      "hash": "sha256-3cfUroCoFBO2qtgHM6i2XZQpd8NEIP0vX2trjfGA7D4=",
+      "hash": "sha256-/ZPANQMQQrLSUZR1lM6SBw9X9aclijM54E1QRFj5gTA=",
       "url": "_framework/NetAF.wasm"
     },
     {
-      "hash": "sha256-OM9kfetF/s2U4LvOg55XhqrpEbwnBYMeg8nvKvDTXyk=",
+      "hash": "sha256-DHk/0g/o4N4FirQnri/iJXGPDhJh659veWTcZZIAZzA=",
       "url": "_framework/SSHammerhead.Blazor.wasm"
     },
     {
-      "hash": "sha256-l8hPJSTwnUc/fM59Wv1wyZg3DUpOqEFjMuSwQIH5SpY=",
+      "hash": "sha256-vETDubnezzRK/WdHw8BF8UCS7G8oV1hBGfPBsBnSzZc=",
       "url": "_framework/SSHammerhead.wasm"
     },
     {
@@ -126,7 +126,7 @@ self.assetsManifest = {
       "url": "_framework/System.IO.Pipelines.wasm"
     },
     {
-      "hash": "sha256-f+npWlKkyrT5Sk3daOXfQefOpFZpvl0O6jlixNCOgTU=",
+      "hash": "sha256-5YIBN8+lYAT3IVBz7fMn8ajqjbNRm4NnBGE1rjEZ81I=",
       "url": "_framework/System.Linq.wasm"
     },
     {
@@ -142,7 +142,7 @@ self.assetsManifest = {
       "url": "_framework/System.Net.Primitives.wasm"
     },
     {
-      "hash": "sha256-f2ZHFC3SXu2JQOGQ2EXW9Ht6K0FV/bPJTwcaNJt9F80=",
+      "hash": "sha256-oqeQFoGdNbUACJ4pHq+W20PCOhdtmcgjH4pGRGqWuT0=",
       "url": "_framework/System.Private.CoreLib.wasm"
     },
     {
@@ -158,7 +158,7 @@ self.assetsManifest = {
       "url": "_framework/System.Runtime.InteropServices.wasm"
     },
     {
-      "hash": "sha256-E6XnD4DztBxoNn/FDNHSDJN2+CId8b+rSKo2fgtRWW4=",
+      "hash": "sha256-WTHJA2AmWmDX/HHfML0mFHcPOH8/mi66OdtHzf5QKJs=",
       "url": "_framework/System.Runtime.wasm"
     },
     {
@@ -186,7 +186,7 @@ self.assetsManifest = {
       "url": "_framework/System.Threading.Tasks.Parallel.wasm"
     },
     {
-      "hash": "sha256-H+huOS2zLdXle7rQF+I+o9RsjW4WXObAxLKi8F0huAY=",
+      "hash": "sha256-JWJ0Ir1N1eSVhz53giZ6lYfhqqRhW9Zo9SRkPGvm0kE=",
       "url": "_framework/blazor.boot.json"
     },
     {
