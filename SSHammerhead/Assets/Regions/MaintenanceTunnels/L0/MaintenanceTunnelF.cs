@@ -2,6 +2,7 @@
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 
@@ -26,17 +27,19 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
             {
                 shunt.IsPlayerVisible = false;
 
-                if (game.Player.FindItem(PadlockKey.Name, out var accessID))
-                    game.Player.RemoveItem(accessID);
-                else if (game.Overworld.CurrentRegion.CurrentRoom.FindItem(PadlockKey.Name, out accessID))
-                    game.Overworld.CurrentRegion.CurrentRoom.RemoveItem(accessID);
+                if (game.Player.FindItem(PadlockKey.Name, out var key))
+                    game.Player.RemoveItem(key);
+                else if (game.Overworld.CurrentRegion.CurrentRoom.FindItem(PadlockKey.Name, out key))
+                    game.Overworld.CurrentRegion.CurrentRoom.RemoveItem(key);
 
-                if (accessID != null)
+                if (key != null)
                 {   
                     game.Overworld.FindRegion(Core.SSHammerHead.Name, out var ship);
 
                     if (ship.TryFindRoom(SupplyRoom.Name, out var supplyRoom))
-                        supplyRoom.AddItem(accessID);
+                        supplyRoom.AddItem(key);
+
+                    game.LogManager.Expire(PostIt.PostItLogName);
                 }
 
                 return new Reaction(ReactionResult.Inform, $"The spider bot lurches forward and shunts the {PadlockKey.Name} down the vent. It falls in to the {SupplyRoom.Name}.");

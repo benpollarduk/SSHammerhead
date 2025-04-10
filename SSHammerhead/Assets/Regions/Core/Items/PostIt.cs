@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Utilities;
 using System.Collections.Generic;
 
@@ -16,6 +17,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
             $"Once I'd done that I stuffed the key through the grating in the side of the maintenance shaft used by the spider bot where it was out of my reach in case I had a change of heart and decided to try to save the ship and the guys.{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"I know that is far beyond my reach but I worry that will have a change of heart. Now I plan to take the escape pod and leave the ship behind. I would rather take my chances adrift in space alone.{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"Anne\"";
+
+        internal const string PostItLogName = "PostIt";
 
         #endregion
 
@@ -34,7 +37,13 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         public Item Instantiate()
         {
-            return new Item(Name, Description, true, interaction: (item) =>
+            ExaminationCallback examination = new(request =>
+            {
+                GameExecutor.ExecutingGame?.LogManager.Add(new(PostItLogName, "Anne hid the key to the padlock that is locking the hatch inside the maintenance shaft."));
+                return Item.DefaultExamination(request);
+            });
+
+            return new Item(Name, Description, true, examination: examination, interaction: (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
                     return Scanner.PerformScan(Name, new(Composition));

@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Utilities;
 using System.Collections.Generic;
 
@@ -11,6 +12,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         internal const string Name = "Laptop";
         private const string Description = "A tough, industrial laptop. An old model, scuffed around the edges and covered with worn stickers of the previous owners favorite bands.";
+
+        internal const string ScottLogName = "Scott";
 
         #endregion
 
@@ -44,6 +47,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
                 if (USBDrive.Name.EqualsIdentifier(item.Identifier))
                 {
+                    GameExecutor.ExecutingGame?.LogManager.Add(new(ScottLogName, "Scott manages the maintenance system."));
+
                     var usbInteraction = $"Loading the {USBDrive.Name} into the laptop causes a window showing the files on the {USBDrive.Name} to pop up. There is a single file, README.txt. " +
                     $"You open it and a text editor window is shown displaying the following:{StringUtilities.Newline}{StringUtilities.Newline}{StringUtilities.Newline}" +
                     "\"Another day being responsible for the everyday maintenance of this hunk we call home. At least the maintenance control system with the spider bot gives me " +
