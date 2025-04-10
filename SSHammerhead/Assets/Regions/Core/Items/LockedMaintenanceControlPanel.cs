@@ -71,7 +71,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                             controlPanel.IsPlayerVisible = true;
 
                             game.LogManager.Expire(Airlock.SevenLogName);
-                            game.LogManager.Expire(Laptop.ScottLogName);
+                            game.LogManager.Expire(Laptop.ScottManagementLogName);
 
                             return new Reaction(ReactionResult.Inform, "The control panel beeps to confirm the correct user name and password were entered.");
                         }
