@@ -18,7 +18,7 @@ namespace SSHammerhead
     {
         #region Constants
 
-        private const string Title = "Trouble aboard the SS HammerHead";
+        private const string Title = "Trouble Aboard the SS HammerHead";
 
         private const string Introduction = "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\n" +
             "A ship was hurriedly prepared and scrambled and made contact 27 days later.\n\n" +
