@@ -70,8 +70,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                             item.IsPlayerVisible = false;
                             controlPanel.IsPlayerVisible = true;
 
-                            game.LogManager.Expire(Airlock.SevenLogName);
-                            game.LogManager.Expire(Laptop.ScottManagementLogName);
+                            game.NoteManager.Expire(Airlock.SevenLogName);
+                            game.NoteManager.Expire(Laptop.ScottManagementLogName);
 
                             return new Reaction(ReactionResult.Inform, "The control panel beeps to confirm the correct user name and password were entered.");
                         }

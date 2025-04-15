@@ -49,11 +49,11 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
                 if (USBDrive.Name.EqualsIdentifier(item.Identifier))
                 {
-                    GameExecutor.ExecutingGame?.LogManager.Add(ScottManagementLogName, "Scott manages the maintenance system.");
-                    GameExecutor.ExecutingGame?.LogManager.Add(ScottViewLogName, "Scott likes looking at the stars.");
+                    GameExecutor.ExecutingGame?.NoteManager.Add(ScottManagementLogName, "Scott manages the maintenance system.");
+                    GameExecutor.ExecutingGame?.NoteManager.Add(ScottViewLogName, "Scott likes looking at the stars.");
 
-                    if (GameExecutor.ExecutingGame?.LogManager?.ContainsEntry(Airlock.SevenLogName) ?? false)
-                        GameExecutor.ExecutingGame?.LogManager.Expire(Airlock.SevenLogName);
+                    if (GameExecutor.ExecutingGame?.NoteManager?.ContainsEntry(Airlock.SevenLogName) ?? false)
+                        GameExecutor.ExecutingGame?.NoteManager.Expire(Airlock.SevenLogName);
 
                     var usbInteraction = $"Loading the {USBDrive.Name} into the laptop causes a window showing the files on the {USBDrive.Name} to pop up. There is a single file, README.txt. " +
                     $"You open it and a text editor window is shown displaying the following:{StringUtilities.Newline}{StringUtilities.Newline}{StringUtilities.Newline}" +

@@ -39,7 +39,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         {
             ExaminationCallback examination = new(request =>
             {
-                GameExecutor.ExecutingGame?.LogManager.Add(PostItLogName, "Anne hid the key to the padlock that is locking the hatch inside the maintenance shaft.");
+                GameExecutor.ExecutingGame?.NoteManager.Add(PostItLogName, "Anne hid the key to the padlock that is locking the hatch inside the maintenance shaft.");
                 return Item.DefaultExamination(request);
             });
 

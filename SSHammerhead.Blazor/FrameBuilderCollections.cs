@@ -33,7 +33,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleAboutFrameBuilder(gridStringBuilder),
                     new ConsoleReactionFrameBuilder(gridStringBuilder),
                     new ConsoleConversationFrameBuilder(gridStringBuilder, false),
-                    new ConsoleLogFrameBuilder(gridStringBuilder));
+                    new ConsoleNoteFrameBuilder(gridStringBuilder),
+                    new ConsoleHistoryFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -58,7 +59,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleAboutFrameBuilder(gridStringBuilder),
                     new BotConsoleReactionFrameBuilder(botStringBuilder),
                     new ConsoleConversationFrameBuilder(gridStringBuilder, false),
-                    new ConsoleLogFrameBuilder(gridStringBuilder));
+                    new ConsoleNoteFrameBuilder(gridStringBuilder),
+                    new ConsoleHistoryFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -82,7 +84,8 @@ namespace SSHammerhead.Blazor
                     new HtmlAboutFrameBuilder(htmlBuilder),
                     new HtmlReactionFrameBuilder(htmlBuilder),
                     new HtmlConversationFrameBuilder(htmlBuilder),
-                    new HtmlLogFrameBuilder(htmlBuilder));
+                    new HtmlNoteFrameBuilder(htmlBuilder),
+                    new HtmlHistoryFrameBuilder(htmlBuilder));
             }
         }
 
@@ -107,7 +110,8 @@ namespace SSHammerhead.Blazor
                     new HtmlAboutFrameBuilder(htmlBuilder),
                     new BotConsoleReactionFrameBuilder(botStringBuilder),
                     new HtmlConversationFrameBuilder(htmlBuilder),
-                    new HtmlLogFrameBuilder(htmlBuilder));
+                    new HtmlNoteFrameBuilder(htmlBuilder),
+                    new HtmlHistoryFrameBuilder(htmlBuilder));
             }
         }
     }

@@ -39,7 +39,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
                     if (ship.TryFindRoom(SupplyRoom.Name, out var supplyRoom))
                         supplyRoom.AddItem(key);
 
-                    game.LogManager.Expire(PostIt.PostItLogName);
+                    game.NoteManager.Expire(PostIt.PostItLogName);
                 }
 
                 return new Reaction(ReactionResult.Inform, $"The spider bot lurches forward and shunts the {PadlockKey.Name} down the vent. It falls in to the {SupplyRoom.Name}.");

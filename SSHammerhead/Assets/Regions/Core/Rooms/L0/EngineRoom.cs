@@ -12,10 +12,14 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
         #region Constants
 
         private const string Name = "Engine Room";
+
         private static readonly string NoPostItDescription = "This area hosts the large engine that used to power the SS HammerHead. It is now dormant and eerily silent, " +
             "the fusion mechanism long since powered down. The room itself is very industrial, with metal walkways surrounding the perimeter of the room and the engine itself. " +
             "A ladder leads upwards from one of these walkways towards the central hull.";
+        
         private static readonly string PostItDescription = NoPostItDescription + $"{StringUtilities.Newline}{StringUtilities.Newline}A yellow {PostIt.Name} is stuck to the door frame.";
+
+        private const string Introduction = "With a sense of trepidation you enter the ship.";
 
         #endregion
 
@@ -40,7 +44,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
 
             var roomDescription = new ConditionalDescription(PostItDescription, NoPostItDescription, () => room.FindItem(PostIt.Name, out _));
-            room = new Room(new Identifier(Name), roomDescription, [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
+            room = new Room(new Identifier(Name), roomDescription, new Description(Introduction), [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
 
             return room;
         }
