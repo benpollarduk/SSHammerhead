@@ -15,7 +15,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             "but has been used by the crew as a makeshift supply room, containing everything from spare parts for the ship to first aid kits. " +
             "On one wall is a small control panel, the outer bezel proudly displaying the Spider Bot branding.";
 
-        private const string Introduction = "As you enter the dark room the strip light flickers a handful of times then thankfully remains.";
+        private const string Introduction = "As you enter the dark room the strip light flickers a handful of times then thankfully remains lit.";
 
         #endregion
 
