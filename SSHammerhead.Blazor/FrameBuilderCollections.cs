@@ -85,7 +85,7 @@ namespace SSHammerhead.Blazor
                     new HtmlReactionFrameBuilder(htmlBuilder),
                     new HtmlConversationFrameBuilder(htmlBuilder),
                     new HtmlNoteFrameBuilder(htmlBuilder),
-                    new HtmlHistoryFrameBuilder(htmlBuilder));
+                    new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 });
             }
         }
 
@@ -111,7 +111,7 @@ namespace SSHammerhead.Blazor
                     new BotConsoleReactionFrameBuilder(botStringBuilder),
                     new HtmlConversationFrameBuilder(htmlBuilder),
                     new HtmlNoteFrameBuilder(htmlBuilder),
-                    new HtmlHistoryFrameBuilder(htmlBuilder));
+                    new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 });
             }
         }
     }
