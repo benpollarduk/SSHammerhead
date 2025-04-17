@@ -82,7 +82,13 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
             var introduction = "You enter the outer most airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.";
 
-            room = new Room(Name, Description, introduction, exits: [spaceExit, shipExit]);
+            room = new Room(Name, Description, introduction, exits: [spaceExit, shipExit], interaction: (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(SSHammerHead.DefaultRoomComposition));
+
+                return new Interaction(InteractionResult.NoChange, item);
+            });
 
             var brokenControlPanel = new BrokenControlPanel().Instantiate();
             room.AddItem(brokenControlPanel);

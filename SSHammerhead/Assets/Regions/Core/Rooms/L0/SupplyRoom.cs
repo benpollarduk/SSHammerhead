@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Extensions;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 
@@ -34,7 +35,13 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 return new Examination($"A tray containing a range of different cables that have become intertwined. Amongst the jumble is a small {USBDrive.Name}, you empty the contents of the tray on to the shelf in front of you. It seems unusual to leave the {USBDrive.Name} here so you take it.");
             }).Instantiate();
 
-            var room = new Room(Name, Description, Introduction, [new Exit(Direction.West)]);
+            var room = new Room(Name, Description, Introduction, [new Exit(Direction.West)], interaction: (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(SSHammerHead.DefaultRoomComposition));
+
+                return new Interaction(InteractionResult.NoChange, item);
+            });
             room.AddItem(new Blueprint().Instantiate());
             room.AddItem(tray);
             room.AddItem(emptyTray);

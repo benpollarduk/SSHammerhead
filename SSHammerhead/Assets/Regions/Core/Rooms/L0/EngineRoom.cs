@@ -4,6 +4,7 @@ using NetAF.Extensions;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
+using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 {
@@ -33,6 +34,16 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
             up = new Exit(Direction.Up, true, new Identifier("Hatch"), hatchDescription, interaction: (item) =>
             {
+                Dictionary<string, float> composition = new()
+                {
+                    { "Steel", 67.47f },
+                    { "Aluminum", 23.13f },
+                    { "Plastic", 6.7f }
+                };
+
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(composition));
+
                 if (PadlockKey.Name.EqualsIdentifier(item.Identifier))
                 {
                     up.Unlock();
@@ -44,7 +55,13 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
 
             var roomDescription = new ConditionalDescription(PostItDescription, NoPostItDescription, () => room.FindItem(PostIt.Name, out _));
-            room = new Room(new Identifier(Name), roomDescription, new Description(Introduction), [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
+            room = new Room(new Identifier(Name), roomDescription, new Description(Introduction), [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()], interaction: (item) =>
+            {
+                if (Scanner.Name.EqualsIdentifier(item.Identifier))
+                    return Scanner.PerformScan(Name, new(SSHammerHead.DefaultRoomComposition));
+
+                return new Interaction(InteractionResult.NoChange, item);
+            });
 
             return room;
         }

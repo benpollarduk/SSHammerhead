@@ -30,7 +30,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
             { "Zinc", 3.64f },
             { "Plastic", 66.4f },
             { "Silver", 0.2f },
-            { "Gold", 0.03f },
+            { "Gold", 0.03f }
         };
 
         #endregion

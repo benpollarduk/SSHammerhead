@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using NetAF.Assets.Locations;
 using NetAF.Extensions;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Assets.Regions.Core.Rooms.L1;
 using SSHammerhead.Assets.Regions.Core.Rooms.L2;
@@ -14,6 +16,20 @@ namespace SSHammerhead.Assets.Regions.Core
 
         internal const string Name = "SS Hammerhead";
         private static readonly string Description = "The star ship Hammerhead.";
+
+        #endregion
+
+        #region StaticMethods
+
+        internal static Dictionary<string, float> DefaultRoomComposition => new ()
+        {
+            { "Steel", 22.68f },
+            { "Aluminum", 35.82f },
+            { "Glass", 11.37f },
+            { "Rubber", 5.12f },
+            { "Plastics", 21.23f },
+            { "Perspex", 12.1f },
+        };
 
         #endregion
 

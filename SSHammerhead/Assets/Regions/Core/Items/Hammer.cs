@@ -18,8 +18,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         private static readonly Dictionary<string, float> Composition = new()
         {
-            { "Stainless steel", 49.9f },
-            { "Rubber", 12.3f }
+            { "Stainless steel", 69.9f },
+            { "Rubber", 28.3f }
         };
 
         #endregion
