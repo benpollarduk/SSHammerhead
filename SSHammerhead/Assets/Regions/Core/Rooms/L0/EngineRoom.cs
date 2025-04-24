@@ -42,7 +42,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 };
 
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(composition));
+                    return Scanner.PerformScan("Hatch", new(composition));
 
                 if (PadlockKey.Name.EqualsIdentifier(item.Identifier))
                 {
