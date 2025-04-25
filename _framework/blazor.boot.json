@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "SSHammerhead.Blazor",
   "resources": {
-    "hash": "sha256-gX4ZLE0T6IRiPcpGDZrA9ByeQyNUk5TaO+SA3bVjcyA=",
+    "hash": "sha256-nuanWnSobRqJ1q+v3g77o1fKGz2dQF9L2OqvdjxXDcs=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-xNQsYHtL1vcbrVTHDZAwJM4WovpoyjsrM2C6FQ8cW1w="
     },
@@ -34,10 +34,10 @@
       "Microsoft.JSInterop.WebAssembly.wasm": "sha256-SJhIh5hnt2rjjyHa57uqmfcSNpxXsz2jolW/0SknJeo=",
       "NetAF.Blazor.wasm": "sha256-uOWATMkYWeLQRUdXxPWYxpuNH+MTCmmLAcuI12HLAOk=",
       "NetAF.Imaging.wasm": "sha256-o0qzU/nHrrPEqrd+pE3ewK886hcHhDl8Y9rQHyu3Umo=",
-      "NetAF.wasm": "sha256-FXmD37HXoNvsJFbV52BOWkJEGfLiJZ7Yr1EmfZ21zLc=",
+      "NetAF.wasm": "sha256-Q+fVPb5qK3RFP2NtWCwTDgV65BkPloSlQOkcG0ZF9Xg=",
       "SixLabors.ImageSharp.wasm": "sha256-TdkHu+os0/tB3ZX4s7eT0xKw8tJVW1Y5WU0ZM2Xptp8=",
-      "SSHammerhead.Blazor.wasm": "sha256-dcRr4r4NbE5zNS12btORR6YefYFjwIHHsdF+l6PgUoo=",
-      "SSHammerhead.wasm": "sha256-ynx/zXr6d6BxxiPSp95+d3XK/ot7EAejUOoOqE4tpzs=",
+      "SSHammerhead.Blazor.wasm": "sha256-LT3k+AcsM4PTh3iONlmuTik2RdMvJWaLzt2mWqjgsI4=",
+      "SSHammerhead.wasm": "sha256-vAm0+uPLR1R6hAuT/lOW2krUwf96zY02K4Y0wZ3wBLI=",
       "System.Collections.Concurrent.wasm": "sha256-RDQm2pZNhbxRwIQJoLrjDeqKkfwSFFYvA3OEfH4bCjI=",
       "System.Collections.wasm": "sha256-Ik9IRHNG8vPO2Sf4c5N+n/QMlqkvWzesal9a6wAKox8=",
       "System.ComponentModel.wasm": "sha256-T0OM75VQcELFeKofeuo3QISKtC4NO3w/cdk2oAxfpQk=",
@@ -45,7 +45,7 @@
       "System.Diagnostics.DiagnosticSource.wasm": "sha256-gucE6d+goLEnssNin4QeecSyTYyxsg6/A/BrTA7m4uI=",
       "System.IO.Compression.wasm": "sha256-Tq71rotCE/i4KnXvs+IivbwnWG8SUU34LNiznsbytPE=",
       "System.IO.Pipelines.wasm": "sha256-QLgcyMzIrws9vId65Dgz64XBBUmUvup6msp3bxK+Aok=",
-      "System.Linq.wasm": "sha256-WOSDP2Yk9mvjDvzym9UqtpCk4IrwUbHM+NhZ7gHlFxE=",
+      "System.Linq.wasm": "sha256-IVbtU/6arR0iyQJB9sSDmmGpt6kVk91ZjtL4+aVnD5Q=",
       "System.Memory.wasm": "sha256-BhJbl5scjLrzwAyagHTlBX1WtRdLZXqbCqZS6eSz7+I=",
       "System.Net.Http.wasm": "sha256-hMEMyog3sKtDvQxJl9/mRc9ughMcqE47IM8+KdbfR2I=",
       "System.Net.Primitives.wasm": "sha256-e8MlH7mP/C9SmN4C46mLfKtbGie92nOqgYdXTgXSlNM=",
