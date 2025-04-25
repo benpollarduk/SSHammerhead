@@ -2,7 +2,6 @@
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
-using NetAF.Logic;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
@@ -69,7 +68,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
 
                     g.NoteManager.Add(SevenLogName, "The constellation outside the airlock appears as a 7.");
                     g.NoteManager.Expire(Laptop.ScottViewLogName);
-
+                    
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);
                 })
             ]);

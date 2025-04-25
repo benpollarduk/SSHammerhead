@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NetAF.Assets;
 using NetAF.Assets.Locations;
+using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 
 namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
@@ -275,9 +276,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="region">The region.</param>
         /// <param name="focusPosition">The position to focus on.</param>
-        public void BuildRegionMap(Region region, Point3D focusPosition)
+        /// <param name="detail">The level of detail to use.</param>
+        public void BuildRegionMap(Region region, Point3D focusPosition, RegionMapDetail detail)
         {
-            BuildRegionMap(region, focusPosition, new(0, 0), new(int.MaxValue, int.MaxValue));
+            BuildRegionMap(region, focusPosition, detail, new(0, 0), new(int.MaxValue, int.MaxValue));
         }
 
         #endregion
@@ -289,9 +291,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         /// </summary>
         /// <param name="region">The region.</param>
         /// <param name="focusPosition">The position to focus on.</param>
+        /// <param name="detail">The level of detail to use.</param>
         /// <param name="startPosition">The position to start building at.</param>
         /// <param name="maxSize">The maximum size available in which to build the map.</param>
-        public void BuildRegionMap(Region region, Point3D focusPosition, Point2D startPosition, Size maxSize)
+        public void BuildRegionMap(Region region, Point3D focusPosition, RegionMapDetail detail, Point2D startPosition, Size maxSize)
         {
             var matrix = region.ToMatrix();
             var playerRoom = region.GetPositionOfRoom(region.CurrentRoom);
