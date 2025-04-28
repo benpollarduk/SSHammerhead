@@ -10,7 +10,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
     {
         #region Constants
 
-        private const string Name = "Port Wing OUter";
+        private const string Name = "Port Wing Outer";
         private const string Description = "";
 
         #endregion
