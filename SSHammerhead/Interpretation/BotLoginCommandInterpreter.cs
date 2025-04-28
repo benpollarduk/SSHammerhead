@@ -43,11 +43,39 @@ namespace SSHammerhead.Interpretation
             if (End.CommandHelp.Equals(input))
                 return new(true, new End());
 
-            if (LoginUserName.CommandHelp.Equals(input))
-                return new(true, new LoginUserName());
+            if (game.Mode is BotLoginMode mode)
+            {
+                switch (mode.Stage)
+                {
+                    case LoginStage.InvalidUserName:
 
-            if (LoginPassword.CommandHelp.Equals(input))
-                return new(true, new LoginPassword());
+                        mode.Stage = LoginStage.UserName;
+                        return InterpretationResult.Fail;
+
+                    case LoginStage.InvalidPassword:
+
+                        mode.Stage = LoginStage.Password;
+                        return InterpretationResult.Fail;
+
+                    case LoginStage.UserName:
+
+                        if (LoginUserName.CommandHelp.Equals(input))
+                            return new(true, new LoginUserName());
+                        else
+                            return new(true, new LoginInvalidUserName());
+
+                    case LoginStage.Password:
+
+                        if (LoginPassword.CommandHelp.Equals(input))
+                            return new(true, new LoginPassword());
+                        else
+                            return new(true, new LoginInvalidPassword());
+
+                    case LoginStage.StartMaintenance:
+
+                        return new(true, new LoginStartMaintenance());
+                }
+            }
 
             return InterpretationResult.Fail;
         }

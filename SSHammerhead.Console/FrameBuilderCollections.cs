@@ -3,7 +3,6 @@ using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
-using SSHammerhead.ImageHandling;
 
 namespace SSHammerhead.Console
 {

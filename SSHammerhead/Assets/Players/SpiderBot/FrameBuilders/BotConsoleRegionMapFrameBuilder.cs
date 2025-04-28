@@ -60,6 +60,16 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
         #region Implementation of IRegionMapFrameBuilder
 
         /// <summary>
+        /// Get if this frame builder supports panning.
+        /// </summary>
+        public bool SupportsPan => false;
+
+        /// <summary>
+        /// Get if this frame builder supports zooming.
+        /// </summary>
+        public bool SupportsZoom => false;
+
+        /// <summary>
         /// Build a frame.
         /// </summary>
         /// <param name="region">The region.</param>

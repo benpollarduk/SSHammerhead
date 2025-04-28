@@ -1,7 +1,6 @@
 ﻿using NetAF.Interpretation;
 using NetAF.Logic.Modes;
 using NetAF.Logic;
-using SSHammerhead;
 using SSHammerhead.Interpretation;
 using SSHammerhead.Rendering.FrameBuilders;
 

@@ -1,4 +1,5 @@
 ﻿using NetAF.Assets;
+using NetAF.Commands.Global;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot;
@@ -69,17 +70,36 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
             lastY += 2;
 
+            gridStringBuilder.DrawWrapped($"TYPE {End.CommandHelp.Command.ToUpper()} TO EXIT, OR", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
+            lastY += 1;
+
+            var cursorX = 0;
+
             switch (stage)
             {
                 case LoginStage.UserName:
+                    cursorX = 18;
                     gridStringBuilder.DrawWrapped("ENTER USERNAME:", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
                     break;
+                case LoginStage.InvalidUserName:
+                    cursorX = 19;
+                    gridStringBuilder.DrawWrapped("INVALID USERNAME", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
+                    break;
                 case LoginStage.Password:
+                    cursorX = 18;
                     gridStringBuilder.DrawWrapped("ENTER PASSWORD:", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
+                    break;
+                case LoginStage.InvalidPassword:
+                    cursorX = 19;
+                    gridStringBuilder.DrawWrapped("INVALID PASSWORD", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
+                    break;
+                case LoginStage.StartMaintenance:
+                    cursorX = 35;
+                    gridStringBuilder.DrawWrapped("PRESS ENTER TO START MAINTENANCE", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
                     break;
             }
 
-            return new GridTextFrame(gridStringBuilder, 18, 3, BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, cursorX, 4, BackgroundColor);
         }
 
         #endregion

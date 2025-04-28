@@ -10,8 +10,20 @@
         /// </summary>
         UserName,
         /// <summary>
+        /// Invalid user name.
+        /// </summary>
+        InvalidUserName,
+        /// <summary>
         /// Password.
         /// </summary>
-        Password
+        Password,
+        /// <summary>
+        /// Invalid password.
+        /// </summary>
+        InvalidPassword,
+        /// <summary>
+        /// Start maintenance.
+        /// </summary>
+        StartMaintenance
     }
 }

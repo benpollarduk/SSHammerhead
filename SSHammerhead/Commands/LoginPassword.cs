@@ -1,7 +1,5 @@
 ﻿using NetAF.Commands;
 using NetAF.Logic;
-using SSHammerhead.Assets.Players.Management;
-using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Logic.Modes;
@@ -50,7 +48,9 @@ namespace SSHammerhead.Commands
                             game.NoteManager.Expire(Airlock.SevenLogName);
                             game.NoteManager.Expire(Laptop.ScottManagementLogName);
 
-                            return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
+                            loginMode.Stage = LoginStage.StartMaintenance;
+
+                            return new Reaction(ReactionResult.Silent, string.Empty);
                         }
 
                         return new Reaction(ReactionResult.Silent, string.Empty);
