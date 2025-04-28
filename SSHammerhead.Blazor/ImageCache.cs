@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using SSHammerhead.ImageHandling;
 
 namespace SSHammerhead.Blazor
 {

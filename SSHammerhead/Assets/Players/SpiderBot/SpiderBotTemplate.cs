@@ -40,7 +40,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                 {
                     var currentRoom = g.Overworld.CurrentRegion.CurrentRoom;
 
-                    if (currentRoom.Identifier.IdentifiableName.Equals(MaintenanceTunnelF.Name) && currentRoom.FindItem(PadlockKey.Name, out var _))
+                    if (currentRoom.Identifier.Name.InsensitiveEquals(MaintenanceTunnelF.Name) && currentRoom.FindItem(PadlockKey.Name, out var _))
                     {
                         var shunt = Array.Find(currentRoom.Commands, x => x.Help.Command.InsensitiveEquals(MaintenanceTunnelF.ShuntCommandName));
 

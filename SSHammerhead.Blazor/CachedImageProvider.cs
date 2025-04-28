@@ -1,7 +1,8 @@
-﻿using System.Collections.Concurrent;
+﻿using SSHammerhead.ImageHandling;
+using System.Collections.Concurrent;
 using System.Diagnostics;
 
-namespace SSHammerhead.ImageHandling
+namespace SSHammerhead.Blazor
 {
     /// <summary>
     /// An image provider that caches images and servers them as required.

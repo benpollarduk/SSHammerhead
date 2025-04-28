@@ -33,7 +33,8 @@ namespace SSHammerhead.Console
                     new ConsoleReactionFrameBuilder(gridStringBuilder),
                     new ConsoleConversationFrameBuilder(gridStringBuilder),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
-                    new ConsoleHistoryFrameBuilder(gridStringBuilder));
+                    new ConsoleHistoryFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleLoginFrameBuilder(gridStringBuilder));
             }
         }
 

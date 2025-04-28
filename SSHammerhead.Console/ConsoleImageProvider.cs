@@ -1,4 +1,6 @@
-﻿namespace SSHammerhead.ImageHandling
+﻿using SSHammerhead.ImageHandling;
+
+namespace SSHammerhead.Console
 {
     /// <summary>
     /// An image provider for the System.Console.
