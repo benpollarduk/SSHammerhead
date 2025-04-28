@@ -59,6 +59,8 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
         /// <returns>The frame.</returns>
         public IFrame Build(LoginStage stage, Size size)
         {
+            var cursorX = 0;
+            var cursorY = 3;
             var availableWidth = size.Width - 4;
             const int leftMargin = 2;
 
@@ -70,10 +72,12 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
             lastY += 2;
 
-            gridStringBuilder.DrawWrapped($"TYPE {End.CommandHelp.Command.ToUpper()} TO EXIT, OR", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
-            lastY += 1;
-
-            var cursorX = 0;
+            if (stage is LoginStage.UserName or LoginStage.Password)
+            {
+                gridStringBuilder.DrawWrapped($"TYPE {End.CommandHelp.Command.ToUpper()} TO EXIT, OR", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
+                lastY += 1;
+                cursorY = 4;
+            }
 
             switch (stage)
             {
@@ -99,7 +103,7 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
                     break;
             }
 
-            return new GridTextFrame(gridStringBuilder, cursorX, 4, BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, cursorX, cursorY, BackgroundColor);
         }
 
         #endregion

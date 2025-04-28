@@ -49,13 +49,11 @@ namespace SSHammerhead.Interpretation
                 {
                     case LoginStage.InvalidUserName:
 
-                        mode.Stage = LoginStage.UserName;
-                        return InterpretationResult.Fail;
+                        return new(true, new LoginResetToUserName());
 
                     case LoginStage.InvalidPassword:
 
-                        mode.Stage = LoginStage.Password;
-                        return InterpretationResult.Fail;
+                        return new(true, new LoginResetToPassword());
 
                     case LoginStage.UserName:
 
