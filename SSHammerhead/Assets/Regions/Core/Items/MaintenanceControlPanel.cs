@@ -41,7 +41,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
             InteractionCallback interation = (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(Composition));
+                    return Scanner.PerformScan(new(Name, Composition));
 
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                     return new Interaction(InteractionResult.NoChange, item, $"Smacking the control panel is futile, a label on the side of it proudly states that it is 'Utility Tested Tough!'.");

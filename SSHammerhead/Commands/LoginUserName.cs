@@ -1,6 +1,6 @@
 ﻿using NetAF.Commands;
 using NetAF.Logic;
-using SSHammerhead.Assets.Players.SpiderBot.Logic.Modes;
+using SSHammerhead.Logic.Modes;
 
 namespace SSHammerhead.Commands
 {

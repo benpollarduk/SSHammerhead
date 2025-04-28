@@ -1,9 +1,9 @@
 ﻿using NetAF.Assets;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.Logic.Modes;
+using SSHammerhead.Logic.Modes;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
+namespace SSHammerhead.Rendering.FrameBuilders
 {
     /// <summary>
     /// Represents any object that can build bot login frames.

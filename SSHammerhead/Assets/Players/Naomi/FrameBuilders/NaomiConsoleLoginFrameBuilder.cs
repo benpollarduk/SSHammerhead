@@ -2,8 +2,8 @@
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Players.SpiderBot;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.Logic.Modes;
+using SSHammerhead.Logic.Modes;
+using SSHammerhead.Rendering.FrameBuilders;
 
 namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 {

@@ -1,4 +1,4 @@
-﻿namespace SSHammerhead.Assets.Players.SpiderBot.Logic.Modes
+﻿namespace SSHammerhead.Logic.Modes
 {
     /// <summary>
     /// Provides an enumeration of login stages.

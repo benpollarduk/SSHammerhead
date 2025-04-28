@@ -17,11 +17,11 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #region StaticMethods
 
-        internal static Interaction PerformScan(string targetName, Composition composition)
+        internal static Interaction PerformScan(Composition composition)
         {
             StringBuilder description = new();
 
-            description.AppendLine($"Scanned {targetName}, composition is as follows:");
+            description.AppendLine($"Scanned {composition.Name}, composition is as follows:");
 
             foreach (var element in composition.Elements.OrderByDescending(x => x.Value))
                 description.AppendLine($"-{element.Key}: {element.Value}%");

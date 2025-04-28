@@ -22,7 +22,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L2
             return new Room(Name, Description, [new Exit(Direction.North), new Exit(Direction.Down)], interaction: (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(SSHammerHead.DefaultRoomComposition));
+                    return Scanner.PerformScan(new(Name, SSHammerHead.DefaultRoomComposition));
 
                 return new Interaction(InteractionResult.NoChange, item);
             });

@@ -42,7 +42,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 };
 
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan("Hatch", new(composition));
+                    return Scanner.PerformScan(new("Hatch", composition));
 
                 if (PadlockKey.Name.EqualsIdentifier(item.Identifier))
                 {
@@ -58,7 +58,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             room = new Room(new Identifier(Name), roomDescription, new Description(Introduction), [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()], interaction: (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(SSHammerHead.DefaultRoomComposition));
+                    return Scanner.PerformScan(new(Name, SSHammerHead.DefaultRoomComposition));
 
                 return new Interaction(InteractionResult.NoChange, item);
             });

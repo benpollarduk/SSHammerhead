@@ -84,7 +84,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             room = new Room(Name, Description, introduction, exits: [spaceExit, shipExit], interaction: (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(SSHammerHead.DefaultRoomComposition));
+                    return Scanner.PerformScan(new(Name, SSHammerHead.DefaultRoomComposition));
 
                 return new Interaction(InteractionResult.NoChange, item);
             });
@@ -106,7 +106,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                         { "Gold", 0.01f },
                     };
 
-                    return Scanner.PerformScan("Control Panel", new(composition));
+                    return Scanner.PerformScan(new("Control Panel", composition));
                 }
 
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))

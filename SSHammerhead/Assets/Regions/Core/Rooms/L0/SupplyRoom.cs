@@ -38,7 +38,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
             var room = new Room(Name, Description, Introduction, [new Exit(Direction.West)], interaction: (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(SSHammerHead.DefaultRoomComposition));
+                    return Scanner.PerformScan(new(Name, SSHammerHead.DefaultRoomComposition));
 
                 return new Interaction(InteractionResult.NoChange, item);
             });

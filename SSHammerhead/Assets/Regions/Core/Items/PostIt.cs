@@ -46,7 +46,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
             return new Item(Name, Description, true, examination: examination, interaction: (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(Composition));
+                    return Scanner.PerformScan(new(Name, Composition));
 
                 return new Interaction(InteractionResult.NoChange, item);
             });

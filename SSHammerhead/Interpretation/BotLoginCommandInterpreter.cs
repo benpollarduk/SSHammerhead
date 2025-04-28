@@ -2,11 +2,11 @@
 using NetAF.Commands.Global;
 using NetAF.Interpretation;
 using NetAF.Logic;
-using SSHammerhead.Assets.Players.SpiderBot.Logic.Modes;
 using SSHammerhead.Commands;
+using SSHammerhead.Logic.Modes;
 using System.Collections.Generic;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.Interpretation
+namespace SSHammerhead.Interpretation
 {
     /// <summary>
     /// Provides an object that can be used for interpreting bot login commands.

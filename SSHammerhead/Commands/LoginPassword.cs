@@ -2,9 +2,9 @@
 using NetAF.Logic;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot;
-using SSHammerhead.Assets.Players.SpiderBot.Logic.Modes;
 using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
+using SSHammerhead.Logic.Modes;
 
 namespace SSHammerhead.Commands
 {

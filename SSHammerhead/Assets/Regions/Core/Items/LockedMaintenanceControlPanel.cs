@@ -2,7 +2,7 @@
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Players.SpiderBot.Logic.Modes;
+using SSHammerhead.Logic.Modes;
 using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
@@ -41,7 +41,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
             InteractionCallback interation = (item) =>
             {
                 if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(Name, new(Composition));
+                    return Scanner.PerformScan(new(Name, Composition));
 
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                     return new Interaction(InteractionResult.NoChange, item, $"Smacking the control panel won't unlock it, a label on the side of it proudly states that it is 'Utility Tested Tough!'.");

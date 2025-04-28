@@ -1,10 +1,11 @@
 ﻿using NetAF.Interpretation;
 using NetAF.Logic.Modes;
 using NetAF.Logic;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.Interpretation;
+using SSHammerhead;
+using SSHammerhead.Interpretation;
+using SSHammerhead.Rendering.FrameBuilders;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.Logic.Modes
+namespace SSHammerhead.Logic.Modes
 {
     /// <summary>
     /// Provides a display mode for bot login.
