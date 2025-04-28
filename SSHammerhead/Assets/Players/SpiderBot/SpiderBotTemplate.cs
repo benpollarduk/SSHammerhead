@@ -2,12 +2,16 @@
 using NetAF.Assets.Characters;
 using NetAF.Commands;
 using NetAF.Commands.Persistence;
+using NetAF.Extensions;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
 using SSHammerhead.Commands;
+using System;
 
 namespace SSHammerhead.Assets.Players.SpiderBot
 {
@@ -34,6 +38,16 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                 }),
                 new CustomCommand(new CommandHelp("Scan", "Scan the environment."), true, true, (g, _) =>
                 {
+                    var currentRoom = g.Overworld.CurrentRegion.CurrentRoom;
+
+                    if (currentRoom.Identifier.IdentifiableName.Equals(MaintenanceTunnelF.Name) && currentRoom.FindItem(PadlockKey.Name, out var _))
+                    {
+                        var shunt = Array.Find(currentRoom.Commands, x => x.Help.Command.InsensitiveEquals(MaintenanceTunnelF.ShuntCommandName));
+
+                        if (shunt != null)
+                            shunt.IsPlayerVisible = true;
+                    }
+
                     var builder = new BotMaintenanceTunnelViewFrameBuilder(new GridStringBuilder());
                     g.ChangeMode(new VisualMode(builder.Build(g.Overworld.CurrentRegion.CurrentRoom, g.Configuration.DisplaySize)));
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);

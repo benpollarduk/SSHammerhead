@@ -14,6 +14,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 
         public const string Name = "Maintenance Tunnel F";
         private const string Description = "A small maintenance tunnel to allow the maintenance bots to traverse the ship.";
+        public const string ShuntCommandName = "Shunt";
 
         #endregion
 
@@ -23,7 +24,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
         {
             CustomCommand shunt = null;
 
-            shunt = new CustomCommand(new CommandHelp("Shunt", $"Shunt the {PadlockKey.Name} towards the vent."), true, false, (game, arguments) =>
+            shunt = new CustomCommand(new CommandHelp(ShuntCommandName, $"Shunt the {PadlockKey.Name} towards the vent."), false, false, (game, arguments) =>
             {
                 shunt.IsPlayerVisible = false;
 
