@@ -21,7 +21,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #region StaticProperties
 
-        private static readonly Dictionary<string, float> Composition = new()
+        internal static Dictionary<string, float> Composition => new()
         {
             { "Steel", 5.68f },
             { "Aluminum", 4.82f },
@@ -41,9 +41,6 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         {
             return new Item(Name, Description, true, interaction: (item) =>
             {
-                if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(new(Name, Composition));
-
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                     return new Interaction(InteractionResult.TargetExpires, item, $"The {Name} shatters into pieces. Less tech to constantly annoy you, but you never know when you may have needed that.");
 

@@ -1,5 +1,4 @@
 ﻿using NetAF.Assets;
-using NetAF.Extensions;
 using NetAF.Logic;
 using NetAF.Utilities;
 using System.Collections.Generic;
@@ -24,7 +23,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #region StaticProperties
 
-        private static readonly Dictionary<string, float> Composition = new()
+        internal static Dictionary<string, float> Composition => new()
         {
             { "Paper", 94f },
             { "Ink", 1.02f },
@@ -43,13 +42,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
                 return Item.DefaultExamination(request);
             });
 
-            return new Item(Name, Description, true, examination: examination, interaction: (item) =>
-            {
-                if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(new(Name, Composition));
-
-                return new Interaction(InteractionResult.NoChange, item);
-            });
+            return new Item(Name, Description, true, examination: examination);
         }
 
         #endregion

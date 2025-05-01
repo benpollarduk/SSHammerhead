@@ -1,17 +1,20 @@
 ﻿using NetAF.Commands;
 using NetAF.Commands.Global;
+using NetAF.Extensions;
 using NetAF.Interpretation;
 using NetAF.Logic;
+using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Commands;
 using SSHammerhead.Logic.Modes;
+using System;
 using System.Collections.Generic;
 
 namespace SSHammerhead.Interpretation
 {
     /// <summary>
-    /// Provides an object that can be used for interpreting bot login commands.
+    /// Provides an object that can interpret scanner commands.
     /// </summary>
-    public sealed class BotLoginCommandInterpreter : IInterpreter
+    public sealed class ScannerCommandInterpreter : IInterpreter
     {
         #region StaticProperties
 
@@ -43,39 +46,8 @@ namespace SSHammerhead.Interpretation
             if (End.CommandHelp.Equals(input))
                 return new(true, new End());
 
-            if (game.Mode is BotLoginMode mode)
-            {
-                switch (mode.Stage)
-                {
-                    case LoginStage.InvalidUserName:
-
-                        return new(true, new LoginResetToUserName());
-
-                    case LoginStage.InvalidPassword:
-
-                        return new(true, new LoginResetToPassword());
-
-                    case LoginStage.UserName:
-
-                        if (LoginUserName.CommandHelp.Equals(input))
-                            return new(true, new LoginUserName());
-                        else
-                            return new(true, new LoginInvalidUserName());
-
-                    case LoginStage.Password:
-
-                        if (LoginPassword.CommandHelp.Equals(input))
-                            return new(true, new LoginPassword());
-                        else
-                            return new(true, new LoginInvalidPassword());
-
-                    case LoginStage.StartMaintenance:
-
-                        return new(true, new LoginStartMaintenance());
-                }
-            }
-
-            return InterpretationResult.Fail;
+            var match = Array.Find(Scanner.GetScannableExaminables(game), x => x.Identifier.Name.InsensitiveEquals(input));
+            return new InterpretationResult(true, new Scan(match));
         }
 
         /// <summary>
@@ -87,9 +59,12 @@ namespace SSHammerhead.Interpretation
         {
             List<CommandHelp> commands = [];
 
-            if (game.Mode is BotLoginMode)
+            if (game.Mode is ScannerMode)
             {
-                commands.Add(new CommandHelp(End.CommandHelp.Command, "Abort login", CommandCategory.Information));
+                commands.Add(new CommandHelp(End.CommandHelp.Command, "Exit scanner", CommandCategory.Information));
+
+                foreach (var examinable in Scanner.GetScannableExaminables(game))
+                    commands.Add(new CommandHelp(examinable.Identifier.Name, string.Empty, CommandCategory.Custom));
             }
 
             return [.. commands];

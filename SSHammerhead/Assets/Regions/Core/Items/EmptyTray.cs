@@ -1,5 +1,4 @@
 ﻿using NetAF.Assets;
-using NetAF.Extensions;
 using NetAF.Utilities;
 using System.Collections.Generic;
 
@@ -16,7 +15,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #region StaticProperties
 
-        private static readonly Dictionary<string, float> Composition = new()
+        internal static Dictionary<string, float> Composition => new()
         {
             { "Plastic", 99.1f },
             { "Steel alloy", 0.3f }
@@ -28,16 +27,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         public Item Instantiate()
         {
-            return new Item(Name, Description, interaction: (item) =>
-            {
-                if (Scanner.Name.EqualsIdentifier(item.Identifier))
-                    return Scanner.PerformScan(new(Name, Composition));
-
-                return new Interaction(InteractionResult.NoChange, item);
-            })
-            { 
-                IsPlayerVisible = false 
-            };
+            return new Item(Name, Description) { IsPlayerVisible = false };
         }
 
         #endregion

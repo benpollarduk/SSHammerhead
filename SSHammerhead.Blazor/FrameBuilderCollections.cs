@@ -35,7 +35,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleConversationFrameBuilder(gridStringBuilder, false),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
-                    new NaomiConsoleLoginFrameBuilder(gridStringBuilder));
+                    new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -72,6 +73,7 @@ namespace SSHammerhead.Blazor
         {
             get
             {
+                var gridStringBuilder = new GridStringBuilder();
                 var htmlBuilder = new HtmlBuilder();
 
                 return new FrameBuilderCollection(
@@ -87,7 +89,8 @@ namespace SSHammerhead.Blazor
                     new HtmlConversationFrameBuilder(htmlBuilder),
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
-                    new NaomiConsoleLoginFrameBuilder(new GridStringBuilder()));
+                    new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder));
             }
         }
 

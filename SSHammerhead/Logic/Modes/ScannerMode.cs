@@ -25,6 +25,11 @@ namespace SSHammerhead.Logic.Modes
         /// </summary>
         public IExaminable[] Targets { get; set; }
 
+        /// <summary>
+        /// Get or set if the composition should be forgotten after render.
+        /// </summary>
+        public bool ForgetCompositionAfterRender { get; set; } = true;
+
         #endregion
 
         #region Implementation of IGameMode
@@ -32,7 +37,7 @@ namespace SSHammerhead.Logic.Modes
         /// <summary>
         /// Get the interpreter.
         /// </summary>
-        public IInterpreter Interpreter { get; } = new BotLoginCommandInterpreter();
+        public IInterpreter Interpreter { get; } = new ScannerCommandInterpreter();
 
         /// <summary>
         /// Get the type of mode this provides.
@@ -47,6 +52,9 @@ namespace SSHammerhead.Logic.Modes
         {
             var frame = game.Configuration.FrameBuilders.GetFrameBuilder<IScannerFrameBuilder>().Build(Targets, Composition, game.Configuration.DisplaySize);
             game.Configuration.Adapter.RenderFrame(frame);
+
+            if (ForgetCompositionAfterRender)
+                Composition = null;
         }
 
         #endregion

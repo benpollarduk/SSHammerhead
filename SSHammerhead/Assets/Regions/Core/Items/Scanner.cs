@@ -1,8 +1,15 @@
 ﻿using NetAF.Assets;
+using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Core.Rooms.L0;
+using SSHammerhead.Assets.Regions.Core.Rooms.L1;
+using SSHammerhead.Assets.Regions.Core.Rooms.L2;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
+using SSHammerhead.Commands;
+using System;
 using System.Linq;
-using System.Text;
 
 namespace SSHammerhead.Assets.Regions.Core.Items
 {
@@ -15,23 +22,64 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         #endregion
 
+        #region StaticProperties
+
+        private static readonly Composition[] Compositions =
+        [
+            new(Blueprint.Name, Blueprint.Composition),
+            new(BrokenControlPanel.Name, BrokenControlPanel.Composition),
+            new(EmptyTray.Name, EmptyTray.Composition),
+            new(Hammer.Name, Hammer.Composition),
+            new(Laptop.Name, Laptop.Composition),
+            new(LockedMaintenanceControlPanel.Name, LockedMaintenanceControlPanel.Composition),
+            new(MaintenanceControlPanel.Name, MaintenanceControlPanel.Composition),
+            new(PadlockKey.Name, PadlockKey.Composition),
+            new(PostIt.Name, PostIt.Composition),
+            new(Tray.Name, Tray.Composition),
+            new(USBDrive.Name, USBDrive.Composition),
+            new(EngineRoom.HatchName, EngineRoom.HatchComposition),
+            new(Airlock.Name, SSHammerHead.DefaultRoomComposition),
+            new(EngineRoom.Name, SSHammerHead.DefaultRoomComposition),
+            new(SupplyRoom.Name, SSHammerHead.DefaultRoomComposition),
+            new(Booster.Name, SSHammerHead.DefaultRoomComposition),
+            new(BridgeTunnelEntry.Name, SSHammerHead.DefaultRoomComposition),
+            new(BridgeTunnelVertical.Name, SSHammerHead.DefaultRoomComposition),
+            new(CentralHull.Name, SSHammerHead.DefaultRoomComposition),
+            new(PortWing.Name, SSHammerHead.DefaultRoomComposition),
+            new(PortWingInner.Name, SSHammerHead.DefaultRoomComposition),
+            new(PortWingOuter.Name, SSHammerHead.DefaultRoomComposition),
+            new(StarboardWing.Name, SSHammerHead.DefaultRoomComposition),
+            new(StarboardWingInner.Name, SSHammerHead.DefaultRoomComposition),
+            new(StarboardWingOuter.Name, SSHammerHead.DefaultRoomComposition),
+            new(Bridge.Name, SSHammerHead.DefaultRoomComposition),
+            new(BridgePort.Name, SSHammerHead.DefaultRoomComposition),
+            new(BridgeStarboard.Name, SSHammerHead.DefaultRoomComposition),
+            new(BridgeTunnel.Name, SSHammerHead.DefaultRoomComposition)
+        ];
+
+        #endregion
+
         #region StaticMethods
 
-        internal static Interaction PerformScan(Composition composition)
+        private static Composition FindComposition(IExaminable examinable)
         {
-            StringBuilder description = new();
+            var identifierName = examinable.Identifier.Name;
+            return Array.Find(Compositions, x => x.Name.InsensitiveEquals(identifierName));
+        }
 
-            description.AppendLine($"Scanned {composition.Name}, composition is as follows:");
+        internal static bool CanScan(IExaminable examinable)
+        {
+            return FindComposition(examinable) != null;
+        }
 
-            foreach (var element in composition.Elements.OrderByDescending(x => x.Value))
-                description.AppendLine($"-{element.Key}: {element.Value}%");
+        internal static Composition Scan(IExaminable examinable)
+        {
+            return FindComposition(examinable) ?? new(examinable.Identifier.Name, null);
+        }
 
-            var remaining = 100 - composition.Elements.Values.Sum();
-
-            if (remaining > 0)
-                description.AppendLine($"-Unknown: {remaining}%");
-
-            return new Interaction(InteractionResult.NoChange, null, description.ToString());
+        internal static IExaminable[] GetScannableExaminables(Game game)
+        {
+            return game.GetAllPlayerVisibleExaminables().Where(CanScan).ToArray();
         }
 
         #endregion
@@ -40,7 +88,12 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         public Item Instantiate()
         {
-            return new Item(Name, Description, true, interaction: (item) =>
+            CustomCommand[] commands =
+            [
+                new CustomCommand(new CommandHelp("Scan", "Scan an item."), true, true, (g, _) => new Scan(null).Invoke(g))
+            ];
+
+            return new Item(Name, Description, true, commands: commands, interaction: (item) =>
             {
                 if (Name.EqualsIdentifier(item.Identifier))
                     return new Interaction(InteractionResult.NoChange, item, $"The {Name} cannot possibly scan itself!");
