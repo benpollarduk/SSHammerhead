@@ -18,7 +18,9 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         #region Constants
 
         internal const string Name = "Scanner";
-        private const string Description = "A small hand held scanner designed for analysing the composition of objects.";
+        private const string Description = "A small hand held scanner designed by Scantek for analysing the composition of objects.";
+        internal const string Make = "Scantek";
+        internal const string Model = "Object Scanner 2400n";
 
         #endregion
 
@@ -35,6 +37,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
             new(MaintenanceControlPanel.Name, MaintenanceControlPanel.Composition),
             new(PadlockKey.Name, PadlockKey.Composition),
             new(PostIt.Name, PostIt.Composition),
+            new(StasisPodA.Name, StasisPodA.Composition),
             new(Tray.Name, Tray.Composition),
             new(USBDrive.Name, USBDrive.Composition),
             new(EngineRoom.HatchName, EngineRoom.HatchComposition),

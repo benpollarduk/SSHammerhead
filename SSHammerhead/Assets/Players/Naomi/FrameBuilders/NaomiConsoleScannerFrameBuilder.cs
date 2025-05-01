@@ -59,8 +59,8 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             var left = 4;
             var right = availableWidth - 4;
 
-            gridStringBuilder.DrawCentralisedWrapped("<==SCANTEK==>", top + 1, availableWidth, DisplayColor, out _, out var _);
-            gridStringBuilder.DrawCentralisedWrapped("<==OBJECT SCANNER 2400n==>", top + 2, availableWidth, DisplayColor, out var lastX, out var lastY);
+            gridStringBuilder.DrawCentralisedWrapped($"<=={Scanner.Make.ToUpper()}==>", top + 1, availableWidth, DisplayColor, out _, out var _);
+            gridStringBuilder.DrawCentralisedWrapped($"<=={Scanner.Model.ToUpper()}==>", top + 2, availableWidth, DisplayColor, out var lastX, out var lastY);
             lastY += 2;
 
             if (composition == null)

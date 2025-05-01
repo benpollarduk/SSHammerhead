@@ -1,5 +1,7 @@
-﻿using NetAF.Assets.Locations;
+﻿using NetAF.Assets;
+using NetAF.Assets.Locations;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Core.Items;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
 {
@@ -7,8 +9,12 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
     {
         #region Constants
 
-        internal const string Name = "Port Wing Inner";
-        private const string Description = "";
+        internal const string Name = "Stasis Chamber";
+        private const string Description = "The Stasis Chamber leads into the main scientific area of the ship, located in the port wing. " +
+            "The overall feel is still industrial but there is a marked change in the amount of equipment and technology present. Six stasis chambers " +
+            "line the walls, three to the north and three to the south. The crew would have been unconscious inside these chambers for the majority of the ships descent " +
+            "into deep space.";
+
 
         #endregion
 
@@ -16,7 +22,23 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
 
         public Room Instantiate()
         {
-            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West)]);
+            var scanner = new Scanner().Instantiate();
+            scanner.IsPlayerVisible = false;
+
+            var stasisPodA = new StasisPodA(x =>
+            {
+                if (!scanner.IsPlayerVisible)
+                {
+                    scanner.IsPlayerVisible = true;
+                    x.Scene.Examiner.AddItem(scanner);
+                    x.Scene.Room.RemoveItem(scanner);
+                    return new Examination($"Inside the Stasis Pod is a {Scanner.Make} {Scanner.Model}, and expensive device for determining the composition of objects. You take it.");
+                }
+
+                return Item.DefaultExamination.Invoke(x);
+            }).Instantiate();
+
+            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West, true)], items: [stasisPodA, scanner]);
         }
 
         #endregion
