@@ -17,7 +17,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         internal static Dictionary<string, float> Composition => new()
         {
-            { "Plastics", 63.21f },
+            { "Plastics", 47.21f },
             { "Aluminum", 34.39f },
             { "Steel", 3.27f },
             { "Perspex", 1.65f },
