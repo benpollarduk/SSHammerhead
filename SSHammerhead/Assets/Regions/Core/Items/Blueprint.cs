@@ -19,8 +19,8 @@ namespace SSHammerhead.Assets.Regions.Core.Items
 
         internal static Dictionary<string, float> Composition => new()
         {
-            { "Paper", 99.3f },
-            { "Ink", 0.7f }
+            { "Paper", 99.31f },
+            { "Ink", 0.65f }
         };
 
         #endregion

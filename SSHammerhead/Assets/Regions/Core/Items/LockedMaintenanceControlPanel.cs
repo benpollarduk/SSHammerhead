@@ -24,12 +24,12 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         {
             { "Steel", 5.68f },
             { "Aluminum", 4.82f },
-            { "Glass", 21.1f },
+            { "Glass", 17.1f },
             { "Copper", 4.3f },
             { "Zinc", 3.64f },
-            { "Plastic", 76.4f },
+            { "Plastic", 71.4f },
             { "Silver", 0.2f },
-            { "Gold", 0.03f },
+            { "Gold", 0.03f }
         };
 
         #endregion

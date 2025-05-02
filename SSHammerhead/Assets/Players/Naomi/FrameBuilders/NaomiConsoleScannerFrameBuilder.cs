@@ -4,6 +4,7 @@ using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Rendering.FrameBuilders;
+using System;
 using System.Linq;
 
 namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
@@ -35,6 +36,15 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
         /// Get or set the background color.
         /// </summary>
         public AnsiColor BackgroundColor { get; set; } = AnsiColor.Black;
+
+        #endregion
+
+        #region StaticMethods
+
+        private static string FormatNumber(double number)
+        {
+            return Math.Round(number, 2, MidpointRounding.ToZero).ToString("F2");
+        }
 
         #endregion
 
@@ -80,12 +90,12 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
                 lastY++;
 
                 foreach (var element in composition.Elements.OrderByDescending(x => x.Value))
-                    gridStringBuilder.DrawCentralisedWrapped($"{element.Key.ToUpper()}: {element.Value}%", lastY + 1, availableWidth, DisplayColor, out lastX, out lastY);
+                    gridStringBuilder.DrawCentralisedWrapped($"{element.Key.ToUpper()}: {FormatNumber(element.Value)}%", lastY + 1, availableWidth, DisplayColor, out lastX, out lastY);
 
                 var remaining = 100 - composition.Elements.Values.Sum();
 
                 if (remaining > 0)
-                    gridStringBuilder.DrawCentralisedWrapped($"UNKNOWN: {remaining}%", lastY + 1, availableWidth, DisplayColor, out lastX, out lastY);
+                    gridStringBuilder.DrawCentralisedWrapped($"UNKNOWN: {FormatNumber(remaining)}%", lastY + 1, availableWidth, DisplayColor, out lastX, out lastY);
             }
 
             if (renderPrompt)
