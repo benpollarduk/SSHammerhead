@@ -94,6 +94,8 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             gridStringBuilder.DrawWrapped($"{End.CommandHelp.Command.ToUpper()} TO EXIT", left + 2, lastY + 2, availableWidth, DisplayColor, out _, out lastY);
 
             bottom = lastY + 1;
+            var cursorX = lastX - 14;
+            var cursorY = lastY;
 
             for (var i = left; i <= right; i++)
             {
@@ -107,7 +109,7 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
                 gridStringBuilder.SetCell(right, i, BorderCharacter, DisplayColor);
             }
 
-            return new GridTextFrame(gridStringBuilder, renderPrompt ? lastX - 14 : 0, renderPrompt ? lastY : availableHeight, BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, renderPrompt ? cursorX : 0, renderPrompt ? cursorY : availableHeight, BackgroundColor);
         }
 
         #endregion

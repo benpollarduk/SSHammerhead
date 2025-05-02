@@ -5,7 +5,7 @@ using SSHammerhead.Assets.Regions.Core.Items;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
 {
-    internal class PortWingInner : IAssetTemplate<Room>
+    internal class StasisChamber : IAssetTemplate<Room>
     {
         #region Constants
 
@@ -25,7 +25,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
             var scanner = new Scanner().Instantiate();
             scanner.IsPlayerVisible = false;
 
-            var stasisPodA = new StasisPodA(x =>
+            var stasisPodC = new StasisPodC(x =>
             {
                 if (!scanner.IsPlayerVisible)
                 {
@@ -38,7 +38,7 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
                 return Item.DefaultExamination.Invoke(x);
             }).Instantiate();
 
-            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West, true)], items: [stasisPodA, scanner]);
+            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West, true), new Exit(Direction.North)], items: [scanner, new StasisPodA().Instantiate(), new StasisPodB().Instantiate(), stasisPodC, new StasisPodD().Instantiate(), new StasisPodE().Instantiate(), new StasisPodF().Instantiate()]);
         }
 
         #endregion

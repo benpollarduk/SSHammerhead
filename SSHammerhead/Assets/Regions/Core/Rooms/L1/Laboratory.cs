@@ -3,12 +3,12 @@ using NetAF.Utilities;
 
 namespace SSHammerhead.Assets.Regions.Core.Rooms.L1
 {
-    internal class PortWingOuter : IAssetTemplate<Room>
+    internal class Laboratory : IAssetTemplate<Room>
     {
         #region Constants
 
-        internal const string Name = "Port Wing Outer";
-        private const string Description = "";
+        internal const string Name = "Laboratory";
+        private const string Description = "Todo.";
 
         #endregion
 

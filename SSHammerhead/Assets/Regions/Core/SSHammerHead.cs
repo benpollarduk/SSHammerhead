@@ -48,10 +48,10 @@ namespace SSHammerhead.Assets.Regions.Core
                 [0, -2, -1] = new BridgeTunnelEntry().Instantiate(),
                 [0, -3, -1] = new CentralHull().Instantiate(),
                 [0, -4, -1] = new Booster().Instantiate(),
-                [-1, -2, -1] = new PortWing().Instantiate(),
+                [-1, -2, -1] = new MedicalRoom().Instantiate(),
                 [1, -2, -1] = new StarboardWing().Instantiate(),
-                [-2, -3, -1] = new PortWingOuter().Instantiate(),
-                [-1, -3, -1] = new PortWingInner().Instantiate(),
+                [-2, -3, -1] = new Laboratory().Instantiate(),
+                [-1, -3, -1] = new StasisChamber().Instantiate(),
                 [1, -3, -1] = new StarboardWingInner().Instantiate(),
                 [2, -3, -1] = new StarboardWingOuter().Instantiate(),
                 // L0
