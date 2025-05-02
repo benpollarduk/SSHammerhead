@@ -98,8 +98,8 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
                     gridStringBuilder.DrawWrapped("INVALID PASSWORD", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
                     break;
                 case LoginStage.StartMaintenance:
-                    cursorX = 35;
-                    gridStringBuilder.DrawWrapped("PRESS ENTER TO START MAINTENANCE", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
+                    cursorX = 36;
+                    gridStringBuilder.DrawWrapped("TYPE 'START' TO START MAINTENANCE", leftMargin, lastY, availableWidth, CommandsColor, out _, out _);
                     break;
             }
 

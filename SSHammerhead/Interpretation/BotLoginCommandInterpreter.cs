@@ -71,7 +71,10 @@ namespace SSHammerhead.Interpretation
 
                     case LoginStage.StartMaintenance:
 
-                        return new(true, new LoginStartMaintenance());
+                        if (LoginStartMaintenance.CommandHelp.Equals(input))
+                            return new(true, new LoginStartMaintenance());
+
+                        break;
                 }
             }
 

@@ -11,6 +11,15 @@ namespace SSHammerhead.Commands
     /// </summary>
     internal sealed class LoginStartMaintenance : ICommand
     {
+        #region StaticProperties
+
+        /// <summary>
+        /// Get the command help.
+        /// </summary>
+        public static CommandHelp CommandHelp { get; } = new("Start", string.Empty, CommandCategory.Custom);
+
+        #endregion
+
         #region Implementation of ICommand
 
         /// <summary>
