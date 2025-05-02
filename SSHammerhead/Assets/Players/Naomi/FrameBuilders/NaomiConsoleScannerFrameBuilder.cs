@@ -91,9 +91,9 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             if (renderPrompt)
                 gridStringBuilder.DrawCentralisedWrapped("_______________",  lastY + 2, availableWidth, DisplayColor, out lastX, out lastY);
 
-            gridStringBuilder.DrawWrapped($"{End.CommandHelp.Command.ToUpper()} TO EXIT", left + 2, lastY + 1, availableWidth, DisplayColor, out _, out _);
+            gridStringBuilder.DrawWrapped($"{End.CommandHelp.Command.ToUpper()} TO EXIT", left + 2, lastY + 2, availableWidth, DisplayColor, out _, out lastY);
 
-            bottom = lastY + 2;
+            bottom = lastY + 1;
 
             for (var i = left; i <= right; i++)
             {
