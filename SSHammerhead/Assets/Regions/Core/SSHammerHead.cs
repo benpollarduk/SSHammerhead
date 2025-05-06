@@ -22,9 +22,9 @@ namespace SSHammerhead.Assets.Regions.Core
 
         internal static Dictionary<string, float> DefaultRoomComposition => new ()
         {
-            { "Steel", 17.68f },
+            { "Steel", 7.68f },
             { "Aluminum", 44.82f },
-            { "Glass", 11.37f },
+            { "Glass", 6.37f },
             { "Rubber", 5.12f },
             { "Plastics", 21.23f },
             { "Perspex", 12.1f },
