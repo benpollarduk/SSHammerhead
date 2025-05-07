@@ -6,6 +6,7 @@ using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Commands.Persistence;
 using NetAF.Commands;
 using SSHammerhead.Commands;
+using NetAF.Assets.Attributes;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {
@@ -29,7 +30,7 @@ namespace SSHammerhead.Assets.Players.Naomi
                 new LoadWithRestore() { IsPlayerVisible = false }
             ];
 
-            return new(Name, Description, [new Hammer().Instantiate()], commands: commands, interaction: (i) =>
+            var naomi = new PlayableCharacter(Name, Description, [new Hammer().Instantiate()], commands: commands, interaction: (i) =>
             {
                 if (i == null)
                     return new Interaction(InteractionResult.NoChange, null);
@@ -39,6 +40,10 @@ namespace SSHammerhead.Assets.Players.Naomi
 
                 return new Interaction(InteractionResult.NoChange, i);
             });
+
+            naomi.Attributes.Add(new Attribute("Sanity", "Sanity level.", 1, 5, false), 1);
+
+            return naomi;
         }
 
         #endregion
