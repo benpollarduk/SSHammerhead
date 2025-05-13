@@ -11,6 +11,8 @@ using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Assets.Regions.Core.Rooms.L2;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
+using SSHammerhead.Assets.Regions.Stasis.SaucepanLand;
+using System.Linq;
 
 namespace SSHammerhead
 {
@@ -53,22 +55,44 @@ namespace SSHammerhead
                 var overworldName = "CTY-1 Galaxy";
                 var ship = new SSHammerHead().Instantiate();
                 var maintenanceTunnels = new MaintenanceTunnels().Instantiate();
+                var saucepanLand = new SaucepanLand().Instantiate();
 
                 CustomCommand[] commands =
                 [
-                    new CustomCommand(new CommandHelp("dev-n", $"Switch Naomi"), false, true, (game, arguments) =>
+                    new CustomCommand(new CommandHelp("dev-n", "Switch Naomi"), false, true, (game, arguments) =>
                     {
                         return PlayableCharacterManager.Switch(NaomiTemplate.Identifier, game);
                     }),
-                    new CustomCommand(new CommandHelp("dev-b", $"Switch Spider Bot"), false, true, (game, arguments) =>
+                    new CustomCommand(new CommandHelp("dev-b", "Switch Spider Bot"), false, true, (game, arguments) =>
                     {
                         return PlayableCharacterManager.Switch(SpiderBotTemplate.Identifier, game);
-                    })
+                    }),
+                    new CustomCommand(new CommandHelp("dev-s+", "Increase sanity by 1"), false, true, (game, arguments) =>
+                    {
+                        game.Player.Attributes.Add(NaomiTemplate.SanityAttributeName, 1);
+                        return new Reaction(ReactionResult.Inform, $"Sanity is now {game.Player.Attributes.GetValue(NaomiTemplate.SanityAttributeName)}");
+                    }),
+                    new CustomCommand(new CommandHelp("dev-s-", "Decrease sanity by 1"), false, true, (game, arguments) =>
+                    {
+                        game.Player.Attributes.Subtract(NaomiTemplate.SanityAttributeName, 1);
+                        return new Reaction(ReactionResult.Inform, $"Sanity is now {game.Player.Attributes.GetValue(NaomiTemplate.SanityAttributeName)}");
+                    }),
+                    new CustomCommand(new CommandHelp("dev-sp", "Jump to Saucepan Land"), false, true, (game, arguments) =>
+                    {
+                        var reaction = PlayableCharacterManager.Switch(NaomiTemplate.Identifier, game);
+
+                        if (reaction.Result == ReactionResult.Error)
+                            return reaction;
+
+                        game.Overworld.Move(saucepanLand);
+                        return new Reaction(ReactionResult.Silent, $"Jumped to {SaucepanLand.Name}.");
+                    }),
                 ];
 
                 var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.", commands: commands);
                 overworld.AddRegion(ship);
                 overworld.AddRegion(maintenanceTunnels);
+                overworld.AddRegion(saucepanLand);
 
                 return overworld;
             }
