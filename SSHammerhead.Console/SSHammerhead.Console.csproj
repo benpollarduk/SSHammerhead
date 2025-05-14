@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF" Version="3.7.9" />
+    <PackageReference Include="NetAF" Version="3.7.10" />
   </ItemGroup>
 
   <ItemGroup>

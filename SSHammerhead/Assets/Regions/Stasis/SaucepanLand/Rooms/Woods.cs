@@ -1,8 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
-using NetAF.Logic;
+using NetAF.Commands;
 using NetAF.Utilities;
-using System;
 
 namespace SSHammerhead.Assets.Regions.Stasis.SaucepanLand.Rooms
 {
@@ -11,7 +10,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.SaucepanLand.Rooms
         #region Constants
 
         public const string Name = "Woods";
-        private const string Description = "";
+        private const string Description = "Description needs to be added.";
 
         #endregion
 
@@ -19,20 +18,15 @@ namespace SSHammerhead.Assets.Regions.Stasis.SaucepanLand.Rooms
 
         public Room Instantiate()
         {
-            RoomTransitionCallback backToTrunk = new(_ =>
+            RoomTransitionCallback backToTrunk = new(t =>
             {
-                var region = GameExecutor.ExecutingGame.Overworld.CurrentRegion;
-
-                if (region.TryFindRoom(Trunk.Name, out var trunk))
+                if (t.Region.TryFindRoom(Trunk.Name, out var trunk))
                 {
-                    var location = region.GetPositionOfRoom(trunk);
-                    var result = region.JumpToRoom(location.Position);
-
-                    if (result)
-                    {
-                        Console.WriteLine("Jumped.");
-                    }
+                    var location = t.Region.GetPositionOfRoom(trunk);
+                    return new(t.Region.JumpToRoom(location.Position), false);
                 }
+
+                return new RoomTransitionReaction(new Reaction(ReactionResult.Error, $"{Trunk.Name} not found in {t.Region.Identifier.Name}."), false);
             });
 
             return new Room(Name, Description, [new Exit(Direction.North), new Exit(Direction.South), new Exit(Direction.East), new Exit(Direction.West)], exitCallback: backToTrunk);

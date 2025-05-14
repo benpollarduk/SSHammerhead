@@ -8,7 +8,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.SaucepanLand.Rooms
         #region Constants
 
         public const string Name = "Lawn";
-        private const string Description = "";
+        private const string Description = "Description needs to be added.";
 
         #endregion
 

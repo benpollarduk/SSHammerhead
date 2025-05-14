@@ -1,5 +1,4 @@
 ﻿using System;
-using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Extensions;
 using NetAF.Utilities;
