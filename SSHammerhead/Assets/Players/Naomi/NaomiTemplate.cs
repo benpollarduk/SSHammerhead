@@ -17,6 +17,7 @@ namespace SSHammerhead.Assets.Players.Naomi
         public static Identifier Identifier => new(Name);
         private const string Name = "Naomi";
         private const string Description = "You, Naomi Martin, are a 32-year-old shuttle mechanic.";
+        public const string SanityAttributeName = "Sanity";
 
         #endregion
 
@@ -41,7 +42,7 @@ namespace SSHammerhead.Assets.Players.Naomi
                 return new Interaction(InteractionResult.NoChange, i);
             });
 
-            naomi.Attributes.Add(new Attribute("Sanity", "Sanity level.", 1, 5, false), 1);
+            naomi.Attributes.Add(new Attribute(SanityAttributeName, "Sanity level.", 1, 5, false), 1);
 
             return naomi;
         }

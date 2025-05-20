@@ -54,7 +54,6 @@ namespace SSHammerhead.Assets.Regions.Core.Rooms.L0
                 return new Interaction(InteractionResult.NoChange, item);
             });
 
-
             var roomDescription = new ConditionalDescription(PostItDescription, NoPostItDescription, () => room.FindItem(PostIt.Name, out _));
             room = new Room(new Identifier(Name), roomDescription, new Description(Introduction), [up, new Exit(Direction.East), new Exit(Direction.West)], items: [new Laptop().Instantiate(), new PostIt().Instantiate()]);
 
