@@ -87,8 +87,8 @@ namespace SSHammerhead.Assets.Players.Management
                 var jumpResult = newPlayerRecord.StartRegion.JumpToRoom(roomPosition.Position);
 
                 // check the jump worked
-                if (!jumpResult)
-                    return new Reaction(ReactionResult.Error, $"Could not switch to {newPlayerRecord.Instance.Identifier.Name}.");
+                if (jumpResult.Result == ReactionResult.Error)
+                    return jumpResult;
             }
 
             // apply configuration
