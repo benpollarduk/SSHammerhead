@@ -47,6 +47,7 @@ namespace SSHammerhead.Commands
 
                             game.NoteManager.Expire(Airlock.SevenLogName);
                             game.NoteManager.Expire(Laptop.ScottManagementLogName);
+                            game.NoteManager.Expire(Laptop.ScottViewLogName);
 
                             loginMode.Stage = LoginStage.StartMaintenance;
 
