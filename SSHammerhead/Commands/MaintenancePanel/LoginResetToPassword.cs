@@ -2,12 +2,12 @@
 using NetAF.Logic;
 using SSHammerhead.Logic.Modes;
 
-namespace SSHammerhead.Commands
+namespace SSHammerhead.Commands.MaintenancePanel
 {
     /// <summary>
-    /// Represents the Login Reset To User Name command.
+    /// Represents the Login Reset To Password command.
     /// </summary>
-    internal sealed class LoginResetToUserName : ICommand
+    internal sealed class LoginResetToPassword : ICommand
     {
         #region Implementation of ICommand
 
@@ -22,7 +22,7 @@ namespace SSHammerhead.Commands
                 return new(ReactionResult.Error, "No game specified.");
 
             if (game.Mode is BotLoginMode loginMode)
-                loginMode.Stage = LoginStage.UserName;
+                loginMode.Stage = LoginStage.Password;
 
             return new(ReactionResult.Silent, string.Empty);
         }

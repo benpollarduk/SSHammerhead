@@ -4,7 +4,7 @@ using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Logic.Modes;
 
-namespace SSHammerhead.Commands
+namespace SSHammerhead.Commands.MaintenancePanel
 {
     /// <summary>
     /// Represents the Login Invalid Start Maintenance command.

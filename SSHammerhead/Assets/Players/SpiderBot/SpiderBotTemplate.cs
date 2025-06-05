@@ -10,7 +10,7 @@ using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
-using SSHammerhead.Commands;
+using SSHammerhead.Commands.Persist;
 using System;
 
 namespace SSHammerhead.Assets.Players.SpiderBot

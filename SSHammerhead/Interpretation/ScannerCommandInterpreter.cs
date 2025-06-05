@@ -4,7 +4,7 @@ using NetAF.Extensions;
 using NetAF.Interpretation;
 using NetAF.Logic;
 using SSHammerhead.Assets.Regions.Core.Items;
-using SSHammerhead.Commands;
+using SSHammerhead.Commands.Scanner;
 using SSHammerhead.Logic.Modes;
 using System;
 using System.Collections.Generic;

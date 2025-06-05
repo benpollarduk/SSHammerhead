@@ -5,8 +5,8 @@ using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Commands.Persistence;
 using NetAF.Commands;
-using SSHammerhead.Commands;
 using NetAF.Assets.Attributes;
+using SSHammerhead.Commands.Persist;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {

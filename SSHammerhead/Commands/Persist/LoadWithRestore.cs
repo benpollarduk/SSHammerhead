@@ -3,7 +3,7 @@ using NetAF.Logic;
 using NetAF.Persistence.Json;
 using SSHammerhead.Assets.Players.Management;
 
-namespace SSHammerhead.Commands
+namespace SSHammerhead.Commands.Persist
 {
     /// <summary>
     /// Represents the LoadWithRestore command.

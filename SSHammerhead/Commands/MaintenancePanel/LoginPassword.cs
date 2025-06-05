@@ -4,7 +4,7 @@ using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Logic.Modes;
 
-namespace SSHammerhead.Commands
+namespace SSHammerhead.Commands.MaintenancePanel
 {
     /// <summary>
     /// Represents the Login Password command.

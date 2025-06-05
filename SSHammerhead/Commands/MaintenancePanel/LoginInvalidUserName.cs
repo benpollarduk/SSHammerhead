@@ -2,7 +2,7 @@
 using NetAF.Logic;
 using SSHammerhead.Logic.Modes;
 
-namespace SSHammerhead.Commands
+namespace SSHammerhead.Commands.MaintenancePanel
 {
     /// <summary>
     /// Represents the Login Invalid User Name command.

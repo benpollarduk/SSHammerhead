@@ -1,10 +1,9 @@
 ﻿using NetAF.Assets;
 using NetAF.Commands;
 using NetAF.Logic;
-using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Logic.Modes;
 
-namespace SSHammerhead.Commands
+namespace SSHammerhead.Commands.Scanner
 {
     /// <summary>
     /// Represents the Scan command.
@@ -26,19 +25,19 @@ namespace SSHammerhead.Commands
 
             if (game.Mode is ScannerMode scannerMode)
             {
-                scannerMode.Targets = Scanner.GetScannableExaminables(game);
+                scannerMode.Targets = Assets.Regions.Core.Items.Scanner.GetScannableExaminables(game);
 
                 if (examinable != null)
-                    scannerMode.Composition = Scanner.Scan(examinable);
+                    scannerMode.Composition = Assets.Regions.Core.Items.Scanner.Scan(examinable);
 
                 return new Reaction(ReactionResult.Silent, string.Empty);
             }
             else
             {
-                scannerMode = new ScannerMode() { Targets = Scanner.GetScannableExaminables(game) };
+                scannerMode = new ScannerMode() { Targets = Assets.Regions.Core.Items.Scanner.GetScannableExaminables(game) };
 
                 if (examinable != null)
-                    scannerMode.Composition = Scanner.Scan(examinable);
+                    scannerMode.Composition = Assets.Regions.Core.Items.Scanner.Scan(examinable);
 
                 game.ChangeMode(scannerMode);
 

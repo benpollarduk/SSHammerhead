@@ -7,7 +7,6 @@ using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Assets.Regions.Core.Rooms.L1;
 using SSHammerhead.Assets.Regions.Core.Rooms.L2;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
-using SSHammerhead.Commands;
 using System;
 using System.Linq;
 
@@ -98,7 +97,7 @@ namespace SSHammerhead.Assets.Regions.Core.Items
         {
             CustomCommand[] commands =
             [
-                new CustomCommand(new CommandHelp("Scan", "Scan an item."), true, true, (g, _) => new Scan(null).Invoke(g))
+                new CustomCommand(new CommandHelp("Scan", "Scan an item."), true, true, (g, _) => new Commands.Scanner.Scan(null).Invoke(g))
             ];
 
             return new Item(Name, Description, true, commands: commands, interaction: (item) =>

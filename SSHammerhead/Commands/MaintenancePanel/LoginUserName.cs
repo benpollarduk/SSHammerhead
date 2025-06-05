@@ -2,13 +2,22 @@
 using NetAF.Logic;
 using SSHammerhead.Logic.Modes;
 
-namespace SSHammerhead.Commands
+namespace SSHammerhead.Commands.MaintenancePanel
 {
     /// <summary>
-    /// Represents the Login Invalid Password command.
+    /// Represents the Login Username command.
     /// </summary>
-    internal sealed class LoginInvalidPassword : ICommand
+    internal sealed class LoginUserName : ICommand
     {
+        #region StaticProperties
+
+        /// <summary>
+        /// Get the command help.
+        /// </summary>
+        public static CommandHelp CommandHelp { get; } = new("Scott", string.Empty, CommandCategory.Custom);
+
+        #endregion
+
         #region Implementation of ICommand
 
         /// <summary>
@@ -22,7 +31,14 @@ namespace SSHammerhead.Commands
                 return new(ReactionResult.Error, "No game specified.");
 
             if (game.Mode is BotLoginMode loginMode)
-                loginMode.Stage = LoginStage.InvalidPassword;
+            {
+                switch (loginMode.Stage)
+                {
+                    case LoginStage.UserName:
+                        loginMode.Stage = LoginStage.Password;
+                        break;
+                }
+            }
 
             return new(ReactionResult.Silent, string.Empty);
         }

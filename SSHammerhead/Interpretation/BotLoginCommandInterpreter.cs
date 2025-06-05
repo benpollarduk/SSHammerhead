@@ -2,7 +2,7 @@
 using NetAF.Commands.Global;
 using NetAF.Interpretation;
 using NetAF.Logic;
-using SSHammerhead.Commands;
+using SSHammerhead.Commands.MaintenancePanel;
 using SSHammerhead.Logic.Modes;
 using System.Collections.Generic;
 
