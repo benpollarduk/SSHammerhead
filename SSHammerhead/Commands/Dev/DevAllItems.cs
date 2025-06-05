@@ -1,7 +1,7 @@
 ﻿using NetAF.Commands;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Regions.Core.Items;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
+using SSHammerhead.Assets.Regions.Ship.Items;
 
 namespace SSHammerhead.Commands.Dev
 {
@@ -19,7 +19,7 @@ namespace SSHammerhead.Commands.Dev
                     new Laptop().Instantiate(),
                     new PadlockKey().Instantiate(),
                     new PostIt().Instantiate(),
-                    new Assets.Regions.Core.Items.Scanner().Instantiate(),
+                    new Assets.Regions.Ship.Items.Scanner().Instantiate(),
                     new USBDrive().Instantiate(),
                 };
 

@@ -5,12 +5,12 @@ using NetAF.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Players.SpiderBot;
-using SSHammerhead.Assets.Regions.Core;
-using SSHammerhead.Assets.Regions.Core.Items;
-using SSHammerhead.Assets.Regions.Core.Rooms.L0;
-using SSHammerhead.Assets.Regions.Core.Rooms.L2;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
+using SSHammerhead.Assets.Regions.Ship;
+using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L2;
 using SSHammerhead.Assets.Regions.Stasis.SaucepanLand;
 using SSHammerhead.Commands.Dev;
 

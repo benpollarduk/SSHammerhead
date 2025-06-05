@@ -1,7 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Regions.Core.Items;
+using SSHammerhead.Assets.Regions.Ship.Items;
 
 namespace SSHammerhead.Rendering.FrameBuilders
 {

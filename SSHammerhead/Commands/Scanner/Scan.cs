@@ -25,19 +25,19 @@ namespace SSHammerhead.Commands.Scanner
 
             if (game.Mode is ScannerMode scannerMode)
             {
-                scannerMode.Targets = Assets.Regions.Core.Items.Scanner.GetScannableExaminables(game);
+                scannerMode.Targets = Assets.Regions.Ship.Items.Scanner.GetScannableExaminables(game);
 
                 if (examinable != null)
-                    scannerMode.Composition = Assets.Regions.Core.Items.Scanner.Scan(examinable);
+                    scannerMode.Composition = Assets.Regions.Ship.Items.Scanner.Scan(examinable);
 
                 return new Reaction(ReactionResult.Silent, string.Empty);
             }
             else
             {
-                scannerMode = new ScannerMode() { Targets = Assets.Regions.Core.Items.Scanner.GetScannableExaminables(game) };
+                scannerMode = new ScannerMode() { Targets = Assets.Regions.Ship.Items.Scanner.GetScannableExaminables(game) };
 
                 if (examinable != null)
-                    scannerMode.Composition = Assets.Regions.Core.Items.Scanner.Scan(examinable);
+                    scannerMode.Composition = Assets.Regions.Ship.Items.Scanner.Scan(examinable);
 
                 game.ChangeMode(scannerMode);
 

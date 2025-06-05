@@ -2,11 +2,11 @@
 using NetAF.Assets.Characters;
 using NetAF.Extensions;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Commands.Persistence;
 using NetAF.Commands;
 using NetAF.Assets.Attributes;
 using SSHammerhead.Commands.Persist;
+using SSHammerhead.Assets.Regions.Ship.Items;
 
 namespace SSHammerhead.Assets.Players.Naomi
 {

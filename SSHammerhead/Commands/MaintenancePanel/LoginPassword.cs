@@ -1,7 +1,7 @@
 ﻿using NetAF.Commands;
 using NetAF.Logic;
-using SSHammerhead.Assets.Regions.Core.Items;
-using SSHammerhead.Assets.Regions.Core.Rooms.L0;
+using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 using SSHammerhead.Logic.Modes;
 
 namespace SSHammerhead.Commands.MaintenancePanel

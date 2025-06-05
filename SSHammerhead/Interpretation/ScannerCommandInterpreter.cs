@@ -3,7 +3,7 @@ using NetAF.Commands.Global;
 using NetAF.Extensions;
 using NetAF.Interpretation;
 using NetAF.Logic;
-using SSHammerhead.Assets.Regions.Core.Items;
+using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Commands.Scanner;
 using SSHammerhead.Logic.Modes;
 using System;

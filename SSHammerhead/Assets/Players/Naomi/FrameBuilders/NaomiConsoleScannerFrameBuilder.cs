@@ -2,7 +2,7 @@
 using NetAF.Commands.Global;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
-using SSHammerhead.Assets.Regions.Core.Items;
+using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Rendering.FrameBuilders;
 using System;
 using System.Linq;

@@ -2,9 +2,10 @@
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Regions.Core.Items;
-using SSHammerhead.Assets.Regions.Core.Rooms.L0;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
+using SSHammerhead.Assets.Regions.Ship;
+using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 
 namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 {
@@ -35,7 +36,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
 
                 if (key != null)
                 {   
-                    game.Overworld.FindRegion(Core.SSHammerHead.Name, out var ship);
+                    game.Overworld.FindRegion(SSHammerHead.Name, out var ship);
 
                     if (ship.TryFindRoom(SupplyRoom.Name, out var supplyRoom))
                         supplyRoom.AddItem(key);

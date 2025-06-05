@@ -3,8 +3,8 @@ using NetAF.Logic.Modes;
 using NetAF.Logic;
 using SSHammerhead.Interpretation;
 using SSHammerhead.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Regions.Core.Items;
 using NetAF.Assets;
+using SSHammerhead.Assets.Regions.Ship.Items;
 
 namespace SSHammerhead.Logic.Modes
 {
