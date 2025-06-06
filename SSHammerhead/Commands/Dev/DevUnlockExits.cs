@@ -23,7 +23,7 @@ namespace SSHammerhead.Commands.Dev
                     {
                         foreach (var exit in room.Exits)
                         {
-                            if (exit.IsLocked)
+                            if (exit.IsLocked && region.GetAdjoiningRoom(exit.Direction, room) != null)
                             {
                                 exit.Unlock();
                                 unlocked++;
