@@ -6,7 +6,7 @@ namespace SSHammerhead.Commands.Dev
 {
     internal class DevSMinus : IAssetTemplate<CustomCommand>
     {
-        #region Implementation of IAssetTemplate<Item>
+        #region Implementation of IAssetTemplate<CustomCommand>
 
         public CustomCommand Instantiate()
         {
