@@ -9,7 +9,7 @@ namespace SSHammerhead.Commands.Dev
 {
     internal class DevSP(Region instance) : IAssetTemplate<CustomCommand>
     {
-        #region Implementation of IAssetTemplate<Item>
+        #region Implementation of IAssetTemplate<CustomCommand>
 
         public CustomCommand Instantiate()
         {
