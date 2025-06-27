@@ -2,7 +2,7 @@
 using NetAF.Assets.Locations;
 using NetAF.Utilities;
 
-namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
+namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0
 {
     internal class MaintenanceTunnelB : IAssetTemplate<Room>
     {

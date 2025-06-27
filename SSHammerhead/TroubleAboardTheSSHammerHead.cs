@@ -6,7 +6,7 @@ using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels;
-using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using SSHammerhead.Assets.Regions.Ship;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
@@ -65,7 +65,10 @@ namespace SSHammerhead
                     new DevSMinus().Instantiate(),
                     new DevSP(saucepanLand).Instantiate(),
                     new DevAllItems().Instantiate(),
-                    new DevUnlockExits().Instantiate()
+                    new DevUnlockExit().Instantiate(),
+                    new DevUnlockExits().Instantiate(),
+                    new DevJump().Instantiate(),
+                    new DevGiveItem().Instantiate()
                 ];
 
                 var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.", commands: commands);

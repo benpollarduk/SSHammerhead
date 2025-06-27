@@ -7,7 +7,7 @@ using SSHammerhead.Assets.Regions.Ship;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 
-namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.L0
+namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0
 {
     internal class MaintenanceTunnelF : IAssetTemplate<Room>
     {

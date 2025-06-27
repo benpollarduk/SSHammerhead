@@ -9,7 +9,7 @@ using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
-using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using SSHammerhead.Commands.Persist;
 using System;
 

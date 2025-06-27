@@ -11,7 +11,7 @@ namespace SSHammerhead.Commands.Dev
 
         public CustomCommand Instantiate()
         {
-            return new CustomCommand(new CommandHelp("dev-unlock", "Unlock all exits"), false, true, (game, arguments) =>
+            return new CustomCommand(new CommandHelp("dev-unlock-all", "Unlock all exits"), false, true, (game, arguments) =>
             {
                 var unlocked = 0;
 

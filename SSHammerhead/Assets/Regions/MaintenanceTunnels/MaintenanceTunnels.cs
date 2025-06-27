@@ -1,7 +1,7 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Extensions;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Regions.MaintenanceTunnels.L0;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using System;
 
 namespace SSHammerhead.Assets.Regions.MaintenanceTunnels

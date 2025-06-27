@@ -1,7 +1,6 @@
 ﻿using NetAF.Commands;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
-using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Commands.Helpers;
 
 namespace SSHammerhead.Commands.Dev
 {
@@ -13,22 +12,12 @@ namespace SSHammerhead.Commands.Dev
         {
             return new CustomCommand(new CommandHelp("dev-allitems", "Attain all items"), false, true, (game, arguments) =>
             {
-                var items = new[]
+                foreach (var template in ItemHelper.All) 
                 {
-                    new Hammer().Instantiate(),
-                    new Laptop().Instantiate(),
-                    new PadlockKey().Instantiate(),
-                    new PostIt().Instantiate(),
-                    new Assets.Regions.Ship.Items.Scanner().Instantiate(),
-                    new USBDrive().Instantiate(),
-                };
-
-                foreach (var item in items) 
-                {
-                    if (game.Player.FindItem(item.Identifier.Name, out _))
+                    if (game.Player.FindItem(template.Name, out _))
                         continue;
 
-                    game.Player.AddItem(item);
+                    game.Player.AddItem(template.Item.Instantiate());
                 }
 
                 return new Reaction(ReactionResult.Inform, "Acquired all items.");
