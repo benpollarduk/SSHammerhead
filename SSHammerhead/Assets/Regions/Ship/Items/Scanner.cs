@@ -44,6 +44,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             new(StasisPodF.Name, StasisPod.Composition),
             new(Tray.Name, Tray.Composition),
             new(USBDrive.Name, USBDrive.Composition),
+            new(LaserBarrier.Name, LaserBarrier.Composition),
             new(EngineRoom.HatchName, EngineRoom.HatchComposition),
             new(Airlock.Name, SSHammerHead.DefaultRoomComposition),
             new(EngineRoom.Name, SSHammerHead.DefaultRoomComposition),
