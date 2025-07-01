@@ -61,7 +61,7 @@ namespace SSHammerhead.Commands.Dev
         {
             return new CustomCommand(new CommandHelp("dev-give-item", "Give a named item"), false, true, (game, arguments) =>
             {
-                var name = arguments[0] ?? string.Empty;
+                var name = string.Concat(arguments, ' ');
 
                 foreach (var template in ItemHelper.All)
                 {

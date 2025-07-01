@@ -60,7 +60,7 @@ namespace SSHammerhead.Commands.Dev
         {
             return new CustomCommand(new CommandHelp("dev-jump", "Jump to a named room"), false, true, (game, arguments) =>
             {
-                var roomName = arguments[0] ?? string.Empty;
+                var roomName = string.Concat(arguments, ' ');
 
                 foreach (var region in game.Overworld.Regions)
                 {
