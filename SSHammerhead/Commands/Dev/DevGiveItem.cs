@@ -1,5 +1,4 @@
 using NetAF.Commands;
-using NetAF.Commands.Scene;
 using NetAF.Extensions;
 using NetAF.Utilities;
 using SSHammerhead.Commands.Helpers;
@@ -14,7 +13,7 @@ namespace SSHammerhead.Commands.Dev
         {
             return new CustomCommand(new CommandHelp("dev-give-item", "Give a named item"), false, true, (game, arguments) =>
             {
-                var name = string.Concat(arguments, ' ');
+                var name = StringUtilities.Concatenate(arguments, " ");
 
                 foreach (var template in ItemHelper.All)
                 {

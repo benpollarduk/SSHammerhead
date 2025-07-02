@@ -1,6 +1,4 @@
-﻿using NetAF.Assets.Locations;
-using NetAF.Commands;
-using NetAF.Commands.Scene;
+﻿using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Utilities;
 
@@ -14,7 +12,7 @@ namespace SSHammerhead.Commands.Dev
         {
             return new CustomCommand(new CommandHelp("dev-jump", "Jump to a named room"), false, true, (game, arguments) =>
             {
-                var roomName = string.Concat(arguments, ' ');
+                var roomName = StringUtilities.Concatenate(arguments, " ");
 
                 foreach (var region in game.Overworld.Regions)
                 {
