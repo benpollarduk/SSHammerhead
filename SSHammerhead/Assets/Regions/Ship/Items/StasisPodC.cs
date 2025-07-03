@@ -1,6 +1,8 @@
 ﻿using NetAF.Assets;
+using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Stasis.SaucepanLand;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
@@ -24,10 +26,20 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         public override Item Instantiate()
         {
-            return new Item(Name, Description, examination: examination, interaction: (item) =>
+            CustomCommand[] commands = 
+            [
+                new CustomCommand(new CommandHelp("Enter Stasis (C)", $"Enter stasis in {Name}."), true, true, (g, _) =>
+                {
+                    g.Overworld.FindRegion(SaucepanLand.Name, out var region);
+                    return g.Overworld.Move(region);
+                })
+            ];
+
+            return new Item(Name, Description, examination: examination, commands: commands, interaction: (item) =>
             {
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                     return new Interaction(InteractionResult.NoChange, item, $"The pod is reinforced, it will take more than a swing from a {Hammer.Name} to break it.");
+
 
                 return new Interaction(InteractionResult.NoChange, item);
             });

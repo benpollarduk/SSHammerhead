@@ -14,7 +14,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         private static readonly string Description = $"The fifth of the Stasis pods.{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"{DefaultDescription}{StringUtilities.Newline}{StringUtilities.Newline}" +
-            $"The door to this pod closed but unlocked.";
+            $"The door to this pod is closed but unlocked.";
 
         #endregion
     }
