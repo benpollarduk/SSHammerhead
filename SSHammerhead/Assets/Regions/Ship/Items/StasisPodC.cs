@@ -1,8 +1,11 @@
 ﻿using NetAF.Assets;
 using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Regions.Stasis.SaucepanLand;
+using SSHammerhead.Assets.Players.Naomi;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
+using SSHammerhead.Assets.Regions.Stasis.Awaji;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
@@ -11,6 +14,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region Constants
 
         internal const string Name = "Stasis Pod (C)";
+        internal const string FlipBreakerCommandName = "Flip Breaker";
+        internal const string EnterStasisCommandName = "Enter Stasis";
 
         #endregion
 
@@ -26,20 +31,37 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         public override Item Instantiate()
         {
+            CustomCommand enterStasisCommand = null;
+            CustomCommand enableStasisCommand = null;
+
+            enterStasisCommand = new CustomCommand(new CommandHelp(EnterStasisCommandName, $"Enter stasis in {Name}."), false, false, (g, _) =>
+            {
+                if (g.Player.Attributes.GetValue(NaomiTemplate.SanityAttributeName) == 0)
+                    g.Player.Attributes.Add(NaomiTemplate.SanityAttributeName, 1);
+
+                enterStasisCommand.IsPlayerVisible = false;
+                g.Overworld.FindRegion(Awaji.Name, out var region);
+                return g.Overworld.Move(region);
+            });
+
+            enableStasisCommand = new CustomCommand(new CommandHelp(FlipBreakerCommandName, $"Flip the power breaker on {Name}."), false, false, (g, _) =>
+            {
+                g.NoteManager.Expire(StasisPodManual.StasisPodManualLogName);
+                enterStasisCommand.IsPlayerVisible = true;
+                enableStasisCommand.IsPlayerVisible = false;
+                return new Reaction(ReactionResult.Inform, $"Flipping the breaker on {Name} to the 'On' position powers up the stasis pod. Its internal lights flicker on and the internal controls light up.");
+            });
+
             CustomCommand[] commands = 
             [
-                new CustomCommand(new CommandHelp("Enter Stasis (C)", $"Enter stasis in {Name}."), true, true, (g, _) =>
-                {
-                    g.Overworld.FindRegion(SaucepanLand.Name, out var region);
-                    return g.Overworld.Move(region);
-                })
+                enterStasisCommand,
+                enableStasisCommand
             ];
 
             return new Item(Name, Description, examination: examination, commands: commands, interaction: (item) =>
             {
                 if (Hammer.Name.EqualsIdentifier(item.Identifier))
                     return new Interaction(InteractionResult.NoChange, item, $"The pod is reinforced, it will take more than a swing from a {Hammer.Name} to break it.");
-
 
                 return new Interaction(InteractionResult.NoChange, item);
             });

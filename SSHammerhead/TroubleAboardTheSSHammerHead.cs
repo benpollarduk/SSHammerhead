@@ -11,6 +11,7 @@ using SSHammerhead.Assets.Regions.Ship;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L2;
+using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.SaucepanLand;
 using SSHammerhead.Commands.Dev;
 
@@ -56,6 +57,7 @@ namespace SSHammerhead
                 var ship = new SSHammerHead().Instantiate();
                 var maintenanceTunnels = new MaintenanceTunnels().Instantiate();
                 var saucepanLand = new SaucepanLand().Instantiate();
+                var awaji = new Awaji().Instantiate();
 
                 CustomCommand[] commands =
                 [
@@ -64,6 +66,7 @@ namespace SSHammerhead
                     new DevSPlus().Instantiate(),
                     new DevSMinus().Instantiate(),
                     new DevSP(saucepanLand).Instantiate(),
+                    new DevAw(awaji).Instantiate(),
                     new DevAllItems().Instantiate(),
                     new DevUnlockExit().Instantiate(),
                     new DevUnlockExits().Instantiate(),
@@ -75,6 +78,7 @@ namespace SSHammerhead
                 overworld.AddRegion(ship);
                 overworld.AddRegion(maintenanceTunnels);
                 overworld.AddRegion(saucepanLand);
+                overworld.AddRegion(awaji);
 
                 return overworld;
             }
