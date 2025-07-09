@@ -24,7 +24,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         {
             { "Steel", 5.68f },
             { "Aluminum", 4.82f },
-            { "Glass", 21.1f },
+            { "Glass", 13.1f },
             { "Copper", 4.3f },
             { "Zinc", 3.64f },
             { "Plastic", 61.4f },

@@ -3,7 +3,10 @@ using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Players.Anne;
+using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
+using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 
@@ -40,8 +43,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                     g.Player.Attributes.Add(NaomiTemplate.SanityAttributeName, 1);
 
                 enterStasisCommand.IsPlayerVisible = false;
-                g.Overworld.FindRegion(Awaji.Name, out var region);
-                return g.Overworld.Move(region);
+                var reaction = PlayableCharacterManager.Switch(AnneTemplate.Identifier, g);
+
+                if (reaction.Result == ReactionResult.Error)
+                    return reaction;
+
+
             });
 
             enableStasisCommand = new CustomCommand(new CommandHelp(FlipBreakerCommandName, $"Flip the power breaker on {Name}."), false, false, (g, _) =>

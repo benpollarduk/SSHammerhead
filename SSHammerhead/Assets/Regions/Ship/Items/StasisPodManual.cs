@@ -12,7 +12,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region Constants
 
         internal const string Name = "Stasis Pod Manual";
-        private readonly string Description = $"INTRODUCTION: A stasis pod provides a save environment for an astronaut...{StringUtilities.Newline}" +
+        private readonly string Description = $"INTRODUCTION: A stasis pod provides a safe environment for an astronaut during travel over large distances.{StringUtilities.Newline}" +
+            $"To keep the astronauts mind active the stasis chamber generates an immersive simulation of an environment that suits the individual and helps to preserve their mental health over extended periods of stasis.{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"TROUBLESHOOTING: If the stasis pod won't power up check the breaker first.";
 
         internal const string StasisPodManualLogName = "StasisPodManual";
