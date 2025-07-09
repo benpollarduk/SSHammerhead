@@ -48,7 +48,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 if (reaction.Result == ReactionResult.Error)
                     return reaction;
 
-
+                g.Overworld.FindRegion(Awaji.Name, out var region);
+                return g.Overworld.Move(region);
             });
 
             enableStasisCommand = new CustomCommand(new CommandHelp(FlipBreakerCommandName, $"Flip the power breaker on {Name}."), false, false, (g, _) =>
