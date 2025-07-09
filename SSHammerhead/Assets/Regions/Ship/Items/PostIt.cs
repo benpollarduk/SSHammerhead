@@ -1,6 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Logic;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 using System.Collections.Generic;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
@@ -38,7 +39,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         {
             ExaminationCallback examination = new(request =>
             {
-                GameExecutor.ExecutingGame?.NoteManager.Add(PostItLogName, "Anne hid the key to the padlock that is locking the hatch inside the maintenance shaft.");
+                GameExecutor.ExecutingGame?.NoteManager.Add(PostItLogName, $"A padlock locks the hatch in the {EngineRoom.Name} blocking access to the floor above. Anne hid the key inside a maintenance shaft.");
                 return ExaminableObject.DefaultExamination(request);
             });
 

@@ -13,13 +13,14 @@ namespace SSHammerhead.Commands.Helpers
         /// <summary>
         /// Get all items.
         /// </summary>
-        public static ItemTemplateIdentifier[] All =
+        public static readonly ItemTemplateIdentifier[] All =
         {
             new ItemTemplateIdentifier(Hammer.Name, new Hammer()),
             new ItemTemplateIdentifier(Laptop.Name, new Laptop()),
             new ItemTemplateIdentifier(PadlockKey.Name, new PadlockKey()),
             new ItemTemplateIdentifier(PostIt.Name, new PostIt()),
             new ItemTemplateIdentifier(Assets.Regions.Ship.Items.Scanner.Name, new Assets.Regions.Ship.Items.Scanner()),
+            new ItemTemplateIdentifier(StasisPodManual.Name, new StasisPodManual()),
             new ItemTemplateIdentifier(USBDrive.Name, new USBDrive())
         };
 

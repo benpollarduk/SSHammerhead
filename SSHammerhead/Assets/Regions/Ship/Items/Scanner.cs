@@ -7,6 +7,7 @@ using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L2;
+using SSHammerhead.Commands.Helpers;
 using System;
 using System.Linq;
 
@@ -42,6 +43,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             new(StasisPodD.Name, StasisPod.Composition),
             new(StasisPodE.Name, StasisPod.Composition),
             new(StasisPodF.Name, StasisPod.Composition),
+            new(StasisPodManual.Name, StasisPodManual.Composition),
             new(Tray.Name, Tray.Composition),
             new(USBDrive.Name, USBDrive.Composition),
             new(LaserBarrier.Name, LaserBarrier.Composition),

@@ -13,6 +13,8 @@ namespace SSHammerhead.Blazor
     /// </summary>
     internal static class FrameBuilderCollections
     {
+        #region ConsoleEmu
+
         /// <summary>
         /// Get the frame builders for Naomi, using console emulation.
         /// </summary>
@@ -67,6 +69,35 @@ namespace SSHammerhead.Blazor
         }
 
         /// <summary>
+        /// Get the frame builders for Anne, using console emulation.
+        /// </summary>
+        internal static FrameBuilderCollection AnneConsoleEmulation
+        {
+            get
+            {
+                var gridStringBuilder = new GridStringBuilder('¦', '¦', '¬');
+
+                return new FrameBuilderCollection(
+                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder), false),
+                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder), false),
+                    new ConsoleCommandListFrameBuilder(gridStringBuilder),
+                    new ConsoleHelpFrameBuilder(gridStringBuilder),
+                    new ConsoleCompletionFrameBuilder(gridStringBuilder),
+                    new ConsoleGameOverFrameBuilder(gridStringBuilder),
+                    new ConsoleAboutFrameBuilder(gridStringBuilder),
+                    new ConsoleReactionFrameBuilder(gridStringBuilder),
+                    new ConsoleConversationFrameBuilder(gridStringBuilder, false),
+                    new ConsoleNoteFrameBuilder(gridStringBuilder),
+                    new ConsoleHistoryFrameBuilder(gridStringBuilder));
+            }
+        }
+
+        #endregion
+
+        #region Html
+
+        /// <summary>
         /// Get the frame builders for Naomi, using HTML.
         /// </summary>
         internal static FrameBuilderCollection NaomiHtml
@@ -119,5 +150,33 @@ namespace SSHammerhead.Blazor
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 });
             }
         }
+
+        /// <summary>
+        /// Get the frame builders for Anne, using HTML.
+        /// </summary>
+        internal static FrameBuilderCollection AnneHtml
+        {
+            get
+            {
+                var gridStringBuilder = new GridStringBuilder();
+                var htmlBuilder = new HtmlBuilder();
+
+                return new FrameBuilderCollection(
+                    new HtmlTitleFrameBuilder(htmlBuilder),
+                    new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder)),
+                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { MaxSize = new(40, 30) }),
+                    new HtmlCommandListFrameBuilder(htmlBuilder),
+                    new HtmlHelpFrameBuilder(htmlBuilder),
+                    new HtmlCompletionFrameBuilder(htmlBuilder),
+                    new HtmlGameOverFrameBuilder(htmlBuilder),
+                    new HtmlAboutFrameBuilder(htmlBuilder),
+                    new HtmlReactionFrameBuilder(htmlBuilder),
+                    new HtmlConversationFrameBuilder(htmlBuilder),
+                    new HtmlNoteFrameBuilder(htmlBuilder),
+                    new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 });
+            }
+        }
+
+        #endregion
     }
 }

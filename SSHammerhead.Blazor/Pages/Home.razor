@@ -4,6 +4,7 @@
 @using NetAF.Rendering
 @using NetAF.Rendering.FrameBuilders
 @using SSHammerhead.Assets.Players.Management
+@using SSHammerhead.Configuration
 @using System.Reflection
 
 <PageTitle>Trouble Aboard the SS Hammerhead</PageTitle>
@@ -49,13 +50,13 @@
 
     private void RunConsoleEmu()
     {
-        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.BotConsoleEmulation, new(80, 48));
+        BeginGame(new Presentation(SSHammerhead.Blazor.FrameBuilderCollections.NaomiConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.BotConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.AnneConsoleEmulation), new(80, 48));
     }
 
     private void RunHtml()
     {
         FrameProperties.DisplayCommandList = false;
-        BeginGame(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml, new(50, 30));
+        BeginGame(new Presentation(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml, SSHammerhead.Blazor.FrameBuilderCollections.AnneHtml), new(50, 30));
     }
 
     private void SetupComponents(HtmlAdapter htmlAdapter)
@@ -66,7 +67,7 @@
             gameComponent.RestorePointComponent.PostRestoreCallback = g => PlayableCharacterManager.ApplyConfiguration(g.Player, g);
     }
 
-    private void BeginGame(FrameBuilderCollection naomiFrameBuilder, FrameBuilderCollection botFrameBuilder, Size size)
+    private void BeginGame(Presentation presentation, Size size)
     {
         if (GameExecutor.IsExecuting)
             GameExecutor.CancelExecution();
@@ -74,8 +75,8 @@
         var htmlAdapter = new HtmlAdapter(gameComponent);
         SetupComponents(htmlAdapter);
 
-        GameConfiguration configuration = new(htmlAdapter, naomiFrameBuilder, size);
-        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, naomiFrameBuilder, botFrameBuilder));
+        GameConfiguration configuration = new(htmlAdapter, presentation.Naomi, size);
+        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, presentation));
 
         modeSelected = true;
     }

@@ -63,5 +63,30 @@ namespace SSHammerhead.Console
                     new ConsoleHistoryFrameBuilder(gridStringBuilder));
             }
         }
+
+        /// <summary>
+        /// Get the frame builders for Anne.
+        /// </summary>
+        internal static FrameBuilderCollection Anne
+        {
+            get
+            {
+                var gridStringBuilder = new GridStringBuilder('¦', '¦', '¬');
+
+                return new FrameBuilderCollection(
+                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
+                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
+                    new ConsoleCommandListFrameBuilder(gridStringBuilder),
+                    new ConsoleHelpFrameBuilder(gridStringBuilder),
+                    new ConsoleCompletionFrameBuilder(gridStringBuilder),
+                    new ConsoleGameOverFrameBuilder(gridStringBuilder),
+                    new ConsoleAboutFrameBuilder(gridStringBuilder),
+                    new ConsoleReactionFrameBuilder(gridStringBuilder),
+                    new ConsoleConversationFrameBuilder(gridStringBuilder),
+                    new ConsoleNoteFrameBuilder(gridStringBuilder),
+                    new ConsoleHistoryFrameBuilder(gridStringBuilder));
+            }
+        }
     }
 }

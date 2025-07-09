@@ -15,7 +15,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
             "line the walls, three to the north and three to the south. The crew would have been unconscious inside these chambers for the majority of the ships descent " +
             "into deep space.";
 
-
         #endregion
 
         #region Implementation of IAssetTemplare<Room>
@@ -38,7 +37,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
                 return ExaminableObject.DefaultExamination.Invoke(x);
             }).Instantiate();
 
-            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West, true), new Exit(Direction.North)], items: [scanner, new StasisPodA().Instantiate(), new StasisPodB().Instantiate(), stasisPodC, new StasisPodD().Instantiate(), new StasisPodE().Instantiate(), new StasisPodF().Instantiate()]);
+            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West, true), new Exit(Direction.North)], items: [scanner, new StasisPodManual().Instantiate(), new StasisPodA().Instantiate(), new StasisPodB().Instantiate(), stasisPodC, new StasisPodD().Instantiate(), new StasisPodE().Instantiate(), new StasisPodF().Instantiate()]);
         }
 
         #endregion
