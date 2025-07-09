@@ -9,6 +9,7 @@ using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
+using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
@@ -49,7 +50,13 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                     return reaction;
 
                 g.Overworld.FindRegion(Awaji.Name, out var region);
-                return g.Overworld.Move(region);
+                reaction = g.Overworld.Move(region);
+
+                if (reaction.Result == ReactionResult.Error)
+                    return reaction;
+
+                // because the character switch makes the introduction be shown need to manually show it
+                return new Reaction(ReactionResult.Inform, Island.Introduction);
             });
 
             enableStasisCommand = new CustomCommand(new CommandHelp(FlipBreakerCommandName, $"Flip the power breaker on {Name}."), false, false, (g, _) =>
