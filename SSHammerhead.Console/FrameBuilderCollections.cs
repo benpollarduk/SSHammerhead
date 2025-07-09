@@ -71,7 +71,7 @@ namespace SSHammerhead.Console
         {
             get
             {
-                var gridStringBuilder = new GridStringBuilder();
+                var gridStringBuilder = new GridStringBuilder('¦', '¦', '¬');
 
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder),

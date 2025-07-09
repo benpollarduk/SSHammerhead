@@ -2,7 +2,6 @@
 using NetAF.Commands;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
-using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 
 namespace SSHammerhead.Commands.Dev
@@ -15,7 +14,7 @@ namespace SSHammerhead.Commands.Dev
         {
             return new CustomCommand(new CommandHelp("dev-aw", "Jump to Awaji"), false, true, (game, arguments) =>
             {
-                var reaction = PlayableCharacterManager.Switch(NaomiTemplate.Identifier, game);
+                var reaction = PlayableCharacterManager.Switch(Assets.Players.Anne.AnneTemplate.Identifier, game);
 
                 if (reaction.Result == ReactionResult.Error)
                     return reaction;

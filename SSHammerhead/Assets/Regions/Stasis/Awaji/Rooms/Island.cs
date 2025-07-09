@@ -1,5 +1,11 @@
-﻿using NetAF.Assets.Locations;
+﻿using NetAF.Assets;
+using NetAF.Assets.Locations;
+using NetAF.Commands;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Players.Anne;
+using SSHammerhead.Assets.Players.Management;
+using SSHammerhead.Assets.Players.Naomi;
+using SSHammerhead.Assets.Regions.Ship.Items;
 
 namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
 {
@@ -12,13 +18,27 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
         internal static readonly string Introduction = $"You get into the stasis pod, strap yourself in and relax. The push of a button on the control panel by your right hand engages stasis mode. Slowly you loose consciousness.{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"Groggily you open your eyes to find yourself on a tiny island in a bay, completely detached from the ship. You can hear the waves gently breaking against the rocks and the distant call of sea gulls.";
 
+        internal const string IslandCodeLogName = "IslandCode";
+
         #endregion
 
         #region Implementation of IAssetTemplare<Room>
 
         public Room Instantiate()
         {
-            return new Room(Name, Description, Introduction);
+            var escape = new CustomCommand(new CommandHelp("Escape", $"Escape."), true, true, (g, _) =>
+            {
+                g.NoteManager.Add(IslandCodeLogName, $"The code from the {Name} was {LaserBarrier.UnlockCode3}.");
+
+                var reaction = PlayableCharacterManager.Switch(NaomiTemplate.Identifier, g);
+
+                if (reaction.Result == ReactionResult.Error)
+                    return reaction;
+
+                return new Reaction(ReactionResult.Inform, $"The simulation of the {Name} vanishes to immediate black. The contrast of being back in the confinement of the stasis pod is incredibly jarring.");
+            });
+
+            return new Room(Name, Description, Introduction, commands: [escape]);
         }
 
         #endregion

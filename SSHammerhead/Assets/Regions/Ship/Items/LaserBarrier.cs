@@ -12,11 +12,19 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         internal const string Name = "Laser Barrier";
         private const string Description = "An impenetrable laser barrier. Dangerous red lasers emit from all points around the perimeter of the barrier. It has a small touch panel that allows the user to enter 6 two-digit hexadecimal numbers.";
-        private const string UnlockCode = "7F-DA-13-FA-B4-82";
+        internal const string UnlockCode1 = "7F";
+        internal const string UnlockCode2 = "DA";
+        internal const string UnlockCode3 = "13";
+        internal const string UnlockCode4 = "FA";
+        internal const string UnlockCode5 = "B4";
+        internal const string UnlockCode6 = "82";
+
 
         #endregion
 
         #region StaticProperties
+
+        private static string UnlockCode => $"{UnlockCode1}-{UnlockCode2}-{UnlockCode3}-{UnlockCode4}-{UnlockCode5}-{UnlockCode6}";
 
         internal static Dictionary<string, float> Composition => new()
         {
