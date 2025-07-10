@@ -1,8 +1,8 @@
 ﻿using NetAF.Rendering.FrameBuilders;
-using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using NetAF.Targets.Console.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
+using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 
 namespace SSHammerhead.Console
 {
@@ -76,7 +76,7 @@ namespace SSHammerhead.Console
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder),
                     new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
-                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
+                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
                     new ConsoleHelpFrameBuilder(gridStringBuilder),
                     new ConsoleCompletionFrameBuilder(gridStringBuilder),

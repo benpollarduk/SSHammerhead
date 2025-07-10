@@ -21,12 +21,18 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji
         {
             var regionMaker = new RegionMaker(Name, Description)
             {
-                [0, 0, 0] = new Island().Instantiate()
+                [0, 0, 0] = new Island().Instantiate(),
+                [3, 2, 0] = new GenericIsland("Island").Instantiate(),
+                [-2, 4, 0] = new GenericIsland("Island").Instantiate(),
+                [-3, 3, 0] = new GenericIsland("Island").Instantiate(),
+                [1, -2, 0] = new Torii().Instantiate(),
             };
 
             // start on island
             var start = Array.Find(regionMaker.GetRoomPositions(), r => Island.Name.EqualsIdentifier(r.Room.Identifier));
-            return regionMaker.Make(start);
+            var region = regionMaker.Make(start);
+            region.IsVisibleWithoutDiscovery = true;
+            return region;
         }
 
         #endregion

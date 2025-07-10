@@ -1,10 +1,10 @@
 ﻿using NetAF.Rendering.FrameBuilders;
-using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
-using NetAF.Targets.Html.Rendering.FrameBuilders;
+using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Html.Rendering;
+using NetAF.Targets.Html.Rendering.FrameBuilders;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
+using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 
 namespace SSHammerhead.Blazor
 {
@@ -80,7 +80,7 @@ namespace SSHammerhead.Blazor
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder),
                     new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder), false),
-                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder), false),
+                    new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }, false),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
                     new ConsoleHelpFrameBuilder(gridStringBuilder),
                     new ConsoleCompletionFrameBuilder(gridStringBuilder),
@@ -164,7 +164,7 @@ namespace SSHammerhead.Blazor
                 return new FrameBuilderCollection(
                     new HtmlTitleFrameBuilder(htmlBuilder),
                     new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder)),
-                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { MaxSize = new(40, 30) }),
+                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { MaxSize = new(40, 30), HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
                     new HtmlHelpFrameBuilder(htmlBuilder),
                     new HtmlCompletionFrameBuilder(htmlBuilder),
