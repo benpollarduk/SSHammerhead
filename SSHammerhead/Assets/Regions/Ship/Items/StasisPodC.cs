@@ -1,13 +1,10 @@
 ﻿using NetAF.Assets;
 using NetAF.Commands;
 using NetAF.Extensions;
-using NetAF.Logic;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
-using SSHammerhead.Assets.Players.SpiderBot;
-using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
 

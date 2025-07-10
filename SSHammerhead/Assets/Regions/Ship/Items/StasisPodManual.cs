@@ -38,8 +38,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         {
             ExaminationCallback examination = new(request =>
             {
-                if (!GameExecutor.ExecutingGame?.NoteManager.ContainsEntry(StasisPodManualLogName) ?? false)
+                const string variable = "HasReadManual";
+
+                if (!GameExecutor.ExecutingGame?.VariableManager.ContainsVariable(variable) ?? false)
                 {
+                    GameExecutor.ExecutingGame?.VariableManager.Add(variable, true.ToString());
+
                     if (request.Scene.Room.FindItem(StasisPodC.Name, out var podC))
                     {
                         var command = Array.Find(podC.Commands, x => x.Help.Command.InsensitiveEquals(StasisPodC.FlipBreakerCommandName));

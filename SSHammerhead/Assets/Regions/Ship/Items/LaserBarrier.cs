@@ -19,7 +19,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         internal const string UnlockCode5 = "B4";
         internal const string UnlockCode6 = "82";
 
-
         #endregion
 
         #region StaticProperties
