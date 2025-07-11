@@ -32,6 +32,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             new(Desk.Name, Desk.Composition),
             new(EmptyTray.Name, EmptyTray.Composition),
             new(Hammer.Name, Hammer.Composition),
+            new(HandwrittenNote.Name, HandwrittenNote.Composition),
             new(Laptop.Name, Laptop.Composition),
             new(LockedMaintenanceControlPanel.Name, LockedMaintenanceControlPanel.Composition),
             new(MaintenanceControlPanel.Name, MaintenanceControlPanel.Composition),

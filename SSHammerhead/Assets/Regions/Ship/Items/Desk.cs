@@ -30,7 +30,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         {
             var examination = new ExaminationCallback(r =>
             {
-                if (!r.Scene.Room.FindItem(StasisPodManual.Name, out var manual) || manual.IsPlayerVisible)
+                if (!r.Scene.Room.FindItem(StasisPodManual.Name, out var manual, true) || manual.IsPlayerVisible)
                     return new Examination(Description);
 
                 manual.IsPlayerVisible = true;

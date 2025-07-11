@@ -34,7 +34,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
             }
 
             var description = new ConditionalDescription(TrueDescription, FalseDescription, () => room.FindItem(LaserBarrier.Name, out _, false));
-            room = new Room(new Identifier(Name), description, [new Exit(Direction.West), new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.North)], [new LaserBarrier().Instantiate(), new StasisPodManual().Instantiate(), new Desk().Instantiate()], exitCallback: exitTransition);
+            room = new Room(new Identifier(Name), description, [new Exit(Direction.West), new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.North)], [new HandwrittenNote().Instantiate(), new LaserBarrier().Instantiate(), new StasisPodManual().Instantiate(), new Desk().Instantiate()], exitCallback: exitTransition);
             return room;
         }
 

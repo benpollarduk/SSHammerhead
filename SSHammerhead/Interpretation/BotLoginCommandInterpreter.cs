@@ -2,6 +2,8 @@
 using NetAF.Commands.Global;
 using NetAF.Interpretation;
 using NetAF.Logic;
+using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 using SSHammerhead.Commands.MaintenancePanel;
 using SSHammerhead.Logic.Modes;
 using System.Collections.Generic;
@@ -90,8 +92,17 @@ namespace SSHammerhead.Interpretation
         {
             List<CommandHelp> commands = [];
 
-            if (game.Mode is BotLoginMode)
+            if (game.Mode is BotLoginMode loginMode)
             {
+                if (loginMode.Stage == LoginStage.UserName && game.NoteManager.ContainsEntry(Laptop.ScottManagementLogName))
+                    commands.Add(LoginUserName.CommandHelp);
+
+                if (loginMode.Stage == LoginStage.Password && game.NoteManager.ContainsEntry(Airlock.SevenLogName))
+                    commands.Add(LoginPassword.CommandHelp);
+
+                if (loginMode.Stage == LoginStage.StartMaintenance)
+                    commands.Add(LoginStartMaintenance.CommandHelp);
+
                 commands.Add(new CommandHelp(End.CommandHelp.Command, "Abort login", CommandCategory.Information));
             }
 
