@@ -1,10 +1,14 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Logic;
+using SSHammerhead.Assets.Players.Alex;
 using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
+using SSHammerhead.Assets.Players.Marina;
 using SSHammerhead.Assets.Players.Naomi;
+using SSHammerhead.Assets.Players.Scott;
 using SSHammerhead.Assets.Players.SpiderBot;
+using SSHammerhead.Assets.Players.Zhiying;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using SSHammerhead.Assets.Regions.Ship;
@@ -19,11 +23,11 @@ using SSHammerhead.Configuration;
 
 namespace SSHammerhead
 {
-    public static class TroubleAboardTheSSHammerHead
+    public static class TroubleAboardTheSSHammerhead
     {
         #region Constants
 
-        private const string Title = "Trouble Aboard the SS HammerHead";
+        private const string Title = "Trouble Aboard the SS Hammerhead";
 
         private const string Introduction = "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\n" +
             "A ship was hurriedly prepared and scrambled and made contact 27 days later.\n\n" +
@@ -88,24 +92,38 @@ namespace SSHammerhead
             static void setup(Game g, Presentation presentation)
             {
                 // get start positions
-                g.Overworld.FindRegion(SSHammerHead.Name, out var sshh);
+                g.Overworld.FindRegion(SSHammerHead.Name, out var ship);
                 g.Overworld.FindRegion(MaintenanceTunnels.Name, out var tunnels);
                 g.Overworld.FindRegion(Awaji.Name, out var awaji);
-                sshh.TryFindRoom(Airlock.Name, out var naomiStart);
+                ship.TryFindRoom(Airlock.Name, out var naomiStart);
                 tunnels.TryFindRoom(MaintenanceTunnelA.Name, out var botStart);
                 awaji.TryFindRoom(Island.Name, out var anneStart);
 
                 // get instances
                 var bot = new SpiderBotTemplate().Instantiate();
                 var anne = new AnneTemplate().Instantiate();
+                var alex = new AlexTemplate().Instantiate();
+                var marina = new MarinaTemplate().Instantiate();
+                var scott = new ScottTemplate().Instantiate();
+                var zhiying = new ZhiyingTemplate().Instantiate();
+
+                // fake up start locations, for now
+                var alexStart = anneStart;
+                var marinaStart = anneStart;
+                var scottStart = anneStart;
+                var zhiyingStart = anneStart;
 
                 // clear previous
                 PlayableCharacterManager.Clear();
 
                 // setup players
-                PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, sshh, naomiStart, presentation.Naomi));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(g.Player, ship, naomiStart, presentation.Naomi));
                 PlayableCharacterManager.Add(new PlayableCharacterRecord(bot, tunnels, botStart, presentation.Bot));
                 PlayableCharacterManager.Add(new PlayableCharacterRecord(anne, awaji, anneStart, presentation.Anne));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(alex, ship, alexStart, presentation.Alex));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(marina, ship, marinaStart, presentation.Marina));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(scott, ship, scottStart, presentation.Scott));
+                PlayableCharacterManager.Add(new PlayableCharacterRecord(zhiying, ship, zhiyingStart, presentation.Zhiying));
 
                 // setup for current player
                 PlayableCharacterManager.ApplyConfiguration(g.Player, g);
@@ -114,6 +132,10 @@ namespace SSHammerhead
                 g.Catalog.Register(new USBDrive());
                 g.Catalog.Register(bot);
                 g.Catalog.Register(anne);
+                g.Catalog.Register(alex);
+                g.Catalog.Register(marina);
+                g.Catalog.Register(scott);
+                g.Catalog.Register(zhiying);
             }
 
             return Game.Create(

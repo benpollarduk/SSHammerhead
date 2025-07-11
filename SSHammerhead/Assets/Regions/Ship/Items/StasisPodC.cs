@@ -14,7 +14,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
     {
         #region Constants
 
-        internal const string Name = "Stasis Pod (C)";
+        internal const string Name = $"Stasis Pod ({AnneTemplate.Name})";
         internal const string FlipBreakerCommandName = "Flip Breaker";
         internal const string EnterStasisCommandName = "Enter Stasis";
 
@@ -22,7 +22,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         #region StaticProperties
 
-        private static readonly string Description = $"The third of the Stasis pods.{StringUtilities.Newline}{StringUtilities.Newline}" +
+        private static readonly string Description = $"The third of the Stasis pods, belonging to {AnneTemplate.Name}.{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"{DefaultDescription}{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"The door to this pod is unlocked and slightly ajar.";
 

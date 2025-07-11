@@ -50,13 +50,29 @@
 
     private void RunConsoleEmu()
     {
-        BeginGame(new Presentation(SSHammerhead.Blazor.FrameBuilderCollections.NaomiConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.BotConsoleEmulation, SSHammerhead.Blazor.FrameBuilderCollections.AnneConsoleEmulation), new(80, 48));
+        var presentation = new Presentation(
+            SSHammerhead.Blazor.FrameBuilderCollections.NaomiConsoleEmulation, 
+            SSHammerhead.Blazor.FrameBuilderCollections.BotConsoleEmulation, 
+            SSHammerhead.Blazor.FrameBuilderCollections.AnneConsoleEmulation, 
+            SSHammerhead.Blazor.FrameBuilderCollections.AlexConsoleEmulation, 
+            SSHammerhead.Blazor.FrameBuilderCollections.MarinaConsoleEmulation, 
+            SSHammerhead.Blazor.FrameBuilderCollections.ScottConsoleEmulation, 
+            SSHammerhead.Blazor.FrameBuilderCollections.ZhiyingConsoleEmulation);
+        BeginGame(presentation, new(80, 48));
     }
 
     private void RunHtml()
     {
         FrameProperties.DisplayCommandList = false;
-        BeginGame(new Presentation(SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml, SSHammerhead.Blazor.FrameBuilderCollections.BotHtml, SSHammerhead.Blazor.FrameBuilderCollections.AnneHtml), new(50, 30));
+        var presentation = new Presentation(
+            SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml,
+            SSHammerhead.Blazor.FrameBuilderCollections.BotHtml,
+            SSHammerhead.Blazor.FrameBuilderCollections.AnneHtml,
+            SSHammerhead.Blazor.FrameBuilderCollections.AlexHtml,
+            SSHammerhead.Blazor.FrameBuilderCollections.MarinaHtml,
+            SSHammerhead.Blazor.FrameBuilderCollections.ScottHtml,
+            SSHammerhead.Blazor.FrameBuilderCollections.ZhiyingHtml);
+        BeginGame(presentation, new(50, 30));
     }
 
     private void SetupComponents(HtmlAdapter htmlAdapter)
@@ -76,7 +92,7 @@
         SetupComponents(htmlAdapter);
 
         GameConfiguration configuration = new(htmlAdapter, presentation.Naomi, size);
-        GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(configuration, presentation));
+        GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation));
 
         modeSelected = true;
     }

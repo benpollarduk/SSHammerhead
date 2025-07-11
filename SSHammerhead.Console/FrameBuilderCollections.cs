@@ -88,5 +88,25 @@ namespace SSHammerhead.Console
                     new ConsoleHistoryFrameBuilder(gridStringBuilder));
             }
         }
+
+        /// <summary>
+        /// Get the frame builders for Alex.
+        /// </summary>
+        internal static FrameBuilderCollection Alex => Naomi;
+
+        /// <summary>
+        /// Get the frame builders for Marina.
+        /// </summary>
+        internal static FrameBuilderCollection Marina => Naomi;
+
+        /// <summary>
+        /// Get the frame builders for Scott.
+        /// </summary>
+        internal static FrameBuilderCollection Scott => Naomi;
+
+        /// <summary>
+        /// Get the frame builders for Zhiying.
+        /// </summary>
+        internal static FrameBuilderCollection Zhiying => Naomi;
     }
 }

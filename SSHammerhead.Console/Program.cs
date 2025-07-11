@@ -6,7 +6,15 @@ using SSHammerhead.Console;
 
 try
 {
-    GameExecutor.Execute(TroubleAboardTheSSHammerHead.Create(new GameConfiguration(new ConsoleAdapter(), FrameBuilderCollections.Naomi, new(80, 50)), new Presentation(FrameBuilderCollections.Naomi, FrameBuilderCollections.Bot, FrameBuilderCollections.Anne)), new ConsoleExecutionController());
+    var presentation = new Presentation(
+        FrameBuilderCollections.Naomi, 
+        FrameBuilderCollections.Bot, 
+        FrameBuilderCollections.Anne, 
+        FrameBuilderCollections.Alex, 
+        FrameBuilderCollections.Marina, 
+        FrameBuilderCollections.Scott,
+        FrameBuilderCollections.Zhiying);
+    GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(new GameConfiguration(new ConsoleAdapter(), FrameBuilderCollections.Naomi, new(80, 50)), presentation), new ConsoleExecutionController());
 }
 catch (Exception e)
 {

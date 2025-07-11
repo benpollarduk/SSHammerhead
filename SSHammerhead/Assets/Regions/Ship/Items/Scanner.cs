@@ -43,7 +43,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             new(StasisPodC.Name, StasisPod.Composition),
             new(StasisPodD.Name, StasisPod.Composition),
             new(StasisPodE.Name, StasisPod.Composition),
-            new(StasisPodF.Name, StasisPod.Composition),
             new(StasisPodManual.Name, StasisPodManual.Composition),
             new(Tray.Name, Tray.Composition),
             new(USBDrive.Name, USBDrive.Composition),

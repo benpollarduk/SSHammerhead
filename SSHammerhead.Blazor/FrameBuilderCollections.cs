@@ -93,6 +93,26 @@ namespace SSHammerhead.Blazor
             }
         }
 
+        /// <summary>
+        /// Get the frame builders for Alex, using console emulation.
+        /// </summary>
+        internal static FrameBuilderCollection AlexConsoleEmulation => NaomiConsoleEmulation;
+
+        /// <summary>
+        /// Get the frame builders for Marina, using console emulation.
+        /// </summary>
+        internal static FrameBuilderCollection MarinaConsoleEmulation => NaomiConsoleEmulation;
+
+        /// <summary>
+        /// Get the frame builders for Scott, using console emulation.
+        /// </summary>
+        internal static FrameBuilderCollection ScottConsoleEmulation => NaomiConsoleEmulation;
+
+        /// <summary>
+        /// Get the frame builders for Zhiying, using console emulation.
+        /// </summary>
+        internal static FrameBuilderCollection ZhiyingConsoleEmulation => NaomiConsoleEmulation;
+
         #endregion
 
         #region Html
@@ -176,6 +196,26 @@ namespace SSHammerhead.Blazor
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 });
             }
         }
+
+        /// <summary>
+        /// Get the frame builders for Alex, using HTML.
+        /// </summary>
+        internal static FrameBuilderCollection AlexHtml => NaomiHtml;
+
+        /// <summary>
+        /// Get the frame builders for Marina, using HTML.
+        /// </summary>
+        internal static FrameBuilderCollection MarinaHtml => NaomiHtml;
+
+        /// <summary>
+        /// Get the frame builders for Scott, using HTML.
+        /// </summary>
+        internal static FrameBuilderCollection ScottHtml => NaomiHtml;
+
+        /// <summary>
+        /// Get the frame builders for Zhiying, using HTML.
+        /// </summary>
+        internal static FrameBuilderCollection ZhiyingHtml => NaomiHtml;
 
         #endregion
     }

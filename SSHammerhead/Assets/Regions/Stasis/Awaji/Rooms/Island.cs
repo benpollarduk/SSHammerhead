@@ -1,6 +1,7 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Regions.Ship.Items;
@@ -26,7 +27,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
         {
             var escape = new CustomCommand(new CommandHelp("Escape", $"Escape."), true, true, (g, _) =>
             {
-                g.NoteManager.Add(IslandCodeLogName, $"The code from the {Name} was {LaserBarrier.UnlockCode3}.");
+                g.NoteManager.Add(IslandCodeLogName, $"The code from {AnneTemplate.Name}'s dream was {LaserBarrier.UnlockCode3}.");
 
                 var reaction = PlayableCharacterManager.Switch(NaomiTemplate.Identifier, g);
 
