@@ -8,7 +8,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
     {
         #region Constants
 
-        internal const string Name = $"Stasis Pod ({AlexTemplate.Name})";
+        internal const string Name = $"Stasis Pod ({MarinaTemplate.Name})";
 
         #endregion
 
