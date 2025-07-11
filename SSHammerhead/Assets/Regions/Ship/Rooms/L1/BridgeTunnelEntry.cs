@@ -12,8 +12,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
         #region Constants
 
         internal const string Name = "Bridge Tunnel (Entry)";
-        private const string TrueDescription = "The entry to the bridge tunnel. The north exit is blocked by a laser barrier.";
-        private const string FalseDescription = "The entry to the bridge tunnel. The north exit is no longer blocked by the laser barrier.";
+        private const string TrueDescription = "This area provides entry to the tunnel that leads to the bridge. This area has been used as a makeshift office space with books, instruction manuals and other items strewn on the desk in the corner. The north exit is blocked by a laser barrier.";
+        private const string FalseDescription = "This area provides entry to the tunnel that leads to the bridge. This area has been used as a makeshift office space with books, instruction manuals and other items strewn on the desk in the corner. The north exit is no longer blocked by the laser barrier.";
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
             }
 
             var description = new ConditionalDescription(TrueDescription, FalseDescription, () => room.FindItem(LaserBarrier.Name, out _, false));
-            room = new Room(new Identifier(Name), description, [new Exit(Direction.West, true), new Exit(Direction.South), new Exit(Direction.East), new Exit(Direction.North)], [new LaserBarrier().Instantiate()], exitCallback: exitTransition);
+            room = new Room(new Identifier(Name), description, [new Exit(Direction.West), new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.North)], [new LaserBarrier().Instantiate(), new StasisPodManual().Instantiate()], exitCallback: exitTransition);
             return room;
         }
 

@@ -58,7 +58,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 return ExaminableObject.DefaultExamination(request);
             });
 
-            return new Item(Name, Description, true, examination: examination);
+            return new Item(Name, Description, examination: examination);
         }
 
         #endregion

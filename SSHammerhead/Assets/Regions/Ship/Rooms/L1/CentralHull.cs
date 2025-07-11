@@ -34,7 +34,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
                 return RoomTransitionReaction.Silent;
             };
 
-            return new Room(Name, Description, Introduction, [new Exit(Direction.North, true), new Exit(Direction.South, true), new Exit(Direction.West), new Exit(Direction.East, true), new Exit(Direction.Down)], enterCallback: enter);
+            return new Room(Name, Description, Introduction, [new Exit(Direction.North), new Exit(Direction.South, true), new Exit(Direction.West), new Exit(Direction.East, true), new Exit(Direction.Down)], enterCallback: enter);
         }
 
         #endregion
