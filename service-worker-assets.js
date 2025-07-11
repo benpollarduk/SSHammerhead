@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "2/r263Al",
+  "version": "iO/D07Ri",
   "assets": [
     {
       "hash": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=",
@@ -82,15 +82,15 @@ self.assetsManifest = {
       "url": "_framework/NetAF.Imaging.wasm"
     },
     {
-      "hash": "sha256-q6iOppfy+h7Wd851jA68l3BM565k52RNeVFDCY3H4ok=",
+      "hash": "sha256-66UjJqJT8pOYkNmZr5RsPLaEOOQ5wUAyWmZcJj4BA1o=",
       "url": "_framework/NetAF.wasm"
     },
     {
-      "hash": "sha256-y/FSo6qZRkAv9MWmMcYGceqwNVGdpcaUON4WPk2RMgE=",
+      "hash": "sha256-hhPqemP+u3V4e9qBRIc6IJv1Kni1vdxmR1av+cXbxMk=",
       "url": "_framework/SSHammerhead.Blazor.wasm"
     },
     {
-      "hash": "sha256-yCsObR7Ued177rI9scWqaUPmmjQAHVcZBKdS4gNDtoY=",
+      "hash": "sha256-+omJdWcviLfNiha2s9eoz9KnZLACJhiVBsZGMa2wtQ0=",
       "url": "_framework/SSHammerhead.wasm"
     },
     {
@@ -122,7 +122,7 @@ self.assetsManifest = {
       "url": "_framework/System.IO.Compression.wasm"
     },
     {
-      "hash": "sha256-KJkLDvlf9ga6qY5VwWCTUC8fFsb0+L64SVX5xeachl8=",
+      "hash": "sha256-MplV/eR/1KiLNAudyxprZ0eKNQIBoRcTHS66pUoiHTk=",
       "url": "_framework/System.IO.Pipelines.wasm"
     },
     {
@@ -170,11 +170,11 @@ self.assetsManifest = {
       "url": "_framework/System.Text.Encoding.CodePages.wasm"
     },
     {
-      "hash": "sha256-KIJHTFzenvRjFKGIlxfgqbjAD0d6bbbeZ/v5E70SGR8=",
+      "hash": "sha256-XMUc6uvaZ495qBlNTRWJpgFVb9/5LXIn3leqeG2BYPc=",
       "url": "_framework/System.Text.Encodings.Web.wasm"
     },
     {
-      "hash": "sha256-q79s9jZLvaagc2eNgNPff7Uh33GwclWFQa/JRDWu9W4=",
+      "hash": "sha256-vjkmVh2X5XwKaZf+xAUBtT7qniM7XzZQ37SQQLnEL98=",
       "url": "_framework/System.Text.Json.wasm"
     },
     {
@@ -186,7 +186,7 @@ self.assetsManifest = {
       "url": "_framework/System.Threading.Tasks.Parallel.wasm"
     },
     {
-      "hash": "sha256-AXhOD++TvZEDImaV3vomROEtrTDKb5cEYsHAfAxIs+E=",
+      "hash": "sha256-LcYpp7smUAtso+6sx7HJx/L9kMrACnDCuodl2fUP/Gw=",
       "url": "_framework/blazor.boot.json"
     },
     {
