@@ -33,7 +33,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
                 if (reaction.Result == ReactionResult.Error)
                     return reaction;
 
-                return new Reaction(ReactionResult.Inform, $"The simulation of the {Name} vanishes to immediate black. The contrast of being back in the confinement of the stasis pod is incredibly jarring.");
+                return new Reaction(ReactionResult.Inform, $"The simulation of the {Name} vanishes to immediate black and you find yourself back in the stasis pod. The contrast of being back in the confinement of the stasis pod is incredibly jarring.");
             });
 
             return new Room(Name, Description, Introduction, commands: [escape]);

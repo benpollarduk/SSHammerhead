@@ -2,6 +2,7 @@
 using NetAF.Extensions;
 using NetAF.Logic;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 using System;
 using System.Collections.Generic;
 
@@ -40,11 +41,16 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             {
                 const string variable = "HasReadManual";
 
-                if (!GameExecutor.ExecutingGame?.VariableManager.ContainsVariable(variable) ?? false)
-                {
-                    GameExecutor.ExecutingGame?.VariableManager.Add(variable, true.ToString());
+                var game = GameExecutor.ExecutingGame;
 
-                    if (request.Scene.Room.FindItem(StasisPodC.Name, out var podC))
+                if (game == null)
+                    return ExaminableObject.DefaultExamination(request);
+
+                if (!game.VariableManager.ContainsVariable(variable))
+                {
+                    game.VariableManager.Add(variable, true.ToString());
+
+                    if (game.Overworld.CurrentRegion.TryFindRoom(StasisChamber.Name, out var chamber) && chamber.FindItem(StasisPodC.Name, out var podC))
                     {
                         var command = Array.Find(podC.Commands, x => x.Help.Command.InsensitiveEquals(StasisPodC.FlipBreakerCommandName));
 
@@ -58,7 +64,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 return ExaminableObject.DefaultExamination(request);
             });
 
-            return new Item(Name, Description, examination: examination);
+            return new Item(Name, Description, true, examination: examination) { IsPlayerVisible = false };
         }
 
         #endregion

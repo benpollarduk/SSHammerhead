@@ -16,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
 
         public Room Instantiate()
         {
-            return new Room(Name, Description, [new Exit(Direction.West, true)]);
+            return new Room(Name, Description, [new Exit(Direction.West)]);
         }
 
         #endregion

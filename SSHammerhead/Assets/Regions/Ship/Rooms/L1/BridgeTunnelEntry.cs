@@ -1,7 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
-using NetAF.Logic;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Ship.Items;
 
@@ -31,12 +30,11 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
                 if (!roomTransition.Room.FindItem(LaserBarrier.Name, out _, false))
                     return new RoomTransitionReaction(Reaction.Silent, true);
 
-                GameExecutor.ExecutingGame?.Player.Kill();
-                return new RoomTransitionReaction(new Reaction(ReactionResult.Inform, "You carelessly walk through the laser barrier. You feel a sudden pain searing through your entire body then collapse into hundreds of small chunks."), false);
+                return new RoomTransitionReaction(new Reaction(ReactionResult.Inform, $"You start to move north but realise that the {LaserBarrier.Name} still blocks your exit. Passing through that would mean certain death."), false);
             }
 
             var description = new ConditionalDescription(TrueDescription, FalseDescription, () => room.FindItem(LaserBarrier.Name, out _, false));
-            room = new Room(new Identifier(Name), description, [new Exit(Direction.West), new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.North)], [new LaserBarrier().Instantiate(), new StasisPodManual().Instantiate()], exitCallback: exitTransition);
+            room = new Room(new Identifier(Name), description, [new Exit(Direction.West), new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.North)], [new LaserBarrier().Instantiate(), new StasisPodManual().Instantiate(), new Desk().Instantiate()], exitCallback: exitTransition);
             return room;
         }
 

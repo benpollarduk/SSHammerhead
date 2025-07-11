@@ -29,6 +29,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         [
             new(Blueprint.Name, Blueprint.Composition),
             new(BrokenControlPanel.Name, BrokenControlPanel.Composition),
+            new(Desk.Name, Desk.Composition),
             new(EmptyTray.Name, EmptyTray.Composition),
             new(Hammer.Name, Hammer.Composition),
             new(Laptop.Name, Laptop.Composition),
