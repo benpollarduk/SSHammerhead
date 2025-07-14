@@ -1,8 +1,13 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
+using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Utilities;
+using NetAF.Variables;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using System;
+using System.Text;
 
 namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
 {
@@ -22,6 +27,64 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
         {
             Room room = null;
 
+            RoomTransitionReaction enterTransition(RoomTransition roomTransition)
+            {
+                // adjust laser barrier command prompts based on found codes
+
+                if (roomTransition.Room.FindItem(LaserBarrier.Name, out var laserBarrier))
+                {
+                    var command = Array.Find(laserBarrier.Commands, x => x.Help.Command.InsensitiveEquals(LaserBarrier.EnterCodeCommand));
+
+                    if (command != null)
+                    {
+                        command.ClearPrompts();
+
+                        StringBuilder prompt = new();
+
+                        const string missingCode = "xx";
+
+                        var variableManager = GameExecutor.ExecutingGame.VariableManager ?? new VariableManager();
+
+                        if (variableManager.ContainsVariable(LaserBarrier.UnlockCode1Variable))
+                            prompt.Append(variableManager[LaserBarrier.UnlockCode1Variable]);
+                        else
+                            prompt.Append(missingCode);
+
+                        prompt.Append(LaserBarrier.Spacer);
+
+                        if (variableManager.ContainsVariable(LaserBarrier.UnlockCode2Variable))
+                            prompt.Append(variableManager[LaserBarrier.UnlockCode2Variable]);
+                        else
+                            prompt.Append(missingCode);
+
+                        prompt.Append(LaserBarrier.Spacer);
+
+                        if (variableManager.ContainsVariable(LaserBarrier.UnlockCode3Variable))
+                            prompt.Append(variableManager[LaserBarrier.UnlockCode3Variable]);
+                        else
+                            prompt.Append(missingCode);
+
+                        prompt.Append(LaserBarrier.Spacer);
+
+                        if (variableManager.ContainsVariable(LaserBarrier.UnlockCode4Variable))
+                            prompt.Append(variableManager[LaserBarrier.UnlockCode4Variable]);
+                        else
+                            prompt.Append(missingCode);
+
+                        prompt.Append(LaserBarrier.Spacer);
+
+                        if (variableManager.ContainsVariable(LaserBarrier.UnlockCode5Variable))
+                            prompt.Append(variableManager[LaserBarrier.UnlockCode5Variable]);
+                        else
+                            prompt.Append(missingCode);
+
+                        command.AddPrompt(new(prompt.ToString()));
+                    }
+                }
+
+                return new RoomTransitionReaction(Reaction.Silent, true);
+            }
+
             RoomTransitionReaction exitTransition(RoomTransition roomTransition)
             {
                 if (roomTransition.Direction != Direction.North)
@@ -34,7 +97,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
             }
 
             var description = new ConditionalDescription(TrueDescription, FalseDescription, () => room.FindItem(LaserBarrier.Name, out _, false));
-            room = new Room(new Identifier(Name), description, [new Exit(Direction.West), new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.North)], [new HandwrittenNote().Instantiate(), new LaserBarrier().Instantiate(), new StasisPodManual().Instantiate(), new Desk().Instantiate()], exitCallback: exitTransition);
+            room = new Room(new Identifier(Name), description, [new Exit(Direction.West), new Exit(Direction.South), new Exit(Direction.East, true), new Exit(Direction.North)], [new HandwrittenNote().Instantiate(), new LaserBarrier().Instantiate(), new StasisPodManual().Instantiate(), new Desk().Instantiate()], enterCallback: enterTransition, exitCallback: exitTransition);
             return room;
         }
 

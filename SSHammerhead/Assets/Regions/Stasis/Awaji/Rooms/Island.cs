@@ -27,6 +27,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
         {
             var escape = new CustomCommand(new CommandHelp("Escape", $"Escape."), true, true, (g, _) =>
             {
+                g.VariableManager.Add(LaserBarrier.UnlockCode1Variable, LaserBarrier.UnlockCode1);
                 g.NoteManager.Add(IslandCodeLogName, $"The code from {AnneTemplate.Name}'s dream was {LaserBarrier.UnlockCode3}.");
 
                 var reaction = PlayableCharacterManager.Switch(NaomiTemplate.Identifier, g);

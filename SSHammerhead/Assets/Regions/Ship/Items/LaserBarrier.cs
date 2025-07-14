@@ -17,13 +17,19 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         internal const string UnlockCode3 = "13";
         internal const string UnlockCode4 = "FA";
         internal const string UnlockCode5 = "B4";
-        internal const string UnlockCode6 = "82";
+        internal const string UnlockCode1Variable = "UnlockCode1";
+        internal const string UnlockCode2Variable = "UnlockCode2";
+        internal const string UnlockCode3Variable = "UnlockCode3";
+        internal const string UnlockCode4Variable = "UnlockCode4";
+        internal const string UnlockCode5Variable = "UnlockCode5";
+        internal const string EnterCodeCommand = "Enter Code";
+        internal const char Spacer = '-';
 
         #endregion
 
         #region StaticProperties
 
-        private static string UnlockCode => $"{UnlockCode1}-{UnlockCode2}-{UnlockCode3}-{UnlockCode4}-{UnlockCode5}-{UnlockCode6}";
+        private static string UnlockCode => $"{UnlockCode1}-{UnlockCode2}-{UnlockCode3}-{UnlockCode4}-{UnlockCode5}";
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -42,10 +48,10 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         public Item Instantiate()
         {
             Item item = null;
-
+            
             CustomCommand[] commands =
             [
-                new CustomCommand(new CommandHelp("Enter Code", "Enter an unlock code."), true, false, (g, a) =>
+                new CustomCommand(new CommandHelp(EnterCodeCommand, "Enter an unlock code."), true, false, (g, a) =>
                 {
                     if (a.Length == 0)
                         return new Reaction(ReactionResult.Error, "No code was entered.");
@@ -66,7 +72,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                         formattedCode = formattedCode.TrimEnd(' ');
                     }
 
-                    formattedCode = formattedCode.Replace(' ', '-');
+                    formattedCode = formattedCode.Replace(' ', Spacer);
 
                     if (formattedCode.InsensitiveEquals(UnlockCode))
                     {
