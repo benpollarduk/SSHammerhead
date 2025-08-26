@@ -13,7 +13,9 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
         #region Constants
 
         internal const string Name = "Island";
+        
         private const string Description = "The island is a small rocky outcrop rising a few meters above sea level. A dozen meters away stands a red wooden gate which you instantly recognise as a Torri, found by Shinto Shrines in Japan. A few other small outcrops populate the surrounding sea, but are too far away to swim to.";
+        
         internal static readonly string Introduction = $"You get into the stasis pod, strap yourself in and relax. The push of a button on the control panel by your right hand engages stasis mode. Slowly you loose consciousness.{StringUtilities.Newline}{StringUtilities.Newline}" +
             $"Groggily you open your eyes to find yourself on a tiny island in a bay, completely detached from the ship. You can hear the waves gently breaking against the rocks and the distant call of sea gulls.";
 
@@ -25,7 +27,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
 
         public Room Instantiate()
         {
-            var escape = new CustomCommand(new CommandHelp("Escape", $"Escape."), true, true, (g, _) =>
+            var escape = new CustomCommand(new CommandHelp("Escape", $"Escape. This is a temporary command while the dream is finished."), true, true, (g, _) =>
             {
                 g.VariableManager.Add(LaserBarrier.UnlockCode1Variable, LaserBarrier.UnlockCode1);
                 g.NoteManager.Add(IslandCodeLogName, $"The code from {AnneTemplate.Name}'s dream was {LaserBarrier.UnlockCode3}.");
