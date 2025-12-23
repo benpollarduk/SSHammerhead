@@ -1,6 +1,8 @@
 @page "/"
 @using NetAF.Assets
 @using NetAF.Blazor.Components
+@using NetAF.Interpretation
+@using NetAF.Logic.Modes
 @using NetAF.Rendering
 @using NetAF.Rendering.FrameBuilders
 @using SSHammerhead.Assets.Players.Management
@@ -92,6 +94,19 @@
         SetupComponents(htmlAdapter);
 
         GameConfiguration configuration = new(htmlAdapter, presentation.Naomi, size);
+
+        var sceneInterpreter = new InputInterpreter
+        (
+            new FrameCommandInterpreter(),
+            new GlobalCommandInterpreter(),
+            new ExecutionCommandInterpreter(),
+            new CustomCommandInterpreter(),
+            new SceneCommandInterpreter()
+        );
+
+        // change configuration prevent using the normal persistence interpreter as this is handled by custom commands
+        configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);
+
         GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation));
 
         modeSelected = true;

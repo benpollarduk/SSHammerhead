@@ -1,7 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Characters;
 using NetAF.Commands;
-using NetAF.Commands.Persistence;
 using NetAF.Extensions;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Console.Rendering;
@@ -52,7 +51,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                     g.ChangeMode(new VisualMode(builder.Build(g.Overworld.CurrentRegion.CurrentRoom, g.Configuration.DisplaySize)));
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);
                 }),
-                new Save() { IsPlayerVisible = false },
+                new Commands.Persist.Save() { IsPlayerVisible = false },
                 new LoadWithRestore() { IsPlayerVisible = false }
             ]);
         }

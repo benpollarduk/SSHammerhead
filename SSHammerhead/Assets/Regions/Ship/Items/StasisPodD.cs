@@ -1,5 +1,4 @@
 ﻿using NetAF.Utilities;
-using SSHammerhead.Assets.Players.Alex;
 using SSHammerhead.Assets.Players.Marina;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items

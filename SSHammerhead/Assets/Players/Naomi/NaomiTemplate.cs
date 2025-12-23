@@ -2,7 +2,6 @@
 using NetAF.Assets.Characters;
 using NetAF.Extensions;
 using NetAF.Utilities;
-using NetAF.Commands.Persistence;
 using NetAF.Commands;
 using NetAF.Assets.Attributes;
 using SSHammerhead.Commands.Persist;
@@ -27,7 +26,7 @@ namespace SSHammerhead.Assets.Players.Naomi
         {
             CustomCommand[] commands =
             [
-                new Save() { IsPlayerVisible = false },
+                new Commands.Persist.Save() { IsPlayerVisible = false },
                 new LoadWithRestore() { IsPlayerVisible = false }
             ];
 

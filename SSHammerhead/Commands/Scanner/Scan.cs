@@ -14,6 +14,11 @@ namespace SSHammerhead.Commands.Scanner
         #region Implementation of ICommand
 
         /// <summary>
+        /// Get the help for this command.
+        /// </summary>
+        public CommandHelp Help => new CommandHelp(string.Empty, string.Empty);
+
+        /// <summary>
         /// Invoke the command.
         /// </summary>
         /// <param name="game">The game to invoke the command on.</param>
