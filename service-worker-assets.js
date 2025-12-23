@@ -1,5 +1,5 @@
 self.assetsManifest = {
-  "version": "syzuCuds",
+  "version": "3WWCjzyM",
   "assets": [
     {
       "hash": "sha256-8ZRc1sGeVrPBx4lD717BgRaQekyh78QKV9SKsdt638U=",
@@ -10,12 +10,12 @@ self.assetsManifest = {
       "url": "Images/space.png"
     },
     {
-      "hash": "sha256-X+dNLtAFmWXoTSZK9mgc6cJxJYgmedDPqLczY9FtILw=",
+      "hash": "sha256-5S8r1woB966eJ1e7LreDzC9KTZUaDM2T0zEy/D46QVQ=",
       "url": "SSHammerhead.Blazor.styles.css"
     },
     {
       "hash": "sha256-EOYMEZIxOrc0ht5MPcrTFuWoUoeF3NrYNyMoSDHJwro=",
-      "url": "_content/NetAF.Blazor/NetAF.Blazor.bundle.scp.css"
+      "url": "_content/NetAF.Blazor/NetAF.Blazor.4bosc4azpe.bundle.scp.css"
     },
     {
       "hash": "sha256-6Vf62dYiTT4tsKdYbYi+dmZS5R7wCGOgxy7liIIHYI0=",
@@ -74,7 +74,7 @@ self.assetsManifest = {
       "url": "_framework/Microsoft.JSInterop.wasm"
     },
     {
-      "hash": "sha256-uOWATMkYWeLQRUdXxPWYxpuNH+MTCmmLAcuI12HLAOk=",
+      "hash": "sha256-OcREdjWWcq48d5piq/H1Z++p8FDxwmJMGIWgmIsVkbQ=",
       "url": "_framework/NetAF.Blazor.wasm"
     },
     {
@@ -82,15 +82,15 @@ self.assetsManifest = {
       "url": "_framework/NetAF.Imaging.wasm"
     },
     {
-      "hash": "sha256-5oK+Amw6j5eGMBdpBiZIhxjWstar1Imr8eyT4qGPTEE=",
+      "hash": "sha256-92voxxFiMDeHZ08rQ5KUP95mG1qqzS9ZRX4RTJ0VrO0=",
       "url": "_framework/NetAF.wasm"
     },
     {
-      "hash": "sha256-bV89vb4mbEUjuoyFHW6SoqNo93/qkFUfUJJ5LdRDXfQ=",
+      "hash": "sha256-Ja0tW+ndXxobXUfi6RqJZ9ZM6YOtm5Ny6L8wN7bPlRU=",
       "url": "_framework/SSHammerhead.Blazor.wasm"
     },
     {
-      "hash": "sha256-c1QCylRgrGAHohUic215XwtgCnoQeMUViQqkOC9Uwu8=",
+      "hash": "sha256-Jo/0PVQciPJKlgXJSDiemgVsyaknvHwTb0gBUwgd/G4=",
       "url": "_framework/SSHammerhead.wasm"
     },
     {
@@ -182,7 +182,7 @@ self.assetsManifest = {
       "url": "_framework/System.Threading.Tasks.Parallel.wasm"
     },
     {
-      "hash": "sha256-q0hHj5gD/O/hb9X+XA3gtSa7nZ+lGgWBaVQqdsxnh9E=",
+      "hash": "sha256-hQaM3sbo2Le7WhvhieUol/bGJg5DhSEmAXkewImQEl4=",
       "url": "_framework/blazor.boot.json"
     },
     {
