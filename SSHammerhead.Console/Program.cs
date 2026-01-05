@@ -19,7 +19,7 @@ try
         FrameBuilderCollections.Zhiying
     );
     
-    var configuration = new GameConfiguration(new ConsoleAdapter(), FrameBuilderCollections.Naomi, new(80, 50));
+    var configuration = new GameConfiguration(new ConsoleAdapter(), FrameBuilderCollections.Naomi, NetAF.Assets.Size.Dynamic);
 
     var sceneInterpreter = new InputInterpreter
     (
