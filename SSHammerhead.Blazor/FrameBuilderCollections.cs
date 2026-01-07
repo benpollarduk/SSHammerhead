@@ -26,7 +26,7 @@ namespace SSHammerhead.Blazor
 
                 return new FrameBuilderCollection(
                     new NaomiConsoleTitleFrameBuilder(gridStringBuilder, ImageCache.GetProvider()),
-                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder), false),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder), false),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder), false),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
                     new ConsoleHelpFrameBuilder(gridStringBuilder),
@@ -79,7 +79,7 @@ namespace SSHammerhead.Blazor
 
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder),
-                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder), false),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder), false),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }, false),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
                     new ConsoleHelpFrameBuilder(gridStringBuilder),

@@ -22,7 +22,7 @@ namespace SSHammerhead.Console
 
                 return new FrameBuilderCollection(
                     new NaomiConsoleTitleFrameBuilder(gridStringBuilder, new ConsoleImageProvider()),
-                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
                     new ConsoleHelpFrameBuilder(gridStringBuilder),
@@ -75,7 +75,7 @@ namespace SSHammerhead.Console
 
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder),
-                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleRoomMapBuilder(gridStringBuilder)),
+                    new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
                     new ConsoleHelpFrameBuilder(gridStringBuilder),

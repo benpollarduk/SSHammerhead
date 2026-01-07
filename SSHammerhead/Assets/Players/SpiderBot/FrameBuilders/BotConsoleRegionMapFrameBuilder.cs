@@ -129,9 +129,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             var mapSize = new Size(availableWidth, size.Height - 4 - commandSpace);
 
             if (RegionMapBuilder is IConsoleRegionMapBuilder consoleRegionMapBuilder)
-                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, RegionMapDetail.Basic, startMapPosition, mapSize);
+                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, RegionMapDetail.Normal, startMapPosition, mapSize);
             else
-                RegionMapBuilder?.BuildRegionMap(region, focusPosition, RegionMapDetail.Basic);
+                RegionMapBuilder?.BuildRegionMap(region, focusPosition, RegionMapDetail.Normal);
 
             if (renderPrompt)
             {
