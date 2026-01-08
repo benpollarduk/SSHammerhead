@@ -34,7 +34,8 @@ namespace SSHammerhead.Console
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
                     new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
-                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder));
+                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
+                    new ConsoleNarrativeFrameBuilder(gridStringBuilder);
             }
         }
 
@@ -60,7 +61,8 @@ namespace SSHammerhead.Console
                     new BotConsoleReactionFrameBuilder(botStringBuilder),
                     new ConsoleConversationFrameBuilder(gridStringBuilder),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
-                    new ConsoleHistoryFrameBuilder(gridStringBuilder));
+                    new ConsoleHistoryFrameBuilder(gridStringBuilder),
+                    new ConsoleNarrativeFrameBuilder(gridStringBuilder));
             }
         }
 

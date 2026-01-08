@@ -38,7 +38,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
                     new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
-                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder));
+                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
+                    new ConsoleNarrativeFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -89,7 +90,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleReactionFrameBuilder(gridStringBuilder),
                     new ConsoleConversationFrameBuilder(gridStringBuilder, false),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
-                    new ConsoleHistoryFrameBuilder(gridStringBuilder));
+                    new ConsoleHistoryFrameBuilder(gridStringBuilder),
+                    new ConsoleNarrativeFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -141,7 +143,8 @@ namespace SSHammerhead.Blazor
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
-                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder));
+                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
+                    new HtmlNarrativeFrameBuilder(htmlBuilder));
             }
         }
 
@@ -167,7 +170,8 @@ namespace SSHammerhead.Blazor
                     new BotConsoleReactionFrameBuilder(botStringBuilder),
                     new HtmlConversationFrameBuilder(htmlBuilder),
                     new HtmlNoteFrameBuilder(htmlBuilder),
-                    new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 });
+                    new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
+                    new HtmlNarrativeFrameBuilder(htmlBuilder));
             }
         }
 
@@ -178,7 +182,6 @@ namespace SSHammerhead.Blazor
         {
             get
             {
-                var gridStringBuilder = new GridStringBuilder();
                 var htmlBuilder = new HtmlBuilder();
 
                 return new FrameBuilderCollection(
@@ -193,7 +196,8 @@ namespace SSHammerhead.Blazor
                     new HtmlReactionFrameBuilder(htmlBuilder),
                     new HtmlConversationFrameBuilder(htmlBuilder),
                     new HtmlNoteFrameBuilder(htmlBuilder),
-                    new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 });
+                    new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
+                    new HtmlNarrativeFrameBuilder(htmlBuilder));
             }
         }
 
