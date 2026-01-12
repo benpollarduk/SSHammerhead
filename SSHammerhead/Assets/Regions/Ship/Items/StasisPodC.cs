@@ -1,4 +1,5 @@
 ﻿using NetAF.Assets;
+using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Utilities;
@@ -37,8 +38,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             enterStasisCommand = new CustomCommand(new CommandHelp(EnterStasisCommandName, $"Enter stasis in {Name}."), false, false, (g, _) =>
             {
+                // stasis reduces sanity
                 if (g.Player.Attributes.GetValue(NaomiTemplate.SanityAttributeName) == 0)
                     g.Player.Attributes.Add(NaomiTemplate.SanityAttributeName, 1);
+
+                // unlock the lab
+                g.Overworld.CurrentRegion.UnlockDoorPair(Direction.West);
 
                 enterStasisCommand.IsPlayerVisible = false;
                 var reaction = PlayableCharacterManager.Switch(AnneTemplate.Identifier, g);
@@ -46,6 +51,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 if (reaction.Result == ReactionResult.Error)
                     return reaction;
 
+                // jump to annes stasis
                 g.Overworld.FindRegion(Awaji.Name, out var region);
                 reaction = g.Overworld.Move(region);
 

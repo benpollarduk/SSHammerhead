@@ -7,6 +7,7 @@ using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 
 namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
 {
@@ -40,7 +41,8 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
                 new Section(["Yes, there is a definite pattern:"]),
                 new Section([LaserBarrier.UnlockCode3]),
                 new Section(["You feel a sucking feeling, everything rushes away from you all at once.", "You cling on, trying to remain but it is no good, you are powerless."]),
-                new Section([$"The simulation of the {Name} vanishes to immediate black and you find yourself back in the stasis pod.", "The contrast of being back in the confinement of the stasis pod is incredibly jarring."])
+                new Section([$"The simulation of the {Name} vanishes to immediate black and you find yourself back in the stasis pod.", "The contrast of being back in the confinement of the stasis pod is incredibly jarring."]),
+                new Section(["The stasis pod crackles and sparks, then emits a puff of smoke.", "The breaker flips and the machine dies.", $"The door to the {Laboratory.Name} clicks as it unlocks, possibly from the surge created by the stasis pod as it died."])
             ];
            
             return new Narrative(Name, sections);
