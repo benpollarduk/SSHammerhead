@@ -20,7 +20,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
 
         #region StaticProperties
 
-        private static readonly string NoPostItDescription = "This area hosts the large engine that used to power the SS HammerHead. It is now dormant and eerily silent, " +
+        private static readonly string NoPostItDescription = $"This area hosts the large engine that used to power the {SSHammerHead.Name}. It is now dormant and eerily silent, " +
             "the fusion mechanism long since powered down. The room itself is very industrial, with metal walkways surrounding the perimeter of the room and the engine itself. " +
             "A ladder leads upwards from one of these walkways towards the central hull.";
 

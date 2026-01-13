@@ -14,7 +14,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         private const string PhotonicSpores = "Photonic Spores";
 
-        private readonly string Description = $"A lab book. Full of notes, diagrams and tables of data. The name on the front reads: {ZhiyingTemplate.Name}. " + 
+        private readonly string Description = $"A lab book. Full of notes, diagrams and tables of data. The name on the front reads: {ZhiyingTemplate.Name}. " +
             $"Flipping through it looks like {ZhiyingTemplate.Name} was compiling information on {PhotonicSpores}, but there is too much information so sift through manually.";
 
         internal const string LabNotebookLogName = "LabNotebook";

@@ -26,7 +26,7 @@ namespace SSHammerhead.Assets.Players.Naomi
         {
             CustomCommand[] commands =
             [
-                new Commands.Persist.Save() { IsPlayerVisible = false },
+                new Save() { IsPlayerVisible = false },
                 new LoadWithRestore() { IsPlayerVisible = false }
             ];
 
@@ -41,7 +41,7 @@ namespace SSHammerhead.Assets.Players.Naomi
                 return new Interaction(InteractionResult.NoChange, i);
             });
 
-            naomi.Attributes.Add(new Attribute(SanityAttributeName, "Sanity level.", 1, 5, false), 1);
+            naomi.Attributes.Add(new Attribute(SanityAttributeName, "Sanity level.", 0, 4, false), 0);
 
             return naomi;
         }

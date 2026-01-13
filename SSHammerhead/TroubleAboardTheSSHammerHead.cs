@@ -17,7 +17,6 @@ using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L2;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
-using SSHammerhead.Assets.Regions.Stasis.SaucepanLand;
 using SSHammerhead.Commands.Dev;
 using SSHammerhead.Configuration;
 
@@ -62,7 +61,6 @@ namespace SSHammerhead
                 var overworldName = "CTY-1 Galaxy";
                 var ship = new SSHammerHead().Instantiate();
                 var maintenanceTunnels = new MaintenanceTunnels().Instantiate();
-                var saucepanLand = new SaucepanLand().Instantiate();
                 var awaji = new Awaji().Instantiate();
 
                 CustomCommand[] commands =
@@ -71,7 +69,6 @@ namespace SSHammerhead
                     new DevB().Instantiate(),
                     new DevSPlus().Instantiate(),
                     new DevSMinus().Instantiate(),
-                    new DevSP(saucepanLand).Instantiate(),
                     new DevAw(awaji).Instantiate(),
                     new DevAllItems().Instantiate(),
                     new DevUnlockExit().Instantiate(),
@@ -83,7 +80,6 @@ namespace SSHammerhead
                 var overworld = new Overworld(overworldName, "A solar system in deep space, part of the SR389 galaxy.", commands: commands);
                 overworld.AddRegion(ship);
                 overworld.AddRegion(maintenanceTunnels);
-                overworld.AddRegion(saucepanLand);
                 overworld.AddRegion(awaji);
 
                 return overworld;

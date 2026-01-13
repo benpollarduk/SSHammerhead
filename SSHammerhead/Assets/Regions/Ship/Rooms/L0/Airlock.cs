@@ -15,10 +15,15 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
         #region Constants
 
         internal const string Name = "Airlock";
-        private static readonly string Description = "The airlock is a small, mostly empty, chamber with two thick doors. " +
-            "One leads into the ship, the other back to deep space.";
-
         internal const string SevenLogName = "Seven";
+        private static readonly string[] Descriptions = 
+        [
+            "The airlock is a small, mostly empty, chamber with two thick doors. One leads into the ship, the other back to deep space.",
+            "The airlock is an oppressively small, empty, chamber with two thick doors. One leads into the ship, the other back to deep space.",
+            "The airlock is a stifling chamber with two oppressive thick doors. One leads into the ship, the other back to the cold comfort of death.",
+            "The airlock is so small that it feels hard to breathe. There are no doors. There is no escape. Only death.",
+            "Death death death death death death death death."
+        ];
 
         #endregion
 
@@ -80,7 +85,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
 
             var introduction = "You enter the outer most airlock, and it closes behind you. With a sense of foreboding you see your ship detach from the airlock and retreat to a safe distance.";
 
-            room = new Room(Name, Description, introduction, exits: [spaceExit, shipExit]);
+            room = new Room(new Identifier(Name), new SanityDescription(Descriptions), new Description(introduction), exits: [spaceExit, shipExit]);
 
             var brokenControlPanel = new BrokenControlPanel().Instantiate();
             room.AddItem(brokenControlPanel);
