@@ -132,7 +132,7 @@ namespace SSHammerhead.Blazor
                 return new FrameBuilderCollection(
                     new NaomiHtmlTitleFrameBuilder(htmlBuilder, ImageCache.GetProvider()),
                     new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder)),
-                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { MaxSize = new(40, 30) }),
+                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder)),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
                     new HtmlHelpFrameBuilder(htmlBuilder),
                     new HtmlCompletionFrameBuilder(htmlBuilder),
@@ -187,7 +187,7 @@ namespace SSHammerhead.Blazor
                 return new FrameBuilderCollection(
                     new HtmlTitleFrameBuilder(htmlBuilder),
                     new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder)),
-                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { MaxSize = new(40, 30), HorizontalBoundary = '.', VerticalBoundary = '~' }),
+                    new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
                     new HtmlHelpFrameBuilder(htmlBuilder),
                     new HtmlCompletionFrameBuilder(htmlBuilder),
