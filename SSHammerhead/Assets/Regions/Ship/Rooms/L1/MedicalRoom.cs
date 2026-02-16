@@ -8,7 +8,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
         #region Constants
 
         internal const string Name = "Medical Room";
-        private const string Description = "Todo.";
+        private const string Description = "The medical room is an area of the ship dedicated to caring for the well-being of the crew.";
 
         #endregion
 
