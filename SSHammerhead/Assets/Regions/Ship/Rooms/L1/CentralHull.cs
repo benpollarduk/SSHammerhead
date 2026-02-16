@@ -17,7 +17,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
             "Dimly lit corridors lead to the north, east, south and west, and a ladder leads back down to the engine room. " +
             "This feels like a hub of sorts.";
 
-        private const string Introduction = "As you climb the ladder through the hatch you hear a scuttling behind you... you swing your head around but whatever it is has gone.";
+        private const string Introduction = "Climbing up the ladded you emerge on the main level of the ship in its central hull.";
 
         #endregion
 
