@@ -11,15 +11,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
     /// <param name="resizeMode">The mode to use when the design size and the render size differ and the content needs to be resized.</param>
     public sealed class BotVisualFrameBuilder(VisualResizeMode resizeMode = VisualResizeMode.Scale) : IVisualFrameBuilder
     {
-        #region Properties
-        
-        /// <summary>
-        /// Get or set the mode to use when the design size and the render size differ and the content needs to be resized.
-        /// </summary>
-        public VisualResizeMode ResizeMode { get; set; } = resizeMode;
-
-        #endregion
-
         #region Implementation of IVisualFrameBuilder
 
         /// <summary>
