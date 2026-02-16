@@ -1,63 +1,30 @@
 ﻿using NetAF.Assets;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
+using NetAF.Utilities;
 using System;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Assets.Regions.Ship.Visuals
 {
-    /// <summary>
-    /// Provides a builder of space view frames.
-    /// </summary>
-    /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiConsoleSpaceViewFrameBuilder(GridStringBuilder gridStringBuilder)
+    internal class SpaceView(Size size) : IAssetTemplate<Visual>
     {
-        #region Properties
+        #region StaticMethods
 
         /// <summary>
-        /// Get or set the background color.
+        /// Build the visual.
         /// </summary>
-        public AnsiColor BackgroundColor { get; set; } = AnsiColor.Black;
-
-        /// <summary>
-        /// Get or set the border color.
-        /// </summary>
-        public AnsiColor BorderColor { get; set; } = AnsiColor.BrightBlack;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="title">The title.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="gridVisualBuilder">The grid visual builder</param>
         /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
-        public IFrame Build(GridVisualBuilder gridVisualBuilder, Size size)
+        /// <returns>The builder.</returns>
+        private static GridVisualBuilder BuildVisual(Size size)
         {
-            gridStringBuilder.Resize(size);
-
-            gridStringBuilder.DrawBoundary(BorderColor);
-
-            var output = new GridVisualBuilder(BackgroundColor, AnsiColor.BrightWhite);
-            output.Resize(size);
-
-            gridVisualBuilder.Resize(new Size(size.Width - 2, size.Height - 2));
+            var gridVisualBuilder = new GridVisualBuilder(AnsiColor.Black, AnsiColor.BrightWhite);
+            gridVisualBuilder.Resize(size);
 
             BuildRandomSpace(gridVisualBuilder);
             BuildConstellation(gridVisualBuilder);
 
-            output.Overlay(0, 0, gridStringBuilder);
-            output.Overlay(1, 1, gridVisualBuilder);
-
-            return new GridVisualFrame(output) { ShowCursor = false };
+            return gridVisualBuilder;
         }
-
-        #endregion
-
-        #region StaticMethods
 
         /// <summary>
         /// Build random space.
@@ -108,6 +75,15 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
             gridVisualBuilder.SetCell(centerX - 3, centerY + 2, numberCharacter, numberColor);
             gridVisualBuilder.SetCell(centerX - 4, centerY + 3, numberCharacter, numberColor);
             gridVisualBuilder.SetCell(centerX - 5, centerY + 4, numberCharacter, numberColor);
+        }
+
+        #endregion
+
+        #region Implementation of IAssetTemplate<Visual>
+
+        public Visual Instantiate()
+        {
+            return new Visual(string.Empty, string.Empty, BuildVisual(size));
         }
 
         #endregion

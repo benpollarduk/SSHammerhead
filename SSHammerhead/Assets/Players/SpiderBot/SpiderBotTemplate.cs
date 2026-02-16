@@ -6,9 +6,9 @@ using NetAF.Logic.Modes;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
+using SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals;
 using SSHammerhead.Commands.Persist;
 using System;
 
@@ -47,11 +47,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                             shunt.IsPlayerVisible = true;
                     }
 
-                    var builder = new BotMaintenanceTunnelViewFrameBuilder(new GridStringBuilder());
-                    g.ChangeMode(new VisualMode(builder.Build(g.Overworld.CurrentRegion.CurrentRoom, g.Configuration.DisplaySize)));
+                    g.ChangeMode(new VisualMode(new TunnelView(g.Overworld.CurrentRegion.CurrentRoom, g.Configuration.DisplaySize).Instantiate()));
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);
                 }),
-                new Commands.Persist.Save() { IsPlayerVisible = false },
+                new Save() { IsPlayerVisible = false },
                 new LoadWithRestore() { IsPlayerVisible = false }
             ]);
         }

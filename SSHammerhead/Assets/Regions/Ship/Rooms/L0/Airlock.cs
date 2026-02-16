@@ -3,10 +3,9 @@ using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic.Modes;
-using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Visuals;
 
 namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
 {
@@ -67,8 +66,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
             [
                 new CustomCommand(new CommandHelp("Peer", "Peer through the porthole in the outer airlock door."), true, true, (g, _) =>
                 {
-                    var builder = new NaomiConsoleSpaceViewFrameBuilder(new GridStringBuilder());
-                    g.ChangeMode(new VisualMode(builder.Build(new GridVisualBuilder(AnsiColor.Black, AnsiColor.White), g.Configuration.DisplaySize)));
+                    g.ChangeMode(new VisualMode(new SpaceView(g.Configuration.DisplaySize).Instantiate()));
 
                     g.NoteManager.Add(SevenLogName, "The constellation outside the airlock appears as a 7.");
                     g.NoteManager.Expire(Laptop.ScottViewLogName);
