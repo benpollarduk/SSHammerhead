@@ -1,7 +1,10 @@
 #define MyAppURL "https://github.com/benpollarduk/SSHammerhead"
 #define CompanyName "NetAF"
 #define AppName "SSHammerhead"
-#define AppExeName "SSHammerhead.exe"
+#define ConsoleAppName "SSHammerhead - Console"
+#define ConsoleAppExeName "SSHammerhead.Console.exe"
+#define WPFAppName "SSHammerhead - WPF"
+#define WPFAppExeName "SSHammerhead.WPF.exe"
 #define ApplicationVersion "1.0.0"
 
 [Setup]
@@ -16,7 +19,9 @@ InfoBeforeFile=Eula.txt
 AlwaysShowDirOnReadyPage=yes
 
 [Files]
-Source: "..\SSHammerhead.Console\bin\Release\*"; DestDir:"{app}"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
+Source: "..\SSHammerhead.Console\bin\Release\*"; DestDir:"{app}\Console"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
+Source: "..\SSHammerhead.WPF\bin\Release\net8.0-windows\*"; DestDir:"{app}\WPF"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
 
 [Icons]
-Name: "{commondesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"
+Name: "{commondesktop}\{#ConsoleAppName}"; Filename: "{app}\Console\{#ConsoleAppExeName}"; WorkingDir: "{app}"
+Name: "{commondesktop}\{#WPFAppName}"; Filename: "{app}\WPF\{#WPFAppExeName}"; WorkingDir: "{app}"
