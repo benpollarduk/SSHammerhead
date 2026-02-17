@@ -43,13 +43,13 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore -p:EnableWindowsTargeting=true
 
     - name: Build
-      run: dotnet build -c Release
+      run: dotnet build -c Release -p:EnableWindowsTargeting=true
 
     - name: Run tests with coverlet
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+      run: dotnet test -p:EnableWindowsTargeting=true /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
     - name: Update version in installer script
       run: |
