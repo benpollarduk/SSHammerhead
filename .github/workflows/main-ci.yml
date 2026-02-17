@@ -29,13 +29,13 @@ jobs:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore -p:EnableWindowsTargeting=true
 
     - name: Build
-      run: dotnet build
+      run: dotnet build -p:EnableWindowsTargeting=true
     
     - name: Run tests with coverlet
-      run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov 
+      run: dotnet test -p:EnableWindowsTargeting=true /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov 
         
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v3
