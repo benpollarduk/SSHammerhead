@@ -1,7 +1,7 @@
 <div align="center">
 
 # Trouble Aboard the SS Hammerhead
-A text adventure written using NetAF. Can be executed on the Console and in the browser.
+A text adventure written using NetAF. Can be executed on the Console, as a Windows WPF application and in the browser.
 
 [![main-ci](https://github.com/benpollarduk/ss-hammerhead/actions/workflows/main-ci.yml/badge.svg)](https://github.com/benpollarduk/ss-hammerhead/actions/workflows/main-ci.yml)
 [![GitHub release](https://img.shields.io/github/release/benpollarduk/ss-hammerhead.svg)](https://github.com/benpollarduk/ss-hammerhead/releases)
@@ -72,7 +72,7 @@ Clone the repo.
 ```bash
 git clone https://github.com/benpollarduk/ss-hammerhead.git
 ```
-Build and run either *SSHammerhead.Console* or *SSHammerhead.Blazor* to run the console or web app respectively.
+Build and run either *SSHammerhead.Console*, *SSHammerhead.WPF* or *SSHammerhead.Blazor* to run the console, as a WPF application or web app respectively.
 
 ### Play in Browser
 You can now play in the browser. This is a trial feature and can be clunky. The HTML frame builders from NetAF aren't currently sophisticated enough to handle all of the various frames so the console frame builders have been used to provide an emulation of the console of sorts.
