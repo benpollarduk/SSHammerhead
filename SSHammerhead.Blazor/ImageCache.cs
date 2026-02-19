@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 namespace SSHammerhead.Blazor
 {
     /// <summary>
-    /// Provides a cache of images
+    /// Provides a cache of images.
     /// </summary>
     internal static class ImageCache
     {
