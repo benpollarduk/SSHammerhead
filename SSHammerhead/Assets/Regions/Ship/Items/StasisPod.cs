@@ -28,6 +28,14 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             { "Gold", 0.23f },
         };
 
+        protected static InteractionCallback DefaultInteraction => new((item) =>
+        {
+            if (Hammer.Name.EqualsIdentifier(item.Identifier))
+                return new Interaction(InteractionResult.NoChange, item, $"The pod is reinforced, it will take more than a swing from a {Hammer.Name} to break it.");
+
+            return new Interaction(InteractionResult.NoChange, item);
+        });
+
         #endregion
 
         #region Implementation of IAssetTemplate<Item>

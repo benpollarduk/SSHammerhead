@@ -1,8 +1,8 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
-using NetAF.Extensions;
 using NetAF.Utilities;
+using NetAF.Variables;
 using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
@@ -17,7 +17,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         internal const string Name = $"Stasis Pod ({AnneTemplate.Name})";
         internal const string FlipBreakerCommandName = "Flip Breaker";
-        internal const string EnterStasisCommandName = "Enter Stasis";
+        internal const string EnterStasisCommandName = "Enter Stasis (C)";
+        private const string EnteredStasisCVairableName = "EnteredStasisC";
 
         #endregion
 
@@ -38,9 +39,15 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             enterStasisCommand = new CustomCommand(new CommandHelp(EnterStasisCommandName, $"Enter stasis in {Name}."), false, false, (g, _) =>
             {
-                // stasis reduces sanity
-                if (g.Player.Attributes.GetValue(NaomiTemplate.SanityAttributeName) == 0)
-                    g.Player.Attributes.Add(NaomiTemplate.SanityAttributeName, 1);
+                if (!g.VariableManager.ContainsVariable(EnteredStasisCVairableName))
+                {
+                    g.VariableManager.Add(new Variable(EnteredStasisCVairableName, true.ToString()));
+
+                    var sanity = g.Player.Attributes.GetValue(NaomiTemplate.SanityAttributeName);
+
+                    // stasis reduces sanity first time
+                    g.Player.Attributes.Set(NaomiTemplate.SanityAttributeName, sanity + 1);
+                }
 
                 // unlock the lab
                 g.Overworld.CurrentRegion.UnlockDoorPair(Direction.West);
@@ -76,13 +83,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 enableStasisCommand
             ];
 
-            return new Item(Name, Description, examination: examination, commands: commands, interaction: (item) =>
-            {
-                if (Hammer.Name.EqualsIdentifier(item.Identifier))
-                    return new Interaction(InteractionResult.NoChange, item, $"The pod is reinforced, it will take more than a swing from a {Hammer.Name} to break it.");
-
-                return new Interaction(InteractionResult.NoChange, item);
-            });
+            return new Item(Name, Description, examination: examination, commands: commands, interaction: DefaultInteraction);
         }
 
         #endregion
