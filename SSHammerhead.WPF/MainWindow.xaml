@@ -14,7 +14,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NetAF.WPF;component/Targets/WPF/Styles/Dark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <effects:CrtEffect x:Key="CrtEffect" Intensity="0.5" CurvatureIntensity="0.2" IncludeScanlines="True"/>
+            <effects:CrtEffect x:Key="CrtEffect" Intensity="0.3" CurvatureIntensity="0.2" Brightness="0.65" IncludeScanlines="True"/>
         </ResourceDictionary>
     </Window.Resources>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}" >
@@ -46,7 +46,7 @@
             <controls:NetAFFileManager Style="{StaticResource DarkNetAFFileManagerStyle}"/>
         </Expander>
         <Expander Header="Options" Style="{StaticResource DarkExpanderStyle}" Padding="4" Margin="10,0,10,10" Grid.Row="4">
-            <CheckBox x:Name="UseCrtCheckbox" Content="Use CRT effect?" Style="{StaticResource CheckboxStyle}" IsChecked="True"/>
+            <CheckBox x:Name="UseCrtCheckbox" Content="Use CRT effect?" Style="{StaticResource CheckboxStyle}" Margin="2" IsChecked="True"/>
         </Expander>
     </Grid>
 </Window>
