@@ -8,6 +8,7 @@ using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
+using System;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
@@ -53,6 +54,16 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 g.Overworld.CurrentRegion.UnlockDoorPair(Direction.West);
 
                 enterStasisCommand.IsPlayerVisible = false;
+
+                // make stasis pod a online
+                if (g.Overworld.CurrentRegion.CurrentRoom.FindItem(StasisPodA.Name, out var stasisPodA))
+                {
+                    var command = Array.Find(stasisPodA.Commands, x => x.Help.Command.Equals(StasisPodA.EnterStasisCommandName));
+
+                    if (command != null)
+                        command.IsPlayerVisible = true;
+                }
+
                 var reaction = PlayableCharacterManager.Switch(AnneTemplate.Identifier, g);
 
                 if (reaction.Result == ReactionResult.Error)

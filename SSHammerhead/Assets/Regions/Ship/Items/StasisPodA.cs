@@ -16,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         internal const string Name = $"Stasis Pod ({ScottTemplate.Name})";
         internal const string EnterStasisCommandName = "Enter Stasis (A)";
-        private const string EnteredStasisAVairableName = "EnteredStasisC";
+        private const string EnteredStasisAVairableName = "EnteredStasisA";
 
         #endregion
 
