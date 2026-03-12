@@ -4,38 +4,6 @@
              xmlns:local="clr-namespace:SSHammerhead.WPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/NetAF.WPF;component/Targets/WPF/Styles/Dark.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="CheckboxStyle" TargetType="CheckBox">
-                <Setter Property="Foreground" Value="{StaticResource MainControlForegroundBrush}"/>
-                <Setter Property="Background" Value="{StaticResource MainControlBackgroundBrush}"/>
-                <Setter Property="FontFamily" Value="{StaticResource MainControlFontFamily}"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="CheckBox">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <Border Width="16" Height="16" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding Foreground}"  BorderThickness="1" Margin="0,0,6,0" VerticalAlignment="Center">
-                                    <Path x:Name="cross" Data="M 4,4 l 0,6 l 6,0 l 0,-6 z" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" Visibility="Collapsed"/>
-                                </Border>
-                                <ContentPresenter VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsChecked" Value="True">
-                                    <Setter TargetName="cross" Property="Visibility" Value="Visible"/>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Style.Triggers>
-                    <Trigger Property="IsEnabled" Value="False">
-                        <Setter Property="Foreground" Value="{StaticResource MainControlForegroundDisabledBrush}"/>
-                        <Setter Property="Background" Value="{StaticResource MainControlBackgroundDisabledBrush}"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>
