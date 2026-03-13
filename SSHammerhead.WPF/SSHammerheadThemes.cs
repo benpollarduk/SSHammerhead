@@ -1,5 +1,4 @@
 ﻿using NetAF.Targets.WPF.Themes;
-using System.Windows.Media;
 
 namespace SSHammerhead.WPF
 {

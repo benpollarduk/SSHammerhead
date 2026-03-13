@@ -1,0 +1,93 @@
+﻿<Window x:Class="SSHammerhead.WPF.ApplicationSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SSHammerhead.WPF"
+        xmlns:converters="clr-namespace:SSHammerhead.WPF.Converters"
+        mc:Ignorable="d"
+        Title="Settings" DataContext="{x:Static local:App.Settings}" Height="450" Width="800" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NetAF.WPF;component/Targets/WPF/Styles/Dark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <RoutedUICommand x:Key="ResetVisualSettingsCommand" Text="Reset"/>
+            <RoutedUICommand x:Key="ResetAudioSettingsCommand" Text="Reset"/>
+            <converters:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
+            <Style x:Key="CheckBoxStyle" BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <Style x:Key="SliderStyle" BasedOn="{StaticResource DarkSliderStyle}" TargetType="Slider">
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="IsSnapToTickEnabled" Value="True"/>
+                <Setter Property="TickPlacement" Value="BottomRight"/>
+                <Setter Property="TickFrequency" Value="0.05"/>
+                <Setter Property="SmallChange" Value="0.05"/>
+                <Setter Property="LargeChange" Value="0.05"/>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="FontFamily" Value="{StaticResource MainControlFontFamily}"/>
+                <Setter Property="Foreground" Value="{StaticResource MainControlForegroundBrush}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Foreground" Value="{StaticResource MainControlForegroundDisabledBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="ButtonStyle" BasedOn="{StaticResource DefaultDarkButtonStyle}" TargetType="Button">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <Style x:Key="GroupBoxStyle" BasedOn="{StaticResource DarkGroupBoxStyle}" TargetType="GroupBox">
+                <Setter Property="Margin" Value="2"/>
+                <Setter Property="Padding" Value="4"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding x:Name="ResetVisualSettingsCommandBinding" Command="{StaticResource ResetVisualSettingsCommand}" Executed="ResetVisualSettingsCommandBinding_Executed"/>
+        <CommandBinding x:Name="ResetAudioSettingsCommandBinding" Command="{StaticResource ResetAudioSettingsCommand}" Executed="ResetAudioSettingsCommandBinding_Executed"/>
+    </Window.CommandBindings>
+    <Grid Background="{StaticResource MainWindowBackgroundBrush}">
+        <TabControl Style="{StaticResource DarkTabControlStyle}" Margin="2">
+            <TabItem Header="Visual" Style="{StaticResource DarkTabItemStyle}">
+                <StackPanel>
+                    <CheckBox Content="Use CRT effect?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtEffect, Mode=TwoWay}"/>
+                    <GroupBox Header="CRT Effect Settings" Style="{StaticResource GroupBoxStyle}" IsEnabled="{Binding Path=UseCrtEffect, Mode=OneWay}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Content="Scanlines" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtScanlines, Mode=TwoWay}" IsEnabled="{Binding Path=UseCrtEffect, Mode=OneWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <Label Content="Brightness:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
+                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtBrightness, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+                            <Label Content="{Binding Path=CrtBrightness, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="2"/>
+                            <Label Content="Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
+                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtIntensity, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+                            <Label Content="{Binding Path=CrtIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="2"/>
+                            <Label Content="Curvature Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
+                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+                            <Label Content="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="2"/>
+                        </Grid>
+                    </GroupBox>
+                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Audio" Style="{StaticResource DarkTabItemStyle}">
+                <StackPanel>
+                    <CheckBox Content="Use sound effects?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseSoundEffects, Mode=TwoWay}"/>
+                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}"/>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
