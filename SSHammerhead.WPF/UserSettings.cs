@@ -24,6 +24,7 @@ namespace SSHammerhead.WPF
         private double crtIntensity = 0.2;
         private double crtCurvatureIntensity = 0.3;
         private bool useSoundEffects = true;
+        private float soundEffectVolume = 0.5f;
 
         #endregion
 
@@ -56,40 +57,40 @@ namespace SSHammerhead.WPF
         }
 
         /// <summary>
-        /// Get or set the brightness are used with the Crt effect.
+        /// Get or set the brightness are used with the Crt effect as a normalised value between 0 and 1.
         /// </summary>
         public double CrtBrightness
         {
             get { return crtBrightness; }
             set
             {
-                crtBrightness = value;
+                crtBrightness = Clamp(value);
                 OnPropertyChanged();
             }
         }
 
         /// <summary>
-        /// Get or set the intensity are used with the Crt effect.
+        /// Get or set the intensity are used with the Crt effect as a normalised value between 0 and 1.
         /// </summary>
         public double CrtIntensity
         {
             get { return crtIntensity; }
             set
             {
-                crtIntensity = value;
+                crtIntensity = Clamp(value);
                 OnPropertyChanged();
             }
         }
 
         /// <summary>
-        /// Get or set the curvature intensity are used with the Crt effect.
+        /// Get or set the curvature intensity are used with the Crt effect as a normalised value between 0 and 1.
         /// </summary>
         public double CrtCurvatureIntensity
         {
             get { return crtCurvatureIntensity; }
             set
             {
-                crtCurvatureIntensity = value;
+                crtCurvatureIntensity = Clamp(value);
                 OnPropertyChanged();
             }
         }
@@ -103,6 +104,19 @@ namespace SSHammerhead.WPF
             set
             {
                 useSoundEffects = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get or set the sound effect volume as a normalised value between 0 and 1.
+        /// </summary>
+        public float SoundEffectVolume
+        {
+            get { return soundEffectVolume; }
+            set
+            {
+                soundEffectVolume = Clamp(value);
                 OnPropertyChanged();
             }
         }
@@ -133,6 +147,7 @@ namespace SSHammerhead.WPF
             var defaults = new UserSettings();
 
             UseSoundEffects = defaults.UseSoundEffects;
+            SoundEffectVolume = defaults.SoundEffectVolume;
         }
 
         /// <summary>
@@ -152,6 +167,16 @@ namespace SSHammerhead.WPF
         #endregion
 
         #region StaticMethods
+
+        private double Clamp(double value)
+        {
+            return Math.Min(1, Math.Max(0, value));
+        }
+
+        private float Clamp(float value)
+        {
+            return Math.Min(1, Math.Max(0, value));
+        }
 
         /// <summary>
         /// Load user settings from file.

@@ -14,6 +14,7 @@
             </ResourceDictionary.MergedDictionaries>
             <RoutedUICommand x:Key="ResetVisualSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="ResetAudioSettingsCommand" Text="Reset"/>
+            <RoutedUICommand x:Key="TestSoundEffectVolumeCommand" Text="Test"/>
             <converters:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
             <Style x:Key="CheckBoxStyle" BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox">
                 <Setter Property="Margin" Value="2"/>
@@ -43,11 +44,16 @@
                 <Setter Property="Margin" Value="2"/>
                 <Setter Property="Padding" Value="4"/>
             </Style>
+            <GridLength x:Key="TitleLabelColumnWidth">150</GridLength>
+            <GridLength x:Key="SliderColumnWidth">200</GridLength>
+            <GridLength x:Key="ValueLabelColumnWidth">50</GridLength>
+            <GridLength x:Key="TestButtonColumnWidth">Auto</GridLength>
         </ResourceDictionary>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding x:Name="ResetVisualSettingsCommandBinding" Command="{StaticResource ResetVisualSettingsCommand}" Executed="ResetVisualSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="ResetAudioSettingsCommandBinding" Command="{StaticResource ResetAudioSettingsCommand}" Executed="ResetAudioSettingsCommandBinding_Executed"/>
+        <CommandBinding x:Name="TestSoundEffectVolumeCommandBinding" Command="{StaticResource TestSoundEffectVolumeCommand}" Executed="TestSoundEffectVolumeCommandBinding_Executed"/>
     </Window.CommandBindings>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
         <TabControl Style="{StaticResource DarkTabControlStyle}" Margin="2">
@@ -63,11 +69,11 @@
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="150"/>
-                                <ColumnDefinition Width="200"/>
-                                <ColumnDefinition Width="150"/>
+                                <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
+                                <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
                             </Grid.ColumnDefinitions>
-                            <CheckBox Content="Scanlines" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtScanlines, Mode=TwoWay}" IsEnabled="{Binding Path=UseCrtEffect, Mode=OneWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <CheckBox Content="Scanlines" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtScanlines, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
                             <Label Content="Brightness:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
                             <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtBrightness, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
                             <Label Content="{Binding Path=CrtBrightness, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="2"/>
@@ -85,6 +91,20 @@
             <TabItem Header="Audio" Style="{StaticResource DarkTabItemStyle}">
                 <StackPanel>
                     <CheckBox Content="Use sound effects?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseSoundEffects, Mode=TwoWay}"/>
+                    <GroupBox Header="Sound Effect Settings" Style="{StaticResource GroupBoxStyle}" IsEnabled="{Binding Path=UseSoundEffects, Mode=OneWay}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
+                                <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
+                                <ColumnDefinition Width="{StaticResource TestButtonColumnWidth}"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Volume:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=SoundEffectVolume, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
+                            <Label Content="{Binding Path=SoundEffectVolume, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
+                            <Button Content="Test" Command="{StaticResource TestSoundEffectVolumeCommand}" Style="{StaticResource ButtonStyle}" Grid.Row="0" Grid.Column="3"/>
+                        </Grid>
+                    </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}"/>
                 </StackPanel>
             </TabItem>

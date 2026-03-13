@@ -1,20 +1,76 @@
 ﻿using SSHammerhead.WPF.Audio;
-using System.Media;
+using NAudio.Wave;
 
 namespace SSHammerhead.WPF
 {
-    internal static class AudioPlayer
+    /// <summary>
+    /// Provides functionality for playing audio.
+    /// </summary>
+    public static class AudioPlayer
     {
         #region StaticProperties
 
-        private static readonly SoundPlayer GeneralSoundPlayer = new();
+        private static Random random = new Random();
+
+        private static readonly string[] KeySoundPaths =
+        [
+            "Resources/Sounds/Effects/key1.wav",
+            "Resources/Sounds/Effects/key2.wav",
+            "Resources/Sounds/Effects/key3.wav",
+            "Resources/Sounds/Effects/key4.wav",
+            "Resources/Sounds/Effects/key5.wav",
+            "Resources/Sounds/Effects/key6.wav",
+            "Resources/Sounds/Effects/key11.wav",
+            "Resources/Sounds/Effects/key12.wav",
+            "Resources/Sounds/Effects/key13.wav",
+            "Resources/Sounds/Effects/key14.wav",
+            "Resources/Sounds/Effects/key15.wav"
+        ];
 
         #endregion
 
         #region StaticMethods
 
-        public static void PlaySoundEffect(SoundEffect soundEffect)
+        /// <summary>
+        /// Play a sound effect.
+        /// </summary>
+        /// <param name="soundEffect">The sound effect to play.</param>
+        /// <param name="volume">The volume of the sound playback as a normalised value betwee 0 and 1.</param>
+        public static void PlaySoundEffect(SoundEffect soundEffect, float volume = 1)
         {
+            switch (soundEffect)
+            {
+                case SoundEffect.KeyPressRandom:
+
+                    PlayKeyPress(volume);
+
+                    break;
+
+                default:
+
+                    throw new NotImplementedException();
+            }
+        }
+
+        private static void PlayKeyPress(float volume)
+        {
+            var index = random.Next(KeySoundPaths.Length);
+            var path = KeySoundPaths[index];
+            var waveOut = new WaveOutEvent();
+            var audioFile = new AudioFileReader(path)
+            {
+                Volume = volume
+            };
+
+            waveOut.Init(audioFile);
+
+            waveOut.PlaybackStopped += (sender, args) =>
+            {
+                audioFile.Dispose();
+                waveOut.Dispose();
+            };
+
+            waveOut.Play();
         }
 
         #endregion

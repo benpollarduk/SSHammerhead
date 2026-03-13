@@ -15,6 +15,6 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
-        <controls:NetAFFileManager Style="{StaticResource DarkNetAFFileManagerStyle}"/>
+        <controls:NetAFFileManager x:Name="FileManager" Style="{StaticResource DarkNetAFFileManagerStyle}" IsEnabled="True"/>
     </Grid>
 </Window>

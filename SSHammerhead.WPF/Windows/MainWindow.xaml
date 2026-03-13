@@ -20,8 +20,11 @@
             <Style x:Key="ButtonIconPathStyle" TargetType="Path">
                 <Setter Property="Fill" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                 <Style.Triggers>
-                    <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
-                        <Setter Property="Fill" Value="Black"/>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsMouseOver}" Value="True">
+                        <Setter Property="Fill" Value="{StaticResource MainControlForegroundDisabledBrush}"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=IsEnabled}" Value="False">
+                        <Setter Property="Fill" Value="{StaticResource MainControlForegroundDisabledBrush}"/>
                     </DataTrigger>
                 </Style.Triggers>
             </Style>
@@ -62,7 +65,7 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <controls:NetAFPrompt Style="{StaticResource DarkPromptStyle}" Margin="10,0,0,10" Grid.Column="0" KeyPressed="NetAFPrompt_KeyPressed"/>
-            <Button Command="{StaticResource OpenPersistenceCommand}" Style="{StaticResource DefaultDarkButtonStyle}" Margin="10,0,0,10" Grid.Column="1" ToolTip="Save/Load" Width="40">
+            <Button Command="{StaticResource OpenPersistenceCommand}" Style="{StaticResource DefaultDarkButtonStyle}" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=IsPersistenceAvailable, Mode=OneWay}" Margin="10,0,0,10" Grid.Column="1" ToolTip="Save/Load" Width="40">
                 <Path Data="{StaticResource SaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
             </Button>
             <Button Command="{StaticResource OpenSettingsCommand}" Style="{StaticResource DefaultDarkButtonStyle}" Margin="10,0,10,10" Grid.Column="2" ToolTip="Settings" Width="40">
