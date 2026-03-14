@@ -18,12 +18,14 @@ namespace SSHammerhead.WPF
             "Resources/Sounds/Effects/key2.wav",
             "Resources/Sounds/Effects/key3.wav",
             "Resources/Sounds/Effects/key4.wav",
-            "Resources/Sounds/Effects/key5.wav",
             "Resources/Sounds/Effects/key6.wav",
+            "Resources/Sounds/Effects/key7.wav",
+            "Resources/Sounds/Effects/key8.wav",
+            "Resources/Sounds/Effects/key9.wav",
+            "Resources/Sounds/Effects/key10.wav",
             "Resources/Sounds/Effects/key11.wav",
             "Resources/Sounds/Effects/key12.wav",
             "Resources/Sounds/Effects/key13.wav",
-            "Resources/Sounds/Effects/key14.wav",
             "Resources/Sounds/Effects/key15.wav"
         ];
 
@@ -40,9 +42,21 @@ namespace SSHammerhead.WPF
         {
             switch (soundEffect)
             {
-                case SoundEffect.KeyPressRandom:
+                case SoundEffect.KeyPressCharacterRandom:
 
                     PlayKeyPress(volume);
+
+                    break;
+
+                case SoundEffect.KeyPressEnter:
+
+                    PlayFromFile("Resources/Sounds/Effects/key5.wav", volume);
+
+                    break;
+
+                case SoundEffect.KeyPressSpace:
+
+                    PlayFromFile("Resources/Sounds/Effects/key14.wav", volume);
 
                     break;
 
@@ -56,6 +70,11 @@ namespace SSHammerhead.WPF
         {
             var index = random.Next(KeySoundPaths.Length);
             var path = KeySoundPaths[index];
+            PlayFromFile(path, volume);
+        }
+
+        private static void PlayFromFile(string path, float volume)
+        {
             var waveOut = new WaveOutEvent();
             var audioFile = new AudioFileReader(path)
             {

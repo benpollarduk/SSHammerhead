@@ -5,7 +5,9 @@ using NetAF.Logic;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Markup;
 using SSHammerhead.Configuration;
+using SSHammerhead.WPF.Audio;
 using System.Windows;
+using System.Windows.Input;
 
 namespace SSHammerhead.WPF
 {
@@ -112,25 +114,32 @@ namespace SSHammerhead.WPF
             GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation));
         }
 
-        private void HandleInput()
+        private void HandleInput(Key? key)
         {
             if (!App.Settings.UseSoundEffects)
                 return;
 
-            AudioPlayer.PlaySoundEffect(Audio.SoundEffect.KeyPressRandom, App.Settings.SoundEffectVolume);
+            var soundEffect = SoundEffect.KeyPressCharacterRandom;
+
+            if (key == Key.Space)
+                soundEffect = SoundEffect.KeyPressSpace;
+            else if (key == Key.Enter)
+                soundEffect = SoundEffect.KeyPressEnter;
+
+            AudioPlayer.PlaySoundEffect(soundEffect, App.Settings.SoundEffectVolume);
         }
 
         #endregion
 
         #region CommandCallbacks
 
-        private void OpenSettingsCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        private void OpenSettingsCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             var settingsWindow = new ApplicationSettingsWindow() { Owner = this, ShowInTaskbar = false };
             settingsWindow.ShowDialog();
         }
 
-        private void OpenPersistenceCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        private void OpenPersistenceCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             if (game == null)
                 return;
@@ -143,14 +152,14 @@ namespace SSHammerhead.WPF
 
         #region EventHandlers
 
-        private void NetAFPrompt_KeyPressed(object sender, System.Windows.Input.Key e)
+        private void NetAFPrompt_KeyPressed(object sender, Key e)
         {
-            HandleInput();
+            HandleInput(e);
         }
 
         private void ButtonLayout_ButtonSelected(object sender, EventArgs e)
         {
-            HandleInput();
+            HandleInput(null);
         }
 
         #endregion

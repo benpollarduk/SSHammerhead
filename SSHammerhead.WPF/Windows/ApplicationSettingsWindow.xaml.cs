@@ -30,7 +30,7 @@ namespace SSHammerhead.WPF
 
         private void TestSoundEffectVolumeCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
-            AudioPlayer.PlaySoundEffect(Audio.SoundEffect.KeyPressRandom, App.Settings.SoundEffectVolume);
+            AudioPlayer.PlaySoundEffect(Audio.SoundEffect.KeyPressCharacterRandom, App.Settings.SoundEffectVolume);
         }
 
         #endregion

@@ -6,8 +6,16 @@
     public enum SoundEffect
     {
         /// <summary>
-        /// Random key press.
+        /// Key press (random character).
         /// </summary>
-        KeyPressRandom = 0
+        KeyPressCharacterRandom = 0,
+        /// <summary>
+        /// Key press (space).
+        /// </summary>
+        KeyPressSpace,
+        /// <summary>
+        /// Key press (enter).
+        /// </summary>
+        KeyPressEnter
     }
 }
