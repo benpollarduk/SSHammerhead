@@ -1,7 +1,7 @@
-﻿using SSHammerhead.WPF.Audio;
-using NAudio.Wave;
+﻿using NAudio.Wave;
+using System;
 
-namespace SSHammerhead.WPF
+namespace SSHammerhead.Audio
 {
     /// <summary>
     /// Provides functionality for playing audio.
@@ -11,9 +11,9 @@ namespace SSHammerhead.WPF
         #region StaticProperties
 
         private static readonly Random random = new Random();
-        private static WaveOutEvent? backgroundMusicWaveOut;
-        private static AudioFileReader? backgroundMusicReader;
-        private static ProximityFilter? backgroundProximityFilter;
+        private static WaveOutEvent backgroundMusicWaveOut;
+        private static AudioFileReader backgroundMusicReader;
+        private static ProximityFilter backgroundProximityFilter;
         private static bool shouldLoopBackgroundMusic;
 
         private static readonly string[] KeySoundPaths =

@@ -5,8 +5,8 @@ using NetAF.Logic;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Markup;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Audio;
 using SSHammerhead.Configuration;
-using SSHammerhead.WPF.Audio;
 using System.Windows;
 using System.Windows.Input;
 

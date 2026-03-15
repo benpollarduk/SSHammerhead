@@ -1,13 +1,20 @@
-﻿using NetAF.Interpretation;
+﻿using NetAF.Events;
+using NetAF.Interpretation;
 using NetAF.Logic;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Console;
 using SSHammerhead;
+using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Audio;
 using SSHammerhead.Configuration;
 using SSHammerhead.Console;
 
 try
 {
+    EventBus.Subscribe<GameStarted>(x => AudioPlayer.StartBackgroundMusic(1, Radio.DetermineProximity(x.Game)));
+    EventBus.Subscribe<GameFinished>(_ => AudioPlayer.StopBackgroundMusic());
+    EventBus.Subscribe<GameUpdated>(x => AudioPlayer.AdjustBackgroundMusic(1, Radio.DetermineProximity(x.Game)));
+
     var presentation = new Presentation
     (
         FrameBuilderCollections.Naomi, 

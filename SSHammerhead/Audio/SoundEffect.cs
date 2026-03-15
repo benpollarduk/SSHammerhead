@@ -1,4 +1,4 @@
-﻿namespace SSHammerhead.WPF.Audio
+﻿namespace SSHammerhead.Audio
 {
     /// <summary>
     /// Enumeration of sound effects.

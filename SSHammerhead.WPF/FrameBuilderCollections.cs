@@ -4,7 +4,6 @@ using NetAF.Targets.Markup.Rendering;
 using NetAF.Targets.Markup.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using SSHammerhead.Console;
 
 namespace SSHammerhead.WPF
 {

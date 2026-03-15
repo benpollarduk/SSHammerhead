@@ -40,7 +40,7 @@ namespace SSHammerhead.Blazor
         /// <returns>The task.</returns>
         public static async Task CacheAllImages()
         {
-            string[] images = ["Images/space.png"];
+            string[] images = ["Resources/Images/space.png"];
 
             foreach (var image in images)
                 await GetProvider().CacheImageAsync(image);

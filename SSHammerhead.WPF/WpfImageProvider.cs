@@ -1,7 +1,7 @@
 ﻿using SSHammerhead.ImageHandling;
 using System.IO;
 
-namespace SSHammerhead.Console
+namespace SSHammerhead.WPF
 {
     /// <summary>
     /// An image provider for WPF.

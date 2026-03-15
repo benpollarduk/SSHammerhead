@@ -1,5 +1,6 @@
 ﻿using NetAF.Logic;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Audio;
 using System.Windows;
 
 namespace SSHammerhead.WPF

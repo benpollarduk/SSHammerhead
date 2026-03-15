@@ -1,7 +1,8 @@
 ﻿using NAudio.Dsp;
 using NAudio.Wave;
+using System;
 
-namespace SSHammerhead.WPF.Audio
+namespace SSHammerhead.Audio
 {
     /// <summary>
     /// Provides a filter that adjusts the audio based on a proximity to a source.
