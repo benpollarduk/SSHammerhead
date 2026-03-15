@@ -59,51 +59,56 @@
         <TabControl Style="{StaticResource DarkTabControlStyle}" Margin="2">
             <TabItem Header="Visual" Style="{StaticResource DarkTabItemStyle}">
                 <StackPanel>
-                    <CheckBox Content="Use CRT effect?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtEffect, Mode=TwoWay}"/>
-                    <GroupBox Header="CRT Effect Settings" Style="{StaticResource GroupBoxStyle}" IsEnabled="{Binding Path=UseCrtEffect, Mode=OneWay}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
-                                <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
-                                <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
-                            </Grid.ColumnDefinitions>
-                            <CheckBox Content="Scanlines" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtScanlines, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
-                            <Label Content="Brightness:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
-                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtBrightness, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
-                            <Label Content="{Binding Path=CrtBrightness, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="2"/>
-                            <Label Content="Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
-                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtIntensity, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
-                            <Label Content="{Binding Path=CrtIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="2"/>
-                            <Label Content="Curvature Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
-                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
-                            <Label Content="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="2"/>
-                        </Grid>
+                    <GroupBox Header="CRT Effect" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <CheckBox Content="Use CRT effect?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtEffect, Mode=TwoWay}"/>
+                            <Grid IsEnabled="{Binding Path=UseCrtEffect, Mode=OneWay}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                    <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
+                                    <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
+                                </Grid.ColumnDefinitions>
+                                <CheckBox Content="Scanlines" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtScanlines, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+                                <Label Content="Brightness:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
+                                <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtBrightness, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+                                <Label Content="{Binding Path=CrtBrightness, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="2"/>
+                                <Label Content="Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
+                                <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtIntensity, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+                                <Label Content="{Binding Path=CrtIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="2"/>
+                                <Label Content="Curvature Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
+                                <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+                                <Label Content="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="2"/>
+                            </Grid>
+                        </StackPanel>
+                        
                     </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Audio" Style="{StaticResource DarkTabItemStyle}">
                 <StackPanel>
-                    <CheckBox Content="Use sound effects?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseSoundEffects, Mode=TwoWay}"/>
-                    <GroupBox Header="Sound Effect Settings" Style="{StaticResource GroupBoxStyle}" IsEnabled="{Binding Path=UseSoundEffects, Mode=OneWay}">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
-                                <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
-                                <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
-                                <ColumnDefinition Width="{StaticResource TestButtonColumnWidth}"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Content="Volume:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
-                            <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=SoundEffectVolume, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-                            <Label Content="{Binding Path=SoundEffectVolume, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
-                            <Button Content="Test" Command="{StaticResource TestSoundEffectVolumeCommand}" Style="{StaticResource ButtonStyle}" Grid.Row="0" Grid.Column="3"/>
-                        </Grid>
+                    <GroupBox Header="Sound Effects" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <CheckBox Content="Use sound effects?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseSoundEffects, Mode=TwoWay}"/>
+                            <Grid IsEnabled="{Binding Path=UseSoundEffects, Mode=OneWay}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                    <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
+                                    <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
+                                    <ColumnDefinition Width="{StaticResource TestButtonColumnWidth}"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Volume:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                                <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=SoundEffectVolume, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
+                                <Label Content="{Binding Path=SoundEffectVolume, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
+                                <Button Content="Test" Command="{StaticResource TestSoundEffectVolumeCommand}" Style="{StaticResource ButtonStyle}" Grid.Row="0" Grid.Column="3"/>
+                            </Grid>
+                        </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Background Music Settings" Style="{StaticResource GroupBoxStyle}">
                         <Grid>

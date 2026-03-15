@@ -14,6 +14,7 @@ using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using SSHammerhead.Assets.Regions.Ship;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L2;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
@@ -54,7 +55,7 @@ namespace SSHammerhead
             return EndCheckResult.NotEnded;
         }
 
-        public static GameCreator Create(GameConfiguration configuration, Presentation presentation)
+        public static GameCreator Create(GameConfiguration configuration, Presentation presentation, bool allowAudio)
         {
             static Overworld overworldCreator()
             {
@@ -85,7 +86,7 @@ namespace SSHammerhead
                 return overworld;
             }
 
-            static void setup(Game g, Presentation presentation)
+            static void setup(Game g, Presentation presentation, bool allowAudio)
             {
                 // get start positions
                 g.Overworld.FindRegion(SSHammerHead.Name, out var ship);
@@ -132,6 +133,14 @@ namespace SSHammerhead
                 g.Catalog.Register(marina);
                 g.Catalog.Register(scott);
                 g.Catalog.Register(zhiying);
+
+                // if not allowing audio remove the radio
+                if (!allowAudio)
+                {
+                    // find and remove radio, in central hull
+                    if (ship.TryFindRoom(CentralHull.Name, out var centralHull) && centralHull.FindItem(Radio.Name, out var radio))
+                        centralHull.RemoveItem(radio);
+                }
             }
 
             return Game.Create(
@@ -140,7 +149,7 @@ namespace SSHammerhead
                 AssetGenerator.Custom(overworldCreator, () => new NaomiTemplate().Instantiate()),
                 new GameEndConditions(CheckForCompletion, CheckForGameOver),
                 configuration,
-                g => setup(g, presentation));
+                g => setup(g, presentation, allowAudio));
 
         }
 
