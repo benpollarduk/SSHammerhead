@@ -21,7 +21,7 @@
   </ItemGroup>
     
   <ItemGroup>
-    <Compile Update="Windows\PersistenceWindow.xaml.cs">
+    <Compile Update="Controls\PersistenceControl.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -1,15 +1,15 @@
 ﻿using NetAF.Logic;
 using System.IO;
-using System.Windows;
+using System.Windows.Controls;
 
-namespace SSHammerhead.WPF
+namespace SSHammerhead.WPF.Controls
 {
     /// <summary>
-    /// Interaction logic for PersistenceWindow.xaml
+    /// Interaction logic for PersistenceControl.xaml
     /// </summary>
-    public partial class PersistenceWindow : Window
+    public partial class PersistenceControl : UserControl
     {
-        public PersistenceWindow(Game game)
+        public PersistenceControl(Game game)
         {
             InitializeComponent();
 

@@ -1,20 +1,20 @@
-﻿<Window x:Class="SSHammerhead.WPF.PersistenceWindow"
+﻿<UserControl x:Class="SSHammerhead.WPF.Controls.PersistenceControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SSHammerhead.WPF"
+        xmlns:local="clr-namespace:SSHammerhead.WPF.Controls"
         xmlns:controls="clr-namespace:NetAF.Targets.WPF.Controls;assembly=NetAF.WPF"
         mc:Ignorable="d"
-        Title="Save/Load" Height="450" Width="800" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
-    <Window.Resources>
+        Height="450" Width="800">
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/NetAF.WPF;component/Targets/WPF/Styles/Dark.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
         <controls:NetAFFileManager x:Name="FileManager" Style="{StaticResource DarkNetAFFileManagerStyle}" IsEnabled="True"/>
     </Grid>
-</Window>
+</UserControl>

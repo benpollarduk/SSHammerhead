@@ -2,17 +2,18 @@
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Audio;
 using System.Windows;
+using System.Windows.Controls;
 
-namespace SSHammerhead.WPF
+namespace SSHammerhead.WPF.Controls
 {
     /// <summary>
-    /// Interaction logic for ApplicationSettingsWindow.xaml
+    /// Interaction logic for ApplicationSettingsControl.xaml
     /// </summary>
-    public partial class ApplicationSettingsWindow : Window
+    public partial class ApplicationSettingsControl : UserControl
     {
         #region Constructors
 
-        public ApplicationSettingsWindow()
+        public ApplicationSettingsControl()
         {
             InitializeComponent();
         }

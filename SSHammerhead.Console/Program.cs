@@ -40,7 +40,7 @@ try
     // change configuration prevent using the normal persistence interpreter as this is handled by custom commands
     configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);
 
-    GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation), new ConsoleExecutionController(), true);
+    GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation, true), new ConsoleExecutionController());
 }
 catch (Exception e)
 {
