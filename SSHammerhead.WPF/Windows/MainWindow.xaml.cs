@@ -4,6 +4,7 @@ using NetAF.Interpretation;
 using NetAF.Logic;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Markup;
+using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Configuration;
 using SSHammerhead.WPF.Audio;
 using System.Windows;
@@ -75,13 +76,19 @@ namespace SSHammerhead.WPF
             {
                 game = x.Game;
                 Update(game);
+                AudioPlayer.StartBackgroundMusic(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
             });
             EventBus.Subscribe<GameFinished>(_ =>
             {
                 game = null;
                 IsPersistenceAvailable = false;
+                AudioPlayer.StopBackgroundMusic();
             });
-            EventBus.Subscribe<GameUpdated>(x => Update(x.Game));
+            EventBus.Subscribe<GameUpdated>(x =>
+            {
+                Update(x.Game);
+                AudioPlayer.AdjustBackgroundMusic(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
+            });
         }
 
         private void SetupAndBeginGame()

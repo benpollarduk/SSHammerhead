@@ -25,6 +25,7 @@ namespace SSHammerhead.WPF
         private double crtCurvatureIntensity = 0.3;
         private bool useSoundEffects = true;
         private float soundEffectVolume = 0.5f;
+        private float backgroundMusicVolume = 0.5f;
 
         #endregion
 
@@ -64,7 +65,7 @@ namespace SSHammerhead.WPF
             get { return crtBrightness; }
             set
             {
-                crtBrightness = Clamp(value);
+                crtBrightness = Math.Clamp(value, 0, 1);
                 OnPropertyChanged();
             }
         }
@@ -77,7 +78,7 @@ namespace SSHammerhead.WPF
             get { return crtIntensity; }
             set
             {
-                crtIntensity = Clamp(value);
+                crtIntensity = Math.Clamp(value, 0, 1);
                 OnPropertyChanged();
             }
         }
@@ -90,7 +91,7 @@ namespace SSHammerhead.WPF
             get { return crtCurvatureIntensity; }
             set
             {
-                crtCurvatureIntensity = Clamp(value);
+                crtCurvatureIntensity = Math.Clamp(value, 0, 1);
                 OnPropertyChanged();
             }
         }
@@ -116,7 +117,20 @@ namespace SSHammerhead.WPF
             get { return soundEffectVolume; }
             set
             {
-                soundEffectVolume = Clamp(value);
+                soundEffectVolume = Math.Clamp(value, 0, 1);
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get or set the background music volume as a normalised value between 0 and 1.
+        /// </summary>
+        public float BackgroundMusicVolume
+        {
+            get { return backgroundMusicVolume; }
+            set
+            {
+                backgroundMusicVolume = Math.Clamp(value, 0, 1);
                 OnPropertyChanged();
             }
         }
@@ -148,6 +162,7 @@ namespace SSHammerhead.WPF
 
             UseSoundEffects = defaults.UseSoundEffects;
             SoundEffectVolume = defaults.SoundEffectVolume;
+            BackgroundMusicVolume = defaults.BackgroundMusicVolume;
         }
 
         /// <summary>
@@ -168,16 +183,6 @@ namespace SSHammerhead.WPF
 
         #region StaticMethods
 
-        private double Clamp(double value)
-        {
-            return Math.Min(1, Math.Max(0, value));
-        }
-
-        private float Clamp(float value)
-        {
-            return Math.Min(1, Math.Max(0, value));
-        }
-
         /// <summary>
         /// Load user settings from file.
         /// </summary>
@@ -194,7 +199,7 @@ namespace SSHammerhead.WPF
             }
             catch
             {
-                // Fallback to defaults if file is corrupted
+                // fallback to defaults if file is corrupted
                 return new UserSettings();
             }
         }

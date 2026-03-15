@@ -8,7 +8,7 @@ namespace SSHammerhead.WPF.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (!double.TryParse(value?.ToString() ?? string.Empty, out var v))
-                return value;
+                return value ?? 0d;
 
             if (!int.TryParse(parameter?.ToString() ?? string.Empty, out var p))
                 p = 0;

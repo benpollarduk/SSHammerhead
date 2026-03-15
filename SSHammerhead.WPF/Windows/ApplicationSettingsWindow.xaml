@@ -105,6 +105,18 @@
                             <Button Content="Test" Command="{StaticResource TestSoundEffectVolumeCommand}" Style="{StaticResource ButtonStyle}" Grid.Row="0" Grid.Column="3"/>
                         </Grid>
                     </GroupBox>
+                    <GroupBox Header="Background Music Settings" Style="{StaticResource GroupBoxStyle}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
+                                <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Volume:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                            <Slider Name="BackgroundMusicSlider" Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=BackgroundMusicVolume, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" ValueChanged="BackgroundMusicSlider_ValueChanged"/>
+                            <Label Content="{Binding Path=BackgroundMusicVolume, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
+                        </Grid>
+                    </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}"/>
                 </StackPanel>
             </TabItem>

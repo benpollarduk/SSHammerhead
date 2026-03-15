@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using NetAF.Logic;
+using SSHammerhead.Assets.Regions.Ship.Items;
+using System.Windows;
 
 namespace SSHammerhead.WPF
 {
@@ -31,6 +33,15 @@ namespace SSHammerhead.WPF
         private void TestSoundEffectVolumeCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             AudioPlayer.PlaySoundEffect(Audio.SoundEffect.KeyPressCharacterRandom, App.Settings.SoundEffectVolume);
+        }
+
+        #endregion
+
+        #region EventHandlers
+
+        private void BackgroundMusicSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            AudioPlayer.AdjustBackgroundMusic((float)e.NewValue, Radio.DetermineProximity(GameExecutor.ExecutingGame));
         }
 
         #endregion

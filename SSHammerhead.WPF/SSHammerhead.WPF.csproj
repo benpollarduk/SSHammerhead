@@ -9,21 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Sounds\Effects\key1.wav" />
-    <None Remove="Resources\Sounds\Effects\key10.wav" />
-    <None Remove="Resources\Sounds\Effects\key11.wav" />
-    <None Remove="Resources\Sounds\Effects\key12.wav" />
-    <None Remove="Resources\Sounds\Effects\key13.wav" />
-    <None Remove="Resources\Sounds\Effects\key14.wav" />
-    <None Remove="Resources\Sounds\Effects\key15.wav" />
-    <None Remove="Resources\Sounds\Effects\key2.wav" />
-    <None Remove="Resources\Sounds\Effects\key3.wav" />
-    <None Remove="Resources\Sounds\Effects\key4.wav" />
-    <None Remove="Resources\Sounds\Effects\key5.wav" />
-    <None Remove="Resources\Sounds\Effects\key6.wav" />
-    <None Remove="Resources\Sounds\Effects\key7.wav" />
-    <None Remove="Resources\Sounds\Effects\key8.wav" />
-    <None Remove="Resources\Sounds\Effects\key9.wav" />
+    <None Remove="Resources\Audio\Effects\key1.wav" />
+    <None Remove="Resources\Audio\Effects\key10.wav" />
+    <None Remove="Resources\Audio\Effects\key11.wav" />
+    <None Remove="Resources\Audio\Effects\key12.wav" />
+    <None Remove="Resources\Audio\Effects\key13.wav" />
+    <None Remove="Resources\Audio\Effects\key14.wav" />
+    <None Remove="Resources\Audio\Effects\key15.wav" />
+    <None Remove="Resources\Audio\Effects\key2.wav" />
+    <None Remove="Resources\Audio\Effects\key3.wav" />
+    <None Remove="Resources\Audio\Effects\key4.wav" />
+    <None Remove="Resources\Audio\Effects\key5.wav" />
+    <None Remove="Resources\Audio\Effects\key6.wav" />
+    <None Remove="Resources\Audio\Effects\key7.wav" />
+    <None Remove="Resources\Audio\Effects\key8.wav" />
+    <None Remove="Resources\Audio\Effects\key9.wav" />
+    <None Remove="Resources\Audio\Music\radio.mp3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,49 +41,52 @@
   </ItemGroup>
     
   <ItemGroup>
-    <Content Include="Resources\Sounds\Effects\key1.wav">
+    <Content Include="Resources\Audio\Effects\key1.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key10.wav">
+    <Content Include="Resources\Audio\Effects\key10.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key11.wav">
+    <Content Include="Resources\Audio\Effects\key11.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key12.wav">
+    <Content Include="Resources\Audio\Effects\key12.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key13.wav">
+    <Content Include="Resources\Audio\Effects\key13.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key14.wav">
+    <Content Include="Resources\Audio\Effects\key14.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key15.wav">
+    <Content Include="Resources\Audio\Effects\key15.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key2.wav">
+    <Content Include="Resources\Audio\Effects\key2.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key3.wav">
+    <Content Include="Resources\Audio\Effects\key3.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key4.wav">
+    <Content Include="Resources\Audio\Effects\key4.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key5.wav">
+    <Content Include="Resources\Audio\Effects\key5.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key6.wav">
+    <Content Include="Resources\Audio\Effects\key6.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key7.wav">
+    <Content Include="Resources\Audio\Effects\key7.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key8.wav">
+    <Content Include="Resources\Audio\Effects\key8.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Sounds\Effects\key9.wav">
+    <Content Include="Resources\Audio\Effects\key9.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Audio\Music\radio.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
