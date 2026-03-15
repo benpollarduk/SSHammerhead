@@ -187,6 +187,14 @@ namespace SSHammerhead.WPF.Windows
             ShowNotification("Save/Load", new PersistenceControl(game));
         }
 
+        private void FullScreenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+                WindowState = WindowState.Normal;
+            else
+                WindowState = WindowState.Maximized;
+        }
+
         #endregion
 
         #region EventHandlers

@@ -59,7 +59,7 @@ namespace SSHammerhead.WPF.Controls
         /// <summary>
         /// Identifies the WindowControl.CornerRadius property.
         /// </summary>
-        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(WindowControl), new PropertyMetadata(new CornerRadius(2)));
+        public static readonly DependencyProperty CornerRadiusProperty = DependencyProperty.Register(nameof(CornerRadius), typeof(CornerRadius), typeof(WindowControl));
 
         #endregion
 

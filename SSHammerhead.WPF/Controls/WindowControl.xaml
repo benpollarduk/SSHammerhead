@@ -30,17 +30,12 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:WindowControl}, Path=Title, Mode=OneWay}" FontFamily="{StaticResource MainControlFontFamily}" Foreground="{StaticResource MainControlForegroundBrush}" FontSize="12" Margin="10" Grid.Column="0"/>
-                    <Button Command="{StaticResource CloseCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="20" Height="20" Background="Transparent" BorderBrush="{StaticResource MainControlForegroundBrush}" BorderThickness="1" Foreground="{StaticResource MainControlForegroundBrush}" Grid.Column="1">
+                    <Button Command="{StaticResource CloseCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="20" Height="20" Foreground="{StaticResource MainControlForegroundBrush}" Grid.Column="1">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                                    <Path Data="M 0,0 L 10,10 M 10,0 L 0,10" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" Stretch="Uniform" Margin="4"/>
+                                <Border BorderThickness="0" BorderBrush="Transparent" Background="Transparent">
+                                    <Path Data="{StaticResource CloseIconGeometry}" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" Stretch="Uniform" Margin="4"/>
                                 </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Opacity" Value="0.7"/>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                     </Button>

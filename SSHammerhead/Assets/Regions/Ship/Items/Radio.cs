@@ -15,7 +15,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region Constants
 
         internal const string Name = "Radio";
-        private const string Description = "An old style radio.";
+        private const string Description = "A small, old style portable radio/casette player. In space there are no radio stations to listen to but luckily there is a casette loaded.";
         private const string IsPlayingVariableName = "Radio_IsPlaying";
 
         #endregion
@@ -53,14 +53,18 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             if (!game.VariableManager.Get(IsPlayingVariableName).Equals("True", StringComparison.InvariantCultureIgnoreCase))
                 return 0f;
 
-            // calculate by region
+            // if player has item
+            if (game.Player.FindItem(Name, out _))
+                return 1f;
 
+            // calculate by region
             if (game.Overworld.CurrentRegion == null)
                 return 0f;
 
             if (!game.Overworld.CurrentRegion.Identifier.Name.Equals(SSHammerHead.Name))
                 return 0.1f;
 
+            // TODO: base on path
             var room = game.Overworld.CurrentRegion.CurrentRoom;
 
             return room?.Identifier?.Name switch
@@ -113,7 +117,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 return new Reaction(ReactionResult.Error, "You turn the radio off.");
             });
 
-            return new(Name, Description, commands: [radioOn, radioOff]);
+            return new(Name, Description, true, commands: [radioOn, radioOff]);
         }
 
         #endregion

@@ -126,6 +126,25 @@
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}"/>
                 </StackPanel>
             </TabItem>
+            <TabItem Header="Shortcuts" Style="{StaticResource DarkTabItemStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Ctrl+O" Style="{StaticResource LabelStyle}" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+                    <Label Content="Save/Load" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="1"/>
+                    <Label Content="Ctrl+R" Style="{StaticResource LabelStyle}" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+                    <Label Content="Settings" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="1"/>
+                    <Label Content="F11" Style="{StaticResource LabelStyle}" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+                    <Label Content="Fullscreen" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
