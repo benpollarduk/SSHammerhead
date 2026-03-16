@@ -2,9 +2,6 @@
 using NetAF.Commands;
 using NetAF.Logic;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
-using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
-using SSHammerhead.Assets.Regions.Ship.Rooms.L2;
 using System;
 using System.Collections.Generic;
 
@@ -17,10 +14,16 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         internal const string Name = "Radio";
         private const string Description = "A small, old style portable radio/casette player. In space there are no radio stations to listen to but luckily there is a casette loaded.";
         private const string IsPlayingVariableName = "Radio_IsPlaying";
+        private const float IncrediblyDistant = 0.1f;
+        private const float VeryClose = 1f;
+        private const float TooFar = 0f;
+        private const int MaxPathLength = 5;
 
         #endregion
 
         #region StaticProperties
+
+        private static Item lastGeneratedRadio;
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -36,7 +39,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         #region StaticMethods
 
-
         /// <summary>
         /// Determine the proximity to the radio, as a normalised value.
         /// </summary>
@@ -45,49 +47,42 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         public static float DetermineProximity(Game game)
         {
             if (game == null)
-                return 0f;
+                return TooFar;
+
+            if (lastGeneratedRadio == null)
+                return TooFar;
 
             if (!game.VariableManager.ContainsVariable(IsPlayingVariableName))
-                return 0f;
+                return TooFar;
 
             if (!game.VariableManager.Get(IsPlayingVariableName).Equals("True", StringComparison.InvariantCultureIgnoreCase))
-                return 0f;
+                return TooFar;
 
             // if player has item
             if (game.Player.FindItem(Name, out _))
-                return 1f;
+                return VeryClose;
 
             // calculate by region
             if (game.Overworld.CurrentRegion == null)
-                return 0f;
+                return TooFar;
 
-            if (!game.Overworld.CurrentRegion.Identifier.Name.Equals(SSHammerHead.Name))
-                return 0.1f;
+            // base on region
+            if (!game.Overworld.CurrentRegion.TryLocateItem(lastGeneratedRadio, out var radioRoom))
+                return IncrediblyDistant;
 
-            // TODO: base on path
-            var room = game.Overworld.CurrentRegion.CurrentRoom;
+            // base on path length
+            if (!game.Overworld.CurrentRegion.TryFindShortestPath(game.Overworld.CurrentRegion.CurrentRoom, radioRoom, out var path))
+                return IncrediblyDistant;
 
-            return room?.Identifier?.Name switch
-            {
-                Bridge.Name => 0.4f,
-                BridgePort.Name => 0.3f,
-                BridgeStarboard.Name => 0.3f,
-                BridgeTunnel.Name => 0.5f,
-                BridgeTunnelVertical.Name => 0.65f,
-                BridgeTunnelEntry.Name => 0.8f,
-                CentralHull.Name => 1f,
-                Booster.Name => 0.65f,
-                MedicalRoom.Name => 0.65f,
-                StarboardWing.Name => 0.65f,
-                Laboratory.Name => 0.5f,
-                StasisChamber.Name => 0.8f,
-                StarboardWingInner.Name => 0.8f,
-                StarboardWingOuter.Name => 0.65f,
-                EngineRoom.Name => 0.5f,
-                Airlock.Name => 0.4f,
-                SupplyRoom.Name => 0.4f,
-                _ => 0f
-            };
+            // get length
+            var length = path.Count - 1;
+
+            // check max path length
+            if (length > MaxPathLength)
+                return IncrediblyDistant;
+
+            // determine based on path length
+            return VeryClose - (length / (float)MaxPathLength);
         }
 
         #endregion
@@ -110,14 +105,15 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             radioOff = new CustomCommand(new CommandHelp("Radio Off", "Turn the radio off."), false, false, (g, a) =>
             {
-                g.VariableManager.Add(IsPlayingVariableName, true.ToString());
+                g.VariableManager.Add(IsPlayingVariableName, false.ToString());
                 radioOff.IsPlayerVisible = false;
                 radioOn.IsPlayerVisible = true;
 
                 return new Reaction(ReactionResult.Error, "You turn the radio off.");
             });
 
-            return new(Name, Description, true, commands: [radioOn, radioOff]);
+            lastGeneratedRadio = new(Name, Description, true, commands: [radioOn, radioOff]);
+            return lastGeneratedRadio;
         }
 
         #endregion
