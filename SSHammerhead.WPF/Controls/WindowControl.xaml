@@ -23,13 +23,13 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Border BorderThickness="0,0,0,2" BorderBrush="{StaticResource MainControlForegroundBrush}">
+            <Border BorderThickness="0,0,0,2" BorderBrush="{StaticResource MainControlForegroundBrush}" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:WindowControl}, Path=Title, Mode=OneWay}" FontFamily="{StaticResource MainControlFontFamily}" Foreground="{StaticResource MainControlForegroundBrush}" FontSize="12" Margin="10" Grid.Column="0"/>
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:WindowControl}, Path=Title, Mode=OneWay}" FontFamily="{StaticResource MainControlFontFamily}" Foreground="{StaticResource MainControlForegroundBrush}" FontSize="12" FontWeight="Bold" Margin="10" Grid.Column="0"/>
                     <Button Command="{StaticResource CloseCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="20" Height="20" Foreground="{StaticResource MainControlForegroundBrush}" Grid.Column="1">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">

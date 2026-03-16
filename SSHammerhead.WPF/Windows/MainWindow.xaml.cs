@@ -123,7 +123,7 @@ namespace SSHammerhead.WPF.Windows
             );
 
             // have to dynamically find the terminal because it is nested in a window control which prevents naming
-            var hostedGrid = WindowControl.HostedContent as Grid;
+            var hostedGrid = WindowControl?.HostedContent as Grid;
             var teminal = hostedGrid?.Children.OfType<NetAFMarkupTerminal>().FirstOrDefault();
             var configuration = new GameConfiguration(new MarkupAdapter(teminal), FrameBuilderCollections.NaomiMarkup, new NetAF.Assets.Size(80, 30));
 
@@ -162,7 +162,8 @@ namespace SSHammerhead.WPF.Windows
             var window = new WindowControl()
             {
                 Title = title,
-                HostedContent = notification
+                HostedContent = notification,
+                CornerRadius = (CornerRadius)FindResource("WindowCornerRadius")
             };
 
             window.Closed += (_,_) => ActiveNotification = null;

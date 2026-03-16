@@ -26,6 +26,8 @@ namespace SSHammerhead.WPF
         private bool useSoundEffects = true;
         private float soundEffectVolume = 0.5f;
         private float backgroundMusicVolume = 0.5f;
+        private bool showCommandButtons = true;
+        private bool showPrompt = true;
 
         #endregion
 
@@ -135,6 +137,32 @@ namespace SSHammerhead.WPF
             }
         }
 
+        /// <summary>
+        /// Get or set if the command buttons are shown.
+        /// </summary>
+        public bool ShowCommandButtons
+        {
+            get { return showCommandButtons; }
+            set
+            {
+                showCommandButtons = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get or set if the prompt is shown.
+        /// </summary>
+        public bool ShowPrompt
+        {
+            get { return showPrompt; }
+            set
+            {
+                showPrompt = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -163,6 +191,26 @@ namespace SSHammerhead.WPF
             UseSoundEffects = defaults.UseSoundEffects;
             SoundEffectVolume = defaults.SoundEffectVolume;
             BackgroundMusicVolume = defaults.BackgroundMusicVolume;
+        }
+
+        /// <summary>
+        /// Reset the control settings to their default values.
+        /// </summary>
+        public void ResetDefaultControlSettings()
+        {
+            var defaults = new UserSettings();
+
+            ShowCommandButtons = defaults.ShowCommandButtons;
+        }
+
+        /// <summary>
+        /// Reset the settings to their default values.
+        /// </summary>
+        public void ResetDefaultSettings()
+        {
+            ResetDefaultVisualSettings();
+            ResetDefaultAudioSettings();
+            ResetDefaultControlSettings();
         }
 
         /// <summary>

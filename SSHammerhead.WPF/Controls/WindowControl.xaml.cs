@@ -83,5 +83,17 @@ namespace SSHammerhead.WPF.Controls
         }
 
         #endregion
+
+        #region EventHandlers
+
+        private void TitleBar_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (e.ClickCount != 1)
+                return;
+
+            Window.GetWindow(this)?.DragMove();
+        }
+
+        #endregion
     }
 }

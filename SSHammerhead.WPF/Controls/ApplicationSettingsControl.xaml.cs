@@ -32,6 +32,11 @@ namespace SSHammerhead.WPF.Controls
             App.Settings.ResetDefaultAudioSettings();
         }
 
+        private void ResetControlSettingsCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            App.Settings.ResetDefaultControlSettings();
+        }
+
         private void TestSoundEffectVolumeCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             AudioPlayer.PlaySoundEffect(Audio.SoundEffect.KeyPressCharacterRandom, App.Settings.SoundEffectVolume);

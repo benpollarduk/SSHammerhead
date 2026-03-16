@@ -15,6 +15,7 @@
             </ResourceDictionary.MergedDictionaries>
             <RoutedUICommand x:Key="ResetVisualSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="ResetAudioSettingsCommand" Text="Reset"/>
+            <RoutedUICommand x:Key="ResetControlSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="TestSoundEffectVolumeCommand" Text="Test"/>
             <converters:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
             <Style x:Key="CheckBoxStyle" BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox">
@@ -54,6 +55,7 @@
     <UserControl.CommandBindings>
         <CommandBinding x:Name="ResetVisualSettingsCommandBinding" Command="{StaticResource ResetVisualSettingsCommand}" Executed="ResetVisualSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="ResetAudioSettingsCommandBinding" Command="{StaticResource ResetAudioSettingsCommand}" Executed="ResetAudioSettingsCommandBinding_Executed"/>
+        <CommandBinding x:Name="ResetControlSettingsCommandBinding" Command="{StaticResource ResetControlSettingsCommand}" Executed="ResetControlSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="TestSoundEffectVolumeCommandBinding" Command="{StaticResource TestSoundEffectVolumeCommand}" Executed="TestSoundEffectVolumeCommandBinding_Executed"/>
     </UserControl.CommandBindings>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
@@ -87,7 +89,6 @@
                                 <Label Content="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="2"/>
                             </Grid>
                         </StackPanel>
-                        
                     </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}"/>
                 </StackPanel>
@@ -124,6 +125,17 @@
                         </Grid>
                     </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Control" Style="{StaticResource DarkTabItemStyle}">
+                <StackPanel>
+                    <GroupBox Header="Input" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <CheckBox Content="Show command buttons?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowCommandButtons, Mode=TwoWay}"/>
+                            <CheckBox Content="Show prompt?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowPrompt, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetControlSettingsCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Shortcuts" Style="{StaticResource DarkTabItemStyle}">
