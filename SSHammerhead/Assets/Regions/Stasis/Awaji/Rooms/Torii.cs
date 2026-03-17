@@ -16,7 +16,8 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
         #region Constants
 
         internal const string Name = "Torii";
-        private const string Description = "The Torri is on a small stony island.";
+        private const string Description = "The Torri sits upon a small stony island. The sound of chirping seaguls fills the air.";
+        private const string Introduction = $"As you row the boat cuts through the waves and eventually comes to a rest against the low rock at the base of the {Name}.";
         private const string AwajiCodeLogName = "AwajiCode";
 
         #endregion
@@ -30,7 +31,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
                 new Section(["Looking around you realise just how isolated you really are.", "The gentle but warm breeze on your face feels fantastic.", "You let out a deep breath, almost a sigh. This moment is feels so surreal after the confinements of the ship.", "Maybe Anne craved this freedom?"]),
                 new Section(["The seagulls chirp and chatter as they circle in the sky above the islands.", "You wonder how it would feel to be a seagull. They must feel so free."]),
                 new Section(["You imagine having wings.", "You imagine the warm breeze flowing through your feathers as you circle in the sky high above the islands.", "The feeling of flying is exhilarating."]),
-                new Section(["You open your eyes and see another seagull flying so close that your wing almost brushes it's wing.", "Another couple of gulls are flying just above you", "The world feels so big right now."]),
+                new Section(["You open your eyes and see another seagull flying so close that your wing almost brushes it's wing.", "Another couple of gulls are flying just above you.", "The world feels so big right now."]),
                 new Section(["Looking down there are other gulls below you.", "However, their positions don't appear to be random like they looked from the island...", "Viewed from above they form the distinct shape of two characters:"]),
                 new Section([LaserBarrier.UnlockCode3]),
                 new Section(["Yes, there is a definite pattern:"]),
@@ -49,7 +50,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
 
         public Room Instantiate()
         {
-            var survey = new CustomCommand(new CommandHelp("Survey", $"Survey the area."), true, true, (g, _) =>
+            var survey = new CustomCommand(new CommandHelp("Look up", $"Look upwards towards the sky."), true, true, (g, _) =>
             {
                 g.VariableManager.Add(LaserBarrier.UnlockCode1Variable, LaserBarrier.UnlockCode1);
                 g.NoteManager.Add(AwajiCodeLogName, $"The code from {AnneTemplate.Name}'s dream was {LaserBarrier.UnlockCode3}.");
@@ -64,7 +65,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
                 return new Reaction(ReactionResult.GameModeChanged, string.Empty);
             });
 
-            return new Room(Name, Description, commands: [survey]);
+            return new Room(Name, Description, Introduction, commands: [survey]);
         }
 
         #endregion

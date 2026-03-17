@@ -65,7 +65,7 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <controls:NetAFPrompt Style="{StaticResource DarkPromptStyle}" Margin="10,0,0,10"  Visibility="{Binding Source={x:Static top:App.Settings}, Path=ShowPrompt, Mode=OneWay, Converter={StaticResource BooleanToVisibilityHiddenConverter}}" Grid.Column="0" KeyPressed="NetAFPrompt_KeyPressed"/>
+                        <controls:NetAFPrompt Style="{StaticResource DarkPromptStyle}" Margin="10,0,0,10"  Visibility="{Binding Source={x:Static top:App.Settings}, Path=ShowPrompt, Mode=OneWay, Converter={StaticResource BooleanToVisibilityHiddenConverter}}" Grid.Column="0" KeyPressed="NetAFPrompt_KeyPressed" Loaded="NetAFPrompt_Loaded"/>
                         <Button Command="{StaticResource OpenPersistenceCommand}" Style="{StaticResource DefaultDarkButtonStyle}" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=IsPersistenceAvailable, Mode=OneWay}" Margin="10,0,0,10" Grid.Column="1" ToolTip="Save/Load" Width="40">
                             <Path Data="{StaticResource SaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
                         </Button>

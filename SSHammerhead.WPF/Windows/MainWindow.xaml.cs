@@ -23,6 +23,7 @@ namespace SSHammerhead.WPF.Windows
         #region Fields
 
         private Game? game;
+        private TextBox? promptTextbox;
 
         #endregion
 
@@ -164,9 +165,22 @@ namespace SSHammerhead.WPF.Windows
                 CornerRadius = (CornerRadius)FindResource("WindowCornerRadius")
             };
 
-            window.Closed += (_,_) => ActiveNotification = null;
+            window.Closed += (_,_) =>
+            {
+                ActiveNotification = null;
+                FocusOnPromptTextBox();
+            };
 
             ActiveNotification = window;
+        }
+
+        private void FocusOnPromptTextBox()
+        {
+            if (promptTextbox == null)
+                return;
+
+            promptTextbox.Focus();
+            Keyboard.Focus(promptTextbox);
         }
 
         #endregion
@@ -206,11 +220,24 @@ namespace SSHammerhead.WPF.Windows
         private void ButtonLayout_ButtonSelected(object sender, EventArgs e)
         {
             HandleInput(null);
+            FocusOnPromptTextBox();
         }
 
         private void WindowControl_Closed(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void NetAFPrompt_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is not NetAFPrompt prompt)
+                return;
+
+            if (prompt.Content is not TextBox textbox)
+                return;
+
+            promptTextbox = textbox;
+            FocusOnPromptTextBox();
         }
 
         #endregion

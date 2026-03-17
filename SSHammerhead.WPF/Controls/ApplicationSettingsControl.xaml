@@ -45,6 +45,13 @@
             <Style x:Key="GroupBoxStyle" BasedOn="{StaticResource DarkGroupBoxStyle}" TargetType="GroupBox">
                 <Setter Property="Margin" Value="2"/>
                 <Setter Property="Padding" Value="4"/>
+                <Setter Property="HeaderTemplate">
+                    <Setter.Value>
+                        <DataTemplate>
+                            <Label Content="{Binding}" Style="{StaticResource LabelStyle}" FontWeight="Bold" Margin="-4,0,0,0"/>
+                        </DataTemplate>
+                    </Setter.Value>
+                </Setter>
             </Style>
             <GridLength x:Key="TitleLabelColumnWidth">150</GridLength>
             <GridLength x:Key="SliderColumnWidth">200</GridLength>
