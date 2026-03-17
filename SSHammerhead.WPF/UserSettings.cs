@@ -31,6 +31,7 @@ namespace SSHammerhead.WPF
         private float backgroundMusicVolume = 0.5f;
         private bool showCommandButtons = true;
         private bool showPrompt = true;
+        private int fontSizeModifier = 0;
 
         #endregion
 
@@ -132,6 +133,19 @@ namespace SSHammerhead.WPF
         }
 
         /// <summary>
+        /// Get or set the fontsize modifier.
+        /// </summary>
+        public int FontSizeModifier
+        {
+            get { return fontSizeModifier; }
+            set
+            {
+                fontSizeModifier = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Get or set if the sound effects are used.
         /// </summary>
         public bool UseSoundEffects
@@ -215,6 +229,8 @@ namespace SSHammerhead.WPF
 
             ShowCommands = defaults.ShowCommands;
             ShowKey = defaults.ShowKey;
+
+            FontSizeModifier = defaults.FontSizeModifier;
         }
 
         /// <summary>

@@ -15,6 +15,55 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
-        <controls:NetAFFileManager x:Name="FileManager" Style="{StaticResource DarkNetAFFileManagerStyle}" IsEnabled="True"/>
+        <controls:NetAFFileManager x:Name="FileManager" IsEnabled="True">
+            <controls:NetAFFileManager.Style>
+                <Style TargetType="{x:Type controls:NetAFFileManager}" BasedOn="{StaticResource DarkNetAFFileManagerStyle}">
+                    <Setter Property="controls:NetAFFileManager.NewButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PersistenceDarkButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource NewSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="controls:NetAFFileManager.DeleteButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PersistenceDarkButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource DeleteSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="controls:NetAFFileManager.SaveButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PersistenceDarkButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource UpdateSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="controls:NetAFFileManager.LoadButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PersistenceDarkButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource LoadSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </controls:NetAFFileManager.Style>
+        </controls:NetAFFileManager>
     </Grid>
 </UserControl>

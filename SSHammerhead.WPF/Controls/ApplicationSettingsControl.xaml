@@ -97,7 +97,21 @@
                             </Grid>
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Header="Frame" Style="{StaticResource GroupBoxStyle}">
+                    <GroupBox Header="Font" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                    <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
+                                    <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Size Modifier:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                                <Slider Minimum="-4" Maximum="4" TickFrequency="1" IsSnapToTickEnabled="True" Style="{StaticResource SliderStyle}" Value="{Binding Path=FontSizeModifier, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
+                                <Label Content="{Binding Path=FontSizeModifier, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=0}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Information" Style="{StaticResource GroupBoxStyle}">
                         <StackPanel>
                             <CheckBox Content="Show commands?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowCommands, Mode=TwoWay}"/>
                             <CheckBox Content="Show key?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowKey, Mode=TwoWay}"/>

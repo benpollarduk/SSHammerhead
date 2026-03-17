@@ -9,21 +9,16 @@ namespace SSHammerhead.WPF
             get
             {
                 FlowDocumentTheme theme = DefaultTheme.FlowDocument;
-                /*
-                var foreground = new SolidColorBrush(Color.FromRgb(180, 180, 255));
-                var fontFamily = new FontFamily("DIN OT");
 
-                theme.Heading1.Foreground = foreground;
-                theme.Heading2.Foreground = foreground;
-                theme.Heading3.Foreground = foreground;
-                theme.Heading4.Foreground = foreground;
-                theme.Paragraph.Foreground = foreground;
+                var offset = 6;  //App.Settings.FontSizeModifier;
 
-                theme.Heading1.FontFamily = fontFamily;
-                theme.Heading2.FontFamily = fontFamily;
-                theme.Heading3.FontFamily = fontFamily;
-                theme.Heading4.FontFamily = fontFamily;
-                theme.Paragraph.FontFamily = fontFamily;*/
+                theme.Monospace.FontSize += offset;
+                theme.Paragraph.FontSize += offset;
+                theme.Heading1.FontSize += offset;
+                theme.Heading2.FontSize += offset;
+                theme.Heading3.FontSize += offset;
+                theme.Heading4.FontSize += offset;
+
                 return theme;
             }
         }

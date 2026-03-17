@@ -197,7 +197,16 @@ namespace SSHammerhead.WPF.Windows
             if (game == null)
                 return;
 
-            ShowNotification("Save/Load", new PersistenceControl(game));
+            var persistenceControl = new PersistenceControl(game);
+
+            // close on loaded
+            persistenceControl.FileManager.RestorePointLoaded += (_, _) =>
+            {
+                ActiveNotification = null;
+                FocusOnPromptTextBox();
+            };
+
+            ShowNotification("Save/Load", persistenceControl);
         }
 
         private void FullScreenCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
