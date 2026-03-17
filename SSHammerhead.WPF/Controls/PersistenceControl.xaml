@@ -45,7 +45,7 @@
                             <Style TargetType="{x:Type Button}" BasedOn="{StaticResource PersistenceDarkButtonStyle}">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <Path Data="{StaticResource UpdateSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
+                                        <Path Data="{StaticResource SaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}" Stretch="Uniform" Width="20" Height="20" />
                                     </Setter.Value>
                                 </Setter>
                             </Style>

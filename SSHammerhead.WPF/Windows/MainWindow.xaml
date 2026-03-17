@@ -26,6 +26,7 @@
             <converters:ObjectNullToBooleanConverter x:Key="ObjectNullToBooleanConverter"/>
             <converters:BooleanToVisibilityCollapsedConverter x:Key="BooleanToVisibilityCollapsedConverter"/>
             <converters:BooleanToVisibilityHiddenConverter x:Key="BooleanToVisibilityHiddenConverter"/>
+            <converters:IntToModifiedFlowDocumentThemeConverter x:Key="IntToModifiedFlowDocumentThemeConverter"/>
         </ResourceDictionary>
     </Window.Resources>
     <Window.CommandBindings>
@@ -47,7 +48,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <controls:NetAFMarkupTerminal Margin="10" FlowDocumentTheme="{x:Static top:SSHammerheadThemes.SSHHTheme}" Grid.Row="0">
+                    <controls:NetAFMarkupTerminal Margin="10" FlowDocumentTheme="{Binding Source={x:Static top:App.Settings}, Path=FontSizeModifier, Mode=OneWay, Converter={StaticResource IntToModifiedFlowDocumentThemeConverter}}" Grid.Row="0">
                         <controls:NetAFMarkupTerminal.Style>
                             <Style TargetType="controls:NetAFMarkupTerminal" BasedOn="{StaticResource DarkMarkupTerminalStyle}">
                                 <Style.Triggers>

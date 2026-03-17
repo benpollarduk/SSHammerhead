@@ -50,7 +50,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
 
         public Room Instantiate()
         {
-            var survey = new CustomCommand(new CommandHelp("Look up", $"Look upwards towards the sky."), true, true, (g, _) =>
+            var survey = new CustomCommand(new CommandHelp("Look Up", $"Look upwards towards the sky."), true, true, (g, _) =>
             {
                 g.VariableManager.Add(LaserBarrier.UnlockCode1Variable, LaserBarrier.UnlockCode1);
                 g.NoteManager.Add(AwajiCodeLogName, $"The code from {AnneTemplate.Name}'s dream was {LaserBarrier.UnlockCode3}.");

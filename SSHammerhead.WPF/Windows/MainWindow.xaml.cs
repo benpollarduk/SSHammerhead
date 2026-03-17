@@ -12,6 +12,7 @@ using SSHammerhead.WPF.Controls;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Diagnostics;
 
 namespace SSHammerhead.WPF.Windows
 {
@@ -106,6 +107,14 @@ namespace SSHammerhead.WPF.Windows
             {
                 Update(x.Game);
                 AudioPlayer.AdjustBackgroundMusic(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
+            });
+            EventBus.Subscribe<NoteAdded>(x =>
+            {
+                Debug.WriteLine($"Note added: {x.Note}");
+            });
+            EventBus.Subscribe<NoteUpdated>(x =>
+            {
+                Debug.WriteLine($"Note updated: {x.Note}");
             });
         }
 
