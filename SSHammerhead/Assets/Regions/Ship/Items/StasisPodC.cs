@@ -8,11 +8,10 @@ using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
-using System;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
-    internal class StasisPodC(ExaminationCallback examination) : StasisPod(Name, Description)
+    internal class StasisPodC() : StasisPod(Name, Description)
     {
         #region Constants
 
@@ -55,15 +54,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
                 enterStasisCommand.IsPlayerVisible = false;
 
-                // make stasis pod a online
-                if (g.Overworld.CurrentRegion.CurrentRoom.FindItem(StasisPodA.Name, out var stasisPodA))
-                {
-                    var command = Array.Find(stasisPodA.Commands, x => x.Help.Command.Equals(StasisPodA.EnterStasisCommandName));
-
-                    if (command != null)
-                        command.IsPlayerVisible = true;
-                }
-
                 var reaction = PlayableCharacterManager.Switch(AnneTemplate.Identifier, g);
 
                 if (reaction.Result == ReactionResult.Error)
@@ -94,7 +84,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 enableStasisCommand
             ];
 
-            return new Item(Name, Description, examination: examination, commands: commands, interaction: DefaultInteraction);
+            return new Item(Name, Description, commands: commands, interaction: DefaultInteraction);
         }
 
         #endregion

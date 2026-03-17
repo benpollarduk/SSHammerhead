@@ -90,6 +90,12 @@
                             </Grid>
                         </StackPanel>
                     </GroupBox>
+                    <GroupBox Header="Frame" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <CheckBox Content="Show commands?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowCommands, Mode=TwoWay}"/>
+                            <CheckBox Content="Show key?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowKey, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}"/>
                 </StackPanel>
             </TabItem>

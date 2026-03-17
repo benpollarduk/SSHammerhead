@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SSHammerhead\SSHammerhead.csproj" />
+    <ProjectReference Include="..\SSHammerhead\SSHammerhead.csproj" AdditionalProperties="ExcludeAudio=true" />
   </ItemGroup>
 
   <Target Name="CopyImages" AfterTargets="Build">

@@ -9,7 +9,6 @@ using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Audio;
 using SSHammerhead.Configuration;
 using SSHammerhead.WPF.Controls;
-using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
@@ -129,7 +128,6 @@ namespace SSHammerhead.WPF.Windows
 
             var sceneInterpreter = new InputInterpreter
             (
-                new FrameCommandInterpreter(),
                 new GlobalCommandInterpreter(),
                 new ExecutionCommandInterpreter(),
                 new CustomCommandInterpreter(),

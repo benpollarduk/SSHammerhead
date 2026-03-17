@@ -18,6 +18,9 @@
     <Content Include="Resources\Images\space.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(ExcludeAudio)' != 'true'">
     <Content Include="Resources\Audio\Effects\key1.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -68,11 +71,18 @@
     </Content>
   </ItemGroup>
 
+  <ItemGroup Condition="'$(ExcludeAudio)' == 'true'">
+    <Compile Remove="Audio\**" />
+  </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="NAudio" Version="2.3.0" />
     <PackageReference Include="NetAF" Version="3.14.0" />
     <PackageReference Include="NetAF.Imaging" Version="1.1.6" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(ExcludeAudio)' != 'true'">
+    <PackageReference Include="NAudio" Version="2.3.0" />
   </ItemGroup>
 
 </Project>

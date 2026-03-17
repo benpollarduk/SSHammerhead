@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using NetAF.Rendering;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -23,6 +24,8 @@ namespace SSHammerhead.WPF
         private double crtBrightness = 0.65;
         private double crtIntensity = 0.2;
         private double crtCurvatureIntensity = 0.3;
+        private bool showCommands = true;
+        private bool showKey = true;
         private bool useSoundEffects = true;
         private float soundEffectVolume = 0.5f;
         private float backgroundMusicVolume = 0.5f;
@@ -95,6 +98,36 @@ namespace SSHammerhead.WPF
             {
                 crtCurvatureIntensity = Math.Clamp(value, 0, 1);
                 OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get or set if the commands are shown.
+        /// </summary>
+        public bool ShowCommands
+        {
+            get { return showCommands; }
+            set
+            {
+                showCommands = value;
+                OnPropertyChanged();
+
+                FrameProperties.DisplayCommandList = value;
+            }
+        }
+
+        /// <summary>
+        /// Get or set if the key is shown.
+        /// </summary>
+        public bool ShowKey
+        {
+            get { return showKey; }
+            set
+            {
+                showKey = value;
+                OnPropertyChanged();
+
+                FrameProperties.KeyType = value ? KeyType.Dynamic : KeyType.None;
             }
         }
 
@@ -179,6 +212,9 @@ namespace SSHammerhead.WPF
             CrtBrightness = defaults.CrtBrightness;
             CrtIntensity = defaults.CrtIntensity;
             CrtCurvatureIntensity = defaults.CrtCurvatureIntensity;
+
+            ShowCommands = defaults.ShowCommands;
+            ShowKey = defaults.ShowKey;
         }
 
         /// <summary>
