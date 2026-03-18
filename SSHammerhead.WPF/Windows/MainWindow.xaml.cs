@@ -124,6 +124,8 @@ namespace SSHammerhead.WPF.Windows
                 if (App.Settings.AutoSave)
                     AutoSave.Save(game, out _);
             });
+
+            App.Settings.FramePropertiesChanged += (_, _) => game?.Mode.Render(game);
         }
 
         private void ShowNote(NoteEntry note)

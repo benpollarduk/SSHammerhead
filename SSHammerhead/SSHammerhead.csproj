@@ -76,7 +76,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF" Version="3.15.0" />
+    <PackageReference Include="NetAF" Version="3.15.1" />
     <PackageReference Include="NetAF.Imaging" Version="1.1.6" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>

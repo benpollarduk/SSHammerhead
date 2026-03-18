@@ -116,6 +116,7 @@ namespace SSHammerhead.WPF
                 OnPropertyChanged();
 
                 FrameProperties.CommandListType = value;
+                FramePropertiesChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -131,6 +132,7 @@ namespace SSHammerhead.WPF
                 OnPropertyChanged();
 
                 FrameProperties.KeyType = value;
+                FramePropertiesChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -146,6 +148,7 @@ namespace SSHammerhead.WPF
                 OnPropertyChanged();
 
                 FrameProperties.ShowMapInScenes = value;
+                FramePropertiesChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -239,6 +242,11 @@ namespace SSHammerhead.WPF
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Occurs when a frame property changes.
+        /// </summary>
+        public event EventHandler? FramePropertiesChanged;
 
         #endregion
 

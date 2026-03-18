@@ -19,7 +19,6 @@
             <RoutedUICommand x:Key="ResetPersistenceSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="TestSoundEffectVolumeCommand" Text="Test"/>
             <RoutedUICommand x:Key="RestartGameCommand" Text="Restart"/>
-            <converters:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
             <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
             <Style x:Key="CheckBoxStyle" BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox">
                 <Setter Property="Margin" Value="2"/>
@@ -45,9 +44,6 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="ButtonStyle" BasedOn="{StaticResource DefaultDarkButtonStyle}" TargetType="Button">
-                <Setter Property="Margin" Value="2"/>
-            </Style>
             <Style x:Key="GroupBoxStyle" BasedOn="{StaticResource DarkGroupBoxStyle}" TargetType="GroupBox">
                 <Setter Property="Margin" Value="2"/>
                 <Setter Property="Padding" Value="4"/>
@@ -59,9 +55,14 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+            <Style x:Key="ButtonStyle" BasedOn="{StaticResource DefaultDarkButtonStyle}" TargetType="Button">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <Style x:Key="ResetButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonStyle}">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
             <GridLength x:Key="TitleLabelColumnWidth">150</GridLength>
-            <GridLength x:Key="SliderColumnWidth">200</GridLength>
-            <GridLength x:Key="ValueLabelColumnWidth">50</GridLength>
+            <GridLength x:Key="SliderColumnWidth">250</GridLength>
             <GridLength x:Key="TestButtonColumnWidth">Auto</GridLength>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -90,18 +91,14 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
                                     <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
-                                    <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
                                 </Grid.ColumnDefinitions>
-                                <CheckBox Content="Scanlines" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtScanlines, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
+                                <CheckBox Content="Scanlines" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseCrtScanlines, Mode=TwoWay}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
                                 <Label Content="Brightness:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtBrightness, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
-                                <Label Content="{Binding Path=CrtBrightness, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="2"/>
                                 <Label Content="Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtIntensity, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
-                                <Label Content="{Binding Path=CrtIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="2"/>
                                 <Label Content="Curvature intensity:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
-                                <Label Content="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="2"/>
                             </Grid>
                         </StackPanel>
                     </GroupBox>
@@ -111,11 +108,9 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
                                     <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
-                                    <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Content="Size modifier:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
                                 <Slider Minimum="-4" Maximum="4" TickFrequency="1" IsSnapToTickEnabled="True" Style="{StaticResource SliderStyle}" Value="{Binding Path=FontSizeModifier, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-                                <Label Content="{Binding Path=FontSizeModifier, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=0}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
                             </Grid>
                         </StackPanel>
                     </GroupBox>
@@ -143,7 +138,9 @@
                             <CheckBox Content="Show map in scenes?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowMapInScenes, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
                         </Grid>
                     </GroupBox>
-                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}"/>
+                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}">
+                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                    </Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Audio" Style="{StaticResource DarkTabItemStyle}">
@@ -155,13 +152,11 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
                                     <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
-                                    <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
                                     <ColumnDefinition Width="{StaticResource TestButtonColumnWidth}"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Content="Volume:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=SoundEffectVolume, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-                                <Label Content="{Binding Path=SoundEffectVolume, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
-                                <Button Content="Test" Command="{StaticResource TestSoundEffectVolumeCommand}" Style="{StaticResource ButtonStyle}" Grid.Row="0" Grid.Column="3"/>
+                                <Button Content="Test" Command="{StaticResource TestSoundEffectVolumeCommand}" Style="{StaticResource ButtonStyle}" Grid.Row="0" Grid.Column="2"/>
                             </Grid>
                         </StackPanel>
                     </GroupBox>
@@ -170,14 +165,14 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
                                 <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
-                                <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Volume:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
                             <Slider Name="BackgroundMusicSlider" Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=BackgroundMusicVolume, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" ValueChanged="BackgroundMusicSlider_ValueChanged"/>
-                            <Label Content="{Binding Path=BackgroundMusicVolume, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
                         </Grid>
                     </GroupBox>
-                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}"/>
+                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}">
+                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                    </Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Control" Style="{StaticResource DarkTabItemStyle}">
@@ -188,7 +183,9 @@
                             <CheckBox Content="Show prompt?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowPrompt, Mode=TwoWay}"/>
                         </StackPanel>
                     </GroupBox>
-                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetControlSettingsCommand}"/>
+                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetControlSettingsCommand}">
+                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                    </Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Persistence" Style="{StaticResource DarkTabItemStyle}">
@@ -198,7 +195,9 @@
                             <CheckBox Content="Auto save when entering a room?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=AutoSave, Mode=TwoWay}"/>
                         </StackPanel>
                     </GroupBox>
-                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetPersistenceSettingsCommand}"/>
+                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetPersistenceSettingsCommand}">
+                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                    </Button>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Game" Style="{StaticResource DarkTabItemStyle}">
