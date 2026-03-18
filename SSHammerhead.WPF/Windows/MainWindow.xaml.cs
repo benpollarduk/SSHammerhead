@@ -27,6 +27,7 @@ namespace SSHammerhead.WPF.Windows
 
         private Game? game;
         private TextBox? promptTextbox;
+        private bool firstRun = true;
 
         #endregion
 
@@ -164,8 +165,12 @@ namespace SSHammerhead.WPF.Windows
             configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);
 
             // create additional setup to handle autosaves
-            GameSetupCallback? additionalSetup = g =>
+            GameSetupCallback additionalSetup = g =>
             {
+                // subsequent restarts should not autoload
+                if (!firstRun)
+                    return;
+
                 // if autosave is enabled, attempt to load the autosave file and apply it to the game
                 if (App.Settings.AutoSave)
                 {
@@ -175,7 +180,7 @@ namespace SSHammerhead.WPF.Windows
                 }
 
                 // only the first time, additional restarts should begin at the very start
-                additionalSetup = null;
+                firstRun = false;
             };
 
             GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation, true, additionalSetup));
