@@ -1,6 +1,7 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Logic;
+using NetAF.Logic.Callbacks;
 using SSHammerhead.Assets.Players.Alex;
 using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
@@ -54,7 +55,7 @@ namespace SSHammerhead
             return EndCheckResult.NotEnded;
         }
 
-        public static GameCreator Create(GameConfiguration configuration, Presentation presentation, bool allowAudio)
+        public static GameCreator Create(GameConfiguration configuration, Presentation presentation, bool allowAudio, GameSetupCallback additionalSetup = null)
         {
             static Overworld overworldCreator()
             {
@@ -85,7 +86,7 @@ namespace SSHammerhead
                 return overworld;
             }
 
-            static void setup(Game g, Presentation presentation, bool allowAudio)
+            static void setup(Game g, Presentation presentation, bool allowAudio, GameSetupCallback additionalSetup)
             {
                 // get start positions
                 g.Overworld.FindRegion(SSHammerHead.Name, out var ship);
@@ -140,6 +141,9 @@ namespace SSHammerhead
                     if (ship.TryFindRoom(CentralHull.Name, out var centralHull) && centralHull.FindItem(Radio.Name, out var radio))
                         centralHull.RemoveItem(radio);
                 }
+
+                // invoke any additional setup
+                additionalSetup?.Invoke(g);
             }
 
             return Game.Create(
@@ -148,7 +152,7 @@ namespace SSHammerhead
                 AssetGenerator.Custom(overworldCreator, () => new NaomiTemplate().Instantiate()),
                 new GameEndConditions(CheckForCompletion, CheckForGameOver),
                 configuration,
-                g => setup(g, presentation, allowAudio));
+                g => setup(g, presentation, allowAudio, additionalSetup));
         }
 
         #endregion

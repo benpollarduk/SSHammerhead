@@ -3,6 +3,7 @@ using NetAF.Events;
 using NetAF.Interpretation;
 using NetAF.Logging.Notes;
 using NetAF.Logic;
+using NetAF.Logic.Callbacks;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Markup;
 using NetAF.Targets.WPF.Controls;
@@ -95,10 +96,6 @@ namespace SSHammerhead.WPF.Windows
             EventBus.Subscribe<GameStarted>(x =>
             {
                 game = x.Game;
-
-                if (App.Settings.AutoSave)
-                    AutoSave.Apply(game, out _);
-
                 Update(game);
                 AudioPlayer.StartBackgroundMusic(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
             });
@@ -166,7 +163,22 @@ namespace SSHammerhead.WPF.Windows
             // change configuration prevent using the normal persistence interpreter as this is handled by custom commands
             configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);
 
-            GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation, true));
+            // create additional setup to handle autosaves
+            GameSetupCallback? additionalSetup = g =>
+            {
+                // if autosave is enabled, attempt to load the autosave file and apply it to the game
+                if (App.Settings.AutoSave)
+                {
+                    // if that worked ensure the start room is set
+                    if (AutoSave.Apply(g, out _))
+                        g.Overworld.CurrentRegion.SetStartRoom(g.Overworld.CurrentRegion.CurrentRoom);
+                }
+
+                // only the first time, additional restarts should begin at the very start
+                additionalSetup = null;
+            };
+
+            GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation, true, additionalSetup));
         }
 
         private void HandleInput(Key? key)

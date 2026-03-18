@@ -85,8 +85,6 @@ namespace SSHammerhead.WPF
 
             game.RestoreFrom(restorePoint.Game);
 
-            GameExecutor.Update();
-
             return true;
         }
 
