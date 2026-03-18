@@ -24,14 +24,16 @@ namespace SSHammerhead.WPF
         private double crtBrightness = 0.65;
         private double crtIntensity = 0.2;
         private double crtCurvatureIntensity = 0.3;
-        private bool showCommands = true;
-        private bool showKey = true;
+        private CommandListType commandListType = CommandListType.Minimal;
+        private KeyType keyType = KeyType.Dynamic;
+        private bool showMapInScenes = true;
         private bool useSoundEffects = true;
         private float soundEffectVolume = 0.5f;
         private float backgroundMusicVolume = 0.5f;
         private bool showCommandButtons = true;
         private bool showPrompt = true;
         private int fontSizeModifier = 0;
+        private bool autoSave = true;
 
         #endregion
 
@@ -103,32 +105,47 @@ namespace SSHammerhead.WPF
         }
 
         /// <summary>
-        /// Get or set if the commands are shown.
+        /// Get or set the type of command list.
         /// </summary>
-        public bool ShowCommands
+        public CommandListType CommandListType
         {
-            get { return showCommands; }
+            get { return commandListType; }
             set
             {
-                showCommands = value;
+                commandListType = value;
                 OnPropertyChanged();
 
-                FrameProperties.DisplayCommandList = value;
+                FrameProperties.CommandListType = value;
             }
         }
 
         /// <summary>
-        /// Get or set if the key is shown.
+        /// Get or set the key type.
         /// </summary>
-        public bool ShowKey
+        public KeyType KeyType
         {
-            get { return showKey; }
+            get { return keyType; }
             set
             {
-                showKey = value;
+                keyType = value;
                 OnPropertyChanged();
 
-                FrameProperties.KeyType = value ? KeyType.Dynamic : KeyType.None;
+                FrameProperties.KeyType = value;
+            }
+        }
+
+        /// <summary>
+        /// Get or set if the map is shown in scenes.
+        /// </summary>
+        public bool ShowMapInScenes
+        {
+            get { return showMapInScenes; }
+            set
+            {
+                showMapInScenes = value;
+                OnPropertyChanged();
+
+                FrameProperties.ShowMapInScenes = value;
             }
         }
 
@@ -210,6 +227,19 @@ namespace SSHammerhead.WPF
             }
         }
 
+        /// <summary>
+        /// Get or set if autosave is used.
+        /// </summary>
+        public bool AutoSave
+        {
+            get { return autoSave; }
+            set
+            {
+                autoSave = value;
+                OnPropertyChanged();
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -227,8 +257,9 @@ namespace SSHammerhead.WPF
             CrtIntensity = defaults.CrtIntensity;
             CrtCurvatureIntensity = defaults.CrtCurvatureIntensity;
 
-            ShowCommands = defaults.ShowCommands;
-            ShowKey = defaults.ShowKey;
+            CommandListType = defaults.CommandListType;
+            KeyType = defaults.KeyType;
+            ShowMapInScenes = defaults.ShowMapInScenes;
 
             FontSizeModifier = defaults.FontSizeModifier;
         }
@@ -256,6 +287,16 @@ namespace SSHammerhead.WPF
         }
 
         /// <summary>
+        /// Reset the persistence settings to their default values.
+        /// </summary>
+        public void ResetDefaultPersistenceSettings()
+        {
+            var defaults = new UserSettings();
+
+            AutoSave = defaults.AutoSave;
+        }
+
+        /// <summary>
         /// Reset the settings to their default values.
         /// </summary>
         public void ResetDefaultSettings()
@@ -263,6 +304,7 @@ namespace SSHammerhead.WPF
             ResetDefaultVisualSettings();
             ResetDefaultAudioSettings();
             ResetDefaultControlSettings();
+            ResetDefaultPersistenceSettings();
         }
 
         /// <summary>

@@ -20,7 +20,6 @@ using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
 using SSHammerhead.Commands.Dev;
 using SSHammerhead.Configuration;
-
 namespace SSHammerhead
 {
     public static class TroubleAboardTheSSHammerhead
@@ -150,7 +149,6 @@ namespace SSHammerhead
                 new GameEndConditions(CheckForCompletion, CheckForGameOver),
                 configuration,
                 g => setup(g, presentation, allowAudio));
-
         }
 
         #endregion

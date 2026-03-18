@@ -37,9 +37,19 @@ namespace SSHammerhead.WPF.Controls
             App.Settings.ResetDefaultControlSettings();
         }
 
+        private void ResetPersistenceSettingsCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            App.Settings.ResetDefaultPersistenceSettings();
+        }
+
         private void TestSoundEffectVolumeCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
         {
             AudioPlayer.PlaySoundEffect(Audio.SoundEffect.KeyPressCharacterRandom, App.Settings.SoundEffectVolume);
+        }
+
+        private void RestartGameCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            GameExecutor.Restart();
         }
 
         #endregion

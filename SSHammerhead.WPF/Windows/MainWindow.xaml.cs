@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NetAF.Events;
 using NetAF.Interpretation;
+using NetAF.Logging.Notes;
 using NetAF.Logic;
 using NetAF.Logic.Modes;
 using NetAF.Targets.Markup;
@@ -9,10 +10,10 @@ using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Audio;
 using SSHammerhead.Configuration;
 using SSHammerhead.WPF.Controls;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Controls;
 using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SSHammerhead.WPF.Windows
 {
@@ -94,6 +95,10 @@ namespace SSHammerhead.WPF.Windows
             EventBus.Subscribe<GameStarted>(x =>
             {
                 game = x.Game;
+
+                if (App.Settings.AutoSave)
+                    AutoSave.Apply(game, out _);
+
                 Update(game);
                 AudioPlayer.StartBackgroundMusic(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
             });
@@ -110,12 +115,22 @@ namespace SSHammerhead.WPF.Windows
             });
             EventBus.Subscribe<NoteAdded>(x =>
             {
-                Debug.WriteLine($"Note added: {x.Note}");
+                ShowNote(x.Note);
             });
             EventBus.Subscribe<NoteUpdated>(x =>
             {
-                Debug.WriteLine($"Note updated: {x.Note}");
+                ShowNote(x.Note);
             });
+            EventBus.Subscribe<RoomEntered>(x =>
+            {
+                if (App.Settings.AutoSave)
+                    AutoSave.Save(game, out _);
+            });
+        }
+
+        private void ShowNote(NoteEntry note)
+        {
+            Debug.WriteLine($"Note added: {note.Name}: {note.Content}");
         }
 
         private void SetupAndBeginGame()
@@ -134,7 +149,6 @@ namespace SSHammerhead.WPF.Windows
             // have to dynamically find the terminal because it is nested in a window control which prevents naming
             var hostedGrid = WindowControl?.HostedContent as Grid;
             var teminal = hostedGrid?.Children.OfType<NetAFMarkupTerminal>().FirstOrDefault();
-            var configuration = new GameConfiguration(new MarkupAdapter(teminal), FrameBuilderCollections.NaomiMarkup, new NetAF.Assets.Size(80, 30));
 
             var sceneInterpreter = new InputInterpreter
             (
@@ -143,6 +157,11 @@ namespace SSHammerhead.WPF.Windows
                 new CustomCommandInterpreter(),
                 new SceneCommandInterpreter()
             );
+
+            var adapter = new MarkupAdapter(teminal);
+            var frameBuilders = FrameBuilderCollections.NaomiMarkup;
+            var displaySize = new NetAF.Assets.Size(80, 30);
+            var configuration = new GameConfiguration(adapter, frameBuilders, displaySize);
 
             // change configuration prevent using the normal persistence interpreter as this is handled by custom commands
             configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);

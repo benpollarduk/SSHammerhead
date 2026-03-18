@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:SSHammerhead.WPF.Controls"
         xmlns:converters="clr-namespace:SSHammerhead.WPF.Converters"
         mc:Ignorable="d"
-        DataContext="{x:Static top:App.Settings}" Height="450" Width="800">
+        DataContext="{x:Static top:App.Settings}" Height="500" Width="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,9 +16,15 @@
             <RoutedUICommand x:Key="ResetVisualSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="ResetAudioSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="ResetControlSettingsCommand" Text="Reset"/>
+            <RoutedUICommand x:Key="ResetPersistenceSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="TestSoundEffectVolumeCommand" Text="Test"/>
+            <RoutedUICommand x:Key="RestartGameCommand" Text="Restart"/>
             <converters:DoubleRoundingConverter x:Key="DoubleRoundingConverter"/>
+            <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
             <Style x:Key="CheckBoxStyle" BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox">
+                <Setter Property="Margin" Value="2"/>
+            </Style>
+            <Style x:Key="RadioButtonStyle" BasedOn="{StaticResource DarkRadioButtonStyle}" TargetType="RadioButton">
                 <Setter Property="Margin" Value="2"/>
             </Style>
             <Style x:Key="SliderStyle" BasedOn="{StaticResource DarkSliderStyle}" TargetType="Slider">
@@ -63,7 +69,9 @@
         <CommandBinding x:Name="ResetVisualSettingsCommandBinding" Command="{StaticResource ResetVisualSettingsCommand}" Executed="ResetVisualSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="ResetAudioSettingsCommandBinding" Command="{StaticResource ResetAudioSettingsCommand}" Executed="ResetAudioSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="ResetControlSettingsCommandBinding" Command="{StaticResource ResetControlSettingsCommand}" Executed="ResetControlSettingsCommandBinding_Executed"/>
+        <CommandBinding x:Name="ResetPersistenceSettingsCommandBinding" Command="{StaticResource ResetPersistenceSettingsCommand}" Executed="ResetPersistenceSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="TestSoundEffectVolumeCommandBinding" Command="{StaticResource TestSoundEffectVolumeCommand}" Executed="TestSoundEffectVolumeCommandBinding_Executed"/>
+        <CommandBinding x:Name="RestartGameCommandBinding" Command="{StaticResource RestartGameCommand}" Executed="RestartGameCommandBinding_Executed"/>
     </UserControl.CommandBindings>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
         <TabControl Style="{StaticResource DarkTabControlStyle}" Margin="2">
@@ -91,7 +99,7 @@
                                 <Label Content="Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtIntensity, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
                                 <Label Content="{Binding Path=CrtIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="2"/>
-                                <Label Content="Curvature Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
+                                <Label Content="Curvature intensity:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
                                 <Label Content="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=2}" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="2"/>
                             </Grid>
@@ -105,17 +113,35 @@
                                     <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
                                     <ColumnDefinition Width="{StaticResource ValueLabelColumnWidth}"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Content="Size Modifier:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                                <Label Content="Size modifier:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
                                 <Slider Minimum="-4" Maximum="4" TickFrequency="1" IsSnapToTickEnabled="True" Style="{StaticResource SliderStyle}" Value="{Binding Path=FontSizeModifier, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
                                 <Label Content="{Binding Path=FontSizeModifier, Mode=TwoWay, Converter={StaticResource DoubleRoundingConverter}, ConverterParameter=0}" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="2"/>
                             </Grid>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Information" Style="{StaticResource GroupBoxStyle}">
-                        <StackPanel>
-                            <CheckBox Content="Show commands?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowCommands, Mode=TwoWay}"/>
-                            <CheckBox Content="Show key?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowKey, Mode=TwoWay}"/>
-                        </StackPanel>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Content="Command list type:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                            <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="CommandListType" Grid.Row="0" Grid.Column="1"/>
+                            <RadioButton Content="Minimal" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Minimal}" GroupName="CommandListType" Grid.Row="0" Grid.Column="2"/>
+                            <RadioButton Content="All" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=All}" GroupName="CommandListType" Grid.Row="0" Grid.Column="3"/>
+                            <Label Content="Map key type:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
+                            <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="KeyType" Grid.Row="1" Grid.Column="1"/>
+                            <RadioButton Content="Dynamic" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dynamic}" GroupName="KeyType" Grid.Row="1" Grid.Column="2"/>
+                            <RadioButton Content="Full" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Full}" GroupName="KeyType" Grid.Row="1" Grid.Column="3"/>
+                            <CheckBox Content="Show map in scenes?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowMapInScenes, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+                        </Grid>
                     </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}"/>
                 </StackPanel>
@@ -163,6 +189,21 @@
                         </StackPanel>
                     </GroupBox>
                     <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetControlSettingsCommand}"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Persistence" Style="{StaticResource DarkTabItemStyle}">
+                <StackPanel>
+                    <GroupBox Header="Auto" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <CheckBox Content="Auto save when entering a room?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=AutoSave, Mode=TwoWay}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <Button Content="Reset" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetPersistenceSettingsCommand}"/>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Game" Style="{StaticResource DarkTabItemStyle}">
+                <StackPanel>
+                    <Button Content="Restart" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource RestartGameCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Shortcuts" Style="{StaticResource DarkTabItemStyle}">
