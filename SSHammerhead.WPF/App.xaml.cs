@@ -20,6 +20,8 @@ namespace SSHammerhead.WPF
 
         protected override void OnStartup(StartupEventArgs e)
         {
+            Services.ImageProvider = new WpfImageProvider();
+
             base.OnStartup(e);
 
             Settings = UserSettings.Load();

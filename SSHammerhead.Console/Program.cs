@@ -11,6 +11,8 @@ using SSHammerhead.Console;
 
 try
 {
+    Services.ImageProvider = new ConsoleImageProvider();
+
     EventBus.Subscribe<GameStarted>(x => AudioPlayer.StartBackgroundMusic(1, Radio.DetermineProximity(x.Game)));
     EventBus.Subscribe<GameFinished>(_ => AudioPlayer.StopBackgroundMusic());
     EventBus.Subscribe<GameUpdated>(x => AudioPlayer.AdjustBackgroundMusic(1, Radio.DetermineProximity(x.Game)));

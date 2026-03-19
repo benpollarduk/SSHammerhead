@@ -11,7 +11,7 @@ using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Audio;
 using SSHammerhead.Configuration;
 using SSHammerhead.WPF.Controls;
-using System.Diagnostics;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -28,6 +28,7 @@ namespace SSHammerhead.WPF.Windows
         private Game? game;
         private TextBox? promptTextbox;
         private bool firstRun = true;
+        private Button? notesButton;
 
         #endregion
 
@@ -51,6 +52,15 @@ namespace SSHammerhead.WPF.Windows
             private set { SetValue(ActiveNotificationProperty, value); }
         }
 
+        /// <summary>
+        /// Get the pending notes. 
+        /// </summary>
+        public ObservableCollection<NoteEntry> PendingNotes
+        {
+            get { return (ObservableCollection<NoteEntry>)GetValue(PendingNotesProperty); }
+            private set { SetValue(PendingNotesProperty, value); }
+        }
+
         #endregion
 
         #region DependencyProperties
@@ -65,8 +75,13 @@ namespace SSHammerhead.WPF.Windows
         /// </summary>
         public static readonly DependencyProperty ActiveNotificationProperty = DependencyProperty.Register(nameof(ActiveNotification), typeof(UIElement), typeof(MainWindow));
 
+        /// <summary>
+        /// Identifies the MainWindow.v property.
+        /// </summary>
+        public static readonly DependencyProperty PendingNotesProperty = DependencyProperty.Register(nameof(PendingNotes), typeof(ObservableCollection<NoteEntry>), typeof(MainWindow), new PropertyMetadata(new ObservableCollection<NoteEntry>()));
+
         #endregion
-        
+
         #region StaticProperties
 
         public static IConfiguration? Config { get; private set; }
@@ -113,11 +128,17 @@ namespace SSHammerhead.WPF.Windows
             });
             EventBus.Subscribe<NoteAdded>(x =>
             {
-                ShowNote(x.Note);
-            });
-            EventBus.Subscribe<NoteUpdated>(x =>
-            {
-                ShowNote(x.Note);
+                Dispatcher.Invoke(() =>
+                {
+                    PendingNotes.Add(x.Note);
+
+                    if (notesButton != null && FindResource("FlashButtonAnimationStoryboard") is System.Windows.Media.Animation.Storyboard resourceStoryboard)
+                    {
+                        var storyboard = resourceStoryboard.Clone();
+                        System.Windows.Media.Animation.Storyboard.SetTarget(storyboard, notesButton);
+                        storyboard.Begin();
+                    }
+                });
             });
             EventBus.Subscribe<RoomEntered>(x =>
             {
@@ -126,11 +147,6 @@ namespace SSHammerhead.WPF.Windows
             });
 
             App.Settings.FramePropertiesChanged += (_, _) => game?.Mode.Render(game);
-        }
-
-        private void ShowNote(NoteEntry note)
-        {
-            Debug.WriteLine($"Note added: {note.Name}: {note.Content}");
         }
 
         private void SetupAndBeginGame()
@@ -203,7 +219,7 @@ namespace SSHammerhead.WPF.Windows
             AudioPlayer.PlaySoundEffect(soundEffect, App.Settings.SoundEffectVolume);
         }
 
-        private void ShowNotification(string title, UIElement notification)
+        private WindowControl ShowNotification(string title, UIElement notification)
         {
             var window = new WindowControl()
             {
@@ -219,6 +235,7 @@ namespace SSHammerhead.WPF.Windows
             };
 
             ActiveNotification = window;
+            return window;
         }
 
         private void FocusOnPromptTextBox()
@@ -264,9 +281,23 @@ namespace SSHammerhead.WPF.Windows
                 WindowState = WindowState.Maximized;
         }
 
+        private void OpenNoteManagerCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            var noteManagerViewer = new NoteManagerViewer();
+            noteManagerViewer.RecentEntries = PendingNotes;
+
+            var notification = ShowNotification("Recent Notes", noteManagerViewer);
+            notification.Closed += (_, _) => PendingNotes.Clear();
+        }
+
         #endregion
 
         #region EventHandlers
+
+        private void NotesButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            notesButton = sender as Button;
+        }
 
         private void NetAFPrompt_KeyPressed(object sender, Key e)
         {

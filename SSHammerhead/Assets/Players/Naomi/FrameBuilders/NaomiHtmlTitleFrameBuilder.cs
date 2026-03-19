@@ -15,8 +15,7 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="builder">A builder to use for the text layout.</param>
-    /// <param name="imageProvider">A provider to use images.</param>
-    public sealed class NaomiHtmlTitleFrameBuilder(HtmlBuilder builder, IImageProvider imageProvider) : ITitleFrameBuilder
+    public sealed class NaomiHtmlTitleFrameBuilder(HtmlBuilder builder) : ITitleFrameBuilder
     {
         #region Implementation of ITitleFrameBuilder
 
@@ -37,7 +36,7 @@ namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
 
             try
             {
-                var stream = imageProvider.GetImageAsStream("Resources/Images/space.png");
+                var stream = Services.ImageProvider.GetImageAsStream("Resources/Images/space.png");
                 var imageBuilder = VisualHelper.FromImage(stream, size, CellAspectRatio.Console, new NoTexturizer());
                 var imageAsHtml = HtmlAdapter.ConvertGridVisualBuilderToHtmlString(imageBuilder);
                 builder.Raw(imageAsHtml);

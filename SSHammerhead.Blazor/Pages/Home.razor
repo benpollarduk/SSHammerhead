@@ -60,12 +60,14 @@
             SSHammerhead.Blazor.FrameBuilderCollections.MarinaConsoleEmulation, 
             SSHammerhead.Blazor.FrameBuilderCollections.ScottConsoleEmulation, 
             SSHammerhead.Blazor.FrameBuilderCollections.ZhiyingConsoleEmulation);
+
         BeginGame(presentation, new(80, 48));
     }
 
     private void RunHtml()
     {
-        FrameProperties.DisplayCommandList = false;
+        FrameProperties.CommandListType = CommandListType.None;
+
         var presentation = new Presentation(
             SSHammerhead.Blazor.FrameBuilderCollections.NaomiHtml,
             SSHammerhead.Blazor.FrameBuilderCollections.BotHtml,
@@ -74,6 +76,7 @@
             SSHammerhead.Blazor.FrameBuilderCollections.MarinaHtml,
             SSHammerhead.Blazor.FrameBuilderCollections.ScottHtml,
             SSHammerhead.Blazor.FrameBuilderCollections.ZhiyingHtml);
+
         BeginGame(presentation, new(50, 30));
     }
 
@@ -87,6 +90,8 @@
 
     private void BeginGame(Presentation presentation, Size size)
     {
+        Services.ImageProvider = ImageCache.GetProvider();
+
         if (GameExecutor.IsExecuting)
             GameExecutor.CancelExecution();
 

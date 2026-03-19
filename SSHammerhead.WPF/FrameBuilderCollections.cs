@@ -23,7 +23,7 @@ namespace SSHammerhead.WPF
                 var markupBuilder = new MarkupBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiMarkupTitleFrameBuilder(markupBuilder, new WpfImageProvider()),
+                    new NaomiMarkupTitleFrameBuilder(markupBuilder),
                     new MarkupSceneFrameBuilder(markupBuilder, new MarkupRoomMapBuilder(markupBuilder)),
                     new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder)),
                     new MarkupCommandListFrameBuilder(markupBuilder),

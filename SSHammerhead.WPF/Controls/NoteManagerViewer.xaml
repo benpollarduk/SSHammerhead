@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="SSHammerhead.WPF.Controls.NoteManagerViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SSHammerhead.WPF.Controls"
+             xmlns:notes="clr-namespace:NetAF.Logging.Notes;assembly=NetAF"
+             mc:Ignorable="d" 
+             Width="600" Height="400">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NetAF.WPF;component/Targets/WPF/Styles/Dark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border BorderThickness="0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource DarkScrollBarStyle}"/>
+            </ScrollViewer.Resources>
+            <ItemsControl ItemsSource="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:NoteManagerViewer}, Path=RecentEntries, Mode=OneWay}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type notes:NoteEntry}">
+                        <TextBlock Text="{Binding Path=Content, Mode=OneWay}" Grid.Column="2">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Margin" Value="2,2,2,10"/>
+                                    <Setter Property="FontFamily" Value="{StaticResource MainControlFontFamily}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource MainControlForegroundBrush}"/>
+                                    <Setter Property="Background" Value="{StaticResource MainControlBackgroundBrush}"/>
+                                    <Setter Property="TextWrapping" Value="Wrap"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=HasExpired}" Value="True">
+                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                        </DataTrigger>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter Property="Foreground" Value="{StaticResource MainControlForegroundDisabledBrush}"/>
+                                            <Setter Property="Background" Value="{StaticResource MainControlBackgroundDisabledBrush}"/>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Border>
+</UserControl>

@@ -12,10 +12,14 @@
   <ItemGroup>
     <None Remove="Resources\Images\space.jpg" />
     <None Remove="Resources\Images\space.png" />
+    <None Remove="Resources\Images\torii.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Resources\Images\space.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Images\torii.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -76,7 +80,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF" Version="3.15.1" />
+    <PackageReference Include="NetAF" Version="3.15.4" />
     <PackageReference Include="NetAF.Imaging" Version="1.1.6" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
   </ItemGroup>

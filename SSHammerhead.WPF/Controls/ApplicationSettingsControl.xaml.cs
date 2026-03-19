@@ -52,6 +52,21 @@ namespace SSHammerhead.WPF.Controls
             GameExecutor.Restart();
         }
 
+        private void ClearHistoryCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            GameExecutor.ExecutingGame?.HistoryManager?.Clear();
+        }
+
+        private void ClearNotesCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            GameExecutor.ExecutingGame?.NoteManager?.Clear();
+        }
+
+        private void CleanNotesCommandBinding_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+        {
+            GameExecutor.ExecutingGame?.NoteManager?.Clean();
+        }
+
         #endregion
 
         #region EventHandlers

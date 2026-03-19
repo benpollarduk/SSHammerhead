@@ -19,6 +19,9 @@
             <RoutedUICommand x:Key="ResetPersistenceSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="TestSoundEffectVolumeCommand" Text="Test"/>
             <RoutedUICommand x:Key="RestartGameCommand" Text="Restart"/>
+            <RoutedUICommand x:Key="ClearHistoryCommand" Text="Clear"/>
+            <RoutedUICommand x:Key="ClearNotesCommand" Text="Clear"/>
+            <RoutedUICommand x:Key="CleanNotesCommand" Text="Clean"/>
             <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
             <Style x:Key="CheckBoxStyle" BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox">
                 <Setter Property="Margin" Value="2"/>
@@ -55,11 +58,12 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="ButtonStyle" BasedOn="{StaticResource DefaultDarkButtonStyle}" TargetType="Button">
+            <Style x:Key="ButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultDarkButtonStyle}">
                 <Setter Property="Margin" Value="2"/>
+                <Setter Property="MinWidth" Value="150"/>
             </Style>
-            <Style x:Key="ResetButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonStyle}">
-                <Setter Property="Margin" Value="2"/>
+            <Style x:Key="ResetButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+                <Setter Property="Content" Value="Reset"/>
             </Style>
             <GridLength x:Key="TitleLabelColumnWidth">150</GridLength>
             <GridLength x:Key="SliderColumnWidth">250</GridLength>
@@ -73,6 +77,9 @@
         <CommandBinding x:Name="ResetPersistenceSettingsCommandBinding" Command="{StaticResource ResetPersistenceSettingsCommand}" Executed="ResetPersistenceSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="TestSoundEffectVolumeCommandBinding" Command="{StaticResource TestSoundEffectVolumeCommand}" Executed="TestSoundEffectVolumeCommandBinding_Executed"/>
         <CommandBinding x:Name="RestartGameCommandBinding" Command="{StaticResource RestartGameCommand}" Executed="RestartGameCommandBinding_Executed"/>
+        <CommandBinding x:Name="ClearHistoryCommandBinding" Command="{StaticResource ClearHistoryCommand}" Executed="ClearHistoryCommandBinding_Executed"/>
+        <CommandBinding x:Name="ClearNotesCommandBinding" Command="{StaticResource ClearNotesCommand}" Executed="ClearNotesCommandBinding_Executed"/>
+        <CommandBinding x:Name="CleanNotesCommandBinding" Command="{StaticResource CleanNotesCommand}" Executed="CleanNotesCommandBinding_Executed"/>
     </UserControl.CommandBindings>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
         <TabControl Style="{StaticResource DarkTabControlStyle}" Margin="2">
@@ -138,9 +145,7 @@
                             <CheckBox Content="Show map in scenes?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowMapInScenes, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
                         </Grid>
                     </GroupBox>
-                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetVisualSettingsCommand}">
-                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
-                    </Button>
+                    <Button Style="{StaticResource ResetButtonStyle}" Command="{StaticResource ResetVisualSettingsCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Audio" Style="{StaticResource DarkTabItemStyle}">
@@ -170,9 +175,7 @@
                             <Slider Name="BackgroundMusicSlider" Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=BackgroundMusicVolume, Mode=TwoWay}" Grid.Row="0" Grid.Column="1" ValueChanged="BackgroundMusicSlider_ValueChanged"/>
                         </Grid>
                     </GroupBox>
-                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetAudioSettingsCommand}">
-                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
-                    </Button>
+                    <Button Style="{StaticResource ResetButtonStyle}" Command="{StaticResource ResetAudioSettingsCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Control" Style="{StaticResource DarkTabItemStyle}">
@@ -183,9 +186,7 @@
                             <CheckBox Content="Show prompt?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowPrompt, Mode=TwoWay}"/>
                         </StackPanel>
                     </GroupBox>
-                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetControlSettingsCommand}">
-                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
-                    </Button>
+                    <Button Style="{StaticResource ResetButtonStyle}" Command="{StaticResource ResetControlSettingsCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Persistence" Style="{StaticResource DarkTabItemStyle}">
@@ -195,14 +196,23 @@
                             <CheckBox Content="Auto save when entering a room?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=AutoSave, Mode=TwoWay}"/>
                         </StackPanel>
                     </GroupBox>
-                    <Button Style="{StaticResource ResetButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource ResetPersistenceSettingsCommand}">
-                        <Path Data="{StaticResource ResetIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
-                    </Button>
+                    <Button Style="{StaticResource ResetButtonStyle}" Command="{StaticResource ResetPersistenceSettingsCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Game" Style="{StaticResource DarkTabItemStyle}">
                 <StackPanel>
-                    <Button Content="Restart" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" Command="{StaticResource RestartGameCommand}"/>
+                    <GroupBox Header="History" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <Button Content="Clear History" Style="{StaticResource ButtonStyle}" Command="{StaticResource ClearHistoryCommand}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Notes" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="Clear Notes" Style="{StaticResource ButtonStyle}" Command="{StaticResource ClearNotesCommand}"/>
+                            <Button Content="Clean Expired Notes" Style="{StaticResource ButtonStyle}" Command="{StaticResource CleanNotesCommand}"/>
+                        </StackPanel>
+                    </GroupBox>
+                    <Button Content="Restart" Style="{StaticResource ButtonStyle}" Command="{StaticResource RestartGameCommand}"/>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Shortcuts" Style="{StaticResource DarkTabItemStyle}">
