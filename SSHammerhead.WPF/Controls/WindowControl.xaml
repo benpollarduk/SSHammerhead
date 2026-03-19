@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="SSHammerhead.WPF.Controls.WindowControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SSHammerhead.WPF.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NetAF.WPF;component/Targets/WPF/Styles/Dark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <RoutedUICommand x:Key="CloseCommand" Text="Close"/>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding x:Name="CloseCommandBinding" Command="{StaticResource CloseCommand}" Executed="CloseCommandBinding_Executed"/>
+    </UserControl.CommandBindings>
+    <Border BorderThickness="2" CornerRadius="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:WindowControl}, Path=CornerRadius, Mode=OneWay}" BorderBrush="{StaticResource MainControlForegroundBrush}" Background="{StaticResource MainWindowBackgroundBrush}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border BorderThickness="0,0,0,2" BorderBrush="{StaticResource MainControlForegroundBrush}" Background="Transparent" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:WindowControl}, Path=Title, Mode=OneWay}" FontFamily="{StaticResource MainControlFontFamily}" Foreground="{StaticResource MainControlForegroundBrush}" FontSize="12" FontWeight="Bold" Margin="10" Grid.Column="0"/>
+                    <Button Command="{StaticResource CloseCommand}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10" Width="20" Height="20" Foreground="{StaticResource MainControlForegroundBrush}" Grid.Column="1">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border BorderThickness="0" BorderBrush="Transparent" Background="Transparent">
+                                    <Path Data="{StaticResource CloseIconGeometry}" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" Stretch="Uniform" Margin="4"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Border>
+            <ContentPresenter Content="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:WindowControl}, Path=HostedContent, Mode=OneWay}" Margin="10" Grid.Row="1"/>
+        </Grid>
+    </Border>
+</UserControl>

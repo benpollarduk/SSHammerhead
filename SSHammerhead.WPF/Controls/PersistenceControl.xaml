@@ -1,0 +1,69 @@
+﻿<UserControl x:Class="SSHammerhead.WPF.Controls.PersistenceControl"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SSHammerhead.WPF.Controls"
+        xmlns:controls="clr-namespace:NetAF.Targets.WPF.Controls;assembly=NetAF.WPF"
+        mc:Ignorable="d"
+        Height="450" Width="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/NetAF.WPF;component/Targets/WPF/Styles/Dark.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid Background="{StaticResource MainWindowBackgroundBrush}">
+        <controls:NetAFFileManager x:Name="FileManager" IsEnabled="True">
+            <controls:NetAFFileManager.Style>
+                <Style TargetType="{x:Type controls:NetAFFileManager}" BasedOn="{StaticResource DarkNetAFFileManagerStyle}">
+                    <Setter Property="controls:NetAFFileManager.NewButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource NewSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="controls:NetAFFileManager.DeleteButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource DeleteSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="controls:NetAFFileManager.SaveButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource SaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="controls:NetAFFileManager.LoadButtonStyle">
+                        <Setter.Value>
+                            <Style TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonStyle}">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <Path Data="{StaticResource LoadSaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </controls:NetAFFileManager.Style>
+        </controls:NetAFFileManager>
+    </Grid>
+</UserControl>

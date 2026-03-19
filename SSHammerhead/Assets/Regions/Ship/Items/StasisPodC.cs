@@ -11,7 +11,7 @@ using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
-    internal class StasisPodC(ExaminationCallback examination) : StasisPod(Name, Description)
+    internal class StasisPodC() : StasisPod(Name, Description)
     {
         #region Constants
 
@@ -53,6 +53,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 g.Overworld.CurrentRegion.UnlockDoorPair(Direction.West);
 
                 enterStasisCommand.IsPlayerVisible = false;
+
                 var reaction = PlayableCharacterManager.Switch(AnneTemplate.Identifier, g);
 
                 if (reaction.Result == ReactionResult.Error)
@@ -83,7 +84,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 enableStasisCommand
             ];
 
-            return new Item(Name, Description, examination: examination, commands: commands, interaction: DefaultInteraction);
+            return new Item(Name, Description, commands: commands, interaction: DefaultInteraction);
         }
 
         #endregion

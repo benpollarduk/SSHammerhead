@@ -1,6 +1,7 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Logic;
+using NetAF.Logic.Callbacks;
 using SSHammerhead.Assets.Players.Alex;
 using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
@@ -14,19 +15,19 @@ using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using SSHammerhead.Assets.Regions.Ship;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L0;
+using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L2;
 using SSHammerhead.Assets.Regions.Stasis.Awaji;
 using SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms;
 using SSHammerhead.Commands.Dev;
 using SSHammerhead.Configuration;
-
 namespace SSHammerhead
 {
     public static class TroubleAboardTheSSHammerhead
     {
         #region Constants
 
-        private const string Title = "Trouble Aboard the SS Hammerhead";
+        public const string Title = "Trouble Aboard the SS Hammerhead";
 
         private const string Introduction = "After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system.\n\n" +
             "A ship was hurriedly prepared and scrambled and made contact 27 days later.\n\n" +
@@ -54,7 +55,7 @@ namespace SSHammerhead
             return EndCheckResult.NotEnded;
         }
 
-        public static GameCreator Create(GameConfiguration configuration, Presentation presentation)
+        public static GameCreator Create(GameConfiguration configuration, Presentation presentation, bool allowAudio, GameSetupCallback additionalSetup = null)
         {
             static Overworld overworldCreator()
             {
@@ -85,7 +86,7 @@ namespace SSHammerhead
                 return overworld;
             }
 
-            static void setup(Game g, Presentation presentation)
+            static void setup(Game g, Presentation presentation, bool allowAudio, GameSetupCallback additionalSetup)
             {
                 // get start positions
                 g.Overworld.FindRegion(SSHammerHead.Name, out var ship);
@@ -132,6 +133,17 @@ namespace SSHammerhead
                 g.Catalog.Register(marina);
                 g.Catalog.Register(scott);
                 g.Catalog.Register(zhiying);
+
+                // if not allowing audio remove the radio
+                if (!allowAudio)
+                {
+                    // find and remove radio, in central hull
+                    if (ship.TryFindRoom(CentralHull.Name, out var centralHull) && centralHull.FindItem(Radio.Name, out var radio))
+                        centralHull.RemoveItem(radio);
+                }
+
+                // invoke any additional setup
+                additionalSetup?.Invoke(g);
             }
 
             return Game.Create(
@@ -140,8 +152,7 @@ namespace SSHammerhead
                 AssetGenerator.Custom(overworldCreator, () => new NaomiTemplate().Instantiate()),
                 new GameEndConditions(CheckForCompletion, CheckForGameOver),
                 configuration,
-                g => setup(g, presentation));
-
+                g => setup(g, presentation, allowAudio, additionalSetup));
         }
 
         #endregion

@@ -9,11 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NetAF.WPF" Version="1.0.6" />
+    <PackageReference Include="LoFiEffects.WPF" Version="1.5.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.5" />
+    <PackageReference Include="NetAF.WPF" Version="1.0.22" />
   </ItemGroup>
     
   <ItemGroup>
     <ProjectReference Include="..\SSHammerhead\SSHammerhead.csproj" />
+  </ItemGroup>
+    
+  <ItemGroup>
+    <Compile Update="Controls\PersistenceControl.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

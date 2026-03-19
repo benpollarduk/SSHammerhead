@@ -21,23 +21,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L1
 
         public Room Instantiate()
         {
-            var scanner = new Scanner().Instantiate();
-            scanner.IsPlayerVisible = false;
-
-            var stasisPodC = new StasisPodC(x =>
-            {
-                if (!scanner.IsPlayerVisible)
-                {
-                    scanner.IsPlayerVisible = true;
-                    x.Scene.Examiner.AddItem(scanner);
-                    x.Scene.Room.RemoveItem(scanner);
-                    return new Examination($"Inside the Stasis Pod is a {Scanner.Make} {Scanner.Model}, and expensive device for determining the composition of objects. You take it.");
-                }
-
-                return ExaminableObject.DefaultExamination.Invoke(x);
-            }).Instantiate();
-
-            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West, true), new Exit(Direction.North)], items: [scanner, new StasisPodA().Instantiate(), new StasisPodB().Instantiate(), stasisPodC, new StasisPodD().Instantiate(), new StasisPodE().Instantiate()]);
+            Item[] items = [new StasisPodA().Instantiate(), new StasisPodB().Instantiate(), new StasisPodC().Instantiate(), new StasisPodD().Instantiate(), new StasisPodE().Instantiate()];
+            return new Room(Name, Description, [new Exit(Direction.East), new Exit(Direction.West, true), new Exit(Direction.North)], items: items);
         }
 
         #endregion

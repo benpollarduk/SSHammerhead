@@ -38,6 +38,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             new(MaintenanceControlPanel.Name, MaintenanceControlPanel.Composition),
             new(PadlockKey.Name, PadlockKey.Composition),
             new(PostIt.Name, PostIt.Composition),
+            new(Radio.Name, Radio.Composition),
             new(StasisPodA.Name, StasisPod.Composition),
             new(StasisPodB.Name, StasisPod.Composition),
             new(StasisPodC.Name, StasisPod.Composition),
