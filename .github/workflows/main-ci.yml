@@ -31,6 +31,9 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
 
+    - name: Clean
+      run: dotnet clean --no-restore
+
     - name: Build
       run: dotnet build -m:1 /p:nodeReuse=false
 
