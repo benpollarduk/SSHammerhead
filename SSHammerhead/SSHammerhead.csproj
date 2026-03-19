@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Images\space.jpg" />
     <None Remove="Resources\Images\space.png" />
     <None Remove="Resources\Images\torii.png" />
   </ItemGroup>
