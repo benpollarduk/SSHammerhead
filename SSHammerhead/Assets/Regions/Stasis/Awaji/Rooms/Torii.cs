@@ -49,7 +49,7 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
                 new Section(["The stasis pod crackles and sparks, then emits a puff of smoke.", "The breaker flips and the machine dies.", $"The door to the {Laboratory.Name} clicks as it unlocks, possibly from the surge created by the stasis pod as it died."])
             ];
 
-            return new Narrative(Name, sections);
+            return new Narrative(string.Empty, sections);
         }
 
         #endregion
