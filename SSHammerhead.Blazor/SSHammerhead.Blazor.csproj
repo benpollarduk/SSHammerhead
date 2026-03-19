@@ -23,9 +23,9 @@
 
   <Target Name="CopyImages" AfterTargets="Build">
     <ItemGroup>
-      <SourceImages Include="$(SolutionDir)SSHammerhead\bin\$(Configuration)\net8.0\Images\*" />
+      <SourceImages Include="$(SolutionDir)SSHammerhead\bin\$(Configuration)\net8.0\Resources\Images\*" />
     </ItemGroup>
-    <Copy SourceFiles="@(SourceImages)" DestinationFolder="$(ProjectDir)wwwroot\Images\" />
+    <Copy SourceFiles="@(SourceImages)" DestinationFolder="$(ProjectDir)wwwroot\Resources\Images\" />
   </Target>
 
   <ItemGroup>
@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Images\" />
+    <Folder Include="wwwroot\Resources\Images\" />
   </ItemGroup>
 
 </Project>
