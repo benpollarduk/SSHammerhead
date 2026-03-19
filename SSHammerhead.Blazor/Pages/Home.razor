@@ -46,6 +46,8 @@
     {
         var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
         version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" : "unknown";
+        
+        Services.ImageProvider = ImageCache.GetProvider();
 
         await ImageCache.CacheAllImages();
     }
@@ -90,8 +92,6 @@
 
     private void BeginGame(Presentation presentation, Size size)
     {
-        Services.ImageProvider = ImageCache.GetProvider();
-
         if (GameExecutor.IsExecuting)
             GameExecutor.CancelExecution();
 
