@@ -32,15 +32,11 @@ jobs:
       run: dotnet restore
 
     - name: Build
-      run: dotnet build --no-restore -m:1 /p:nodeReuse=false
+      run: dotnet build -m:1 /p:nodeReuse=false
 
     - name: Run tests with coverlet
       run: dotnet test --no-build -m:1 /p:nodeReuse=false /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov 
         
-    - name: Upload coverage reports to Codecov
-      uses: codecov/codecov-action@v4
-      env:
-        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}        
     - name: Upload coverage reports to Codecov
       uses: codecov/codecov-action@v4
       env:
