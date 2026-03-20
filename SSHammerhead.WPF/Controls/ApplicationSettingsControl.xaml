@@ -116,7 +116,7 @@
                                     <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
                                     <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
                                 </Grid.ColumnDefinitions>
-                                <Label Content="Size modifier:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                                <Label Content="Size:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
                                 <Slider Minimum="-4" Maximum="4" TickFrequency="1" IsSnapToTickEnabled="True" Style="{StaticResource SliderStyle}" Value="{Binding Path=FontSizeModifier, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </StackPanel>
@@ -134,11 +134,11 @@
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
-                            <Label Content="Command list type:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                            <Label Content="Command list:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
                             <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="CommandListType" Grid.Row="0" Grid.Column="1"/>
                             <RadioButton Content="Minimal" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Minimal}" GroupName="CommandListType" Grid.Row="0" Grid.Column="2"/>
                             <RadioButton Content="All" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=All}" GroupName="CommandListType" Grid.Row="0" Grid.Column="3"/>
-                            <Label Content="Map key type:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
+                            <Label Content="Map key:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
                             <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="KeyType" Grid.Row="1" Grid.Column="1"/>
                             <RadioButton Content="Dynamic" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dynamic}" GroupName="KeyType" Grid.Row="1" Grid.Column="2"/>
                             <RadioButton Content="Full" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Full}" GroupName="KeyType" Grid.Row="1" Grid.Column="3"/>
