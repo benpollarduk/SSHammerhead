@@ -17,11 +17,7 @@ A text adventure written using NetAF. Can be executed on the Console, as a Windo
 
 While a game in its own right, *Trouble Aboard the SS Hammerhead* aims to provide an extended tutorial for the [NetAF](https://github.com/benpollarduk/netaf) library.
 
-> **NOTE:** *Trouble aboard the SS Hammerhead* is very early in development and remains a work in progress.
->
-> Very little work has been done on the writing and overall story so far.
->
-> Currently all effort is being spent making sure that the various mechanics and ideas are being tested to ensure that NetAF is capable of providing as rich of an experience as desired.
+<img width="1250" height="1063" alt="2" src="https://github.com/user-attachments/assets/66523007-5a66-4dfa-9799-46f337876be8" />
 
 ### Story
 After years of absence, the SS Hammerhead reappeared in the delta quadrant of the CTY-1 solar system. A ship was hurriedly prepared and scrambled and made contact 27 days later.
@@ -31,39 +27,21 @@ You enter the outermost airlock, and it closes behind you. With a sense of foreb
 You take the role of Naomi Martin a 32-year-old shuttle mechanic. Throughout the course of the story you must navigate through the ship and interact with the various items and the environment
 to progress through the story and unravel the mysteries of the ship.
 
-![image](https://github.com/user-attachments/assets/5c1f74e7-0d34-4250-909d-6d2d6ba82f26)
+<img width="1250" height="1063" alt="1" src="https://github.com/user-attachments/assets/f48602e7-71af-42b9-84d9-228bfff49cd1" />
 
 Take control of the mighty *Spider Maintenance Bot* and use it to explore inaccessible regions of the ship from a different perspective:
 
-![image](https://github.com/user-attachments/assets/a701d488-9cf9-4510-b96b-34c59f94630a)
+<img width="1250" height="1063" alt="4" src="https://github.com/user-attachments/assets/bd70dd7e-e3af-4fdc-ac12-d6bb013910a6" />
 
 The *SS Hammerhead* itself is a multi-level ship, you will need to work your way towards the bridge as you progress through the game. What will you find when you get there, and importantly,
 are you truly aboard on your own?
 
-![image](https://github.com/user-attachments/assets/eba11609-3b24-4083-868a-d30c743b87d9)
+<img width="1250" height="1063" alt="3" src="https://github.com/user-attachments/assets/9b54383c-44e1-4673-b23b-4a45f7f3e66e" />
 
-### Commands
-The following NetAF commands are supported for interacting with game elements:
-* **Drop X** - drop an item.
-* **Examine X** - allows items, characters and environments to be examined.
-* **Take X** - take an item.
-* **Talk to X** - talk to a NPC, where X is the NPC.
-* **Use X on Y** - use an item. Items can be used on a variety of targets. Where X is the item and Y is the target.
-* **N, S, E, W, U, D** - traverse through the rooms of the ship.
+### Settings
+The WPF application is recommend to best experience *Trouble Aboard the SS Hammerhead*. Settings are available to adjust visuals, sound, controls, saves and more.
 
-The following NetAF global commands are also supported:
-  * **About** - display version information.
-  * **Exit** - exit the game.
-  * **Help X** - display the help screen for a command, where X is the command.
-  * **Commands** - display the command list.
-  * **Commands On / Commands Off** - toggle commands on/off.
-  * **Key On / Key Off** - turn the Key on/off.
-  * **Map** - display the map.
-  * **New** - start a new game.
-
-There are many other commands that can be used to interact with the environment throughout the course of the game.
-
-![image](https://github.com/user-attachments/assets/51369b53-7176-42a4-85e1-84cb761b902a)
+<img width="1250" height="1063" alt="6" src="https://github.com/user-attachments/assets/2aba64f3-35f2-41f3-8380-6536201956a0" />
 
 ## Getting Started
 
