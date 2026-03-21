@@ -104,7 +104,7 @@
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtBrightness, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
                                 <Label Content="Intensity:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtIntensity, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
-                                <Label Content="Curvature intensity:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
+                                <Label Content="Curvature:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
                                 <Slider Minimum="0" Maximum="1" Style="{StaticResource SliderStyle}" Value="{Binding Path=CrtCurvatureIntensity, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
                             </Grid>
                         </StackPanel>
@@ -117,7 +117,7 @@
                                     <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
                                 </Grid.ColumnDefinitions>
                                 <Label Content="Size:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
-                                <Slider Minimum="-4" Maximum="4" TickFrequency="1" IsSnapToTickEnabled="True" Style="{StaticResource SliderStyle}" Value="{Binding Path=FontSizeModifier, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
+                                <Slider Minimum="-6" Maximum="6" TickFrequency="1" IsSnapToTickEnabled="True" Style="{StaticResource SliderStyle}" Value="{Binding Path=FontSizeModifier, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
                             </Grid>
                         </StackPanel>
                     </GroupBox>
@@ -182,7 +182,7 @@
                 <StackPanel>
                     <GroupBox Header="Input" Style="{StaticResource GroupBoxStyle}">
                         <StackPanel>
-                            <CheckBox Content="Show command buttons?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowCommandButtons, Mode=TwoWay}"/>
+                            <CheckBox Content="Show buttons?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowCommandButtons, Mode=TwoWay}"/>
                             <CheckBox Content="Show prompt?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowPrompt, Mode=TwoWay}"/>
                         </StackPanel>
                     </GroupBox>
@@ -209,7 +209,7 @@
                     <GroupBox Header="Notes" Style="{StaticResource GroupBoxStyle}">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="Clear Notes" Style="{StaticResource ButtonStyle}" Command="{StaticResource ClearNotesCommand}"/>
-                            <Button Content="Clean Expired Notes" Style="{StaticResource ButtonStyle}" Command="{StaticResource CleanNotesCommand}"/>
+                            <Button Content="Clean Old Notes" Style="{StaticResource ButtonStyle}" Command="{StaticResource CleanNotesCommand}"/>
                         </StackPanel>
                     </GroupBox>
                     <Button Content="Restart" Style="{StaticResource ButtonStyle}" Command="{StaticResource RestartGameCommand}"/>
