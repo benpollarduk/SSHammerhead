@@ -4,7 +4,6 @@ using NetAF.Imaging.Textures;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
-using SSHammerhead.ImageHandling;
 using System;
 using System.Diagnostics;
 

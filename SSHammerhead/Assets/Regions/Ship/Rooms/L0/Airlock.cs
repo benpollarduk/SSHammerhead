@@ -3,6 +3,7 @@ using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic.Modes;
+using NetAF.Narratives;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Visuals;
@@ -34,8 +35,24 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
             {
                 room.FindExit(Direction.West, true, out var west);
                 west.Unlock();
-                game.Player.Kill();
-                return new Reaction(ReactionResult.Inform, "You press the red button on the control panel. The airlock door that leads to outer space opens and in an instant you are sucked out. As you drift in to outer space the SS Hammerhead becomes smaller and smaller until you can no longer see it. You die all alone.");
+
+                var narrative = new Narrative(string.Empty,
+                [
+                    new Section(
+                    [
+                        "You press the red button on the control panel.",
+                        "The airlock door that leads to outer space opens and in an instant you are sucked out."
+                    ]), 
+                    new Section(
+                    [
+                        "As you drift in to outer space the SS Hammerhead becomes smaller and smaller until you can no longer see it.",
+                        "You die all alone."
+                    ])
+                ]);
+
+                game.ChangeMode(new NarrativeMode(narrative, g => g.Player.Kill()));
+
+                return new Reaction(ReactionResult.GameModeChanged, string.Empty);
             });
 
             CustomCommand greenButtonCommand = null;

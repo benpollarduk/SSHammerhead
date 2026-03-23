@@ -5,7 +5,6 @@ using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Markup;
 using NetAF.Targets.Markup.Rendering;
-using SSHammerhead.ImageHandling;
 using System;
 using System.Diagnostics;
 
