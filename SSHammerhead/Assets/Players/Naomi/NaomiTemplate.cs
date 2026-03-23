@@ -2,9 +2,7 @@
 using NetAF.Assets.Characters;
 using NetAF.Extensions;
 using NetAF.Utilities;
-using NetAF.Commands;
 using NetAF.Assets.Attributes;
-using SSHammerhead.Commands.Persist;
 using SSHammerhead.Assets.Regions.Ship.Items;
 
 namespace SSHammerhead.Assets.Players.Naomi
@@ -24,13 +22,7 @@ namespace SSHammerhead.Assets.Players.Naomi
 
         public PlayableCharacter Instantiate()
         {
-            CustomCommand[] commands =
-            [
-                new Save() { IsPlayerVisible = false },
-                new LoadWithRestore() { IsPlayerVisible = false }
-            ];
-
-            var naomi = new PlayableCharacter(Name, Description, [new Hammer().Instantiate()], commands: commands, interaction: (i) =>
+            var naomi = new PlayableCharacter(Name, Description, [new Hammer().Instantiate()], interaction: (i) =>
             {
                 if (i == null)
                     return new Interaction(InteractionResult.NoChange, null);

@@ -142,7 +142,7 @@ namespace SSHammerhead.WPF.Windows
                     }
                 });
             });
-            EventBus.Subscribe<AutoSaved>(x =>
+            EventBus.Subscribe<GameAutoSaved>(x =>
             {
                 Dispatcher.Invoke(() =>
                 {

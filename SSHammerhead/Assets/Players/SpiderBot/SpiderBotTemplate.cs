@@ -9,7 +9,6 @@ using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals;
-using SSHammerhead.Commands.Persist;
 using System;
 
 namespace SSHammerhead.Assets.Players.SpiderBot
@@ -49,9 +48,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
 
                     g.ChangeMode(new VisualMode(new TunnelView(g.Overworld.CurrentRegion.CurrentRoom, g.Configuration.DisplaySize).Instantiate()));
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);
-                }),
-                new Save() { IsPlayerVisible = false },
-                new LoadWithRestore() { IsPlayerVisible = false }
+                })
             ]);
         }
 

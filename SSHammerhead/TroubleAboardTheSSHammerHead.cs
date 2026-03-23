@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
+using NetAF.Events;
 using NetAF.Logic;
 using NetAF.Logic.Callbacks;
 using SSHammerhead.Assets.Players.Alex;
@@ -57,6 +58,9 @@ namespace SSHammerhead
 
         public static GameCreator Create(GameConfiguration configuration, Presentation presentation, bool allowAudio, GameSetupCallback additionalSetup = null)
         {
+            // when restored setup for current player
+            EventBus.Subscribe<GameRestored>(x => PlayableCharacterManager.ApplyConfiguration(x.Game.Player, x.Game));
+
             static Overworld overworldCreator()
             {
                 var overworldName = "CTY-1 Galaxy";
