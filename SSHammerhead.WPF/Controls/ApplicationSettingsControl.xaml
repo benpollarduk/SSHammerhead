@@ -19,9 +19,6 @@
             <RoutedUICommand x:Key="ResetPersistenceSettingsCommand" Text="Reset"/>
             <RoutedUICommand x:Key="TestSoundEffectVolumeCommand" Text="Test"/>
             <RoutedUICommand x:Key="RestartGameCommand" Text="Restart"/>
-            <RoutedUICommand x:Key="ClearHistoryCommand" Text="Clear"/>
-            <RoutedUICommand x:Key="ClearNotesCommand" Text="Clear"/>
-            <RoutedUICommand x:Key="CleanNotesCommand" Text="Clean"/>
             <converters:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
             <Style x:Key="CheckBoxStyle" BasedOn="{StaticResource DarkCheckBoxStyle}" TargetType="CheckBox">
                 <Setter Property="Margin" Value="2"/>
@@ -77,9 +74,6 @@
         <CommandBinding x:Name="ResetPersistenceSettingsCommandBinding" Command="{StaticResource ResetPersistenceSettingsCommand}" Executed="ResetPersistenceSettingsCommandBinding_Executed"/>
         <CommandBinding x:Name="TestSoundEffectVolumeCommandBinding" Command="{StaticResource TestSoundEffectVolumeCommand}" Executed="TestSoundEffectVolumeCommandBinding_Executed"/>
         <CommandBinding x:Name="RestartGameCommandBinding" Command="{StaticResource RestartGameCommand}" Executed="RestartGameCommandBinding_Executed"/>
-        <CommandBinding x:Name="ClearHistoryCommandBinding" Command="{StaticResource ClearHistoryCommand}" Executed="ClearHistoryCommandBinding_Executed"/>
-        <CommandBinding x:Name="ClearNotesCommandBinding" Command="{StaticResource ClearNotesCommand}" Executed="ClearNotesCommandBinding_Executed"/>
-        <CommandBinding x:Name="CleanNotesCommandBinding" Command="{StaticResource CleanNotesCommand}" Executed="CleanNotesCommandBinding_Executed"/>
     </UserControl.CommandBindings>
     <Grid Background="{StaticResource MainWindowBackgroundBrush}">
         <TabControl Style="{StaticResource DarkTabControlStyle}" Margin="2">
@@ -191,9 +185,27 @@
             </TabItem>
             <TabItem Header="Persistence" Style="{StaticResource DarkTabItemStyle}">
                 <StackPanel>
-                    <GroupBox Header="Auto" Style="{StaticResource GroupBoxStyle}">
+                    <GroupBox Header="Save" Style="{StaticResource GroupBoxStyle}">
                         <StackPanel>
-                            <CheckBox Content="Auto save when entering a room?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=AutoSave, Mode=TwoWay}"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="100"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Auto save:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
+                                <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=AutoSaveEvent, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="AutoSaveEvent" Grid.Row="0" Grid.Column="1"/>
+                                <RadioButton Content="Enter room" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=AutoSaveEvent, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=RoomEntered}" GroupName="AutoSaveEvent" Grid.Row="0" Grid.Column="2"/>
+                                <RadioButton Content="Enter region" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=AutoSaveEvent, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=RegionEntered}" GroupName="AutoSaveEvent" Grid.Row="0" Grid.Column="3"/>
+                                <RadioButton Content="Receive item" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=AutoSaveEvent, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=ItemReceived}" GroupName="AutoSaveEvent" Grid.Row="0" Grid.Column="4"/>
+                            </Grid>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="Load" Style="{StaticResource GroupBoxStyle}">
+                        <StackPanel>
+                            <CheckBox Content="Auto load when starting a game?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=AutoLoad, Mode=TwoWay}"/>
                         </StackPanel>
                     </GroupBox>
                     <Button Style="{StaticResource ResetButtonStyle}" Command="{StaticResource ResetPersistenceSettingsCommand}"/>
@@ -201,17 +213,6 @@
             </TabItem>
             <TabItem Header="Game" Style="{StaticResource DarkTabItemStyle}">
                 <StackPanel>
-                    <GroupBox Header="History" Style="{StaticResource GroupBoxStyle}">
-                        <StackPanel>
-                            <Button Content="Clear History" Style="{StaticResource ButtonStyle}" Command="{StaticResource ClearHistoryCommand}"/>
-                        </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header="Notes" Style="{StaticResource GroupBoxStyle}">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="Clear Notes" Style="{StaticResource ButtonStyle}" Command="{StaticResource ClearNotesCommand}"/>
-                            <Button Content="Clean Expired Notes" Style="{StaticResource ButtonStyle}" Command="{StaticResource CleanNotesCommand}"/>
-                        </StackPanel>
-                    </GroupBox>
                     <Button Content="Restart" Style="{StaticResource ButtonStyle}" Command="{StaticResource RestartGameCommand}"/>
                 </StackPanel>
             </TabItem>

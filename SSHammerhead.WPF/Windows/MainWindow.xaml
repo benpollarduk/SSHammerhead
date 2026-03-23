@@ -22,6 +22,7 @@
             <RoutedUICommand x:Key="OpenPersistenceCommand" Text="Save/Load"/>
             <RoutedUICommand x:Key="OpenNoteManagerCommand" Text="Notes"/>
             <RoutedUICommand x:Key="FullScreenCommand" Text="Fullscreen"/>
+            <RoutedUICommand x:Key="CloseNotificationCommand" Text="Close"/>
             <CornerRadius x:Key="WindowCornerRadius">3</CornerRadius>
             <converters:ObjectNotNullToBooleanConverter x:Key="ObjectNotNullToBooleanConverter"/>
             <converters:ObjectNullToBooleanConverter x:Key="ObjectNullToBooleanConverter"/>
@@ -35,11 +36,13 @@
         <CommandBinding x:Name="OpenPersistenceCommandBinding" Command="{StaticResource OpenPersistenceCommand}" Executed="OpenPersistenceCommandBinding_Executed"/>
         <CommandBinding x:Name="OpenNoteManagerCommandBinding" Command="{StaticResource OpenNoteManagerCommand}" Executed="OpenNoteManagerCommandBinding_Executed"/>
         <CommandBinding x:Name="FullScreenCommandBinding" Command="{StaticResource FullScreenCommand}" Executed="FullScreenCommandBinding_Executed"/>
+        <CommandBinding x:Name="CloseNotificationCommandBinding" Command="{StaticResource CloseNotificationCommand}" Executed="CloseNotificationCommandBinding_Executed"/>
     </Window.CommandBindings>
     <Window.InputBindings>
         <KeyBinding Command="{StaticResource OpenSettingsCommand}" Gesture="Ctrl+R"/>
         <KeyBinding Command="{StaticResource OpenPersistenceCommand}" Gesture="Ctrl+O"/>
         <KeyBinding Command="{StaticResource FullScreenCommand}" Gesture="F11"/>
+        <KeyBinding Command="{StaticResource CloseNotificationCommand}" Gesture="Escape"/>
     </Window.InputBindings>
     <Grid>
         <localControls:WindowControl x:Name="WindowControl" Title="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=Title, Mode=OneWay}" CornerRadius="{StaticResource WindowCornerRadius}" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=ActiveNotification, Mode=OneWay, Converter={StaticResource ObjectNullToBooleanConverter}}" Closed="WindowControl_Closed">
@@ -70,7 +73,7 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <controls:NetAFPrompt Style="{StaticResource DarkPromptStyle}" Margin="10,0,0,10"  Visibility="{Binding Source={x:Static top:App.Settings}, Path=ShowPrompt, Mode=OneWay, Converter={StaticResource BooleanToVisibilityHiddenConverter}}" Grid.Column="0" KeyPressed="NetAFPrompt_KeyPressed" Loaded="NetAFPrompt_Loaded"/>
-                        <Button Command="{StaticResource OpenPersistenceCommand}" Style="{StaticResource IconButtonStyle}" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=IsPersistenceAvailable, Mode=OneWay}" Margin="10,0,0,10" Grid.Column="1">
+                        <Button Command="{StaticResource OpenPersistenceCommand}" Style="{StaticResource IconButtonStyle}" IsEnabled="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=local:MainWindow}, Path=IsPersistenceAvailable, Mode=OneWay}" Margin="10,0,0,10" Grid.Column="1" Loaded="PersistenceButton_Loaded">
                             <Path Data="{StaticResource SaveIconGeometry}" Style="{StaticResource ButtonIconPathStyle}"/>
                         </Button>
                         <Button Command="{StaticResource OpenSettingsCommand}" Style="{StaticResource IconButtonStyle}" Margin="10,0,0,10" Grid.Column="2">

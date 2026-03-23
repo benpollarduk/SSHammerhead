@@ -1,5 +1,6 @@
 ﻿using NetAF.Commands;
 using NetAF.Logic;
+using NetAF.Persistence;
 namespace SSHammerhead.Commands.Persist
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace SSHammerhead.Commands.Persist
         /// <summary>
         /// Initializes a new instance of the Save class.
         /// </summary>
-        public Save() : base(new CommandHelp("Save", "Save the game state to a file. The path should be specified as an absolute path"), true, true, SaveGameToFile) { }
+        public Save() : base(NetAF.Commands.Persistence.Save.CommandHelp, true, true, SaveGameToFile) { }
 
         #endregion
 
@@ -26,7 +27,15 @@ namespace SSHammerhead.Commands.Persist
         /// <returns>The reaction.</returns>
         private static Reaction SaveGameToFile(Game game, string[] args)
         {
-            return new NetAF.Commands.Persistence.Save(args.Length != 0 ? args[0] : string.Empty).Invoke(game);
+            var name = args?.Length > 0 ? string.Join(" ", args) : null;
+
+            if (string.IsNullOrEmpty(name))
+                return new(ReactionResult.Error, "No name provided.");
+
+            if (!RestorePointManager.Save(game, name, out _, out string message))
+                return new(ReactionResult.Error, $"Failed to save '{args}'. {message}");
+
+            return new(ReactionResult.Inform, "Saved.");
         }
 
         #endregion

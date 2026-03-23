@@ -5,6 +5,7 @@ using NetAF.Logging.Notes;
 using NetAF.Logic;
 using NetAF.Logic.Callbacks;
 using NetAF.Logic.Modes;
+using NetAF.Persistence;
 using NetAF.Targets.Markup;
 using NetAF.Targets.WPF.Controls;
 using SSHammerhead.Assets.Regions.Ship.Items;
@@ -29,6 +30,7 @@ namespace SSHammerhead.WPF.Windows
         private TextBox? promptTextbox;
         private bool firstRun = true;
         private Button? notesButton;
+        private Button? persistenceButton;
 
         #endregion
 
@@ -140,10 +142,17 @@ namespace SSHammerhead.WPF.Windows
                     }
                 });
             });
-            EventBus.Subscribe<RoomEntered>(x =>
+            EventBus.Subscribe<AutoSaved>(x =>
             {
-                if (App.Settings.AutoSave)
-                    AutoSave.Save(game, out _);
+                Dispatcher.Invoke(() =>
+                {
+                    if (persistenceButton != null && FindResource("FlashButtonAnimationStoryboard") is System.Windows.Media.Animation.Storyboard resourceStoryboard)
+                    {
+                        var storyboard = resourceStoryboard.Clone();
+                        System.Windows.Media.Animation.Storyboard.SetTarget(storyboard, persistenceButton);
+                        storyboard.Begin();
+                    }
+                });
             });
 
             App.Settings.FramePropertiesChanged += (_, _) => game?.Mode.Render(game);
@@ -177,7 +186,7 @@ namespace SSHammerhead.WPF.Windows
             var adapter = new MarkupAdapter(teminal);
             var frameBuilders = FrameBuilderCollections.NaomiMarkup;
             var displaySize = new NetAF.Assets.Size(80, 30);
-            var configuration = new GameConfiguration(adapter, frameBuilders, displaySize);
+            var configuration = new GameConfiguration(adapter, frameBuilders, displaySize) { AutoSaveEvent = App.Settings.AutoSaveEvent };
 
             // change configuration prevent using the normal persistence interpreter as this is handled by custom commands
             configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);
@@ -189,11 +198,11 @@ namespace SSHammerhead.WPF.Windows
                 if (!firstRun)
                     return;
 
-                // if autosave is enabled, attempt to load the autosave file and apply it to the game
-                if (App.Settings.AutoSave)
+                // if auto-load is enabled, attempt to load the load file and apply it to the game
+                if (App.Settings.AutoLoad)
                 {
                     // if that worked ensure the start room is set
-                    if (AutoSave.Apply(g, out _))
+                    if (RestorePointManager.Apply(g, out _))
                         g.Overworld.CurrentRegion.SetStartRoom(g.Overworld.CurrentRegion.CurrentRoom);
                 }
 
@@ -290,6 +299,11 @@ namespace SSHammerhead.WPF.Windows
             notification.Closed += (_, _) => PendingNotes.Clear();
         }
 
+        private void CloseNotificationCommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            ActiveNotification = null;
+        }
+
         #endregion
 
         #region EventHandlers
@@ -297,6 +311,11 @@ namespace SSHammerhead.WPF.Windows
         private void NotesButton_Loaded(object sender, RoutedEventArgs e)
         {
             notesButton = sender as Button;
+        }
+
+        private void PersistenceButton_Loaded(object sender, RoutedEventArgs e)
+        {
+            persistenceButton = sender as Button;
         }
 
         private void NetAFPrompt_KeyPressed(object sender, Key e)

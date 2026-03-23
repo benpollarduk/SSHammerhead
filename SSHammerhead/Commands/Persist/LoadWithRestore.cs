@@ -1,6 +1,6 @@
 ﻿using NetAF.Commands;
 using NetAF.Logic;
-using NetAF.Persistence.Json;
+using NetAF.Persistence;
 using SSHammerhead.Assets.Players.Management;
 
 namespace SSHammerhead.Commands.Persist
@@ -15,7 +15,7 @@ namespace SSHammerhead.Commands.Persist
         /// <summary>
         /// Initializes a new instance of the LoadWithRestore class.
         /// </summary>
-        public LoadWithRestore() : base(new CommandHelp("Load", "Load the game state from a file. The path should be specified as an absolute path"), true, true, LoadGameFromFile) { }
+        public LoadWithRestore() : base(NetAF.Commands.Persistence.Load.CommandHelp, true, true, LoadGameFromFile) { }
 
         #endregion
 
@@ -25,21 +25,25 @@ namespace SSHammerhead.Commands.Persist
         /// Load the game from a file.
         /// </summary>
         /// <param name="game">The game to load.</param>
-        /// <param name="args">The arguments. The file path must be the first element in the array.</param>
+        /// <param name="args">The arguments. The name must be the first element in the array.</param>
         /// <returns>The reaction.</returns>
         private static Reaction LoadGameFromFile(Game game, string[] args)
         {
-            var result = JsonSave.FromFile(args[0], out var restorePoint, out var message);
+            var name = args?.Length > 0 ? string.Join(" ", args) : null;
 
-            if (!result)
-                return new(ReactionResult.Error, $"Failed to load: {message}");
+            if (string.IsNullOrEmpty(name))
+                return new(ReactionResult.Error, "No name provided.");
 
-            game.RestoreFrom(restorePoint.Game);
+            if (!RestorePointManager.Exists(game, name))
+                return new(ReactionResult.Error, $"'{name}' does not exist.");
+
+            if (!RestorePointManager.Apply(game, name, out string message))
+                return new(ReactionResult.Error, $"Failed to load '{name}'. {message}");
 
             // setup for current player
             PlayableCharacterManager.ApplyConfiguration(game.Player, game);
 
-            return new(ReactionResult.Inform, $"Loaded.");
+            return new(ReactionResult.Inform, "Loaded.");
         }
 
         #endregion

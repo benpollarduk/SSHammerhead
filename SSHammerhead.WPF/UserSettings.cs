@@ -1,4 +1,6 @@
-﻿using NetAF.Rendering;
+﻿using NetAF.Logic;
+using NetAF.Persistence;
+using NetAF.Rendering;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -13,7 +15,7 @@ namespace SSHammerhead.WPF
     {
         #region StaticFields
 
-        private static readonly string SettingsFilePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "NetAF", TroubleAboardTheSSHammerhead.Title, "usersettings.json");
+        private static readonly string SettingsFilePath = Path.Combine(RestorePointManager.DefaultRootDirectory, TroubleAboardTheSSHammerhead.Title, "wpf.usersettings.json");
 
         #endregion
 
@@ -33,7 +35,8 @@ namespace SSHammerhead.WPF
         private bool showCommandButtons = true;
         private bool showPrompt = true;
         private int fontSizeModifier = 0;
-        private bool autoSave = true;
+        private AutoSaveEvent autoSaveEvent = AutoSaveEvent.RoomEntered;
+        private bool autoLoad = true;
 
         #endregion
 
@@ -233,12 +236,31 @@ namespace SSHammerhead.WPF
         /// <summary>
         /// Get or set if autosave is used.
         /// </summary>
-        public bool AutoSave
+        public AutoSaveEvent AutoSaveEvent
         {
-            get { return autoSave; }
+            get { return autoSaveEvent; }
             set
             {
-                autoSave = value;
+                autoSaveEvent = value;
+
+                var configuration = GameExecutor.ExecutingGame?.Configuration;
+                
+                if (configuration != null)
+                    configuration.AutoSaveEvent = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get or set if auto-load is used.
+        /// </summary>
+        public bool AutoLoad
+        {
+            get { return autoLoad; }
+            set
+            {
+                autoLoad = value;
                 OnPropertyChanged();
             }
         }
@@ -301,7 +323,8 @@ namespace SSHammerhead.WPF
         {
             var defaults = new UserSettings();
 
-            AutoSave = defaults.AutoSave;
+            AutoSaveEvent = defaults.AutoSaveEvent;
+            AutoLoad = defaults.AutoLoad;
         }
 
         /// <summary>
