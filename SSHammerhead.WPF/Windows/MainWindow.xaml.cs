@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using NetAF.Events;
-using NetAF.Interpretation;
 using NetAF.Logging.Notes;
 using NetAF.Logic;
 using NetAF.Logic.Callbacks;
@@ -174,22 +173,10 @@ namespace SSHammerhead.WPF.Windows
             // have to dynamically find the terminal because it is nested in a window control which prevents naming
             var hostedGrid = WindowControl?.HostedContent as Grid;
             var teminal = hostedGrid?.Children.OfType<NetAFMarkupTerminal>().FirstOrDefault();
-
-            var sceneInterpreter = new InputInterpreter
-            (
-                new GlobalCommandInterpreter(),
-                new ExecutionCommandInterpreter(),
-                new CustomCommandInterpreter(),
-                new SceneCommandInterpreter()
-            );
-
             var adapter = new MarkupAdapter(teminal);
             var frameBuilders = FrameBuilderCollections.NaomiMarkup;
             var displaySize = new NetAF.Assets.Size(80, 30);
             var configuration = new GameConfiguration(adapter, frameBuilders, displaySize) { AutoSaveEvent = App.Settings.AutoSaveEvent };
-
-            // change configuration prevent using the normal persistence interpreter as this is handled by custom commands
-            configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);
 
             // create additional setup to handle autosaves
             GameSetupCallback additionalSetup = g =>

@@ -1,7 +1,5 @@
 ﻿using NetAF.Events;
-using NetAF.Interpretation;
 using NetAF.Logic;
-using NetAF.Logic.Modes;
 using NetAF.Targets.Console;
 using SSHammerhead;
 using SSHammerhead.Assets.Regions.Ship.Items;
@@ -29,19 +27,6 @@ try
     );
     
     var configuration = new GameConfiguration(new ConsoleAdapter(), FrameBuilderCollections.Naomi, NetAF.Assets.Size.Dynamic);
-
-    var sceneInterpreter = new InputInterpreter
-    (
-        new FrameCommandInterpreter(),
-        new GlobalCommandInterpreter(),
-        new ExecutionCommandInterpreter(),
-        new CustomCommandInterpreter(),
-        new SceneCommandInterpreter()
-    );
-
-    // change configuration prevent using the normal persistence interpreter as this is handled by custom commands
-    configuration.InterpreterProvider.Register(typeof(SceneMode), sceneInterpreter);
-
     GameExecutor.Execute(TroubleAboardTheSSHammerhead.Create(configuration, presentation, true), new ConsoleExecutionController());
 }
 catch (Exception e)
