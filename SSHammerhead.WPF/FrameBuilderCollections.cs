@@ -53,7 +53,7 @@ namespace SSHammerhead.WPF
                 var markupBuilder = new MarkupBuilder();
 
                 return new FrameBuilderCollection(
-                    new MarkupTitleFrameBuilder(markupBuilder),
+                    new NaomiMarkupTitleFrameBuilder(markupBuilder),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder), false),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder), false),
                     new MarkupCommandListFrameBuilder(markupBuilder),
@@ -80,7 +80,7 @@ namespace SSHammerhead.WPF
                 var markupBuilder = new MarkupBuilder();
 
                 return new FrameBuilderCollection(
-                    new MarkupTitleFrameBuilder(markupBuilder),
+                    new NaomiMarkupTitleFrameBuilder(markupBuilder),
                     new MarkupSceneFrameBuilder(markupBuilder, new MarkupRoomMapBuilder(markupBuilder)),
                     new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new MarkupCommandListFrameBuilder(markupBuilder),

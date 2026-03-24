@@ -51,7 +51,7 @@ namespace SSHammerhead.Console
                 var botStringBuilder = new GridStringBuilder('[', ']', '+');
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder)),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder)),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
@@ -78,7 +78,7 @@ namespace SSHammerhead.Console
                 var gridStringBuilder = new GridStringBuilder('¦', '¦', '¬');
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder),
                     new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),

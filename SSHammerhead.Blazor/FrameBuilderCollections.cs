@@ -55,7 +55,7 @@ namespace SSHammerhead.Blazor
                 var botStringBuilder = new GridStringBuilder('[', ']', '+');
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder), false),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder), false),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
@@ -81,7 +81,7 @@ namespace SSHammerhead.Blazor
                 var gridStringBuilder = new GridStringBuilder('¦', '¦', '¬');
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder),
                     new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder), false),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }, false),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
@@ -163,7 +163,7 @@ namespace SSHammerhead.Blazor
                 var htmlBuilder = new HtmlBuilder();
 
                 return new FrameBuilderCollection(
-                    new HtmlTitleFrameBuilder(htmlBuilder),
+                    new NaomiHtmlTitleFrameBuilder(htmlBuilder),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder), false),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder), false),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
@@ -190,7 +190,7 @@ namespace SSHammerhead.Blazor
                 var htmlBuilder = new HtmlBuilder();
 
                 return new FrameBuilderCollection(
-                    new HtmlTitleFrameBuilder(htmlBuilder),
+                    new NaomiHtmlTitleFrameBuilder(htmlBuilder),
                     new HtmlSceneFrameBuilder(htmlBuilder, new HtmlRoomMapBuilder(htmlBuilder)),
                     new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
