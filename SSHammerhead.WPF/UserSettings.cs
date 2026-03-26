@@ -26,6 +26,7 @@ namespace SSHammerhead.WPF
         private double crtBrightness = 0.65;
         private double crtIntensity = 0.2;
         private double crtCurvatureIntensity = 0.3;
+        private bool useFrameTransitions = true;
         private CommandListType commandListType = CommandListType.Minimal;
         private KeyType keyType = KeyType.Dynamic;
         private bool showMapInScenes = true;
@@ -103,6 +104,19 @@ namespace SSHammerhead.WPF
             set
             {
                 crtCurvatureIntensity = Math.Clamp(value, 0, 1);
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get or set if the frame transitions are used.
+        /// </summary>
+        public bool UseFrameTransitions
+        {
+            get { return useFrameTransitions; }
+            set
+            {
+                useFrameTransitions = value;
                 OnPropertyChanged();
             }
         }
@@ -290,6 +304,8 @@ namespace SSHammerhead.WPF
             CommandListType = defaults.CommandListType;
             KeyType = defaults.KeyType;
             ShowMapInScenes = defaults.ShowMapInScenes;
+
+            UseFrameTransitions = defaults.UseFrameTransitions;
 
             FontSizeModifier = defaults.FontSizeModifier;
         }

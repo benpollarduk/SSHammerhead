@@ -53,7 +53,7 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <controls:NetAFMarkupTerminal Margin="10" FlowDocumentTheme="{Binding Source={x:Static top:App.Settings}, Path=FontSizeModifier, Mode=OneWay, Converter={StaticResource IntToModifiedFlowDocumentThemeConverter}}" Grid.Row="0">
+                    <controls:NetAFMarkupTerminal Margin="10" FlowDocumentTheme="{Binding Source={x:Static top:App.Settings}, Path=FontSizeModifier, Mode=OneWay, Converter={StaticResource IntToModifiedFlowDocumentThemeConverter}}" UseTransitions="{Binding Source={x:Static top:App.Settings}, Path=UseFrameTransitions, Mode=OneWay}" Grid.Row="0">
                         <controls:NetAFMarkupTerminal.Style>
                             <Style TargetType="controls:NetAFMarkupTerminal" BasedOn="{StaticResource DarkMarkupTerminalStyle}">
                                 <Style.Triggers>

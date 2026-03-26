@@ -103,16 +103,9 @@
                             </Grid>
                         </StackPanel>
                     </GroupBox>
-                    <GroupBox Header="Font" Style="{StaticResource GroupBoxStyle}">
+                    <GroupBox Header="Transitions" Style="{StaticResource GroupBoxStyle}">
                         <StackPanel>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
-                                    <ColumnDefinition Width="{StaticResource SliderColumnWidth}"/>
-                                </Grid.ColumnDefinitions>
-                                <Label Content="Size:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
-                                <Slider Minimum="-4" Maximum="4" TickFrequency="1" IsSnapToTickEnabled="True" Style="{StaticResource SliderStyle}" Value="{Binding Path=FontSizeModifier, Mode=TwoWay}" Grid.Row="0" Grid.Column="1"/>
-                            </Grid>
+                            <CheckBox Content="Use transitions between frames?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=UseFrameTransitions, Mode=TwoWay}"/>
                         </StackPanel>
                     </GroupBox>
                     <GroupBox Header="Information" Style="{StaticResource GroupBoxStyle}">
