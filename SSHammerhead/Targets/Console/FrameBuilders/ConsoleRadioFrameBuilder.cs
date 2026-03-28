@@ -4,13 +4,13 @@ using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Rendering.FrameBuilders;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console
+namespace SSHammerhead.Targets.Console.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of radio frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiConsoleRadioFrameBuilder(GridStringBuilder gridStringBuilder) : IRadioFrameBuilder
+    public sealed class ConsoleRadioFrameBuilder(GridStringBuilder gridStringBuilder) : IRadioFrameBuilder
     {
         #region Properties
 

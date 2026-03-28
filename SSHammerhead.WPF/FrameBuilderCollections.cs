@@ -2,12 +2,12 @@
 using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Markup.Rendering;
 using NetAF.Targets.Markup.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders.Markup;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
+using SSHammerhead.Targets.Console.FrameBuilders;
 using SSHammerhead.WPF.FrameBuilders;
 using System.Windows;
+using MarkupTitleFrameBuilder = SSHammerhead.WPF.FrameBuilders.MarkupTitleFrameBuilder;
 
 namespace SSHammerhead.WPF
 {
@@ -27,7 +27,7 @@ namespace SSHammerhead.WPF
                 var markupBuilder = new MarkupBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiMarkupTitleFrameBuilder(markupBuilder),
+                    new MarkupTitleFrameBuilder(markupBuilder),
                     new MarkupSceneFrameBuilder(markupBuilder, new MarkupRoomMapBuilder(markupBuilder)),
                     new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder)),
                     new MarkupCommandListFrameBuilder(markupBuilder),
@@ -39,8 +39,8 @@ namespace SSHammerhead.WPF
                     new MarkupConversationFrameBuilder(markupBuilder),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
-                    new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
-                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
+                    new ConsoleLoginFrameBuilder(gridStringBuilder),
+                    new ConsoleScannerFrameBuilder(gridStringBuilder),
                     new MarkupNarrativeFrameBuilder(markupBuilder),
                     new MarkupVisualFrameBuilder(markupBuilder),
                     new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
@@ -58,7 +58,7 @@ namespace SSHammerhead.WPF
                 var markupBuilder = new MarkupBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiMarkupTitleFrameBuilder(markupBuilder),
+                    new MarkupTitleFrameBuilder(markupBuilder),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder), false),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder), false),
                     new MarkupCommandListFrameBuilder(markupBuilder),
@@ -86,7 +86,7 @@ namespace SSHammerhead.WPF
                 var markupBuilder = new MarkupBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiMarkupTitleFrameBuilder(markupBuilder),
+                    new NetAF.Targets.Markup.Rendering.FrameBuilders.MarkupTitleFrameBuilder(markupBuilder),
                     new MarkupSceneFrameBuilder(markupBuilder, new MarkupRoomMapBuilder(markupBuilder)),
                     new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new MarkupCommandListFrameBuilder(markupBuilder),

@@ -6,13 +6,13 @@ using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Logic.Modes;
 using SSHammerhead.Rendering.FrameBuilders;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console
+namespace SSHammerhead.Targets.Console.FrameBuilders
 {
     /// <summary>
     /// Provides a builder for console scene frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiConsoleLoginFrameBuilder(GridStringBuilder gridStringBuilder) : IBotLoginFrameBuilder
+    public sealed class ConsoleLoginFrameBuilder(GridStringBuilder gridStringBuilder) : IBotLoginFrameBuilder
     {
         #region Fields
 
