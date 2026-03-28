@@ -17,8 +17,6 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
     {
         #region Properties
 
-        #region Properties
-
         /// <summary>
         /// Get or set the background color.
         /// </summary>
@@ -48,8 +46,6 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
         /// Get or set the command title.
         /// </summary>
         public string CommandTitle { get; set; } = "You can:";
-
-        #endregion
 
         #endregion
 
