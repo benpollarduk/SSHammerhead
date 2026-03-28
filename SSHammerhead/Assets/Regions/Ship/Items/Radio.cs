@@ -43,12 +43,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         private static Prompt View => new("view");
 
         /// <summary>
-        /// Get if this radio is playing.
+        /// Get or set if this radio is playing.
         /// </summary>
         public static bool IsPlaying
         {
             get { return GameExecutor.ExecutingGame?.VariableManager?.Get(IsPlayingVariableName).InsensitiveEquals(true.ToString()) ?? false; }
-            private set { GameExecutor.ExecutingGame?.VariableManager?.Add(IsPlayingVariableName, value.ToString()); }
+            set { GameExecutor.ExecutingGame?.VariableManager?.Add(IsPlayingVariableName, value.ToString()); }
         }
 
         #endregion

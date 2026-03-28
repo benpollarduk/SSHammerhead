@@ -2,6 +2,8 @@
 using NetAF.Commands.Global;
 using NetAF.Interpretation;
 using NetAF.Logic;
+using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Commands.MaintenancePanel;
 using SSHammerhead.Logic.Modes;
 using System.Collections.Generic;
 
@@ -42,6 +44,12 @@ namespace SSHammerhead.Interpretation
             if (End.CommandHelp.Equals(input))
                 return new(true, new End());
 
+            if (RadioOff.Off.Equals(input))
+                return new(true, new RadioOff());
+
+            if (RadioOn.On.Equals(input))
+                return new(true, new RadioOn());
+
             return InterpretationResult.Fail;
         }
 
@@ -55,7 +63,14 @@ namespace SSHammerhead.Interpretation
             List<CommandHelp> commands = [];
 
             if (game.Mode is RadioMode)
-                commands.Add(new CommandHelp(End.CommandHelp.Command, "Exit radio", CommandCategory.Information));
+            {
+                if (Radio.IsPlaying)
+                    commands.Add(RadioOff.Off);
+                else
+                    commands.Add(RadioOn.On);
+
+                commands.Add(new CommandHelp(End.CommandHelp.Command, "Exit radio", CommandCategory.Custom));
+            }
 
             return [.. commands];
         }
