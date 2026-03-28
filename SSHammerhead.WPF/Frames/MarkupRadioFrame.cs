@@ -59,6 +59,8 @@ namespace SSHammerhead.WPF.Frames
 
         #endregion
 
+        #region Implementation of IUpdatableFrame
+
         /// <summary>
         /// Occurs when the frame is updated.
         /// </summary>
@@ -126,5 +128,7 @@ namespace SSHammerhead.WPF.Frames
             timer?.Dispose();
             timer = null;
         }
+
+        #endregion
     }
 }

@@ -115,7 +115,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
             var imageBuilder = Radio.GetVisual(BackgroundColor);
             output.Overlay(leftMargin, imageYStart, imageBuilder);
 
-            return new GridVisualFrame(output) { ShowCursor = true };
+            return new GridVisualFrame(output, 4, availableHeight) { ShowCursor = true };
         }
 
         #endregion

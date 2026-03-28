@@ -76,9 +76,9 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             // screws
             visualBuilder.SetCell(1, 3, 'o', AnsiColor.BrightBlack, AnsiColor.White);
-            visualBuilder.SetCell(26, 3, 'o', AnsiColor.BrightBlack, AnsiColor.White);
+            visualBuilder.SetCell(27, 3, 'o', AnsiColor.BrightBlack, AnsiColor.White);
             visualBuilder.SetCell(1, 15, 'o', AnsiColor.BrightBlack, AnsiColor.White);
-            visualBuilder.SetCell(26, 15, 'o', AnsiColor.BrightBlack, AnsiColor.White);
+            visualBuilder.SetCell(27, 15, 'o', AnsiColor.BrightBlack, AnsiColor.White);
 
             // window
             visualBuilder.DrawRectangle(2, 8, 25, 7, AnsiColor.Black, AnsiColor.Black);
