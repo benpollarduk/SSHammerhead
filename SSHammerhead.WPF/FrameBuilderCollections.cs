@@ -2,8 +2,12 @@
 using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Markup.Rendering;
 using NetAF.Targets.Markup.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders.Markup;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
+using SSHammerhead.WPF.FrameBuilders;
+using System.Windows;
 
 namespace SSHammerhead.WPF
 {
@@ -38,7 +42,8 @@ namespace SSHammerhead.WPF
                     new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
                     new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
                     new MarkupNarrativeFrameBuilder(markupBuilder),
-                    new MarkupVisualFrameBuilder(markupBuilder));
+                    new MarkupVisualFrameBuilder(markupBuilder),
+                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
             }
         }
 
@@ -66,7 +71,8 @@ namespace SSHammerhead.WPF
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new MarkupNarrativeFrameBuilder(markupBuilder),
-                    new BotVisualFrameBuilder());
+                    new BotVisualFrameBuilder(),
+                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
             }
         }
 
@@ -93,7 +99,8 @@ namespace SSHammerhead.WPF
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new MarkupNarrativeFrameBuilder(markupBuilder),
-                    new MarkupVisualFrameBuilder(markupBuilder));
+                    new MarkupVisualFrameBuilder(markupBuilder),
+                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
             }
         }
 

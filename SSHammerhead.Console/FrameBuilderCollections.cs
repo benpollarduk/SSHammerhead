@@ -1,8 +1,9 @@
 ﻿using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Console.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 
 namespace SSHammerhead.Console
 {
@@ -90,7 +91,8 @@ namespace SSHammerhead.Console
                     new ConsoleConversationFrameBuilder(gridStringBuilder),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
-                    new ConsoleVisualFrameBuilder(gridStringBuilder));
+                    new ConsoleVisualFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleRadioFrameBuilder(gridStringBuilder));
             }
         }
 

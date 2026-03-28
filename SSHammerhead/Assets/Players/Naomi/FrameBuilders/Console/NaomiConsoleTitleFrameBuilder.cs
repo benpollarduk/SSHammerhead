@@ -7,7 +7,7 @@ using NetAF.Targets.Console.Rendering;
 using System;
 using System.Diagnostics;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console
 {
     /// <summary>
     /// Provides a builder of title frames.

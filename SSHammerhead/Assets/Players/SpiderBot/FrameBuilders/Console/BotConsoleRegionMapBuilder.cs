@@ -6,7 +6,7 @@ using NetAF.Assets.Locations;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
+namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 {
     /// <summary>
     /// Provides a console builder for region maps.

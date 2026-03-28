@@ -7,7 +7,7 @@ using SSHammerhead.Rendering.FrameBuilders;
 using System;
 using System.Linq;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console
 {
     /// <summary>
     /// Provides a builder of scanner frames.

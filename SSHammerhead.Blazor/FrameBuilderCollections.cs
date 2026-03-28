@@ -3,8 +3,10 @@ using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Console.Rendering.FrameBuilders;
 using NetAF.Targets.Html.Rendering;
 using NetAF.Targets.Html.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console;
+using SSHammerhead.Assets.Players.Naomi.FrameBuilders.Html;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 
 namespace SSHammerhead.Blazor
 {
@@ -40,7 +42,8 @@ namespace SSHammerhead.Blazor
                     new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
                     new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
                     new ConsoleNarrativeFrameBuilder(gridStringBuilder),
-                    new ConsoleVisualFrameBuilder(gridStringBuilder));
+                    new ConsoleVisualFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleRadioFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -67,7 +70,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleConversationFrameBuilder(gridStringBuilder, false),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
-                    new BotVisualFrameBuilder());
+                    new BotVisualFrameBuilder(),
+                    new NaomiConsoleRadioFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -94,7 +98,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
                     new ConsoleNarrativeFrameBuilder(gridStringBuilder),
-                    new ConsoleVisualFrameBuilder(gridStringBuilder));
+                    new ConsoleVisualFrameBuilder(gridStringBuilder),
+                    new NaomiConsoleRadioFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -148,7 +153,8 @@ namespace SSHammerhead.Blazor
                     new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
                     new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
-                    new HtmlVisualFrameBuilder(htmlBuilder));
+                    new HtmlVisualFrameBuilder(htmlBuilder),
+                    new NaomiHtmlRadioFrameBuilder(htmlBuilder));
             }
         }
 
@@ -176,7 +182,8 @@ namespace SSHammerhead.Blazor
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
-                    new BotVisualFrameBuilder());
+                    new BotVisualFrameBuilder(),
+                    new NaomiHtmlRadioFrameBuilder(htmlBuilder));
             }
         }
 
@@ -203,7 +210,8 @@ namespace SSHammerhead.Blazor
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
-                    new HtmlVisualFrameBuilder(htmlBuilder));
+                    new HtmlVisualFrameBuilder(htmlBuilder),
+                    new NaomiHtmlRadioFrameBuilder(htmlBuilder));
             }
         }
 

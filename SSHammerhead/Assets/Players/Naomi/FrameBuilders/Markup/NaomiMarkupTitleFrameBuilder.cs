@@ -8,7 +8,7 @@ using NetAF.Targets.Markup.Rendering;
 using System;
 using System.Diagnostics;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders.Markup
 {
     /// <summary>
     /// Provides a builder of title frames.

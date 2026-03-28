@@ -6,7 +6,7 @@ using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Logic.Modes;
 using SSHammerhead.Rendering.FrameBuilders;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders.Console
 {
     /// <summary>
     /// Provides a builder for console scene frames.
