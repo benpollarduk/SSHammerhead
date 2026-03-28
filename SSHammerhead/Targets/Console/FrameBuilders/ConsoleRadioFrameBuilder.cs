@@ -1,8 +1,11 @@
 ﻿using NetAF.Assets;
 using NetAF.Commands;
+using NetAF.Extensions;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
+using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Rendering.FrameBuilders;
+using System.Linq;
 
 namespace SSHammerhead.Targets.Console.FrameBuilders
 {
@@ -14,15 +17,39 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
     {
         #region Properties
 
-        /// <summary>
-        /// Get or set the border character
-        /// </summary>
-        public char BorderCharacter { get; set; } = '*';
+        #region Properties
 
         /// <summary>
         /// Get or set the background color.
         /// </summary>
         public AnsiColor BackgroundColor { get; set; } = AnsiColor.Black;
+
+        /// <summary>
+        /// Get or set the border color.
+        /// </summary>
+        public AnsiColor BorderColor { get; set; } = AnsiColor.BrightBlack;
+
+        /// <summary>
+        /// Get or set the title color.
+        /// </summary>
+        public AnsiColor TitleColor { get; set; } = AnsiColor.White;
+
+        /// <summary>
+        /// Get or set the commands color.
+        /// </summary>
+        public AnsiColor CommandsColor { get; set; } = AnsiColor.BrightBlack;
+
+        /// <summary>
+        /// Get or set the input color.
+        /// </summary>
+        public AnsiColor InputColor { get; set; } = AnsiColor.White;
+
+        /// <summary>
+        /// Get or set the command title.
+        /// </summary>
+        public string CommandTitle { get; set; } = "You can:";
+
+        #endregion
 
         #endregion
 
@@ -34,14 +61,61 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
         /// <param name="contextualCommands">The contextual commands to display.</param>
         /// <param name="size">The size of the frame.</param>
         /// <returns>The frame.</returns>
-        public IFrame Build(CommandHelp[] contextulCommands, Size size)
+        public IFrame Build(CommandHelp[] contextualCommands, Size size)
         {
-            var availableWidth = size.Width - 4;
-            var availableHeight = size.Height - 2;
-
             gridStringBuilder.Resize(size);
 
-            return new GridTextFrame(gridStringBuilder, availableWidth, availableHeight, BackgroundColor);
+            gridStringBuilder.DrawBoundary(BorderColor);
+
+            const int leftMargin = 2;
+            var availableWidth = size.Width - 4;
+            var availableHeight = size.Height - 2;
+            var title = "Radio";
+
+            gridStringBuilder.DrawWrapped(title, leftMargin, 2, availableWidth, TitleColor, out var lastX, out var lastY);
+            gridStringBuilder.DrawUnderline(lastX + 1 - title.Length, lastY + 1, title.Length, TitleColor);
+
+            var imageYStart = lastY + 2;
+            var commandSpace = 0;
+
+            if (contextualCommands?.Any() ?? false)
+            {
+                const int requiredSpaceForDivider = 2;
+                const int requiredSpaceForCommandHeader = 3;
+                int requiredSpaceForPrompt = 3;
+                commandSpace = requiredSpaceForCommandHeader + requiredSpaceForPrompt + requiredSpaceForDivider + contextualCommands.Length;
+                var requiredYToFitAllCommands = size.Height - commandSpace;
+
+                gridStringBuilder.DrawHorizontalDivider(requiredYToFitAllCommands, BorderColor);
+                gridStringBuilder.DrawWrapped(CommandTitle, leftMargin, requiredYToFitAllCommands + 2, availableWidth, CommandsColor, out _, out lastY);
+
+                var maxCommandLength = contextualCommands.Max(x => x.DisplayCommand.Length);
+                const int padding = 4;
+                var dashStartX = leftMargin + maxCommandLength + padding;
+                var descriptionStartX = dashStartX + 2;
+                lastY++;
+
+                for (var index = 0; index < contextualCommands.Length; index++)
+                {
+                    var contextualCommand = contextualCommands[index];
+                    gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand, leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped("-", dashStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped(contextualCommand.Description.EnsureFinishedSentence(), descriptionStartX, lastY, availableWidth, CommandsColor, out _, out lastY);
+                }
+            }
+
+            gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
+            gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+
+            var output = new GridVisualBuilder(BackgroundColor, TitleColor);
+            output.Resize(size);
+
+            output.Overlay(0, 0, gridStringBuilder);
+
+            var imageBuilder = Radio.GetVisual(BackgroundColor);
+            output.Overlay(leftMargin, imageYStart, imageBuilder);
+
+            return new GridVisualFrame(output) { ShowCursor = true };
         }
 
         #endregion
