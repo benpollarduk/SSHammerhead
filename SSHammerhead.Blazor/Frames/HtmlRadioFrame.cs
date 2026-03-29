@@ -82,7 +82,7 @@ namespace SSHammerhead.Blazor.Frames
         {
             builder.Clear();
 
-            var currentSong = Radio.IsPlaying ? Radio.NowPlaying() : "Off";
+            var currentSong = Radio.IsPlaying ? Radio.NowPlaying().Name : "Off";
 
             builder.H1("Radio");
             builder.Br();

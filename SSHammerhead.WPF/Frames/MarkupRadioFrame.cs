@@ -86,7 +86,7 @@ namespace SSHammerhead.WPF.Frames
         {
             builder.Clear();
 
-            var currentSong = Radio.IsPlaying ? Radio.NowPlaying() : "Off";
+            var currentSong = Radio.IsPlaying ? Radio.NowPlaying().Name : "Off";
 
             builder.Heading("Radio", HeadingLevel.H1);
             builder.Newline();

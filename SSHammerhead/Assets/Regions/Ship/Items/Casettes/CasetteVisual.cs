@@ -3,7 +3,7 @@ using NetAF.Targets.Console.Rendering;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
 {
-    internal static class Casette
+    internal static class CasetteVisual
     {
         internal static GridVisualBuilder GetTapeTemplate(CasetteProperties casetteProperties)
         {

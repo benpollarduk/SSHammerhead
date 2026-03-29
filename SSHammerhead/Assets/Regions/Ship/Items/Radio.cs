@@ -31,7 +31,11 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         private static Item lastGeneratedRadio;
         private static readonly CasetteProperties casetteProperties = CasetteProperties.Default;
-        private static readonly string casetteTemplateAsString = Casette.GetTapeTemplate(casetteProperties).ToString();
+        private static readonly string casetteTemplateAsString = CasetteVisual.GetTapeTemplate(casetteProperties).ToString();
+        private static Prompt Off => new("off");
+        private static Prompt On => new("on");
+        private static Prompt View => new("view");
+        private static readonly CasetteInfo current = Casettes.Casettes.MartynAndBen;
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -42,10 +46,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             { "Silver", 1.45f },
             { "Lead", 0.04f },
         };
-
-        private static Prompt Off => new("off");
-        private static Prompt On => new("on");
-        private static Prompt View => new("view");
 
         /// <summary>
         /// Get or set if this radio is playing.
@@ -71,10 +71,10 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             return variation switch
             {
-                CasetteVariation.Zero => Casette.AddDetails0(template, casetteProperties),
-                CasetteVariation.One => Casette.AddDetails1(template, casetteProperties),
-                CasetteVariation.Two => Casette.AddDetails2(template, casetteProperties),
-                CasetteVariation.Three => Casette.AddDetails3(template, casetteProperties),
+                CasetteVariation.Zero => CasetteVisual.AddDetails0(template, casetteProperties),
+                CasetteVariation.One => CasetteVisual.AddDetails1(template, casetteProperties),
+                CasetteVariation.Two => CasetteVisual.AddDetails2(template, casetteProperties),
+                CasetteVariation.Three => CasetteVisual.AddDetails3(template, casetteProperties),
                 _ => template
             };
         }
@@ -83,17 +83,10 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// Get the name of the track currently playing.
         /// </summary>
         /// <returns>The name of the currently playing track.</returns>
-        public static string NowPlaying()
+        public static SongInfo NowPlaying()
         {
             var time = AudioPlayer.GetBackgroundMusicPosition();
-
-            // lou, 4m6s (246s)
-            // time has come 3m46s (226s)
-
-            if (time < TimeSpan.FromSeconds(226))
-                return "Time Has Come";
-            else
-                return "The Last Of Us";
+            return current.GetSongAtTime(time);
         }
 
         /// <summary>
