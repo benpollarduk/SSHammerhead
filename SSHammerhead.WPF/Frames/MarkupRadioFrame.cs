@@ -1,10 +1,10 @@
 ﻿using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Rendering;
-using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Markup;
 using NetAF.Targets.Markup.Rendering;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Items.Casettes;
 using System.Windows.Threading;
 
 namespace SSHammerhead.WPF.Frames
@@ -19,8 +19,13 @@ namespace SSHammerhead.WPF.Frames
     {
         #region StaticFields
 
-        private static string Visual1 = MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(AnsiColor.Black, '+'));
-        private static string Visual2 = MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(AnsiColor.Black, 'x'));
+        private static string[] Visuals = 
+        [
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Zero)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.One)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Two)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Three)),
+        ];
 
         #endregion
 
@@ -38,9 +43,16 @@ namespace SSHammerhead.WPF.Frames
         private void UpdadateFrame(object? state)
         {
             if (!Radio.IsPlaying)
+            {
+                count = 0;
                 return;
+            }
 
-            count++;
+            if (count < Visuals.Length - 1)
+                count++;
+            else
+                count = 0;
+
             Updated?.Invoke(this, this);
         }
 
@@ -77,11 +89,7 @@ namespace SSHammerhead.WPF.Frames
             builder.Heading("Radio", HeadingLevel.H1);
             builder.Newline();
 
-            var visualAsMarkup = (count % 2) switch
-            {
-                0 => Visual1,
-                _ => Visual2,
-            };
+            var visualAsMarkup = Visuals[count];
 
             builder.Raw(visualAsMarkup);
 

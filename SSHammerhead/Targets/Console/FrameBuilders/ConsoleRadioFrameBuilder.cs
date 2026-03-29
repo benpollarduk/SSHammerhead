@@ -4,6 +4,7 @@ using NetAF.Extensions;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Items.Casettes;
 using SSHammerhead.Rendering.FrameBuilders;
 using System.Linq;
 
@@ -108,7 +109,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
             output.Overlay(0, 0, gridStringBuilder);
 
-            var imageBuilder = Radio.GetVisual(BackgroundColor);
+            var imageBuilder = Radio.GetVisual(CasetteVariation.Zero);
             output.Overlay(leftMargin, imageYStart, imageBuilder);
 
             return new GridVisualFrame(output, 4, availableHeight) { ShowCursor = true };

@@ -4,6 +4,7 @@ using NetAF.Extensions;
 using NetAF.Logic;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
+using SSHammerhead.Assets.Regions.Ship.Items.Casettes;
 using SSHammerhead.Logic.Modes;
 using System;
 using System.Collections.Generic;
@@ -56,47 +57,23 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region StaticMethods
 
         /// <summary>
-        /// Get a visual representing the radio.
+        /// Get the visual representing the radio.
         /// </summary>
-        /// <param name="background">The background color.</param>
-        /// <param name="spoolCenters">The spool centers.</param>
-        /// <returns></returns>
-        public static GridVisualBuilder GetVisual(AnsiColor background, char spoolCenters = '+')
+        /// <param name="variation">The variation.</param>
+        /// <returns>The visual.</returns>
+        public static GridVisualBuilder GetVisual(CasetteVariation variation)
         {
-            var visualBuilder = new GridVisualBuilder(background, AnsiColor.White);
-            visualBuilder.Resize(new NetAF.Assets.Size(30, 20));
+            var properties = CasetteProperties.Default;
+            var template = Casette.GetTapeTemplate(properties);
 
-            // cassette Body
-            visualBuilder.DrawBorder(0, 2, 29, 15, AnsiColor.BrightBlack);
-            visualBuilder.DrawRectangle(1, 3, 27, 13, AnsiColor.White, AnsiColor.White);
-
-            // label
-            visualBuilder.DrawRectangle(2, 4, 25, 3, AnsiColor.BrightBlack, AnsiColor.BrightBlack);
-            visualBuilder.DrawText(3, 5, "THIS FIRE", AnsiColor.White);
-
-            // screws
-            visualBuilder.SetCell(1, 3, 'o', AnsiColor.BrightBlack, AnsiColor.White);
-            visualBuilder.SetCell(27, 3, 'o', AnsiColor.BrightBlack, AnsiColor.White);
-            visualBuilder.SetCell(1, 15, 'o', AnsiColor.BrightBlack, AnsiColor.White);
-            visualBuilder.SetCell(27, 15, 'o', AnsiColor.BrightBlack, AnsiColor.White);
-
-            // window
-            visualBuilder.DrawRectangle(2, 8, 25, 7, AnsiColor.Black, AnsiColor.Black);
-            visualBuilder.DrawBorder(2, 8, 25, 7, AnsiColor.BrightBlack);
-
-            // spools
-            visualBuilder.DrawCircle(8, 11, 2, AnsiColor.BrightBlack, AnsiColor.Black);
-            visualBuilder.DrawCircle(20, 11, 2, AnsiColor.BrightBlack, AnsiColor.Black);
-
-            // spool centers
-            visualBuilder.SetCell(8, 11, spoolCenters, AnsiColor.White, AnsiColor.Black);
-            visualBuilder.SetCell(20, 11, spoolCenters, AnsiColor.White, AnsiColor.Black);
-
-            // tape
-            visualBuilder.DrawRectangle(4, 11, 1, 1, AnsiColor.Red, AnsiColor.Black);
-            visualBuilder.DrawRectangle(24, 11, 1, 1, AnsiColor.Red, AnsiColor.Black);
-
-            return visualBuilder;
+            return variation switch
+            {
+                CasetteVariation.Zero => Casette.AddDetails0(template, properties),
+                CasetteVariation.One => Casette.AddDetails1(template, properties),
+                CasetteVariation.Two => Casette.AddDetails2(template, properties),
+                CasetteVariation.Three => Casette.AddDetails3(template, properties),
+                _ => template
+            };
         }
 
         /// <summary>

@@ -1,10 +1,10 @@
 ﻿using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Rendering;
-using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Html.Rendering;
 using NetAF.Targets.Markup;
 using SSHammerhead.Assets.Regions.Ship.Items;
+using SSHammerhead.Assets.Regions.Ship.Items.Casettes;
 
 namespace SSHammerhead.Blazor.Frames
 {
@@ -17,8 +17,13 @@ namespace SSHammerhead.Blazor.Frames
     {
         #region StaticFields
 
-        private static string Visual1 = MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(AnsiColor.Black, '+'));
-        private static string Visual2 = MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(AnsiColor.Black, 'x'));
+        private static string[] Visuals =
+        [
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Zero)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.One)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Two)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Three)),
+        ];
 
         #endregion
 
@@ -36,9 +41,16 @@ namespace SSHammerhead.Blazor.Frames
         private void UpdadateFrame(object? state)
         {
             if (!Radio.IsPlaying)
+            {
+                count = 0;
                 return;
+            }
 
-            count++;
+            if (count < Visuals.Length - 1)
+                count++;
+            else
+                count = 0;
+
             Updated?.Invoke(this, this);
         }
 
@@ -73,11 +85,7 @@ namespace SSHammerhead.Blazor.Frames
             builder.H1("Radio");
             builder.Br();
 
-            var visualAsMarkup = (count % 2) switch
-            {
-                0 => Visual1,
-                _ => Visual2,
-            };
+            var visualAsMarkup = Visuals[count];
 
             builder.Raw(visualAsMarkup);
 
