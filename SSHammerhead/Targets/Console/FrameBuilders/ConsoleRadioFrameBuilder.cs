@@ -34,6 +34,11 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
         public AnsiColor TitleColor { get; set; } = AnsiColor.White;
 
         /// <summary>
+        /// Get or set the information color.
+        /// </summary>
+        public AnsiColor InformationColor { get; set; } = AnsiColor.White;
+
+        /// <summary>
         /// Get or set the commands color.
         /// </summary>
         public AnsiColor CommandsColor { get; set; } = AnsiColor.BrightBlack;
@@ -68,11 +73,16 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
             var availableWidth = size.Width - 4;
             var availableHeight = size.Height - 2;
             var title = "Radio";
+            var currentSong = Radio.IsPlaying ? Radio.NowPlaying() : "Off";
 
             gridStringBuilder.DrawWrapped(title, leftMargin, 2, availableWidth, TitleColor, out var lastX, out var lastY);
             gridStringBuilder.DrawUnderline(lastX + 1 - title.Length, lastY + 1, title.Length, TitleColor);
 
-            var imageYStart = lastY + 2;
+            lastY += 3;
+
+            gridStringBuilder.DrawWrapped($"Now playing: {currentSong}", leftMargin, lastY, availableWidth, InformationColor, out lastX, out lastY);
+
+            var imageYStart = lastY + 3;
             var commandSpace = 0;
 
             if (contextualCommands?.Any() ?? false)

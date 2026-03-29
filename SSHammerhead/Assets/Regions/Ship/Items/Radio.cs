@@ -5,9 +5,11 @@ using NetAF.Logic;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Ship.Items.Casettes;
+using SSHammerhead.Audio;
 using SSHammerhead.Logic.Modes;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
@@ -28,7 +30,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region StaticProperties
 
         private static Item lastGeneratedRadio;
-        private static readonly CasetteProperties casetteProperties = CasetteProperties.ThisFire;
+        private static readonly CasetteProperties casetteProperties = CasetteProperties.Default;
         private static readonly string casetteTemplateAsString = Casette.GetTapeTemplate(casetteProperties).ToString();
 
         internal static Dictionary<string, float> Composition => new()
@@ -75,6 +77,23 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 CasetteVariation.Three => Casette.AddDetails3(template, casetteProperties),
                 _ => template
             };
+        }
+
+        /// <summary>
+        /// Get the name of the track currently playing.
+        /// </summary>
+        /// <returns>The name of the currently playing track.</returns>
+        public static string NowPlaying()
+        {
+            var time = AudioPlayer.GetBackgroundMusicPosition();
+
+            // lou, 4m6s (246s)
+            // time has come 3m46s (226s)
+
+            if (time < TimeSpan.FromSeconds(226))
+                return "Time Has Come";
+            else
+                return "The Last Of Us";
         }
 
         /// <summary>

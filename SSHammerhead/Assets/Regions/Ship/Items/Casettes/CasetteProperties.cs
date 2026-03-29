@@ -47,7 +47,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             AnsiColor.White,
             AnsiColor.Red,
             "THIS FIRE",
-            AnsiColor.BrightBlack,
+            AnsiColor.White,
             AnsiColor.White,
             AnsiColor.Black,
             AnsiColor.White,

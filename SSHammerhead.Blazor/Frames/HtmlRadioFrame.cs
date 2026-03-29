@@ -82,7 +82,13 @@ namespace SSHammerhead.Blazor.Frames
         {
             builder.Clear();
 
+            var currentSong = Radio.IsPlaying ? Radio.NowPlaying() : "Off";
+
             builder.H1("Radio");
+            builder.Br();
+
+            builder.P($"Now playing: {currentSong}");
+            builder.Br();
             builder.Br();
 
             var visualAsMarkup = Visuals[count];

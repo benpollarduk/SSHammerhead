@@ -38,6 +38,15 @@ namespace SSHammerhead.Audio
         #region StaticMethods
 
         /// <summary>
+        /// Get the current position in the background music.
+        /// </summary>
+        /// <returns>The current position.</returns>
+        public static TimeSpan GetBackgroundMusicPosition()
+        {
+            return backgroundMusicReader?.CurrentTime ?? TimeSpan.Zero;
+        }
+
+        /// <summary>
         /// Start background music.
         /// </summary>
         /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
