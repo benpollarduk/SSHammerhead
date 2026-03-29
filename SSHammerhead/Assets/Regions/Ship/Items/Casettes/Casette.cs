@@ -10,12 +10,15 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             var visualBuilder = new GridVisualBuilder(casetteProperties.Background, casetteProperties.Background);
             visualBuilder.Resize(new Size(30, 20));
 
-            // cassette Body
-            visualBuilder.DrawBorder(0, 2, 29, 15, casetteProperties.BodyBorder);
-            visualBuilder.DrawRectangle(1, 3, 27, 13, casetteProperties.Body, casetteProperties.Body);
+            var bodyVarier = new IntensityVariationGenerator(10, 10);
+            var labelVarier = new IntensityVariationGenerator(5, 5);
+            var windowVarier = new IntensityVariationGenerator(5, 5);
+
+            // cassette body
+            visualBuilder.DrawRectangle(0, 2, 29, 15, casetteProperties.BodyBorder, casetteProperties.Body, bodyVarier, bodyVarier);
 
             // label
-            visualBuilder.DrawRectangle(2, 4, 25, 3, casetteProperties.LabelBackground, casetteProperties.LabelBackground);
+            visualBuilder.DrawRectangle(2, 4, 25, 3, casetteProperties.LabelBackground, casetteProperties.LabelBackground, labelVarier, labelVarier);
             visualBuilder.DrawText(3, 5, casetteProperties.Label, casetteProperties.LabelForeground);
 
             // screws
@@ -25,7 +28,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             visualBuilder.SetCell(27, 15, casetteProperties.ScrewCharacter, casetteProperties.ScrewCharacterForeground, casetteProperties.ScrewCharacterBackground);
 
             // window
-            visualBuilder.DrawRectangle(2, 8, 25, 7, casetteProperties.WindowBorder, casetteProperties.Window);
+            visualBuilder.DrawRectangle(2, 8, 25, 7, casetteProperties.WindowBorder, casetteProperties.Window, windowVarier, windowVarier);
 
             return visualBuilder;
         }

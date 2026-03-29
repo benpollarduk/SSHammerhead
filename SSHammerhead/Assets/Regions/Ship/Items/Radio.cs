@@ -28,6 +28,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region StaticProperties
 
         private static Item lastGeneratedRadio;
+        private static readonly CasetteProperties casetteProperties = CasetteProperties.ThisFire;
+        private static readonly string casetteTemplateAsString = Casette.GetTapeTemplate(casetteProperties).ToString();
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -63,15 +65,14 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <returns>The visual.</returns>
         public static GridVisualBuilder GetVisual(CasetteVariation variation)
         {
-            var properties = CasetteProperties.Default;
-            var template = Casette.GetTapeTemplate(properties);
+            var template = GridVisualBuilder.FromString(casetteTemplateAsString);
 
             return variation switch
             {
-                CasetteVariation.Zero => Casette.AddDetails0(template, properties),
-                CasetteVariation.One => Casette.AddDetails1(template, properties),
-                CasetteVariation.Two => Casette.AddDetails2(template, properties),
-                CasetteVariation.Three => Casette.AddDetails3(template, properties),
+                CasetteVariation.Zero => Casette.AddDetails0(template, casetteProperties),
+                CasetteVariation.One => Casette.AddDetails1(template, casetteProperties),
+                CasetteVariation.Two => Casette.AddDetails2(template, casetteProperties),
+                CasetteVariation.Three => Casette.AddDetails3(template, casetteProperties),
                 _ => template
             };
         }

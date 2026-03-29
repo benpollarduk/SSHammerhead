@@ -24,10 +24,10 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         (
             AnsiColor.Black, 
             AnsiColor.White, 
-            AnsiColor.BrightBlack, 
+            AnsiColor.White, 
             AnsiColor.Red, 
-            AnsiColor.Black, 
             AnsiColor.BrightBlack, 
+            AnsiColor.Black, 
             "CASETTE",
             AnsiColor.BrightBlack, 
             AnsiColor.White, 
@@ -42,7 +42,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         (
             AnsiColor.Black,
             AnsiColor.BrightBlue,
-            AnsiColor.Red,
+            AnsiColor.BrightBlue,
             AnsiColor.Red,
             AnsiColor.White,
             AnsiColor.Red,
