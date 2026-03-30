@@ -76,15 +76,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region StaticMethods
 
         /// <summary>
-        /// Get the current position in the background music.
-        /// </summary>
-        /// <returns>The current position.</returns>
-        public static TimeSpan GetBackgroundMusicPosition()
-        {
-            return backgroundMusicReader?.CurrentTime ?? TimeSpan.Zero;
-        }
-
-        /// <summary>
         /// Start the radio.
         /// </summary>
         /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
@@ -161,12 +152,20 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <param name="casette">The new casette.</param>
         protected static void ChangeCasette(Casette casette)
         {
+            var wasPlaying = IsPlaying;
+
+            if (wasPlaying)
+                Stop();
+
             if (!string.IsNullOrEmpty(casetteTemplateAsString))
                 return;
 
             CurrentCasette = casette;
 
             casetteTemplateAsString = CurrentCasette.GetVisualTemplate().ToString();
+
+            if (wasPlaying)
+                Start();
         }
 
         /// <summary>
@@ -185,13 +184,13 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         }
 
         /// <summary>
-        /// Get the name of the track currently playing.
+        /// Get information about the song that is currently playing.
         /// </summary>
-        /// <returns>The name of the currently playing track.</returns>
-        public static SongInfo NowPlaying()
+        /// <returns>The information about the currently playing song.</returns>
+        public static NowPlaying NowPlaying()
         {
-            var time = GetBackgroundMusicPosition();
-            return CurrentCasette.GetSongAtTime(time);
+            var time = backgroundMusicReader?.CurrentTime ?? TimeSpan.Zero;
+            return new NowPlaying(CurrentCasette.Info.Album, CurrentCasette.Info.Album, CurrentCasette.GetSongAtTime(time).Name);
         }
 
         /// <summary>

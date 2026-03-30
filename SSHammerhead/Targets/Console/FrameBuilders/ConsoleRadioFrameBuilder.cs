@@ -73,7 +73,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
             var availableWidth = size.Width - 4;
             var availableHeight = size.Height - 2;
             var title = "Radio";
-            var currentSong = Radio.IsPlaying ? Radio.NowPlaying().Name : "Off";
+            var currentSong = Radio.IsPlaying ? Radio.NowPlaying().ToString() : "Off";
 
             gridStringBuilder.DrawWrapped(title, leftMargin, 2, availableWidth, TitleColor, out var lastX, out var lastY);
             gridStringBuilder.DrawUnderline(lastX + 1 - title.Length, lastY + 1, title.Length, TitleColor);

@@ -114,18 +114,18 @@ namespace SSHammerhead.WPF.Windows
             {
                 game = x.Game;
                 Update(game);
-                AudioPlayer.StartBackgroundMusic(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
+                Radio.Start(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
             });
             EventBus.Subscribe<GameFinished>(_ =>
             {
                 game = null;
                 IsPersistenceAvailable = false;
-                AudioPlayer.StopBackgroundMusic();
+                Radio.Stop();
             });
             EventBus.Subscribe<GameUpdated>(x =>
             {
                 Update(x.Game);
-                AudioPlayer.AdjustBackgroundMusic(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
+                Radio.Adjust(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
             });
             EventBus.Subscribe<NoteAdded>(x =>
             {

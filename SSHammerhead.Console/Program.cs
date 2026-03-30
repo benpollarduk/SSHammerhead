@@ -11,9 +11,9 @@ try
 {
     Services.ImageProvider = new ConsoleImageProvider();
 
-    EventBus.Subscribe<GameStarted>(x => AudioPlayer.StartBackgroundMusic(1, Radio.DetermineProximity(x.Game)));
-    EventBus.Subscribe<GameFinished>(_ => AudioPlayer.StopBackgroundMusic());
-    EventBus.Subscribe<GameUpdated>(x => AudioPlayer.AdjustBackgroundMusic(1, Radio.DetermineProximity(x.Game)));
+    EventBus.Subscribe<GameStarted>(x => Radio.Start(1, Radio.DetermineProximity(x.Game)));
+    EventBus.Subscribe<GameFinished>(_ => Radio.Stop());
+    EventBus.Subscribe<GameUpdated>(x => Radio.Adjust(1, Radio.DetermineProximity(x.Game)));
 
     var presentation = new Presentation
     (
