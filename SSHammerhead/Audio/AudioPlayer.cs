@@ -11,10 +11,6 @@ namespace SSHammerhead.Audio
         #region StaticProperties
 
         private static readonly Random random = new Random();
-        private static WaveOutEvent backgroundMusicWaveOut;
-        private static AudioFileReader backgroundMusicReader;
-        private static ProximityFilter backgroundProximityFilter;
-        private static bool shouldLoopBackgroundMusic;
 
         private static readonly string[] KeySoundPaths =
         [
@@ -36,93 +32,6 @@ namespace SSHammerhead.Audio
         #endregion
 
         #region StaticMethods
-
-        /// <summary>
-        /// Get the current position in the background music.
-        /// </summary>
-        /// <returns>The current position.</returns>
-        public static TimeSpan GetBackgroundMusicPosition()
-        {
-            return backgroundMusicReader?.CurrentTime ?? TimeSpan.Zero;
-        }
-
-        /// <summary>
-        /// Start background music.
-        /// </summary>
-        /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
-        /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
-        public static void StartBackgroundMusic(float volume = 1, float proximity = 1)
-        {
-            StopBackgroundMusic();
-
-            backgroundMusicWaveOut = new WaveOutEvent();
-            backgroundMusicReader = new AudioFileReader("Resources/Audio/Music/radio.mp3");
-
-            var totalMilliseconds = backgroundMusicReader.TotalTime.TotalMilliseconds;
-
-            if (totalMilliseconds > 0)
-            {
-                var startMilliseconds = random.NextDouble() * totalMilliseconds;
-                backgroundMusicReader.CurrentTime = TimeSpan.FromMilliseconds(startMilliseconds);
-            }
-
-            backgroundMusicReader.Volume = 1;
-            shouldLoopBackgroundMusic = true;
-
-            backgroundProximityFilter = new ProximityFilter(backgroundMusicReader);
-            backgroundProximityFilter.UpdateProximity(proximity, true);
-            backgroundProximityFilter.UpdateVolume(volume * proximity, true);
-
-            backgroundMusicWaveOut.Init(backgroundProximityFilter);
-
-            backgroundMusicWaveOut.PlaybackStopped += (sender, args) =>
-            {
-                if (shouldLoopBackgroundMusic && backgroundMusicReader != null)
-                {
-                    backgroundMusicReader.CurrentTime = TimeSpan.Zero;
-                    backgroundMusicWaveOut?.Play();
-                }
-            };
-
-            backgroundMusicWaveOut.Play();
-        }
-
-        /// <summary>
-        /// Adjust the background music.
-        /// </summary>
-        /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
-        /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
-        public static void AdjustBackgroundMusic(float volume = 1, float proximity = 1)
-        {
-            if (backgroundProximityFilter != null)
-            {
-                backgroundProximityFilter.UpdateProximity(proximity);
-                backgroundProximityFilter.UpdateVolume(volume * proximity);
-            }
-        }
-
-        /// <summary>
-        /// Stop the background music.
-        /// </summary>
-        public static void StopBackgroundMusic()
-        {
-            shouldLoopBackgroundMusic = false;
-
-            if (backgroundMusicWaveOut != null)
-            {
-                backgroundMusicWaveOut.Stop();
-                backgroundMusicWaveOut.Dispose();
-                backgroundMusicWaveOut = null;
-            }
-
-            if (backgroundMusicReader != null)
-            {
-                backgroundMusicReader.Dispose();
-                backgroundMusicReader = null;
-            }
-
-            backgroundProximityFilter = null;
-        }
 
         /// <summary>
         /// Play a sound effect.

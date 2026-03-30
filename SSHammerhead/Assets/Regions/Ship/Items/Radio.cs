@@ -1,4 +1,5 @@
-﻿using NetAF.Assets;
+﻿using NAudio.Wave;
+using NetAF.Assets;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic;
@@ -33,6 +34,10 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         private static Prompt On => new("on");
         private static Prompt View => new("view");
         private static string casetteTemplateAsString;
+        private static WaveOutEvent backgroundMusicWaveOut;
+        private static AudioFileReader backgroundMusicReader;
+        private static ProximityFilter backgroundProximityFilter;
+        private static bool shouldLoopBackgroundMusic;
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -50,7 +55,15 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         public static bool IsPlaying
         {
             get { return GameExecutor.ExecutingGame?.VariableManager?.Get(IsPlayingVariableName).InsensitiveEquals(true.ToString()) ?? false; }
-            set { GameExecutor.ExecutingGame?.VariableManager?.Add(IsPlayingVariableName, value.ToString()); }
+            set 
+            {
+                GameExecutor.ExecutingGame?.VariableManager?.Add(IsPlayingVariableName, value.ToString());
+
+                if (value)
+                    Start();
+                else
+                    Stop();
+            }
         }
 
         /// <summary>
@@ -61,6 +74,86 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #endregion
 
         #region StaticMethods
+
+        /// <summary>
+        /// Get the current position in the background music.
+        /// </summary>
+        /// <returns>The current position.</returns>
+        public static TimeSpan GetBackgroundMusicPosition()
+        {
+            return backgroundMusicReader?.CurrentTime ?? TimeSpan.Zero;
+        }
+
+        /// <summary>
+        /// Start the radio.
+        /// </summary>
+        /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
+        /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
+        public static void Start(float volume = 1, float proximity = 1)
+        {
+            Stop();
+
+            backgroundMusicWaveOut = new WaveOutEvent();
+            backgroundMusicReader = new AudioFileReader(CurrentCasette.ResourceName);
+            backgroundMusicReader.CurrentTime = TimeSpan.FromMilliseconds(CurrentCasette.PositionInMilliseconds);
+
+            backgroundMusicReader.Volume = 1;
+            shouldLoopBackgroundMusic = true;
+
+            backgroundProximityFilter = new ProximityFilter(backgroundMusicReader);
+            backgroundProximityFilter.UpdateProximity(proximity, true);
+            backgroundProximityFilter.UpdateVolume(volume * proximity, true);
+
+            backgroundMusicWaveOut.Init(backgroundProximityFilter);
+
+            backgroundMusicWaveOut.PlaybackStopped += (sender, args) =>
+            {
+                if (shouldLoopBackgroundMusic && backgroundMusicReader != null)
+                {
+                    backgroundMusicReader.CurrentTime = TimeSpan.Zero;
+                    backgroundMusicWaveOut?.Play();
+                }
+            };
+
+            backgroundMusicWaveOut.Play();
+        }
+
+        /// <summary>
+        /// Adjust the radio.
+        /// </summary>
+        /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
+        /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
+        public static void Adjust(float volume = 1, float proximity = 1)
+        {
+            if (backgroundProximityFilter != null)
+            {
+                backgroundProximityFilter.UpdateProximity(proximity);
+                backgroundProximityFilter.UpdateVolume(volume * proximity);
+            }
+        }
+
+        /// <summary>
+        /// Stop the radio.
+        /// </summary>
+        public static void Stop()
+        {
+            shouldLoopBackgroundMusic = false;
+
+            if (backgroundMusicWaveOut != null)
+            {
+                backgroundMusicWaveOut.Stop();
+                backgroundMusicWaveOut.Dispose();
+                backgroundMusicWaveOut = null;
+            }
+
+            if (backgroundMusicReader != null)
+            {
+                backgroundMusicReader.Dispose();
+                backgroundMusicReader = null;
+            }
+
+            backgroundProximityFilter = null;
+        }
 
         /// <summary>
         /// Change casette.
@@ -97,7 +190,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <returns>The name of the currently playing track.</returns>
         public static SongInfo NowPlaying()
         {
-            var time = AudioPlayer.GetBackgroundMusicPosition();
+            var time = GetBackgroundMusicPosition();
             return CurrentCasette.GetSongAtTime(time);
         }
 
