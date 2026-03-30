@@ -20,18 +20,12 @@ namespace SSHammerhead.WPF.Frames
     {
         #region Fields
 
-        private string[] visuals =
-        [
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Zero)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.One)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Two)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Three)),
-        ];
-
         private int count = 0;
         private Timer? timer;
         private TimerCallback? timerCallback;
         private TimeSpan updateFrequency = TimeSpan.FromMilliseconds(500);
+        private Casette? currentCasette;
+        private string[]? visuals = [];
 
         #endregion
 
@@ -45,7 +39,7 @@ namespace SSHammerhead.WPF.Frames
                 return;
             }
 
-            if (count < visuals.Length - 1)
+            if (count < visuals?.Length - 1)
                 count++;
             else
                 count = 0;
@@ -91,6 +85,24 @@ namespace SSHammerhead.WPF.Frames
             builder.WriteLine($"Now playing: {currentSong}");
             builder.Newline();
             builder.Newline();
+
+            var loadedCasette = Radio.GetCurrentlyLoadedCasette(GameExecutor.ExecutingGame);
+
+            if (currentCasette != loadedCasette)
+                visuals = null;
+
+            if (visuals == null)
+            {
+                visuals =
+                [
+                    MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Zero)),
+                    MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.One)),
+                    MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Two)),
+                    MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Three)),
+                ];
+            }
+
+            currentCasette = loadedCasette;
 
             var visualAsMarkup = visuals[count];
 

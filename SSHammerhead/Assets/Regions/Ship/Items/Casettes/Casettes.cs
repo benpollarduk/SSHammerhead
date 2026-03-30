@@ -47,7 +47,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             AnsiColor.Red,
             "THIS FIRE - DEMONS",
             AnsiColor.White,
-            AnsiColor.BrightBlack,
+            AnsiColor.BrightBlue,
             AnsiColor.Black,
             AnsiColor.White,
             '*',
@@ -67,6 +67,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         /// <summary>
         /// Get the casette info for Demons.
         /// </summary>
-        public static Casette Demons = new Casette(new CasetteInfo("ThisFire", "Demons", DemonsSongs), DemonsVisualProperties, "Resources/Audio/Music/demons.mp3");
+        public static Casette Demons = new Casette(new CasetteInfo("This Fire", "Demons", DemonsSongs), DemonsVisualProperties, "Resources/Audio/Music/demons.mp3");
     }
 }

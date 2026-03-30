@@ -48,7 +48,7 @@ namespace SSHammerhead.Commands.MaintenancePanel
                 return new(ReactionResult.Error, $"{album} is not a known casette.");
 
             Radio.ChangeCasette(game, casette);
-            return new(ReactionResult.Inform, $"Casette changed to {casette.Info.Album} by {casette.Info.Artist}.");
+            return new(ReactionResult.Silent, $"Casette changed to {casette.Info.Album} by {casette.Info.Artist}.");
         }
 
         /// <summary>

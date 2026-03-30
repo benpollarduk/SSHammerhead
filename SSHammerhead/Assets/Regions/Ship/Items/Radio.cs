@@ -77,6 +77,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         {
             Stop(game);
 
+            game?.VariableManager?.Add(IsPlayingVariableName, true.ToString());
+
             var casette = GetCurrentlyLoadedCasette(game);
 
             backgroundMusicWaveOut = new WaveOutEvent();
@@ -92,16 +94,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             backgroundProximityFilter.UpdateVolume(volume * proximity, true);
 
             backgroundMusicWaveOut.Init(backgroundProximityFilter);
-
-            backgroundMusicWaveOut.PlaybackStopped += (sender, args) =>
-            {
-                if (shouldLoopBackgroundMusic && backgroundMusicReader != null)
-                {
-                    backgroundMusicReader.CurrentTime = TimeSpan.Zero;
-                    backgroundMusicWaveOut?.Play();
-                }
-            };
-
+            backgroundMusicWaveOut.PlaybackStopped += BackgroundMusicWaveOut_PlaybackStopped;
             backgroundMusicWaveOut.Play();
 
             positionUpdateTimer = new Timer(_ =>
@@ -132,6 +125,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <param name="game">The game.</param>
         public static void Stop(Game game)
         {
+            game?.VariableManager?.Add(IsPlayingVariableName, false.ToString());
+
             positionUpdateTimer?.Dispose();
             positionUpdateTimer = null;
 
@@ -139,6 +134,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             if (backgroundMusicWaveOut != null)
             {
+                backgroundMusicWaveOut.PlaybackStopped -= BackgroundMusicWaveOut_PlaybackStopped;
                 backgroundMusicWaveOut.Stop();
                 backgroundMusicWaveOut.Dispose();
                 backgroundMusicWaveOut = null;
@@ -376,6 +372,19 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         private static bool IsPrompt(string arg, Prompt prompt)
         {
             return prompt.Entry.Equals(arg, StringComparison.InvariantCultureIgnoreCase);
+        }
+
+        #endregion
+
+        #region EventHandlers
+
+        private static void BackgroundMusicWaveOut_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            if (shouldLoopBackgroundMusic && backgroundMusicReader != null && IsPlaying(GameExecutor.ExecutingGame))
+            {
+                backgroundMusicReader.CurrentTime = TimeSpan.Zero;
+                backgroundMusicWaveOut?.Play();
+            }
         }
 
         #endregion
