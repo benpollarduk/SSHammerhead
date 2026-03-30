@@ -9,7 +9,6 @@ using SSHammerhead.Audio;
 using SSHammerhead.Logic.Modes;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
@@ -30,12 +29,10 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region StaticProperties
 
         private static Item lastGeneratedRadio;
-        private static readonly CasetteProperties casetteProperties = CasetteProperties.Default;
-        private static readonly string casetteTemplateAsString = CasetteVisual.GetTapeTemplate(casetteProperties).ToString();
         private static Prompt Off => new("off");
         private static Prompt On => new("on");
         private static Prompt View => new("view");
-        private static readonly CasetteInfo current = Casettes.Casettes.MartynAndBen;
+        private static string casetteTemplateAsString;
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -56,9 +53,28 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             set { GameExecutor.ExecutingGame?.VariableManager?.Add(IsPlayingVariableName, value.ToString()); }
         }
 
+        /// <summary>
+        /// Get the current casette.
+        /// </summary>
+        public static Casette CurrentCasette { get; private set; } = Casettes.Casettes.MartynAndBen;
+
         #endregion
 
         #region StaticMethods
+
+        /// <summary>
+        /// Change casette.
+        /// </summary>
+        /// <param name="casette">The new casette.</param>
+        protected static void ChangeCasette(Casette casette)
+        {
+            if (!string.IsNullOrEmpty(casetteTemplateAsString))
+                return;
+
+            CurrentCasette = casette;
+
+            casetteTemplateAsString = CurrentCasette.GetVisualTemplate().ToString();
+        }
 
         /// <summary>
         /// Get the visual representing the radio.
@@ -67,16 +83,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <returns>The visual.</returns>
         public static GridVisualBuilder GetVisual(CasetteVariation variation)
         {
+            if (string.IsNullOrEmpty(casetteTemplateAsString))
+                casetteTemplateAsString = CurrentCasette.GetVisualTemplate().ToString();
+
             var template = GridVisualBuilder.FromString(casetteTemplateAsString);
 
-            return variation switch
-            {
-                CasetteVariation.Zero => CasetteVisual.AddDetails0(template, casetteProperties),
-                CasetteVariation.One => CasetteVisual.AddDetails1(template, casetteProperties),
-                CasetteVariation.Two => CasetteVisual.AddDetails2(template, casetteProperties),
-                CasetteVariation.Three => CasetteVisual.AddDetails3(template, casetteProperties),
-                _ => template
-            };
+            return CurrentCasette.AddVisualDetails(template, variation);
         }
 
         /// <summary>
@@ -86,7 +98,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         public static SongInfo NowPlaying()
         {
             var time = AudioPlayer.GetBackgroundMusicPosition();
-            return current.GetSongAtTime(time);
+            return CurrentCasette.GetSongAtTime(time);
         }
 
         /// <summary>
