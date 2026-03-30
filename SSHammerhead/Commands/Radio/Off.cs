@@ -7,14 +7,14 @@ namespace SSHammerhead.Commands.MaintenancePanel
     /// <summary>
     /// Represents the Radio off command.
     /// </summary>
-    internal sealed class RadioOff : ICommand
+    internal sealed class Off : ICommand
     {
         #region StaticProperties
 
         /// <summary>
         /// Get the help for this command.
         /// </summary>
-        public static CommandHelp Off { get; } = new CommandHelp("Off", "Turn the radio off.", CommandCategory.Custom);
+        public static CommandHelp CommandHelp { get; } = new CommandHelp("Off", "Turn the radio off.", CommandCategory.Custom);
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace SSHammerhead.Commands.MaintenancePanel
         /// <summary>
         /// Get the help for this command.
         /// </summary>
-        public CommandHelp Help => Off;
+        public CommandHelp Help => CommandHelp;
 
         /// <summary>
         /// Invoke the command.
@@ -32,7 +32,7 @@ namespace SSHammerhead.Commands.MaintenancePanel
         /// <returns>The reaction.</returns>
         public Reaction Invoke(Game game)
         {
-            Radio.IsPlaying = false;
+            Radio.Stop(game);
             return new(ReactionResult.Silent, "You turn the radio off.");
         }
 

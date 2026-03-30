@@ -1,5 +1,6 @@
 ﻿using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Rendering;
 using NetAF.Targets.Markup;
 using NetAF.Targets.Markup.Rendering;
@@ -17,19 +18,15 @@ namespace SSHammerhead.WPF.Frames
     /// <param name="dispatcher">The dispatcher to use for updating the frame.</param>
     internal class MarkupRadioFrame(MarkupBuilder builder, CommandHelp[] contextualCommands, Dispatcher dispatcher) : IUpdatableFrame
     {
-        #region StaticFields
-
-        private static string[] Visuals = 
-        [
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Zero)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.One)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Two)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Three)),
-        ];
-
-        #endregion
-
         #region Fields
+
+        private string[] visuals =
+        [
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Zero)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.One)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Two)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Three)),
+        ];
 
         private int count = 0;
         private Timer? timer;
@@ -42,13 +39,13 @@ namespace SSHammerhead.WPF.Frames
 
         private void UpdadateFrame(object? state)
         {
-            if (!Radio.IsPlaying)
+            if (!Radio.IsPlaying(GameExecutor.ExecutingGame))
             {
                 count = 0;
                 return;
             }
 
-            if (count < Visuals.Length - 1)
+            if (count < visuals.Length - 1)
                 count++;
             else
                 count = 0;
@@ -86,7 +83,7 @@ namespace SSHammerhead.WPF.Frames
         {
             builder.Clear();
 
-            var currentSong = Radio.IsPlaying ? Radio.NowPlaying().ToString() : "Off";
+            var currentSong = Radio.IsPlaying(GameExecutor.ExecutingGame) ? Radio.NowPlaying(GameExecutor.ExecutingGame).ToString() : "Off";
 
             builder.Heading("Radio", HeadingLevel.H1);
             builder.Newline();
@@ -95,7 +92,7 @@ namespace SSHammerhead.WPF.Frames
             builder.Newline();
             builder.Newline();
 
-            var visualAsMarkup = Visuals[count];
+            var visualAsMarkup = visuals[count];
 
             builder.Raw(visualAsMarkup);
 

@@ -114,13 +114,17 @@ namespace SSHammerhead.WPF.Windows
             {
                 game = x.Game;
                 Update(game);
-                Radio.Start(App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
             });
-            EventBus.Subscribe<GameFinished>(_ =>
+            EventBus.Subscribe<GameRestored>(x =>
+            {
+                if (Radio.IsPlaying(x.Game))
+                    Radio.Start(x.Game, App.Settings.BackgroundMusicVolume, Radio.DetermineProximity(x.Game));
+            });
+            EventBus.Subscribe<GameFinished>(x =>
             {
                 game = null;
                 IsPersistenceAvailable = false;
-                Radio.Stop();
+                Radio.Stop(x.Game);
             });
             EventBus.Subscribe<GameUpdated>(x =>
             {

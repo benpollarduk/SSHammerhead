@@ -1,6 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using SSHammerhead.Assets.Regions.Ship.Items;
@@ -73,7 +74,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
             var availableWidth = size.Width - 4;
             var availableHeight = size.Height - 2;
             var title = "Radio";
-            var currentSong = Radio.IsPlaying ? Radio.NowPlaying().ToString() : "Off";
+            var currentSong = Radio.IsPlaying(GameExecutor.ExecutingGame) ? Radio.NowPlaying(GameExecutor.ExecutingGame).ToString() : "Off";
 
             gridStringBuilder.DrawWrapped(title, leftMargin, 2, availableWidth, TitleColor, out var lastX, out var lastY);
             gridStringBuilder.DrawUnderline(lastX + 1 - title.Length, lastY + 1, title.Length, TitleColor);
@@ -119,7 +120,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
             output.Overlay(0, 0, gridStringBuilder);
 
-            var imageBuilder = Radio.GetVisual(CasetteVariation.Zero);
+            var imageBuilder = Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Zero);
             output.Overlay(leftMargin, imageYStart, imageBuilder);
 
             return new GridVisualFrame(output, 4, availableHeight) { ShowCursor = true };

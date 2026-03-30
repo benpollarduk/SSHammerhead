@@ -1,5 +1,6 @@
 ﻿using NetAF.Commands;
 using NetAF.Extensions;
+using NetAF.Logic;
 using NetAF.Rendering;
 using NetAF.Targets.Html.Rendering;
 using NetAF.Targets.Markup;
@@ -15,19 +16,15 @@ namespace SSHammerhead.Blazor.Frames
     /// <param name="contextualCommands">The contextual commands to display.</param>
     internal class HtmlRadioFrame(HtmlBuilder builder, CommandHelp[] contextualCommands) : IUpdatableFrame
     {
-        #region StaticFields
-
-        private static string[] Visuals =
-        [
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Zero)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.One)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Two)),
-            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(CasetteVariation.Three)),
-        ];
-
-        #endregion
-
         #region Fields
+
+        private string[] visuals =
+        [
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Zero)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.One)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Two)),
+            MarkupAdapter.ConvertGridVisualBuilderToMarkupString(Radio.GetVisual(GameExecutor.ExecutingGame, CasetteVariation.Three)),
+        ];
 
         private int count = 0;
         private Timer? timer;
@@ -40,13 +37,13 @@ namespace SSHammerhead.Blazor.Frames
 
         private void UpdadateFrame(object? state)
         {
-            if (!Radio.IsPlaying)
+            if (!Radio.IsPlaying(GameExecutor.ExecutingGame))
             {
                 count = 0;
                 return;
             }
 
-            if (count < Visuals.Length - 1)
+            if (count < visuals.Length - 1)
                 count++;
             else
                 count = 0;
@@ -82,7 +79,7 @@ namespace SSHammerhead.Blazor.Frames
         {
             builder.Clear();
 
-            var currentSong = Radio.IsPlaying ? Radio.NowPlaying().ToString() : "Off";
+            var currentSong = Radio.IsPlaying(GameExecutor.ExecutingGame) ? Radio.NowPlaying(GameExecutor.ExecutingGame).ToString() : "Off";
 
             builder.H1("Radio");
             builder.Br();
@@ -91,7 +88,7 @@ namespace SSHammerhead.Blazor.Frames
             builder.Br();
             builder.Br();
 
-            var visualAsMarkup = Visuals[count];
+            var visualAsMarkup = visuals[count];
 
             builder.Raw(visualAsMarkup);
 

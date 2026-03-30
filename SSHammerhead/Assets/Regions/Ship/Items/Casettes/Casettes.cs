@@ -16,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             AnsiColor.Red,
             AnsiColor.BrightBlack,
             AnsiColor.Black,
-            "CASETTE",
+            "DEMOS",
             AnsiColor.BrightBlack,
             AnsiColor.White,
             AnsiColor.Black,
@@ -35,7 +35,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         /// <summary>
         /// Get the casette info for Martyn and Ben.
         /// </summary>
-        public static Casette MartynAndBen = new Casette(new CasetteInfo("Martyn and Ben", "Demos", MartynAndBenSongs), MartynAndBenVisualProperties, "Resources/Audio/Music/radio.mp3", 23000);
+        public static Casette MartynAndBen = new Casette(new CasetteInfo("Martyn and Ben", "Demos", MartynAndBenSongs), MartynAndBenVisualProperties, "Resources/Audio/Music/radio.mp3");
 
         private static CasetteVisualProperties DemonsVisualProperties => new CasetteVisualProperties
         (
@@ -45,7 +45,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             AnsiColor.Red,
             AnsiColor.White,
             AnsiColor.Red,
-            "THIS FIRE",
+            "DEMONS",
             AnsiColor.White,
             AnsiColor.White,
             AnsiColor.Black,
@@ -64,6 +64,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         /// <summary>
         /// Get the casette info for Demons.
         /// </summary>
-        public static Casette Demons = new Casette(new CasetteInfo("ThisFire", "Demons", DemonsSongs), DemonsVisualProperties, "Resources/Audio/Music/radio.mp3", 56000);
+        public static Casette Demons = new Casette(new CasetteInfo("ThisFire", "Demons", DemonsSongs), DemonsVisualProperties, "Resources/Audio/Music/radio.mp3");
     }
 }

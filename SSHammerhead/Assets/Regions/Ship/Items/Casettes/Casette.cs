@@ -10,8 +10,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
     /// <param name="info">The casette info.</param>
     /// <param name="visualProperties">The visual properties.</param>
     /// <param name="resourceName">The resource name of the audio.</param>
-    /// <param name="positionInMilliseconds">The position of the audio, in milliseconds.</param>
-    public class Casette(CasetteInfo info, CasetteVisualProperties visualProperties, string resourceName, int positionInMilliseconds)
+    public class Casette(CasetteInfo info, CasetteVisualProperties visualProperties, string resourceName)
     {
         #region Properties
 
@@ -29,11 +28,6 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         /// Get the resource name of the audio.
         /// </summary>
         public string ResourceName { get; } = resourceName;
-
-        /// <summary>
-        /// Get the position of the audio, in milliseconds.
-        /// </summary>
-        public int PositionInMilliseconds { get; } = positionInMilliseconds;
 
         #endregion
 

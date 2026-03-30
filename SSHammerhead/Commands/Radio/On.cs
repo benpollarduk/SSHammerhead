@@ -7,14 +7,14 @@ namespace SSHammerhead.Commands.MaintenancePanel
     /// <summary>
     /// Represents the Radio on command.
     /// </summary>
-    internal sealed class RadioOn : ICommand
+    internal sealed class On : ICommand
     {
         #region StaticProperties
 
         /// <summary>
         /// Get the help for this command.
         /// </summary>
-        public static CommandHelp On { get; } = new CommandHelp("On", "Turn the radio on.", CommandCategory.Custom);
+        public static CommandHelp CommandHelp { get; } = new CommandHelp("On", "Turn the radio on.", CommandCategory.Custom);
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace SSHammerhead.Commands.MaintenancePanel
         /// <summary>
         /// Get the help for this command.
         /// </summary>
-        public CommandHelp Help => On;
+        public CommandHelp Help => CommandHelp;
 
         /// <summary>
         /// Invoke the command.
@@ -32,7 +32,7 @@ namespace SSHammerhead.Commands.MaintenancePanel
         /// <returns>The reaction.</returns>
         public Reaction Invoke(Game game)
         {
-            Radio.IsPlaying = true;
+            Radio.Start(game);
             return new(ReactionResult.Silent, "You turn the radio on.");
         }
 

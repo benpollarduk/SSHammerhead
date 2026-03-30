@@ -2,10 +2,12 @@
 using NetAF.Commands.Global;
 using NetAF.Interpretation;
 using NetAF.Logic;
+using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Commands.MaintenancePanel;
 using SSHammerhead.Logic.Modes;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SSHammerhead.Interpretation
 {
@@ -41,14 +43,19 @@ namespace SSHammerhead.Interpretation
         /// <returns>The result of the interpretation.</returns>
         public InterpretationResult Interpret(string input, Game game)
         {
-            if (End.CommandHelp.Equals(input))
+            StringUtilities.SplitInputToCommandAndArguments(input, out var command, out var arguments);
+
+            if (End.CommandHelp.Equals(command))
                 return new(true, new End());
 
-            if (RadioOff.Off.Equals(input))
-                return new(true, new RadioOff());
+            if (Off.CommandHelp.Equals(command))
+                return new(true, new Off());
 
-            if (RadioOn.On.Equals(input))
-                return new(true, new RadioOn());
+            if (On.CommandHelp.Equals(command))
+                return new(true, new On());
+
+            if (Change.CommandHelp.Equals(command))
+                return new(true, new Change(string.Join(" ", arguments)));
 
             return InterpretationResult.Fail;
         }
@@ -64,10 +71,16 @@ namespace SSHammerhead.Interpretation
 
             if (game.Mode is RadioMode)
             {
-                if (Radio.IsPlaying)
-                    commands.Add(RadioOff.Off);
+                if (Radio.IsPlaying(game))
+                    commands.Add(Off.CommandHelp);
                 else
-                    commands.Add(RadioOn.On);
+                    commands.Add(On.CommandHelp);
+
+                var playing = Radio.GetCurrentlyLoadedCasette(game);
+                var available = Radio.AvailableCasettes(game);
+
+                if (available.Any(x => x != playing))
+                    commands.Add(Change.CommandHelp);
 
                 commands.Add(new CommandHelp(End.CommandHelp.Command, "Exit radio", CommandCategory.Custom));
             }

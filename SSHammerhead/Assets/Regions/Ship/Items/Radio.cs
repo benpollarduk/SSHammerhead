@@ -10,6 +10,8 @@ using SSHammerhead.Audio;
 using SSHammerhead.Logic.Modes;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace SSHammerhead.Assets.Regions.Ship.Items
 {
@@ -19,7 +21,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
         internal const string Name = "Radio";
         private const string Description = "A small, old style portable radio/casette player. In space there are no radio stations to listen to but luckily there is a casette loaded.";
-        internal const string IsPlayingVariableName = "Radio_IsPlaying";
+        private const string IsPlayingVariableName = "Radio_IsPlaying";
+        private const string CurrentCasetteVariableName = "Radio_CurrentCasette";
         private const float IncrediblyDistant = 0.1f;
         private const float VeryClose = 1f;
         private const float TooFar = 0f;
@@ -38,6 +41,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         private static AudioFileReader backgroundMusicReader;
         private static ProximityFilter backgroundProximityFilter;
         private static bool shouldLoopBackgroundMusic;
+        private static Timer positionUpdateTimer;
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -49,44 +53,36 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             { "Lead", 0.04f },
         };
 
-        /// <summary>
-        /// Get or set if this radio is playing.
-        /// </summary>
-        public static bool IsPlaying
-        {
-            get { return GameExecutor.ExecutingGame?.VariableManager?.Get(IsPlayingVariableName).InsensitiveEquals(true.ToString()) ?? false; }
-            set 
-            {
-                GameExecutor.ExecutingGame?.VariableManager?.Add(IsPlayingVariableName, value.ToString());
-
-                if (value)
-                    Start();
-                else
-                    Stop();
-            }
-        }
-
-        /// <summary>
-        /// Get the current casette.
-        /// </summary>
-        public static Casette CurrentCasette { get; private set; } = Casettes.Casettes.MartynAndBen;
-
         #endregion
 
         #region StaticMethods
 
         /// <summary>
+        /// Determine if the radio is playing.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>True if the radio is playing, else false.</returns>
+        public static bool IsPlaying(Game game)
+        {
+            return game?.VariableManager?.Get(IsPlayingVariableName).InsensitiveEquals(true.ToString()) ?? false;
+        }
+
+        /// <summary>
         /// Start the radio.
         /// </summary>
+        /// <param name="game">The game.</param>
         /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
         /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
-        public static void Start(float volume = 1, float proximity = 1)
+        public static void Start(Game game, float volume = 1, float proximity = 1)
         {
-            Stop();
+            Stop(game);
+
+            var casette = GetCurrentlyLoadedCasette(game);
 
             backgroundMusicWaveOut = new WaveOutEvent();
-            backgroundMusicReader = new AudioFileReader(CurrentCasette.ResourceName);
-            backgroundMusicReader.CurrentTime = TimeSpan.FromMilliseconds(CurrentCasette.PositionInMilliseconds);
+            backgroundMusicReader = new AudioFileReader(casette.ResourceName);
+            
+            backgroundMusicReader.CurrentTime = GetCasettePosition(game, casette);
 
             backgroundMusicReader.Volume = 1;
             shouldLoopBackgroundMusic = true;
@@ -107,6 +103,13 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             };
 
             backgroundMusicWaveOut.Play();
+
+            positionUpdateTimer = new Timer(_ =>
+            {
+                if (backgroundMusicReader != null)
+                    SetCasettePosition(game, GetCurrentlyLoadedCasette(game), backgroundMusicReader.CurrentTime);
+
+            }, null, 0, 1000);
         }
 
         /// <summary>
@@ -126,8 +129,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <summary>
         /// Stop the radio.
         /// </summary>
-        public static void Stop()
+        /// <param name="game">The game.</param>
+        public static void Stop(Game game)
         {
+            positionUpdateTimer?.Dispose();
+            positionUpdateTimer = null;
+
             shouldLoopBackgroundMusic = false;
 
             if (backgroundMusicWaveOut != null)
@@ -139,6 +146,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             if (backgroundMusicReader != null)
             {
+                SetCasettePosition(game, GetCurrentlyLoadedCasette(game), backgroundMusicReader.CurrentTime);
                 backgroundMusicReader.Dispose();
                 backgroundMusicReader = null;
             }
@@ -149,48 +157,170 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <summary>
         /// Change casette.
         /// </summary>
+        /// <param name="game">The game.</param>
         /// <param name="casette">The new casette.</param>
-        protected static void ChangeCasette(Casette casette)
+        internal static void ChangeCasette(Game game, Casette casette)
         {
-            var wasPlaying = IsPlaying;
+            var wasPlaying = IsPlaying(game);
 
             if (wasPlaying)
-                Stop();
+                Stop(game);
 
-            if (!string.IsNullOrEmpty(casetteTemplateAsString))
-                return;
+            game.VariableManager.Add(CurrentCasetteVariableName, casette.Info.Album);
 
-            CurrentCasette = casette;
-
-            casetteTemplateAsString = CurrentCasette.GetVisualTemplate().ToString();
+            casetteTemplateAsString = GetCurrentlyLoadedCasette(game).GetVisualTemplate().ToString();
 
             if (wasPlaying)
-                Start();
+                Start(game);
         }
 
         /// <summary>
         /// Get the visual representing the radio.
         /// </summary>
+        /// <param name="game">The game.</param>
         /// <param name="variation">The variation.</param>
         /// <returns>The visual.</returns>
-        public static GridVisualBuilder GetVisual(CasetteVariation variation)
+        public static GridVisualBuilder GetVisual(Game game, CasetteVariation variation)
         {
+            var casette = GetCurrentlyLoadedCasette(game);
+
             if (string.IsNullOrEmpty(casetteTemplateAsString))
-                casetteTemplateAsString = CurrentCasette.GetVisualTemplate().ToString();
+                casetteTemplateAsString = casette.GetVisualTemplate().ToString();
 
             var template = GridVisualBuilder.FromString(casetteTemplateAsString);
 
-            return CurrentCasette.AddVisualDetails(template, variation);
+            return casette.AddVisualDetails(template, variation);
         }
 
         /// <summary>
         /// Get information about the song that is currently playing.
         /// </summary>
+        /// <param name="game">The game.</param>
         /// <returns>The information about the currently playing song.</returns>
-        public static NowPlaying NowPlaying()
+        public static NowPlaying NowPlaying(Game game)
         {
+            var casette = GetCurrentlyLoadedCasette(game);
             var time = backgroundMusicReader?.CurrentTime ?? TimeSpan.Zero;
-            return new NowPlaying(CurrentCasette.Info.Album, CurrentCasette.Info.Album, CurrentCasette.GetSongAtTime(time).Name);
+            return new NowPlaying(casette.Info.Artist, casette.Info.Album, casette.GetSongAtTime(time).Name);
+        }
+
+        /// <summary>
+        /// Get a variable name for the position on a casette.
+        /// </summary>
+        /// <param name="casette">The casette.</param>
+        /// <returns>The variable name.</returns>
+        private static string GetCasettePositionVariableName(Casette casette)
+        {
+            return $"Radio_CasettePosition_{casette.Info.Artist}_{casette.Info.Album}";
+        }
+
+        /// <summary>
+        /// Get a variable name for if a casette is owned.
+        /// </summary>
+        /// <param name="casette">The casette.</param>
+        /// <returns>The variable name.</returns>
+        private static string GetCasetteOwnedVariableName(Casette casette)
+        {
+            return $"Radio_CasetteOwned_{casette.Info.Artist}_{casette.Info.Album}";
+        }
+
+        /// <summary>
+        /// Get the position of a casette.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="casette">The casette.</param>
+        /// <returns>The position.</returns>
+        private static TimeSpan GetCasettePosition(Game game, Casette casette)
+        {
+            if (game == null)
+                return TimeSpan.Zero;
+
+            var key = GetCasettePositionVariableName(casette);
+
+            if (game.VariableManager.ContainsVariable(key))
+            {
+                var value = game.VariableManager.Get(key);
+
+                if (int.TryParse(value, out var milliseconds))
+                    return TimeSpan.FromMilliseconds(milliseconds);
+            }
+
+            // return somewhere near the first song to avoid starting at the beginning
+            return TimeSpan.FromMilliseconds(24576);
+        }
+
+        /// <summary>
+        /// Set the position of a casette.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="casette">The casette.</param>
+        /// <param name="position">The position.</param>
+        private static void SetCasettePosition(Game game, Casette casette, TimeSpan position)
+        {
+            if (game == null)
+                return;
+
+            var key = GetCasettePositionVariableName(casette);
+            game.VariableManager.Add(key, position.TotalMilliseconds.ToString());
+        }
+
+        /// <summary>
+        /// Get the available casettes.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>An array containing all available casettes.</returns>
+        public static Casette[] AvailableCasettes(Game game)
+        {
+            if (game == null)
+                return [Casettes.Casettes.MartynAndBen];
+
+            List<Casette> toCheck =
+            [
+                Casettes.Casettes.Demons,
+            ];
+
+            List<Casette> owned = [.. toCheck.Where(x => game.VariableManager.ContainsVariable(GetCasetteOwnedVariableName(x)))];
+
+            // always add default
+            owned.Insert(0, Casettes.Casettes.MartynAndBen);
+            owned.Insert(0, Casettes.Casettes.Demons);
+
+            return [.. owned];
+        }
+
+        /// <summary>
+        /// Make a casette available.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="casette">The casette.</param>
+        public static void MakeCasetteAvailable(Game game, Casette casette)
+        {
+            game.VariableManager.Add(GetCasetteOwnedVariableName(casette), true.ToString());
+        }
+
+        /// <summary>
+        /// Get the currently playing casette.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <returns>The currently loaded casette.</returns>
+        public static Casette GetCurrentlyLoadedCasette(Game game)
+        {
+            var available = AvailableCasettes(game);
+
+            if (available.Length == 0)
+                return null;
+
+            if (game.VariableManager.ContainsVariable(CurrentCasetteVariableName))
+            {
+                var value = game.VariableManager.Get(CurrentCasetteVariableName);
+
+                var match = available.FirstOrDefault(x => x.Info.Album.InsensitiveEquals(value));
+
+                if (match != null)
+                    return match;
+            }
+
+            return available[0];
         }
 
         /// <summary>
@@ -273,7 +403,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
                 if (IsPrompt(arg, On))
                 {
-                    IsPlaying = true;
+                    Start(g);
                     adjustCommand.AddPrompt(Off);
                     adjustCommand.RemovePrompt(On);
                     return new(ReactionResult.Silent, string.Empty);
@@ -281,7 +411,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
                 if (IsPrompt(arg, Off))
                 {
-                    IsPlaying = false;
+                    Stop(g);
                     adjustCommand.AddPrompt(On);
                     adjustCommand.RemovePrompt(Off);
                     return new(ReactionResult.Silent, string.Empty);
@@ -292,7 +422,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
 
             adjustCommand.AddPrompt(View);
 
-            if (IsPlaying)
+            if (IsPlaying(GameExecutor.ExecutingGame))
                 adjustCommand.AddPrompt(Off);
             else
                 adjustCommand.AddPrompt(On);
