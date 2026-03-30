@@ -249,8 +249,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 return TimeSpan.FromMilliseconds(27000);
             else if (casette == Casettes.Casettes.Demons)
                 return TimeSpan.FromMilliseconds(65000);
-
-            return TimeSpan.Zero;
+            else
+                return TimeSpan.Zero;
         }
 
         /// <summary>
