@@ -10,11 +10,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Audio\Music\demons.mp3" />
     <None Remove="Resources\Images\space.png" />
     <None Remove="Resources\Images\torii.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Resources\Audio\Music\demons.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Images\space.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -66,7 +70,7 @@
     <Content Include="Resources\Audio\Effects\key9.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Resources\Audio\Music\radio.mp3">
+    <Content Include="Resources\Audio\Music\demos.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

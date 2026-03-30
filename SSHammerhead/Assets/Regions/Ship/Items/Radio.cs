@@ -245,8 +245,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                     return TimeSpan.FromMilliseconds(milliseconds);
             }
 
-            // return somewhere near the first song to avoid starting at the beginning
-            return TimeSpan.FromMilliseconds(24576);
+            if (casette == Casettes.Casettes.MartynAndBen)
+                return TimeSpan.FromMilliseconds(27000);
+            else if (casette == Casettes.Casettes.Demons)
+                return TimeSpan.FromMilliseconds(65000);
+
+            return TimeSpan.Zero;
         }
 
         /// <summary>

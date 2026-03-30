@@ -36,4 +36,8 @@
     <Folder Include="wwwroot\Resources\Images\" />
   </ItemGroup>
 
+  <Target Name="RemoveAudioDirectoryFromBin" AfterTargets="PostBuildEvent">
+    <Exec Command="if exist &quot;$(TargetDir)Resources\Audio&quot; rmdir /S /Q &quot;$(TargetDir)Resources\Audio&quot;" />
+  </Target>
+
 </Project>
