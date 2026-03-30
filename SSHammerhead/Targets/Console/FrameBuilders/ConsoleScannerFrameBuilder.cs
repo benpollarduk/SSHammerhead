@@ -7,14 +7,14 @@ using SSHammerhead.Rendering.FrameBuilders;
 using System;
 using System.Linq;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Targets.Console.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of scanner frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
-    public sealed class NaomiConsoleScannerFrameBuilder(GridStringBuilder gridStringBuilder, bool renderPrompt = true) : IScannerFrameBuilder
+    public sealed class ConsoleScannerFrameBuilder(GridStringBuilder gridStringBuilder, bool renderPrompt = true) : IScannerFrameBuilder
     {
         #region StaticProperties
 

@@ -1,8 +1,10 @@
 ﻿using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Console.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.Naomi.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
+using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
+using SSHammerhead.Targets.Console.FrameBuilders;
+using ConsoleTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleTitleFrameBuilder;
 
 namespace SSHammerhead.Console
 {
@@ -21,7 +23,7 @@ namespace SSHammerhead.Console
                 var gridStringBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder),
+                    new ConsoleTitleFrameBuilder(gridStringBuilder),
                     new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
@@ -33,10 +35,11 @@ namespace SSHammerhead.Console
                     new ConsoleConversationFrameBuilder(gridStringBuilder),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
-                    new NaomiConsoleLoginFrameBuilder(gridStringBuilder),
-                    new NaomiConsoleScannerFrameBuilder(gridStringBuilder),
+                    new ConsoleLoginFrameBuilder(gridStringBuilder),
+                    new ConsoleScannerFrameBuilder(gridStringBuilder),
                     new ConsoleNarrativeFrameBuilder(gridStringBuilder),
-                    new ConsoleVisualFrameBuilder(gridStringBuilder));
+                    new ConsoleVisualFrameBuilder(gridStringBuilder),
+                    new ConsoleRadioFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -51,7 +54,7 @@ namespace SSHammerhead.Console
                 var botStringBuilder = new GridStringBuilder('[', ']', '+');
 
                 return new FrameBuilderCollection(
-                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder),
+                    new ConsoleTitleFrameBuilder(gridStringBuilder),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder)),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder)),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
@@ -64,7 +67,8 @@ namespace SSHammerhead.Console
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
                     new ConsoleNarrativeFrameBuilder(gridStringBuilder),
-                    new BotVisualFrameBuilder());
+                    new BotVisualFrameBuilder(),
+                    new ConsoleRadioFrameBuilder(gridStringBuilder));
             }
         }
 
@@ -78,7 +82,7 @@ namespace SSHammerhead.Console
                 var gridStringBuilder = new GridStringBuilder('¦', '¦', '¬');
 
                 return new FrameBuilderCollection(
-                    new NaomiConsoleTitleFrameBuilder(gridStringBuilder),
+                    new ConsoleTitleFrameBuilder(gridStringBuilder),
                     new ConsoleSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder)),
                     new ConsoleRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
                     new ConsoleCommandListFrameBuilder(gridStringBuilder),
@@ -90,7 +94,8 @@ namespace SSHammerhead.Console
                     new ConsoleConversationFrameBuilder(gridStringBuilder),
                     new ConsoleNoteFrameBuilder(gridStringBuilder),
                     new ConsoleHistoryFrameBuilder(gridStringBuilder),
-                    new ConsoleVisualFrameBuilder(gridStringBuilder));
+                    new ConsoleVisualFrameBuilder(gridStringBuilder),
+                    new ConsoleRadioFrameBuilder(gridStringBuilder));
             }
         }
 

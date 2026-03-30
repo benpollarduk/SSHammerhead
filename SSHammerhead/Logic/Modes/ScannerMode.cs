@@ -9,7 +9,7 @@ using SSHammerhead.Assets.Regions.Ship.Items;
 namespace SSHammerhead.Logic.Modes
 {
     /// <summary>
-    /// Provides a display mode for scanner.
+    /// Provides a display mode for the scanner.
     /// </summary>
     public sealed class ScannerMode : IGameMode
     {

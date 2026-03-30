@@ -5,16 +5,15 @@ using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Html.Rendering;
 using System.Diagnostics;
-using System;
 using NetAF.Targets.Html;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Blazor.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="builder">A builder to use for the text layout.</param>
-    public sealed class NaomiHtmlTitleFrameBuilder(HtmlBuilder builder) : ITitleFrameBuilder
+    public sealed class HtmlTitleFrameBuilder(HtmlBuilder builder) : ITitleFrameBuilder
     {
         #region Implementation of ITitleFrameBuilder
 

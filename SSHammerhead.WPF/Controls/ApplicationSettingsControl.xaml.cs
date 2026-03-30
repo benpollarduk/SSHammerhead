@@ -58,7 +58,7 @@ namespace SSHammerhead.WPF.Controls
 
         private void BackgroundMusicSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            AudioPlayer.AdjustBackgroundMusic((float)e.NewValue, Radio.DetermineProximity(GameExecutor.ExecutingGame));
+            Radio.Adjust((float)e.NewValue, Radio.DetermineProximity(GameExecutor.ExecutingGame));
         }
 
         #endregion

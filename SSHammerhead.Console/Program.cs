@@ -3,7 +3,6 @@ using NetAF.Logic;
 using NetAF.Targets.Console;
 using SSHammerhead;
 using SSHammerhead.Assets.Regions.Ship.Items;
-using SSHammerhead.Audio;
 using SSHammerhead.Configuration;
 using SSHammerhead.Console;
 
@@ -11,9 +10,13 @@ try
 {
     Services.ImageProvider = new ConsoleImageProvider();
 
-    EventBus.Subscribe<GameStarted>(x => AudioPlayer.StartBackgroundMusic(1, Radio.DetermineProximity(x.Game)));
-    EventBus.Subscribe<GameFinished>(_ => AudioPlayer.StopBackgroundMusic());
-    EventBus.Subscribe<GameUpdated>(x => AudioPlayer.AdjustBackgroundMusic(1, Radio.DetermineProximity(x.Game)));
+    EventBus.Subscribe<GameRestored>(x =>
+    {
+        if (Radio.IsPlaying(x.Game))
+            Radio.Start(x.Game, 1, Radio.DetermineProximity(x.Game));
+    });
+    EventBus.Subscribe<GameFinished>(x => Radio.Stop(x.Game));
+    EventBus.Subscribe<GameUpdated>(x => Radio.Adjust(1, Radio.DetermineProximity(x.Game)));
 
     var presentation = new Presentation
     (

@@ -7,13 +7,13 @@ using NetAF.Targets.Console.Rendering;
 using System;
 using System.Diagnostics;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.Targets.Console.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class NaomiConsoleTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
+    public sealed class ConsoleTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
     {
         #region Properties
 

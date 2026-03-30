@@ -5,16 +5,15 @@ using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Markup;
 using NetAF.Targets.Markup.Rendering;
-using System;
 using System.Diagnostics;
 
-namespace SSHammerhead.Assets.Players.Naomi.FrameBuilders
+namespace SSHammerhead.WPF.FrameBuilders
 {
     /// <summary>
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="builder">A builder to use for the text layout.</param>
-    public sealed class NaomiMarkupTitleFrameBuilder(MarkupBuilder builder) : ITitleFrameBuilder
+    public sealed class MarkupTitleFrameBuilder(MarkupBuilder builder) : ITitleFrameBuilder
     {
         #region Implementation of ITitleFrameBuilder
 

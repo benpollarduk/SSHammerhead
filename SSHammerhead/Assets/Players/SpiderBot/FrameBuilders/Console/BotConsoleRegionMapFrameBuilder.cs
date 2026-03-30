@@ -7,7 +7,7 @@ using NetAF.Targets.Console.Rendering;
 using System;
 using System.Linq;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
+namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 {
     /// <summary>
     /// Provides a builder of color region map frames.
