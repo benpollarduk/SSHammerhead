@@ -16,7 +16,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             AnsiColor.Red,
             AnsiColor.BrightBlack,
             AnsiColor.Black,
-            "DEMOS",
+            "BEN & MARTYN - DEMOS",
             AnsiColor.BrightBlack,
             AnsiColor.White,
             AnsiColor.Black,
@@ -45,9 +45,9 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
             AnsiColor.Red,
             AnsiColor.White,
             AnsiColor.Red,
-            "DEMONS",
+            "THIS FIRE - DEMONS",
             AnsiColor.White,
-            AnsiColor.White,
+            AnsiColor.BrightBlack,
             AnsiColor.Black,
             AnsiColor.White,
             '*',
@@ -58,10 +58,10 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         private static SongInfo[] DemonsSongs =
         [
             new SongInfo("Only Lovers", TimeSpan.FromSeconds(239)),
-            new SongInfo("Thinking Of You", TimeSpan.FromSeconds(226)), //3.52
-            new SongInfo("Wrong Things", TimeSpan.FromSeconds(226)), //2.50
-            new SongInfo("I Shouldn't Be With You", TimeSpan.FromSeconds(226)), //4.47
-            new SongInfo("Lose It", TimeSpan.FromSeconds(246)) //3.17
+            new SongInfo("Thinking Of You", TimeSpan.FromSeconds(232)),
+            new SongInfo("Wrong Things", TimeSpan.FromSeconds(170)),
+            new SongInfo("I Shouldn't Be With You", TimeSpan.FromSeconds(287)),
+            new SongInfo("Lose It", TimeSpan.FromSeconds(197))
         ];
 
         /// <summary>
