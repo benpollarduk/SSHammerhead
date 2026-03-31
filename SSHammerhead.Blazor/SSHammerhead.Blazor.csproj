@@ -36,4 +36,12 @@
     <Folder Include="wwwroot\Resources\Images\" />
   </ItemGroup>
 
+  <Target Name="DeleteAudioResources" AfterTargets="Build" Condition="Exists('$(OutDir)Resources\Audio')">
+    <ItemGroup>
+      <AudioFilesToDelete Include="$(OutDir)Resources\Audio\**\*" />
+    </ItemGroup>
+    <Message Text="Deleting @(AudioFilesToDelete->Count()) audio file(s) from $(OutDir)Resources\Audio..." Importance="high" Condition="'@(AudioFilesToDelete)' != ''" />
+    <Delete Files="@(AudioFilesToDelete)" />
+  </Target>
+
 </Project>
