@@ -4,7 +4,6 @@ using NetAF.Logic;
 using NetAF.Rendering;
 using NetAF.Targets.Html;
 using NetAF.Targets.Html.Rendering;
-using NetAF.Targets.Markup;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Items.Casettes;
 
@@ -79,8 +78,8 @@ namespace SSHammerhead.Blazor.Frames
             builder.H1("Radio");
             builder.Br();
 
-            builder.P($"Now playing: {currentSong}");
-            builder.Br();
+            builder.H3("Now Playing");
+            builder.P(currentSong);
             builder.Br();
 
             var loadedCasette = Radio.GetCurrentlyLoadedCasette(GameExecutor.ExecutingGame);
@@ -105,6 +104,12 @@ namespace SSHammerhead.Blazor.Frames
 
             builder.Raw(visualAsMarkup);
 
+            builder.Br();
+
+            var tracklist = $"{string.Join(", ", loadedCasette.Info.Songs.Select(x => x.Name))}.";
+
+            builder.H3("Tracklist");
+            builder.P(tracklist);
             builder.Br();
 
             if (contextualCommands.Length > 0)

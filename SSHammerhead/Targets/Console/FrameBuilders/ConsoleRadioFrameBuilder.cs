@@ -83,6 +83,9 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
             gridStringBuilder.DrawWrapped($"Now playing: {currentSong}", leftMargin, lastY, availableWidth, InformationColor, out lastX, out lastY);
 
+            var tracklist = $"Tracklist: {string.Join(", ", Radio.GetCurrentlyLoadedCasette(GameExecutor.ExecutingGame).Info.Songs.Select(x => x.Name))}.";
+            gridStringBuilder.DrawWrapped(tracklist, leftMargin, lastY + 1, availableWidth, InformationColor, out lastX, out lastY);
+            
             var imageYStart = lastY + 3;
             var commandSpace = 0;
 

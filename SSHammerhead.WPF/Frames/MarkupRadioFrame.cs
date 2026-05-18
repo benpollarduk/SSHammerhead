@@ -80,10 +80,9 @@ namespace SSHammerhead.WPF.Frames
             var currentSong = Radio.IsPlaying(GameExecutor.ExecutingGame) ? Radio.NowPlaying(GameExecutor.ExecutingGame).ToString() : "Off";
 
             builder.Heading("Radio", HeadingLevel.H1);
-            builder.Newline();
 
-            builder.WriteLine($"Now playing: {currentSong}");
-            builder.Newline();
+            builder.Heading("Now Playing", HeadingLevel.H3);
+            builder.WriteLine(currentSong);
             builder.Newline();
 
             var loadedCasette = Radio.GetCurrentlyLoadedCasette(GameExecutor.ExecutingGame);
@@ -108,6 +107,12 @@ namespace SSHammerhead.WPF.Frames
 
             builder.Raw(visualAsMarkup);
 
+            builder.Newline();
+
+            var tracklist = $"{string.Join(", ", loadedCasette.Info.Songs.Select(x => x.Name))}.";
+
+            builder.Heading("Tracklist", HeadingLevel.H3);
+            builder.WriteLine(tracklist);
             builder.Newline();
 
             var bold = new TextStyle(Bold: true);
