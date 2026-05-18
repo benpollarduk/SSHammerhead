@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
@@ -9,12 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.5" PrivateAssets="all" />
-    <PackageReference Include="NetAF" Version="3.17.0" />
-    <PackageReference Include="NetAF.Blazor" Version="1.0.12" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.12" />
-    <PackageReference Include="System.Text.Json" Version="10.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.8" PrivateAssets="all" />
+    <PackageReference Include="NetAF" Version="10.0.0" />
+    <PackageReference Include="NetAF.Blazor" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,7 +21,7 @@
 
   <Target Name="CopyImages" AfterTargets="Build">
     <ItemGroup>
-      <SourceImages Include="$(SolutionDir)SSHammerhead\bin\$(Configuration)\net8.0\Resources\Images\*" />
+      <SourceImages Include="$(SolutionDir)SSHammerhead\bin\$(Configuration)\net10.0\Resources\Images\*" />
     </ItemGroup>
     <Copy SourceFiles="@(SourceImages)" DestinationFolder="$(ProjectDir)wwwroot\Resources\Images\" />
   </Target>
@@ -40,7 +38,7 @@
     <ItemGroup>
       <AudioFilesToDelete Include="$(OutDir)Resources\Audio\**\*" />
     </ItemGroup>
-    <Message Text="Deleting @(AudioFilesToDelete->Count()) audio file(s) from $(OutDir)Resources\Audio..." Importance="high" Condition="'@(AudioFilesToDelete)' != ''" />
+    <Message Text="Deleting @(AudioFilesToDelete-&gt;Count()) audio file(s) from $(OutDir)Resources\Audio..." Importance="high" Condition="'@(AudioFilesToDelete)' != ''" />
     <Delete Files="@(AudioFilesToDelete)" />
   </Target>
 

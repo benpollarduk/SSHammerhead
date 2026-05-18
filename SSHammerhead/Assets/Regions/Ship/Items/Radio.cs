@@ -33,9 +33,9 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region StaticProperties
 
         private static Item lastGeneratedRadio;
-        private static Prompt Off => new("off");
-        private static Prompt On => new("on");
-        private static Prompt View => new("view");
+        private static Prompt Off => new("Off");
+        private static Prompt On => new("On");
+        private static Prompt View => new("View");
         private static string casetteTemplateAsString;
         private static WaveOutEvent backgroundMusicWaveOut;
         private static AudioFileReader backgroundMusicReader;

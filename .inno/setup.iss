@@ -20,7 +20,7 @@ AlwaysShowDirOnReadyPage=yes
 
 [Files]
 Source: "..\SSHammerhead.Console\bin\Release\*"; DestDir:"{app}\Console"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
-Source: "..\SSHammerhead.WPF\bin\Release\net8.0-windows\*"; DestDir:"{app}\WPF"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
+Source: "..\SSHammerhead.WPF\bin\Release\net10.0-windows\*"; DestDir:"{app}\WPF"; Flags: ignoreversion recursesubdirs; Excludes: "*.log";
 
 [Icons]
 Name: "{commondesktop}\{#ConsoleAppName}"; Filename: "{app}\Console\{#ConsoleAppExeName}"; WorkingDir: "{app}"

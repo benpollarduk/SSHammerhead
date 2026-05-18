@@ -64,8 +64,7 @@
                             </Style>
                         </controls:NetAFMarkupTerminal.Style>
                     </controls:NetAFMarkupTerminal>
-                    <layouts:ButtonLayout Style="{StaticResource DarkButtonLayoutStyle}" MaxHeight="250" Margin="10" Visibility="{Binding Source={x:Static top:App.Settings}, Path=ShowCommandButtons, Mode=OneWay, Converter={StaticResource BooleanToVisibilityCollapsedConverter}}" Grid.Row="1" ButtonSelected="ButtonLayout_ButtonSelected"/>
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
@@ -103,6 +102,7 @@
                             </Button.Style>
                         </Button>
                     </Grid>
+                    <layouts:ButtonLayout Style="{StaticResource DarkButtonLayoutStyle}" MaxHeight="250" Margin="10" Visibility="{Binding Source={x:Static top:App.Settings}, Path=ShowCommandButtons, Mode=OneWay, Converter={StaticResource BooleanToVisibilityCollapsedConverter}}" Grid.Row="2" ButtonSelected="ButtonLayout_ButtonSelected"/>
                 </Grid>
             </localControls:WindowControl.HostedContent>
         </localControls:WindowControl>
