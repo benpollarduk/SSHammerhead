@@ -10,10 +10,7 @@ namespace SSHammerhead.Assets.Regions.Ship
     /// <param name="descriptions">The descriptions, indexed by sanity level.</param>
     internal class SanityDescription(string[] descriptions) : IDescription
     {
-        /// <summary>
-        /// Get the description.
-        /// </summary>
-        /// <returns>The description.</returns>
+        /// <inheritdoc/>
         public string GetDescription()
         {
             if (descriptions == null)

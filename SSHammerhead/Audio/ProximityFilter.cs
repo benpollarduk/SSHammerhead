@@ -26,9 +26,7 @@ namespace SSHammerhead.Audio
 
         #region Properties
 
-        /// <summary>
-        /// Get the wave format.
-        /// </summary>
+        /// <inheritdoc/>
         public WaveFormat WaveFormat => sourceProvider.WaveFormat;
 
         #endregion
@@ -90,13 +88,7 @@ namespace SSHammerhead.Audio
                 currentVolume = targetVolume;
         }
 
-        /// <summary>
-        /// Reads audio samples from the source into the specified buffer, applying low-pass filtering and echo based on the current proximity setting.
-        /// </summary>
-        /// <param name="buffer">The array of floats that receives the audio samples read from the source.</param>
-        /// <param name="offset">The zero-based index in the buffer at which to begin writing the samples.</param>
-        /// <param name="count">The maximum number of samples to read from the source into the buffer.</param>
-        /// <returns>The number of samples actually read into the buffer. This value may be less than the requested count if the end of the audio source is reached.</returns>
+        /// <inheritdoc/>
         public int Read(float[] buffer, int offset, int count)
         {
             var read = sourceProvider.Read(buffer, offset, count);

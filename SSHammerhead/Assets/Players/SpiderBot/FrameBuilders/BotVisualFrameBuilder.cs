@@ -12,12 +12,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
     {
         #region Implementation of IVisualFrameBuilder
 
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="visual">The visual.</param>
-        /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
+        /// <inheritdoc/>
         public IFrame Build(Visual visual, Size size)
         {
             return new GridVisualFrame(visual.VisualBuilder) { ShowCursor = false };

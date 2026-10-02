@@ -9,11 +9,7 @@ namespace SSHammerhead.Console
     {
         #region Implementation of IImageProvider
 
-        /// <summary>
-        /// Get the image as a stream.
-        /// </summary>
-        /// <param name="key">The image key.</param>
-        /// <returns>The image as a stream.</returns>
+        /// <inheritdoc/>
         public MemoryStream GetImageAsStream(string key)
         {
             var fileBytes = File.ReadAllBytes(key);

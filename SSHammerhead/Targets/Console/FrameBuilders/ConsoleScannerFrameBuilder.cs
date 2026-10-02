@@ -50,13 +50,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
         #region Implementation of IScannerFrameBuilder
 
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="targets">The targets.</param>
-        /// <param name="composition">The composition of the current target.</param>
-        /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
+        /// <inheritdoc/>
         public IFrame Build(IExaminable[] targets, Composition composition, Size size)
         {
             var availableWidth = size.Width - 4;

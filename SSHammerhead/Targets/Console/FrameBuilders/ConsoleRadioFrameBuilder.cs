@@ -58,12 +58,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
         #region Implementation of IRadioFrameBuilder
 
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="contextualCommands">The contextual commands to display.</param>
-        /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
+        /// <inheritdoc/>
         public IFrame Build(CommandHelp[] contextualCommands, Size size)
         {
             gridStringBuilder.Resize(size);

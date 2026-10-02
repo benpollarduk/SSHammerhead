@@ -51,12 +51,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
         #region Implementation of IBotLoginFrameBuilder
 
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="stage">The login stage.</param>
-        /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
+        /// <inheritdoc/>
         public IFrame Build(LoginStage stage, Size size)
         {
             var cursorX = 0;

@@ -34,9 +34,7 @@ namespace SSHammerhead.WPF.Controls
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the NoteManagerViewer class.
-        /// </summary>
+        /// <inheritdoc/>
         public NoteManagerViewer()
         {
             InitializeComponent();

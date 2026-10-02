@@ -366,17 +366,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
         #region Implementation of IRoomMapBuilder
 
-        /// <summary>
-        /// Get the rendered size of the room, excluding any keys.
-        /// </summary>
+        /// <inheritdoc/>
         public Size RenderedSize => new(9, 7);
 
-        /// <summary>
-        /// Build a map for a room.
-        /// </summary>
-        /// <param name="room">The room.</param>
-        /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="options">The room map render options.</param>
+        /// <inheritdoc/>
         public void BuildRoomMap(Room room, ViewPoint viewPoint, RoomMapRenderOptions options)
         {
             BuildRoomMap(room, viewPoint, options, new Point2D(0, 0), out _, out _);
@@ -386,15 +379,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
         #region Implementation of IConsoleRoomMapBuilder
 
-        /// <summary>
-        /// Build a map for a room.
-        /// </summary>
-        /// <param name="room">The room.</param>
-        /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="options">The room map render options.</param>
-        /// <param name="startPosition">The start position.</param>
-        /// <param name="endX">The end position, x.</param>
-        /// <param name="endY">The end position, x.</param>
+        /// <inheritdoc/>
         public void BuildRoomMap(Room room, ViewPoint viewPoint, RoomMapRenderOptions options, Point2D startPosition, out int endX, out int endY)
         {
             DrawNorthBorder(room, viewPoint, startPosition);

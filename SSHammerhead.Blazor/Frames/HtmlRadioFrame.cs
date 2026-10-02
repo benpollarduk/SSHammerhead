@@ -49,10 +49,7 @@ namespace SSHammerhead.Blazor.Frames
 
         #region Overrides of Object
 
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        /// <returns>A string that represents the current object.</returns>
+        /// <inheritdoc/>
         public override string ToString()
         {
             return builder.ToString();
@@ -60,15 +57,10 @@ namespace SSHammerhead.Blazor.Frames
 
         #endregion
 
-        /// <summary>
-        /// Occurs when the frame is updated.
-        /// </summary>
+        /// <inheritdoc/>
         public event EventHandler<IFrame>? Updated;
 
-        /// <summary>
-        /// Render this frame on a presenter.
-        /// </summary>
-        /// <param name="presenter">The presenter.</param>
+        /// <inheritdoc/>
         public void Render(IFramePresenter presenter)
         {
             builder.Clear();
@@ -129,18 +121,14 @@ namespace SSHammerhead.Blazor.Frames
                 presenter.Present(ToString());
         }
 
-        /// <summary>
-        /// Start updating.
-        /// </summary>
+        /// <inheritdoc/>
         public void Start()
         {
             timerCallback = new TimerCallback(UpdadateFrame);
             timer = new Timer(timerCallback, null, updateFrequency, updateFrequency);
         }
 
-        /// <summary>
-        /// Stop updating.
-        /// </summary>
+        /// <inheritdoc/>
         public void Stop()
         {
             timer?.Change(Timeout.Infinite, Timeout.Infinite);

@@ -49,14 +49,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
         #region Implementation of IReactionFrameBuilder
 
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="title">The title to display to the user.</param>
-        /// <param name="message">The message to display to the user.</param>
-        /// <param name="isError">If the message is an error.</param>
-        /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
+        /// <inheritdoc/>
         public IFrame Build(string title, string message, bool isError, Size size)
         {
             gridStringBuilder.Resize(size);

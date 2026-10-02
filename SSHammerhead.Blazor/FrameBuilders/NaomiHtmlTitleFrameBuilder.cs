@@ -17,13 +17,7 @@ namespace SSHammerhead.Blazor.FrameBuilders
     {
         #region Implementation of ITitleFrameBuilder
 
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="title">The title.</param>
-        /// <param name="description">The description.</param>
-        /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
+        /// <inheritdoc/>
         public IFrame Build(string title, string description, Size size)
         {
             builder.Clear();

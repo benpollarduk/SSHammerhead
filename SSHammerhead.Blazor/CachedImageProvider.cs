@@ -63,11 +63,7 @@ namespace SSHammerhead.Blazor
 
         #region Implementation of IImageProvider
 
-        /// <summary>
-        /// Get the image as a stream.
-        /// </summary>
-        /// <param name="key">The image key.</param>
-        /// <returns>The image as a stream.</returns>
+        /// <inheritdoc/>
         public MemoryStream GetImageAsStream(string key)
         {
             cache.TryGetValue(key, out var stream);

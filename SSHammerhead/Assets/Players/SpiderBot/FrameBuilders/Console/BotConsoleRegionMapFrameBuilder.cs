@@ -60,26 +60,14 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
         #region Implementation of IRegionMapFrameBuilder
 
-        /// <summary>
-        /// Get if this frame builder supports panning.
-        /// </summary>
+        /// <inheritdoc/>
         public bool SupportsPan => false;
 
-        /// <summary>
-        /// Get if this frame builder supports zooming.
-        /// </summary>
+        /// <inheritdoc/>
         public bool SupportsZoom => false;
 
-        /// <summary>
-        /// Build a frame.
-        /// </summary>
-        /// <param name="region">The region.</param>
-        /// <param name="focusPosition">The position to focus on.</param>
-        /// <param name="options">The region map render options.</param>
-        /// <param name="contextualCommands">The contextual commands to display.</param>
-        /// <param name="size">The size of the frame.</param>
-        /// <returns>The frame.</returns>
-        public IFrame Build(Region region, Point3D focusPosition, RegionMapRenderOptions options, CommandHelp[] contextualCommands, Size size)
+        /// <inheritdoc/>
+        public IFrame Build(Region region, Point3D focusPosition, RegionMapRenderOptions regionMapOptions, RoomMapRenderOptions roomMapOptions, CommandHelp[] contextualCommands, Size size)
         {
             gridStringBuilder.Resize(size);
 
@@ -130,9 +118,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             var mapSize = new Size(availableWidth, size.Height - 4 - commandSpace);
 
             if (RegionMapBuilder is IConsoleRegionMapBuilder consoleRegionMapBuilder)
-                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, mapSize, startMapPosition);
+                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, new RoomMapRenderOptions { KeyType = roomMapOptions.KeyType, PointOfInterestDetail = PointOfInterestDetail.Low }, mapSize, startMapPosition);
             else
-                RegionMapBuilder?.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, mapSize);
+                RegionMapBuilder?.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, new RoomMapRenderOptions { KeyType = roomMapOptions.KeyType, PointOfInterestDetail = PointOfInterestDetail.Low }, mapSize);
 
             if (renderPrompt)
             {

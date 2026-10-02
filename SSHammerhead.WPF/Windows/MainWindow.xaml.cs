@@ -91,9 +91,7 @@ namespace SSHammerhead.WPF.Windows
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the MainWindow class.
-        /// </summary>
+        /// <inheritdoc/>
         public MainWindow()
         {
             InitializeComponent();

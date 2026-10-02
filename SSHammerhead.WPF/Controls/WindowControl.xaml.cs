@@ -65,9 +65,7 @@ namespace SSHammerhead.WPF.Controls
 
         #region Constructors
 
-        /// <summary>
-        /// Initializes a new instance of the WindowControl class.
-        /// </summary>
+        /// <inheritdoc/>
         public WindowControl()
         {
             InitializeComponent();
