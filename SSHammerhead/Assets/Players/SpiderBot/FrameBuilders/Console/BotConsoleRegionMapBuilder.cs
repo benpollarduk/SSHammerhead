@@ -276,11 +276,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// </summary>
         /// <param name="region">The region.</param>
         /// <param name="focusPosition">The position to focus on.</param>
-        /// <param name="detail">The level of detail to use.</param>
+        /// <param name="options">The region map render options.</param>
         /// <param name="maxSize">The maximum size available in which to build the map.</param>
-        public void BuildRegionMap(Region region, Point3D focusPosition, RegionMapDetail detail, Size maxSize)
+        public void BuildRegionMap(Region region, Point3D focusPosition, RegionMapRenderOptions options, Size maxSize)
         {
-            BuildRegionMap(region, focusPosition, detail, maxSize, new(0, 0));
+            BuildRegionMap(region, focusPosition, options, maxSize, new(0, 0));
         }
 
         #endregion
@@ -292,10 +292,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// </summary>
         /// <param name="region">The region.</param>
         /// <param name="focusPosition">The position to focus on.</param>
-        /// <param name="detail">The level of detail to use.</param>
+        /// <param name="options">The region map render options.</param>
         /// <param name="maxSize">The maximum size available in which to build the map.</param>
         /// <param name="startPosition">The position to start building at.</param>
-        public void BuildRegionMap(Region region, Point3D focusPosition, RegionMapDetail detail, Size maxSize, Point2D startPosition)
+        public void BuildRegionMap(Region region, Point3D focusPosition, RegionMapRenderOptions options, Size maxSize, Point2D startPosition)
         {
             var matrix = region.ToMatrix();
             var playerRoom = region.GetPositionOfRoom(region.CurrentRoom);

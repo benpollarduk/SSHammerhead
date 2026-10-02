@@ -22,9 +22,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         public char LockedExit { get; set; } = 'x';
 
         /// <summary>
-        /// Get or set the character used for representing there is an item or a character in the room.
+        /// Get or set the character used for representing a point of interest in the room.
         /// </summary>
-        public char ItemOrCharacterInRoom { get; set; } = '!';
+        public char PointOfInterest { get; set; } = '!';
 
         /// <summary>
         /// Get or set the character to use for vertical boundaries.
@@ -62,9 +62,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         public AnsiColor BoundaryColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
-        /// Get or set the item or character color.
+        /// Get or set the point of interest color.
         /// </summary>
-        public AnsiColor ItemOrCharacterColor { get; set; } = SpiderBotTemplate.DisplayColor;
+        public AnsiColor PointOfInterestColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the locked exit color.
@@ -291,7 +291,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         private void DrawItemOrCharacter(Room room, Point2D startPosition)
         {
             if (Array.Exists(room.Items, x => x.IsPlayerVisible) || Array.Exists(room.Characters, x => x.IsPlayerVisible))
-                gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y + 3, ItemOrCharacterInRoom, ItemOrCharacterColor);
+                gridStringBuilder.SetCell(startPosition.X + 4, startPosition.Y + 3, PointOfInterest, PointOfInterestColor);
         }
 
         /// <summary>
@@ -299,19 +299,19 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="key">The key type.</param>
+        /// <param name="options">The room map render options.</param>
         /// <param name="startPosition">The start position.</param>
         /// <param name="endX">The end position, x.</param>
         /// <param name="endY">The end position, x.</param>
-        private void DrawKey(Room room, ViewPoint viewPoint, KeyType key, Point2D startPosition, out int endX, out int endY)
+        private void DrawKey(Room room, ViewPoint viewPoint, RoomMapRenderOptions options, Point2D startPosition, out int endX, out int endY)
         {
             var keyLines = new Dictionary<string, AnsiColor>();
             var lockedExitString = $"{LockedExit} = Locked Exit";
             var notVisitedExitString = "N/E/S/W/U/D = Unvisited";
             var visitedExitString = "n/e/s/w/u/d = Visited";
-            var itemsString = $"{ItemOrCharacterInRoom} = Check";
+            var itemsString = $"{PointOfInterest} = Check";
 
-            switch (key)
+            switch (options.KeyType)
             {
                 case KeyType.Dynamic:
 
@@ -328,7 +328,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
                         keyLines.Add($"{room.EnteredFrom.Value.ToString().ToLower()[..1]} = Entrance", VisitedExitColor);
 
                     if (Array.Exists(room.Items, x => x.IsPlayerVisible) || Array.Exists(room.Characters, x => x.IsPlayerVisible))
-                        keyLines.Add(itemsString, ItemOrCharacterColor);
+                        keyLines.Add(itemsString, PointOfInterestColor);
 
                     break;
 
@@ -337,7 +337,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
                     keyLines.Add(lockedExitString, LockedExitColor);
                     keyLines.Add(notVisitedExitString, UnvisitedExitColor);
                     keyLines.Add(visitedExitString, VisitedExitColor);
-                    keyLines.Add(itemsString, ItemOrCharacterColor);
+                    keyLines.Add(itemsString, PointOfInterestColor);
 
                     break;
 
@@ -376,10 +376,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="key">The key type.</param>
-        public void BuildRoomMap(Room room, ViewPoint viewPoint, KeyType key)
+        /// <param name="options">The room map render options.</param>
+        public void BuildRoomMap(Room room, ViewPoint viewPoint, RoomMapRenderOptions options)
         {
-            BuildRoomMap(room, viewPoint, key, new Point2D(0, 0), out _, out _);
+            BuildRoomMap(room, viewPoint, options, new Point2D(0, 0), out _, out _);
         }
 
         #endregion
@@ -391,11 +391,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
-        /// <param name="key">The key type.</param>
+        /// <param name="options">The room map render options.</param>
         /// <param name="startPosition">The start position.</param>
         /// <param name="endX">The end position, x.</param>
         /// <param name="endY">The end position, x.</param>
-        public void BuildRoomMap(Room room, ViewPoint viewPoint, KeyType key, Point2D startPosition, out int endX, out int endY)
+        public void BuildRoomMap(Room room, ViewPoint viewPoint, RoomMapRenderOptions options, Point2D startPosition, out int endX, out int endY)
         {
             DrawNorthBorder(room, viewPoint, startPosition);
             DrawSouthBorder(room, viewPoint, startPosition);
@@ -404,7 +404,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             DrawUpExit(room, viewPoint, startPosition);
             DrawDownExit(room, viewPoint, startPosition);
             DrawItemOrCharacter(room, startPosition);
-            DrawKey(room, viewPoint, key, startPosition, out endX, out endY);
+            DrawKey(room, viewPoint, options, startPosition, out endX, out endY);
 
             if (endY < startPosition.Y + 6)
                 endY = startPosition.Y + 6;

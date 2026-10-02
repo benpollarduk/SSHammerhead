@@ -148,7 +148,7 @@ namespace SSHammerhead.WPF
                 keyType = value;
                 OnPropertyChanged();
 
-                FrameProperties.KeyType = value;
+                FrameProperties.RoomMapRenderOptions.KeyType = value;
                 FramePropertiesChanged?.Invoke(this, EventArgs.Empty);
             }
         }

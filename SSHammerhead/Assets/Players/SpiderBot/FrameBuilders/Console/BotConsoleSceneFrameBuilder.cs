@@ -63,10 +63,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// <param name="player">Specify the player.</param>
         /// <param name="contextualCommands">The contextual commands to display.</param>
         /// <param name="showMap">Specify if the map should be shown.</param>
-        /// <param name="keyType">The type of key to use.</param>
+        /// <param name="options">The room map render options.</param>
         /// <param name="size">The size of the frame.</param>
         /// <returns>The frame.</returns>
-        public IFrame Build(Room room, ViewPoint viewPoint, PlayableCharacter player, CommandHelp[] contextualCommands, bool showMap, KeyType keyType, Size size)
+        public IFrame Build(Room room, ViewPoint viewPoint, PlayableCharacter player, CommandHelp[] contextualCommands, bool showMap, RoomMapRenderOptions options, Size size)
         {
             var availableWidth = size.Width - 4;
             var availableHeight = size.Height - 2;
@@ -88,9 +88,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             lastY += 2;
 
             if (roomMapBuilder is IConsoleRoomMapBuilder consoleRoomMapBuilder)
-                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, keyType, new Point2D(size.Width / 2 - 4, lastY + 2), out _, out lastY);
+                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, options, new Point2D(size.Width / 2 - 4, lastY + 2), out _, out lastY);
             else
-                roomMapBuilder?.BuildRoomMap(room, viewPoint, keyType);
+                roomMapBuilder?.BuildRoomMap(room, viewPoint, options);
 
             if (contextualCommands != null && contextualCommands.Length > 0)
             {

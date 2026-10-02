@@ -1,6 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
+using NetAF.Commands.Frame;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
@@ -74,11 +75,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// </summary>
         /// <param name="region">The region.</param>
         /// <param name="focusPosition">The position to focus on.</param>
-        /// <param name="detail">The level of detail to use.</param>
+        /// <param name="options">The region map render options.</param>
         /// <param name="contextualCommands">The contextual commands to display.</param>
         /// <param name="size">The size of the frame.</param>
         /// <returns>The frame.</returns>
-        public IFrame Build(Region region, Point3D focusPosition, RegionMapDetail detail, CommandHelp[] contextualCommands, Size size)
+        public IFrame Build(Region region, Point3D focusPosition, RegionMapRenderOptions options, CommandHelp[] contextualCommands, Size size)
         {
             gridStringBuilder.Resize(size);
 
@@ -129,9 +130,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             var mapSize = new Size(availableWidth, size.Height - 4 - commandSpace);
 
             if (RegionMapBuilder is IConsoleRegionMapBuilder consoleRegionMapBuilder)
-                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, RegionMapDetail.Normal, mapSize, startMapPosition);
+                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, mapSize, startMapPosition);
             else
-                RegionMapBuilder?.BuildRegionMap(region, focusPosition, RegionMapDetail.Normal, mapSize);
+                RegionMapBuilder?.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, mapSize);
 
             if (renderPrompt)
             {

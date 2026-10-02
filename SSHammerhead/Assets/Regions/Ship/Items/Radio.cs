@@ -82,11 +82,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             var casette = GetCurrentlyLoadedCasette(game);
 
             backgroundMusicWaveOut = new WaveOutEvent();
-            backgroundMusicReader = new AudioFileReader(casette.ResourceName);
-            
-            backgroundMusicReader.CurrentTime = GetCasettePosition(game, casette);
+            backgroundMusicReader = new AudioFileReader(casette.ResourceName)
+            {
+                CurrentTime = GetCasettePosition(game, casette),
 
-            backgroundMusicReader.Volume = 1;
+                Volume = 1
+            };
             shouldLoopBackgroundMusic = true;
 
             backgroundProximityFilter = new ProximityFilter(backgroundMusicReader);
