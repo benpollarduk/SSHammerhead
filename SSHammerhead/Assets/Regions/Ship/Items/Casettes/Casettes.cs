@@ -29,7 +29,9 @@ namespace SSHammerhead.Assets.Regions.Ship.Items.Casettes
         private static SongInfo[] MartynAndBenSongs =
         [
             new SongInfo("Time Has Come", TimeSpan.FromSeconds(226)),
-            new SongInfo("The Last Of Us", TimeSpan.FromSeconds(246))
+            new SongInfo("The Last Of Us", TimeSpan.FromSeconds(246)),
+            new SongInfo("Nothing Without You", TimeSpan.FromSeconds(171)),
+            new SongInfo("So Called Friends", TimeSpan.FromSeconds(139))
         ];
 
         /// <summary>

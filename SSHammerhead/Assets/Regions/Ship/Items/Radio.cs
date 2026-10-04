@@ -33,15 +33,14 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         #region StaticProperties
 
         private static Item lastGeneratedRadio;
-        private static Prompt Off => new("Off");
-        private static Prompt On => new("On");
-        private static Prompt View => new("View");
         private static string casetteTemplateAsString;
         private static WaveOutEvent backgroundMusicWaveOut;
         private static AudioFileReader backgroundMusicReader;
         private static ProximityFilter backgroundProximityFilter;
         private static bool shouldLoopBackgroundMusic;
         private static Timer positionUpdateTimer;
+        private static float desiredVolume = 1f;
+        private static float desiredProximity = 1f;
 
         internal static Dictionary<string, float> Composition => new()
         {
@@ -73,9 +72,23 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <param name="game">The game.</param>
         /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
         /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
-        public static void Start(Game game, float volume = 1, float proximity = 1)
+        public static void Start(Game game)
+        {
+            Start(game, desiredVolume, desiredProximity);
+        }
+
+        /// <summary>
+        /// Start the radio.
+        /// </summary>
+        /// <param name="game">The game.</param>
+        /// <param name="volume">The volume of the sound playback as a normalised value between 0 and 1.</param>
+        /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
+        public static void Start(Game game, float volume, float proximity)
         {
             Stop(game);
+
+            desiredVolume = Math.Clamp(volume, 0f, 1f);
+            desiredProximity = Math.Clamp(proximity, 0f, 1f);
 
             game?.VariableManager?.Add(IsPlayingVariableName, true.ToString());
 
@@ -91,8 +104,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             shouldLoopBackgroundMusic = true;
 
             backgroundProximityFilter = new ProximityFilter(backgroundMusicReader);
-            backgroundProximityFilter.UpdateProximity(proximity, true);
-            backgroundProximityFilter.UpdateVolume(volume * proximity, true);
+            backgroundProximityFilter.UpdateProximity(desiredProximity, true);
+            backgroundProximityFilter.UpdateVolume(desiredVolume * desiredProximity, true);
 
             backgroundMusicWaveOut.Init(backgroundProximityFilter);
             backgroundMusicWaveOut.PlaybackStopped += BackgroundMusicWaveOut_PlaybackStopped;
@@ -113,10 +126,13 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         /// <param name="proximity">The proximity to the source as a normalised value between 0 and 1. The higher the value the closer the proximity.</param>
         public static void Adjust(float volume = 1, float proximity = 1)
         {
+            desiredVolume = Math.Clamp(volume, 0f, 1f);
+            desiredProximity = Math.Clamp(proximity, 0f, 1f);
+
             if (backgroundProximityFilter != null)
             {
-                backgroundProximityFilter.UpdateProximity(proximity);
-                backgroundProximityFilter.UpdateVolume(volume * proximity);
+                backgroundProximityFilter.UpdateProximity(desiredProximity);
+                backgroundProximityFilter.UpdateVolume(desiredVolume * desiredProximity);
             }
         }
 
@@ -243,9 +259,9 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             }
 
             if (casette == Casettes.Casettes.MartynAndBen)
-                return TimeSpan.FromMilliseconds(27000);
+                return TimeSpan.FromSeconds(27);
             else if (casette == Casettes.Casettes.Demons)
-                return TimeSpan.FromMilliseconds(65000);
+                return TimeSpan.FromSeconds(65);
             else
                 return TimeSpan.Zero;
         }
@@ -401,45 +417,9 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 if (g == null)
                     return new(ReactionResult.Error, "No game specified.");
 
-                if (a == null || a.Length == 0)
-                {
-                    g.ChangeMode(new RadioMode());
-                    return new(ReactionResult.GameModeChanged, string.Empty);
-                }
-
-                var arg = string.Join(" ", a);
-
-                if (IsPrompt(arg, View))
-                {
-                    g.ChangeMode(new RadioMode());
-                    return new(ReactionResult.GameModeChanged, string.Empty);
-                }
-
-                if (IsPrompt(arg, On))
-                {
-                    Start(g);
-                    adjustCommand.AddPrompt(Off);
-                    adjustCommand.RemovePrompt(On);
-                    return new(ReactionResult.Silent, string.Empty);
-                }
-
-                if (IsPrompt(arg, Off))
-                {
-                    Stop(g);
-                    adjustCommand.AddPrompt(On);
-                    adjustCommand.RemovePrompt(Off);
-                    return new(ReactionResult.Silent, string.Empty);
-                }
-
-                return new(ReactionResult.Error, $"Unrecognised argument {arg}.");
+                g.ChangeMode(new RadioMode());
+                return new(ReactionResult.GameModeChanged, string.Empty);
             });
-
-            adjustCommand.AddPrompt(View);
-
-            if (IsPlaying(GameExecutor.ExecutingGame))
-                adjustCommand.AddPrompt(Off);
-            else
-                adjustCommand.AddPrompt(On);
 
             lastGeneratedRadio = new(Name, Description, true, commands: [adjustCommand]);
             return lastGeneratedRadio;
