@@ -1,5 +1,6 @@
 ﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
+using NetAF.Commands.Movement;
 using NetAF.Commands.Scene;
 using NetAF.Utilities;
 

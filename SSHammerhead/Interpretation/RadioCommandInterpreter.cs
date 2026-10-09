@@ -34,6 +34,9 @@ namespace SSHammerhead.Interpretation
         public CommandHelp[] SupportedCommands { get; } = DefaultSupportedCommands;
 
         /// <inheritdoc/>
+        public List<CommandHelp> ExcludedCommands { get; } = [];
+
+        /// <inheritdoc/>
         public InterpretationResult Interpret(string input, Game game)
         {
             StringUtilities.SplitInputToCommandAndArguments(input, out var command, out var arguments);

@@ -77,7 +77,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App.Internal.Assets" Version="10.0.12" />
-    <PackageReference Include="NetAF" Version="10.0.3" />
+    <PackageReference Include="NetAF" Version="10.0.6" />
     <PackageReference Include="NetAF.Imaging" Version="10.0.0" />
     <PackageReference Include="NAudio" Version="2.2.1" />
   </ItemGroup>

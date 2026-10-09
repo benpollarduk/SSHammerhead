@@ -14,6 +14,15 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
     /// <param name="gridStringBuilder">The string builder to use.</param>
     public sealed class BotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder) : IConsoleRoomMapBuilder
     {
+        #region StaticProperties
+
+        /// <summary>
+        /// Get the maximum size of the key.
+        /// </summary>
+        public static readonly Size MaximumKeySize = new(25, 4);
+
+        #endregion
+
         #region Properties
 
         /// <summary>
@@ -54,7 +63,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// <summary>
         /// Get or set the padding between the key and the map.
         /// </summary>
-        public int KeyPadding { get; set; } = 2;
+        public int KeyPadding { get; set; } = 4;
 
         /// <summary>
         /// Get or set the room boundary color.
@@ -300,10 +309,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// <param name="room">The room.</param>
         /// <param name="viewPoint">The viewpoint from the room.</param>
         /// <param name="options">The room map render options.</param>
-        /// <param name="startPosition">The start position.</param>
+        /// <param name="startPosition">The start position of the overall render.</param>
+        /// <param name="mapStart">The start position of the map.</param>
         /// <param name="endX">The end position, x.</param>
         /// <param name="endY">The end position, x.</param>
-        private void DrawKey(Room room, ViewPoint viewPoint, RoomMapRenderOptions options, Point2D startPosition, out int endX, out int endY)
+        private void DrawKey(Room room, ViewPoint viewPoint, RoomMapRenderOptions options, Point2D startPosition, Point2D mapStart, out int endX, out int endY)
         {
             var keyLines = new Dictionary<string, AnsiColor>();
             var lockedExitString = $"{LockedExit} = Locked Exit";
@@ -347,16 +357,43 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
                     throw new NotImplementedException();
             }
 
-            endX = startPosition.X;
-            endY = startPosition.Y + 7;
+            endX = mapStart.X + 8;
+            endY = mapStart.Y;
 
             if (keyLines.Count == 0)
                 return;
 
-            var maxCommandLength = keyLines.Max(x => x.Key.Length);
-            var maxWidth = maxCommandLength + endX + 1;
-            endY += KeyPadding;
-            var startKeyX = Math.Max(endX + 4 - maxCommandLength / 2, 0);
+            int startKeyX;
+            int startKeyY;
+
+            switch (options.KeyPlacement)
+            {
+                case KeyPlacement.Below:
+                    // place the key beneath the map, aligned to the map's left edge
+                    startKeyX = mapStart.X;
+                    startKeyY = mapStart.Y + RenderedSize.Height;
+                    break;
+                case KeyPlacement.Above:
+                    // place the key above the map, aligned to the map's left edge
+                    startKeyX = mapStart.X;
+                    startKeyY = startPosition.Y - 1;
+                    break;
+                case KeyPlacement.Left:
+                    // place the key to the left of the map, aligned to the overall left edge
+                    startKeyX = startPosition.X;
+                    startKeyY = mapStart.Y;
+                    break;
+                case KeyPlacement.Right:
+                    // place the key to the right of the map
+                    startKeyX = endX + KeyPadding;
+                    startKeyY = mapStart.Y;
+                    break;
+                default:
+                    throw new NotImplementedException();
+            }
+
+            var maxWidth = keyLines.Max(x => x.Key.Length) + startKeyX + 1;
+            endY = startKeyY;
 
             foreach (var keyLine in keyLines)
                 gridStringBuilder.DrawWrapped(keyLine.Key, startKeyX, endY + 1, maxWidth, keyLine.Value, out endX, out endY);
@@ -382,17 +419,30 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// <inheritdoc/>
         public void BuildRoomMap(Room room, ViewPoint viewPoint, RoomMapRenderOptions options, Point2D startPosition, out int endX, out int endY)
         {
-            DrawNorthBorder(room, viewPoint, startPosition);
-            DrawSouthBorder(room, viewPoint, startPosition);
-            DrawEastBorder(room, viewPoint, startPosition);
-            DrawWestBorder(room, viewPoint, startPosition);
-            DrawUpExit(room, viewPoint, startPosition);
-            DrawDownExit(room, viewPoint, startPosition);
-            DrawItemOrCharacter(room, startPosition);
-            DrawKey(room, viewPoint, options, startPosition, out endX, out endY);
+            // offset the map to leave room for the key when it is placed to the left or above
+            var mapStart = options.KeyType == KeyType.None ? startPosition : options.KeyPlacement switch
+            {
+                KeyPlacement.Left => new Point2D(startPosition.X + MaximumKeySize.Width + KeyPadding, startPosition.Y),
+                KeyPlacement.Above => new Point2D(startPosition.X, startPosition.Y + MaximumKeySize.Height),
+                _ => startPosition
+            };
 
-            if (endY < startPosition.Y + 6)
-                endY = startPosition.Y + 6;
+            DrawNorthBorder(room, viewPoint, mapStart);
+            DrawSouthBorder(room, viewPoint, mapStart);
+            DrawEastBorder(room, viewPoint, mapStart);
+            DrawWestBorder(room, viewPoint, mapStart);
+            DrawUpExit(room, viewPoint, mapStart);
+            DrawDownExit(room, viewPoint, mapStart);
+            DrawItemOrCharacter(room, mapStart);
+
+            endX = 0;
+            endY = mapStart.Y + 6;
+        }
+
+        /// <inheritdoc/>
+        public Size Measure(Room room, ViewPoint viewPoint, RoomMapRenderOptions options)
+        {
+            return RenderedSize;
         }
 
         #endregion

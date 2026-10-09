@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App.Internal.Assets" Version="10.0.12" />
-    <PackageReference Include="NetAF" Version="10.0.3" />
+    <PackageReference Include="NetAF" Version="10.0.6" />
   </ItemGroup>
 
   <ItemGroup>

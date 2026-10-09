@@ -33,6 +33,9 @@ namespace SSHammerhead.Interpretation
         public CommandHelp[] SupportedCommands { get; } = DefaultSupportedCommands;
 
         /// <inheritdoc/>
+        public List<CommandHelp> ExcludedCommands { get; } = [];
+
+        /// <inheritdoc/>
         public InterpretationResult Interpret(string input, Game game)
         {
             if (End.CommandHelp.Equals(input))
