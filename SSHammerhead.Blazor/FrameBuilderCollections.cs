@@ -4,7 +4,6 @@ using NetAF.Targets.Console.Rendering.FrameBuilders.Common;
 using NetAF.Targets.Console.Rendering.FrameBuilders.Modern;
 using NetAF.Targets.Html.Rendering;
 using NetAF.Targets.Html.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 using SSHammerhead.Blazor.FrameBuilders;
@@ -31,20 +30,11 @@ namespace SSHammerhead.Blazor
                 var mapRenderProperties = ConsoleMapRenderProperties.Default;
                 var gridStringBuilder = new GridStringBuilder();
 
-                var botRenderProperties = ConsoleRenderProperties.Default.Clone() as ConsoleRenderProperties;
-                botRenderProperties.LeftBoundary = '[';
-                botRenderProperties.RightBoundary = ']';
-                botRenderProperties.HorizontalDivider = '+';
-                botRenderProperties.BorderColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.MainTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.InputColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.SecondaryTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionDescriptionColor = SpiderBotTemplate.DisplayColor;
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
 
                 var scannerColor = new AnsiColor(200, 255, 200);
 
-                var scannerRenderProperties = ConsoleRenderProperties.Default.Clone() as ConsoleRenderProperties;
+                var scannerRenderProperties = (ConsoleRenderProperties)ConsoleRenderProperties.Default.Clone();
                 scannerRenderProperties.LeftBoundary = '*';
                 scannerRenderProperties.RightBoundary = '*';
                 scannerRenderProperties.HorizontalDivider = '*';
@@ -85,37 +75,11 @@ namespace SSHammerhead.Blazor
             get
             {
                 var consoleRenderProperties = ConsoleRenderProperties.Default;
-                var mapRenderProperties = ConsoleMapRenderProperties.Default;
                 var gridStringBuilder = new GridStringBuilder();
                 var botStringBuilder = new GridStringBuilder();
 
-                var botRenderProperties = ConsoleRenderProperties.Default.Clone() as ConsoleRenderProperties;
-                botRenderProperties.LeftBoundary = '[';
-                botRenderProperties.RightBoundary = ']';
-                botRenderProperties.HorizontalDivider = '+';
-                botRenderProperties.BorderColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.MainTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.InputColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.SecondaryTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionDescriptionColor = SpiderBotTemplate.DisplayColor;
-
-                var botMapProperties = ConsoleMapRenderProperties.Default.Clone() as ConsoleMapRenderProperties;
-                botMapProperties.LockedExit = 'x';
-                botMapProperties.EmptySpace = ' ';
-                botMapProperties.VerticalBoundary = '.';
-                botMapProperties.HorizontalBoundary = '.';
-                botMapProperties.LowerLevel = ':';
-                botMapProperties.Player = '#';
-                botMapProperties.Focus = '+';
-                botMapProperties.CurrentFloorIndicator = '*';
-                botMapProperties.FocusedBoundaryColor = SpiderBotTemplate.DisplayColor;
-                botMapProperties.VisitedBoundaryColor = SpiderBotTemplate.DisplayColor;
-                botMapProperties.UnvisitedBoundaryColor = SpiderBotTemplate.DisplayColor;
-                botMapProperties.PlayerColor = SpiderBotTemplate.DisplayColor;
-                botMapProperties.LockedExitColor = SpiderBotTemplate.DisplayColor;
-                botMapProperties.LowerLevelColor = SpiderBotTemplate.DisplayColor;
-                botMapProperties.ShowLowerFloors = true;
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
+                var botMapProperties = SpiderBotRenderProperties.CreateMapRenderProperties();
 
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
@@ -145,10 +109,9 @@ namespace SSHammerhead.Blazor
                 var consoleRenderProperties = ConsoleRenderProperties.Default;
                 var gridStringBuilder = new GridStringBuilder();
 
-                var anneRegionMapProperties = ConsoleMapRenderProperties.Default.Clone() as ConsoleMapRenderProperties;
-                anneRegionMapProperties.LeftBoundary = '¦';
-                anneRegionMapProperties.RightBoundary = '¦';
-                anneRegionMapProperties.HorizontalDivider = '¬';
+                var anneRegionMapProperties = (ConsoleMapRenderProperties)ConsoleMapRenderProperties.Default.Clone();
+                anneRegionMapProperties.VerticalBoundary = '¦';
+                anneRegionMapProperties.HorizontalBoundary = '¬';
 
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
@@ -205,16 +168,7 @@ namespace SSHammerhead.Blazor
                 var gridStringBuilder = new GridStringBuilder();
                 var htmlBuilder = new HtmlBuilder();
 
-                var botRenderProperties = ConsoleRenderProperties.Default.Clone() as ConsoleRenderProperties;
-                botRenderProperties.LeftBoundary = '[';
-                botRenderProperties.RightBoundary = ']';
-                botRenderProperties.HorizontalDivider = '+';
-                botRenderProperties.BorderColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.MainTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.InputColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.SecondaryTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionDescriptionColor = SpiderBotTemplate.DisplayColor;
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),
@@ -248,23 +202,13 @@ namespace SSHammerhead.Blazor
                 var botStringBuilder = new GridStringBuilder();
                 var htmlBuilder = new HtmlBuilder();
 
-                var botRenderProperties = ConsoleRenderProperties.Default.Clone() as ConsoleRenderProperties;
-                botRenderProperties.LeftBoundary = '[';
-                botRenderProperties.RightBoundary = ']';
-                botRenderProperties.HorizontalDivider = '+';
-                botRenderProperties.BorderColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.MainTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.InputColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.SecondaryTextColor = SpiderBotTemplate.DisplayColor;
-                botRenderProperties.OptionDescriptionColor = SpiderBotTemplate.DisplayColor;
-
-                var botMapProperties = ConsoleMapRenderProperties.Default.Clone() as ConsoleMapRenderProperties;
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
+                var botMapProperties = ConsoleMapRenderProperties.Default;
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
-                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botRenderProperties), false),
+                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
                     new HtmlHelpFrameBuilder(htmlBuilder),
                     new HtmlCompletionFrameBuilder(htmlBuilder),
@@ -290,10 +234,9 @@ namespace SSHammerhead.Blazor
                 var htmlRenderProperties = HtmlRenderProperties.Default;
                 var htmlBuilder = new HtmlBuilder();
 
-                var anneRegionMapProperties = ConsoleRenderProperties.Default.Clone() as ConsoleRenderProperties;
-                anneRegionMapProperties.LeftBoundary = '.';
-                anneRegionMapProperties.RightBoundary = '.';
-                anneRegionMapProperties.HorizontalDivider = '~';
+                var anneRegionMapProperties = (ConsoleMapRenderProperties)ConsoleMapRenderProperties.Default.Clone();
+                anneRegionMapProperties.HorizontalBoundary = '.';
+                anneRegionMapProperties.VerticalBoundary = '~';
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),

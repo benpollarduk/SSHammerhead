@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NetAF.Assets;
@@ -49,9 +49,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             }
             else if (room.HasUnlockedExitInDirection(Direction.North))
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, properties.UnlockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, properties.UnlockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, properties.UnlockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, properties.UnLockedExit, color);
             }
             else
             {
@@ -65,7 +65,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             if (room.HasLockedExitInDirection(Direction.West))
                 gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, properties.LockedExit, properties.LockedExitColor);
             else if (room.HasUnlockedExitInDirection(Direction.West))
-                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, properties.UnlockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, properties.UnLockedExit, color);
             else
                 gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, properties.VerticalBoundary, color);
 
@@ -93,7 +93,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             if (room.HasLockedExitInDirection(Direction.East))
                 gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, properties.LockedExit, properties.LockedExitColor);
             else if (room.HasUnlockedExitInDirection(Direction.East))
-                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, properties.UnlockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, properties.UnLockedExit, color);
             else
                 gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, properties.VerticalBoundary, color);
 
@@ -107,9 +107,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             }
             else if (room.HasUnlockedExitInDirection(Direction.South))
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, properties.UnlockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, properties.UnlockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, properties.UnlockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, properties.UnLockedExit, color);
             }
             else
             {
@@ -269,3 +269,4 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         #endregion
     }
 }
+

@@ -1,6 +1,6 @@
 ﻿using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
-using NetAF.Targets.Console.Rendering.FrameBuilders;
+using NetAF.Targets.Console.Rendering.FrameBuilders.Common;
 using NetAF.Targets.Console.Rendering.FrameBuilders.Modern;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
@@ -21,26 +21,28 @@ namespace SSHammerhead.Console
         {
             get
             {
+                var consoleRenderProperties = ConsoleRenderProperties.Default;
+                var mapRenderProperties = ConsoleMapRenderProperties.Default;
                 var gridStringBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder),
-                    new ConsoleModernSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder)),
-                    new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder)),
-                    new ConsoleModernCommandListFrameBuilder(gridStringBuilder),
-                    new ConsoleModernHelpFrameBuilder(gridStringBuilder),
-                    new ConsoleModernCompletionFrameBuilder(gridStringBuilder),
-                    new ConsoleModernGameOverFrameBuilder(gridStringBuilder),
-                    new ConsoleModernAboutFrameBuilder(gridStringBuilder),
-                    new ConsoleModernReactionFrameBuilder(gridStringBuilder),
-                    new ConsoleModernConversationFrameBuilder(gridStringBuilder),
-                    new ConsoleModernNoteFrameBuilder(gridStringBuilder),
-                    new ConsoleModernHistoryFrameBuilder(gridStringBuilder),
-                    new ConsoleLoginFrameBuilder(gridStringBuilder),
-                    new ConsoleScannerFrameBuilder(gridStringBuilder),
-                    new ConsoleModernNarrativeFrameBuilder(gridStringBuilder),
-                    new ConsoleVisualFrameBuilder(gridStringBuilder),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder));
+                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernSceneFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder, mapRenderProperties), false),
+                    new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleRegionMapBuilder(gridStringBuilder, mapRenderProperties), false),
+                    new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernHelpFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernCompletionFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernGameOverFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernAboutFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernReactionFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernConversationFrameBuilder(gridStringBuilder, consoleRenderProperties, false),
+                    new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleLoginFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleScannerFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernVisualFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
@@ -51,25 +53,29 @@ namespace SSHammerhead.Console
         {
             get
             {
+                var consoleRenderProperties = ConsoleRenderProperties.Default;
                 var gridStringBuilder = new GridStringBuilder();
-                var botStringBuilder = new GridStringBuilder('[', ']', '+');
+                var botStringBuilder = new GridStringBuilder();
+
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
+                var botMapProperties = SpiderBotRenderProperties.CreateMapRenderProperties();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder),
-                    new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder)),
-                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder)),
-                    new ConsoleModernCommandListFrameBuilder(gridStringBuilder),
-                    new ConsoleModernHelpFrameBuilder(gridStringBuilder),
-                    new ConsoleModernCompletionFrameBuilder(gridStringBuilder),
-                    new ConsoleModernGameOverFrameBuilder(gridStringBuilder),
-                    new ConsoleModernAboutFrameBuilder(gridStringBuilder),
-                    new BotConsoleReactionFrameBuilder(botStringBuilder),
-                    new ConsoleModernConversationFrameBuilder(gridStringBuilder),
-                    new ConsoleModernNoteFrameBuilder(gridStringBuilder),
-                    new ConsoleModernHistoryFrameBuilder(gridStringBuilder),
-                    new ConsoleModernNarrativeFrameBuilder(gridStringBuilder),
+                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
+                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
+                    new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernHelpFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernCompletionFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernGameOverFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernAboutFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
+                    new ConsoleModernConversationFrameBuilder(gridStringBuilder, consoleRenderProperties, false),
+                    new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new BotVisualFrameBuilder(),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder));
+                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
@@ -80,23 +86,28 @@ namespace SSHammerhead.Console
         {
             get
             {
-                var gridStringBuilder = new GridStringBuilder('¦', '¦', '¬');
+                var consoleRenderProperties = ConsoleRenderProperties.Default;
+                var gridStringBuilder = new GridStringBuilder();
+
+                var anneRegionMapProperties = (ConsoleMapRenderProperties)ConsoleMapRenderProperties.Default.Clone();
+                anneRegionMapProperties.VerticalBoundary = '¦';
+                anneRegionMapProperties.HorizontalBoundary = '¬';
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder),
-                    new ConsoleModernSceneFrameBuilder(gridStringBuilder, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder)),
-                    new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, new ConsoleRegionMapBuilder(gridStringBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
-                    new ConsoleModernCommandListFrameBuilder(gridStringBuilder),
-                    new ConsoleModernHelpFrameBuilder(gridStringBuilder),
-                    new ConsoleModernCompletionFrameBuilder(gridStringBuilder),
-                    new ConsoleModernGameOverFrameBuilder(gridStringBuilder),
-                    new ConsoleModernAboutFrameBuilder(gridStringBuilder),
-                    new ConsoleModernReactionFrameBuilder(gridStringBuilder),
-                    new ConsoleModernConversationFrameBuilder(gridStringBuilder),
-                    new ConsoleModernNoteFrameBuilder(gridStringBuilder),
-                    new ConsoleModernHistoryFrameBuilder(gridStringBuilder),
-                    new ConsoleModernVisualFrameBuilder(gridStringBuilder),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder));
+                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernSceneFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder, anneRegionMapProperties), false),
+                    new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleRegionMapBuilder(gridStringBuilder, anneRegionMapProperties), false),
+                    new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernHelpFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernCompletionFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernGameOverFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernAboutFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernReactionFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernConversationFrameBuilder(gridStringBuilder, consoleRenderProperties, false),
+                    new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernVisualFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
