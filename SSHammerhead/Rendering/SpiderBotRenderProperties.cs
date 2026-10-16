@@ -1,6 +1,7 @@
 using NetAF.Targets.Console.Rendering;
+using SSHammerhead.Assets.Players.SpiderBot;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
+namespace SSHammerhead.Rendering
 {
     /// <summary>
     /// Provides shared render properties for the spider bot frame builders.
@@ -23,6 +24,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             properties.OptionColor = SpiderBotTemplate.DisplayColor;
             properties.SecondaryTextColor = SpiderBotTemplate.DisplayColor;
             properties.OptionDescriptionColor = SpiderBotTemplate.DisplayColor;
+            properties.TitleColor = SpiderBotTemplate.DisplayColor;
+            properties.CommandColor = SpiderBotTemplate.DisplayColor;
+            properties.CommandDescriptionColor = SpiderBotTemplate.DisplayColor;
+            properties.HighlightTextColor = SpiderBotTemplate.DisplayColor;
+            properties.HighlightKeywords = false;
             return properties;
         }
 
@@ -41,9 +47,13 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
             properties.Player = '#';
             properties.Focus = '+';
             properties.CurrentFloorIndicator = '*';
+            properties.BoundaryColor = SpiderBotTemplate.DisplayColor;
+            properties.PointOfInterestColor = SpiderBotTemplate.DisplayColor;
             properties.FocusedBoundaryColor = SpiderBotTemplate.DisplayColor;
             properties.VisitedBoundaryColor = SpiderBotTemplate.DisplayColor;
             properties.UnvisitedBoundaryColor = SpiderBotTemplate.DisplayColor;
+            properties.VisitedExitColor = SpiderBotTemplate.DisplayColor;
+            properties.UnvisitedExitColor = SpiderBotTemplate.DisplayColor;
             properties.PlayerColor = SpiderBotTemplate.DisplayColor;
             properties.LockedExitColor = SpiderBotTemplate.DisplayColor;
             properties.LowerLevelColor = SpiderBotTemplate.DisplayColor;

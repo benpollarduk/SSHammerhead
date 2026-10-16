@@ -7,6 +7,7 @@ using NetAF.Targets.Html.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 using SSHammerhead.Blazor.FrameBuilders;
+using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
 using ConsoleTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleTitleFrameBuilder;
 
@@ -31,20 +32,7 @@ namespace SSHammerhead.Blazor
                 var gridStringBuilder = new GridStringBuilder();
 
                 var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
-
-                var scannerColor = new AnsiColor(200, 255, 200);
-
-                var scannerRenderProperties = (ConsoleRenderProperties)ConsoleRenderProperties.Default.Clone();
-                scannerRenderProperties.LeftBoundary = '*';
-                scannerRenderProperties.RightBoundary = '*';
-                scannerRenderProperties.HorizontalDivider = '*';
-                scannerRenderProperties.BorderColor = scannerColor;
-                scannerRenderProperties.MainTextColor = scannerColor;
-                scannerRenderProperties.InputColor = scannerColor;
-                scannerRenderProperties.OptionColor = scannerColor;
-                scannerRenderProperties.SecondaryTextColor = scannerColor;
-                scannerRenderProperties.OptionDescriptionColor = scannerColor;
-                scannerRenderProperties.BackgroundColor = AnsiColor.Black;
+                var scannerRenderProperties = ScannerRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
                     new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
@@ -169,6 +157,7 @@ namespace SSHammerhead.Blazor
                 var htmlBuilder = new HtmlBuilder();
 
                 var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
+                var scannerRenderProperties = ScannerRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),
@@ -184,7 +173,7 @@ namespace SSHammerhead.Blazor
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new ConsoleLoginFrameBuilder(gridStringBuilder, botRenderProperties),
-                    new ConsoleScannerFrameBuilder(gridStringBuilder, botRenderProperties),
+                    new ConsoleScannerFrameBuilder(gridStringBuilder, scannerRenderProperties),
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
                     new HtmlVisualFrameBuilder(htmlBuilder),
                     new HtmlRadioFrameBuilder(htmlBuilder));

@@ -4,6 +4,7 @@ using NetAF.Targets.Console.Rendering.FrameBuilders.Common;
 using NetAF.Targets.Console.Rendering.FrameBuilders.Modern;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
+using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
 using ConsoleTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleTitleFrameBuilder;
 
@@ -22,7 +23,9 @@ namespace SSHammerhead.Console
             get
             {
                 var consoleRenderProperties = ConsoleRenderProperties.Default;
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
                 var mapRenderProperties = ConsoleMapRenderProperties.Default;
+                var scannerRenderProperties = ScannerRenderProperties.CreateRenderProperties();
                 var gridStringBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
@@ -38,8 +41,8 @@ namespace SSHammerhead.Console
                     new ConsoleModernConversationFrameBuilder(gridStringBuilder, consoleRenderProperties, false),
                     new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new ConsoleLoginFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new ConsoleScannerFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleLoginFrameBuilder(gridStringBuilder, botRenderProperties),
+                    new ConsoleScannerFrameBuilder(gridStringBuilder, botRenderProperties),
                     new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernVisualFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));

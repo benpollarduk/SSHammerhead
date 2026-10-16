@@ -4,6 +4,7 @@ using NetAF.Targets.Markup.Rendering;
 using NetAF.Targets.Markup.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
+using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
 using SSHammerhead.WPF.FrameBuilders;
 using System.Windows;
@@ -25,7 +26,8 @@ namespace SSHammerhead.WPF
             {
                 var renderProperties = MarkupRenderProperties.Default;
                 var mapRenderProperties = ConsoleMapRenderProperties.Default;
-                var consoleRenderProperties = ConsoleRenderProperties.Default;
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
+                var scannerRenderProperties = ScannerRenderProperties.CreateRenderProperties();
                 var gridStringBuilder = new GridStringBuilder();
                 var markupBuilder = new MarkupBuilder();
 
@@ -42,8 +44,8 @@ namespace SSHammerhead.WPF
                     new MarkupConversationFrameBuilder(markupBuilder),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
-                    new ConsoleLoginFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new ConsoleScannerFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleLoginFrameBuilder(gridStringBuilder, botRenderProperties),
+                    new ConsoleScannerFrameBuilder(gridStringBuilder, scannerRenderProperties),
                     new MarkupNarrativeFrameBuilder(markupBuilder),
                     new MarkupVisualFrameBuilder(markupBuilder),
                     new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
