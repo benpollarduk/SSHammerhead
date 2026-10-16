@@ -27,7 +27,7 @@ namespace SSHammerhead.WPF
         private double crtIntensity = 0.2;
         private double crtCurvatureIntensity = 0.3;
         private bool useFrameTransitions = true;
-        private CommandListType commandListType = CommandListType.Minimal;
+        private CommandListType commandListType = CommandListType.Light;
         private KeyType keyType = KeyType.Dynamic;
         private bool showMapInScenes = true;
         private bool useSoundEffects = true;

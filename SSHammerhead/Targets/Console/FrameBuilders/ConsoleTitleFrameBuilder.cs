@@ -13,32 +13,9 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class ConsoleTitleFrameBuilder(GridStringBuilder gridStringBuilder) : ITitleFrameBuilder
+    /// <param name="properties">The render properties.</param>
+    public sealed class ConsoleTitleFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties) : ITitleFrameBuilder
     {
-        #region Properties
-
-        /// <summary>
-        /// Get or set the background color.
-        /// </summary>
-        public AnsiColor BackgroundColor { get; set; } = AnsiColor.Black;
-
-        /// <summary>
-        /// Get or set the border color.
-        /// </summary>
-        public AnsiColor BorderColor { get; set; } = AnsiColor.BrightBlack;
-
-        /// <summary>
-        /// Get or set the title color.
-        /// </summary>
-        public AnsiColor TitleColor { get; set; } = AnsiColor.BrightWhite;
-
-        /// <summary>
-        /// Get or set the description color.
-        /// </summary>
-        public AnsiColor DescriptionColor { get; set; } = AnsiColor.BrightWhite;
-
-        #endregion
-
         #region Implementation of ITitleFrameBuilder
 
         /// <inheritdoc/>
@@ -46,16 +23,16 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
         {
             gridStringBuilder.Resize(size);
 
-            gridStringBuilder.DrawBoundary(BorderColor);
+            gridStringBuilder.DrawBoundary(properties.LeftBoundary, properties.RightBoundary, properties.HorizontalDivider, properties.BorderColor);
 
             var availableWidth = size.Width - 4;
 
-            gridStringBuilder.DrawCentralisedWrapped(title, 2, availableWidth, TitleColor, out var lastX, out var lastY);
-            gridStringBuilder.DrawUnderline(lastX + 1 - title.Length, lastY + 1, title.Length, TitleColor);
+            gridStringBuilder.DrawCentralisedWrapped(title, 2, availableWidth, properties.TitleColor, out var lastX, out var lastY);
+            gridStringBuilder.DrawUnderline(lastX + 1 - title.Length, lastY + 1, title.Length, properties.TitleColor);
 
-            gridStringBuilder.DrawWrapped(description, 2, lastY + 3, availableWidth, DescriptionColor, out _, out lastY);
+            gridStringBuilder.DrawWrapped(description, 2, lastY + 3, availableWidth, properties.MainTextColor, out _, out lastY);
 
-            var output = new GridVisualBuilder(BackgroundColor, TitleColor);
+            var output = new GridVisualBuilder(properties.BackgroundColor, properties.TitleColor);
             output.Resize(size);
 
             output.Overlay(0, 0, gridStringBuilder);

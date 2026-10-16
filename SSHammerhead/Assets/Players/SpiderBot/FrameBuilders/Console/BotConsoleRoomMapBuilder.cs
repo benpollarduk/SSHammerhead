@@ -12,7 +12,8 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
     /// Provides a console room map builder.
     /// </summary>
     /// <param name="gridStringBuilder">The string builder to use.</param>
-    public sealed class BotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder) : IConsoleRoomMapBuilder
+    /// <param name="properties">The render properties.</param>
+    public sealed class BotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder, ConsoleMapRenderProperties properties) : IConsoleRoomMapBuilder
     {
         #region StaticProperties
 

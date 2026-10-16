@@ -10,7 +10,8 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
     /// Provides a builder for console reaction frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
-    public sealed class BotConsoleReactionFrameBuilder(GridStringBuilder gridStringBuilder) : IReactionFrameBuilder
+    /// <param name="properties">The render properties.</param>
+    public sealed class BotConsoleReactionFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties) : IReactionFrameBuilder
     {
         #region Fields
 
@@ -18,62 +19,33 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
         #endregion
 
-        #region Properties
-
-        /// <summary>
-        /// Get or set the background color.
-        /// </summary>
-        public AnsiColor BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Get or set the border color.
-        /// </summary>
-        public AnsiColor BorderColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the text color.
-        /// </summary>
-        public AnsiColor TextColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the input color.
-        /// </summary>
-        public AnsiColor InputColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the commands color.
-        /// </summary>
-        public AnsiColor CommandsColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        #endregion
-
         #region Implementation of IReactionFrameBuilder
 
         /// <inheritdoc/>
-        public IFrame Build(string title, string message, bool isError, Size size)
+        public IFrame Build(string title, string message, bool isError, string[] keywords, Size size)
         {
             gridStringBuilder.Resize(size);
 
-            gridStringBuilder.DrawBoundary(BorderColor);
+            gridStringBuilder.DrawBoundary(properties.LeftBoundary, properties.RightBoundary, properties.HorizontalDivider, properties.BorderColor);
 
             var availableWidth = size.Width - 4;
             const int leftMargin = 2;
             var lastY = 1;
 
-            gridStringBuilder.DrawWrapped("BOT::MODE::REACT", leftMargin, lastY, availableWidth, TextColor, out _, out lastY);
-            gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
+            gridStringBuilder.DrawWrapped("BOT::MODE::REACT", leftMargin, lastY, availableWidth, properties.MainTextColor, out _, out lastY);
+            gridStringBuilder.DrawHorizontalDivider(lastY + 1, properties.HorizontalDivider, properties.BorderColor);
             lastY += 2;
 
             if (!string.IsNullOrEmpty(title))
             {
-                gridStringBuilder.DrawWrapped($"BOT::LOCATION::{title.ToUpperInvariant()}", leftMargin, lastY, availableWidth, TextColor, out _, out lastY);
-                gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
+                gridStringBuilder.DrawWrapped($"BOT::LOCATION::{title.ToUpperInvariant()}", leftMargin, lastY, availableWidth, properties.MainTextColor, out _, out lastY);
+                gridStringBuilder.DrawHorizontalDivider(lastY + 1, properties.HorizontalDivider, properties.BorderColor);
                 lastY += 2;
             }
 
-            gridStringBuilder.DrawWrapped(message.ToUpper().EnsureFinishedSentence(), leftMargin, lastY, availableWidth, TextColor, out _, out _);
+            gridStringBuilder.DrawWrapped(message.ToUpper().EnsureFinishedSentence(), leftMargin, lastY, availableWidth, properties.MainTextColor, out _, out _);
 
-            return new GridTextFrame(gridStringBuilder, 0, 0, BackgroundColor) { ShowCursor = false };
+            return new GridTextFrame(gridStringBuilder, 0, 0, properties.BackgroundColor) { ShowCursor = false };
         }
 
         #endregion

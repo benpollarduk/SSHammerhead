@@ -13,8 +13,9 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
     /// Provides a builder of scanner frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
+    /// <param name="properties">The render properties.</param>
     /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
-    public sealed class ConsoleScannerFrameBuilder(GridStringBuilder gridStringBuilder, bool renderPrompt = true) : IScannerFrameBuilder
+    public sealed class ConsoleScannerFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, bool renderPrompt = true) : IScannerFrameBuilder
     {
         #region StaticProperties
 
