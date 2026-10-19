@@ -59,10 +59,8 @@ namespace SSHammerhead.WPF
         {
             get
             {
-                var renderProperties = MarkupRenderProperties.Default;
                 var botStringBuilder = new GridStringBuilder();
                 var markupBuilder = new MarkupBuilder();
-
                 var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
                 var botMapProperties = SpiderBotRenderProperties.CreateMapRenderProperties();
 
@@ -94,10 +92,7 @@ namespace SSHammerhead.WPF
             {
                 var renderProperties = MarkupRenderProperties.Default;
                 var markupBuilder = new MarkupBuilder();
-
-                var anneMapProperties = (ConsoleMapRenderProperties)ConsoleMapRenderProperties.Default.Clone();
-                anneMapProperties.HorizontalBoundary = '.';
-                anneMapProperties.VerticalBoundary = '~';
+                var anneMapProperties = AnneConsoleMapRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Markup.Rendering.FrameBuilders.MarkupTitleFrameBuilder(markupBuilder),

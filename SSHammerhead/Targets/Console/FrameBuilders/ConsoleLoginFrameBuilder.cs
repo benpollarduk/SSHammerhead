@@ -69,7 +69,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
                     break;
             }
 
-            return new GridTextFrame(gridStringBuilder, cursorX, cursorY, properties.BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, cursorX, cursorY, true, properties.BackgroundColor, properties.InputColor);
         }
 
         #endregion

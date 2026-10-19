@@ -100,10 +100,11 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             if (renderPrompt)
             {
                 gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, properties.HorizontalDivider, properties.BorderColor);
-                gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, properties.InputColor, out _, out _);
+                gridStringBuilder.DrawWrapped(properties.Prompt, leftMargin, availableHeight, availableWidth, properties.PromptColor, out _, out _);
             }
 
-            return new GridTextFrame(gridStringBuilder, 4, availableHeight, properties.BackgroundColor) { ShowCursor = true };
+            var promptLengthAndPadding = properties.ShowPrompt ? properties.Prompt.Length + 1 : 0;
+            return new GridTextFrame(gridStringBuilder, leftMargin + promptLengthAndPadding, availableHeight, true, properties.BackgroundColor, properties.InputColor);
         }
 
         #endregion

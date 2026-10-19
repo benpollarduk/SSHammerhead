@@ -91,7 +91,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
                 gridStringBuilder.SetCell(right, i, properties.HorizontalDivider, properties.BorderColor);
             }
 
-            return new GridTextFrame(gridStringBuilder, renderPrompt ? cursorX : 0, renderPrompt ? cursorY : availableHeight, properties.BackgroundColor);
+            return new GridTextFrame(gridStringBuilder, renderPrompt ? cursorX : 0, renderPrompt ? cursorY : availableHeight, true, properties.BackgroundColor, properties.InputColor);
         }
 
         #endregion

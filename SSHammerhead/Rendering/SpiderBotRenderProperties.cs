@@ -29,6 +29,9 @@ namespace SSHammerhead.Rendering
             properties.CommandDescriptionColor = SpiderBotTemplate.DisplayColor;
             properties.HighlightTextColor = SpiderBotTemplate.DisplayColor;
             properties.HighlightKeywords = false;
+            properties.Prompt = ">>>";
+            properties.PromptColor = SpiderBotTemplate.DisplayColor;
+            properties.ShowPrompt = true;
             return properties;
         }
 
@@ -43,6 +46,8 @@ namespace SSHammerhead.Rendering
             properties.EmptySpace = ' ';
             properties.VerticalBoundary = '.';
             properties.HorizontalBoundary = '.';
+            properties.VerticalExitBorder = '.';
+            properties.HorizontalExitBorder = '.';
             properties.LowerLevel = ':';
             properties.Player = '#';
             properties.Focus = '+';

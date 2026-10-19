@@ -45,7 +45,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
             gridStringBuilder.DrawWrapped(message.ToUpper().EnsureFinishedSentence(), leftMargin, lastY, availableWidth, properties.MainTextColor, out _, out _);
 
-            return new GridTextFrame(gridStringBuilder, 0, 0, properties.BackgroundColor) { ShowCursor = false };
+            return new GridTextFrame(gridStringBuilder, 0, 0, false, properties.BackgroundColor, properties.InputColor);
         }
 
         #endregion

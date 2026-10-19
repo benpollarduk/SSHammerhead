@@ -1,4 +1,5 @@
 using NetAF.Targets.Console.Rendering;
+using SSHammerhead.Assets.Players.SpiderBot;
 
 namespace SSHammerhead.Rendering
 {
@@ -25,6 +26,9 @@ namespace SSHammerhead.Rendering
             properties.SecondaryTextColor = scannerColor;
             properties.OptionDescriptionColor = scannerColor;
             properties.BackgroundColor = AnsiColor.Black;
+            properties.Prompt = string.Empty;
+            properties.PromptColor = scannerColor;
+            properties.ShowPrompt = false;
             return properties;
         }
 
