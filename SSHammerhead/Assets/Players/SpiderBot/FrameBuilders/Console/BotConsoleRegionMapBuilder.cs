@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NetAF.Assets;
@@ -12,92 +12,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
     /// Provides a console builder for region maps.
     /// </summary>
     /// <param name="gridStringBuilder">The string builder to use.</param>
-    public sealed class BotConsoleRegionMapBuilder(GridStringBuilder gridStringBuilder) : IConsoleRegionMapBuilder
+    /// <param name="properties">The render properties.</param>
+    public sealed class BotConsoleRegionMapBuilder(GridStringBuilder gridStringBuilder, ConsoleMapRenderProperties properties) : IConsoleRegionMapBuilder
     {
-        #region Properties
-
-        /// <summary>
-        /// Get or set the character used for representing a locked exit.
-        /// </summary>
-        public char LockedExit { get; set; } = 'x';
-
-        /// <summary>
-        /// Get or set the character used for representing an unlocked exit.
-        /// </summary>
-        public char UnLockedExit { get; set; } = ' ';
-
-        /// <summary>
-        /// Get or set the character used for representing an empty space.
-        /// </summary>
-        public char EmptySpace { get; set; } = ' ';
-
-        /// <summary>
-        /// Get or set the character to use for vertical boundaries.
-        /// </summary>
-        public char VerticalBoundary { get; set; } = '.';
-
-        /// <summary>
-        /// Get or set the character to use for horizontal boundaries.
-        /// </summary>
-        public char HorizontalBoundary { get; set; } = '.';
-
-        /// <summary>
-        /// Get or set the character to use for lower levels.
-        /// </summary>
-        public char LowerLevel { get; set; } = ':';
-
-        /// <summary>
-        /// Get or set the character to use for indicating the player.
-        /// </summary>
-        public char Player { get; set; } = '#';
-
-        /// <summary>
-        /// Get or set the character to use for indicating the focus.
-        /// </summary>
-        public char Focus { get; set; } = '+';
-
-        /// <summary>
-        /// Get or set the character to use for the current floor.
-        /// </summary>
-        public char CurrentFloorIndicator { get; set; } = '*';
-
-        /// <summary>
-        /// Get or set the focused room boundary color.
-        /// </summary>
-        public AnsiColor FocusedBoundaryColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the visited room boundary color.
-        /// </summary>
-        public AnsiColor VisitedBoundaryColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the unvisited room boundary color.
-        /// </summary>
-        public AnsiColor UnvisitedBoundaryColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the player color.
-        /// </summary>
-        public AnsiColor PlayerColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the locked exit color.
-        /// </summary>
-        public AnsiColor LockedExitColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the lower level color.
-        /// </summary>
-        public AnsiColor LowerLevelColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set if lower floors should be shown.
-        /// </summary>
-        public bool ShowLowerFloors { get; set; } = true;
-
-        #endregion
-
         #region Methods
 
         /// <summary>
@@ -115,93 +32,93 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
              * |---|
              */
 
-            AnsiColor color = UnvisitedBoundaryColor;
+            AnsiColor color = properties.UnvisitedBoundaryColor;
 
             if (isFocusRoom)
-                color = FocusedBoundaryColor;
+                color = properties.FocusedBoundaryColor;
             else if (room.HasBeenVisited)
-                color = VisitedBoundaryColor;
+                color = properties.VisitedBoundaryColor;
 
-            gridStringBuilder.SetCell(topLeft.X, topLeft.Y, VerticalBoundary, color);
+            gridStringBuilder.SetCell(topLeft.X, topLeft.Y, properties.VerticalBoundary, color);
 
             if (room.HasLockedExitInDirection(Direction.North))
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, properties.LockedExit, properties.LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, properties.LockedExit, properties.LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, properties.LockedExit, properties.LockedExitColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.North))
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, UnLockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, UnLockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, properties.UnLockedExit, color);
             }
             else
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, HorizontalBoundary, color);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, HorizontalBoundary, color);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, HorizontalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y, properties.HorizontalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y, properties.HorizontalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y, properties.HorizontalBoundary, color);
             }
 
-            gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y, VerticalBoundary, color);
+            gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y, properties.VerticalBoundary, color);
 
             if (room.HasLockedExitInDirection(Direction.West))
-                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, properties.LockedExit, properties.LockedExitColor);
             else if (room.HasUnlockedExitInDirection(Direction.West))
-                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, properties.UnLockedExit, color);
             else
-                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, VerticalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 1, properties.VerticalBoundary, color);
 
             if (room.HasLockedExitInDirection(Direction.Up))
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 1, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 1, properties.LockedExit, properties.LockedExitColor);
             else if (room.HasUnlockedExitInDirection(Direction.Up))
                 gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 1, '^', color);
             else
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 1, EmptySpace, color);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 1, properties.EmptySpace, color);
 
             if (isPlayerRoom)
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 1, Player, PlayerColor);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 1, properties.Player, properties.PlayerColor);
             else if (isFocusRoom)
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 1, Focus, FocusedBoundaryColor);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 1, properties.Focus, properties.FocusedBoundaryColor);
             else
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 1, EmptySpace, color);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 1, properties.EmptySpace, color);
 
             if (room.HasLockedExitInDirection(Direction.Down))
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 1, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 1, properties.LockedExit, properties.LockedExitColor);
             else if (room.HasUnlockedExitInDirection(Direction.Down))
                 gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 1, 'v', color);
             else
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 1, EmptySpace, color);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 1, properties.EmptySpace, color);
 
             if (room.HasLockedExitInDirection(Direction.East))
-                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, properties.LockedExit, properties.LockedExitColor);
             else if (room.HasUnlockedExitInDirection(Direction.East))
-                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, properties.UnLockedExit, color);
             else
-                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, VerticalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 1, properties.VerticalBoundary, color);
 
-            gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 2, VerticalBoundary, color);
+            gridStringBuilder.SetCell(topLeft.X, topLeft.Y + 2, properties.VerticalBoundary, color);
 
             if (room.HasLockedExitInDirection(Direction.South))
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, LockedExit, LockedExitColor);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, LockedExit, LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, properties.LockedExit, properties.LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, properties.LockedExit, properties.LockedExitColor);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, properties.LockedExit, properties.LockedExitColor);
             }
             else if (room.HasUnlockedExitInDirection(Direction.South))
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, UnLockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, UnLockedExit, color);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, properties.UnLockedExit, color);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, properties.UnLockedExit, color);
             }
             else
             {
-                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, HorizontalBoundary, color);
-                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, HorizontalBoundary, color);
-                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, HorizontalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X + 1, topLeft.Y + 2, properties.HorizontalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X + 2, topLeft.Y + 2, properties.HorizontalBoundary, color);
+                gridStringBuilder.SetCell(topLeft.X + 3, topLeft.Y + 2, properties.HorizontalBoundary, color);
             }
 
-            gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 2, VerticalBoundary, color);
+            gridStringBuilder.SetCell(topLeft.X + 4, topLeft.Y + 2, properties.VerticalBoundary, color);
         }
 
         /// <summary>
@@ -219,7 +136,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
             for (var y = 0; y < 3; y++)
                 for (var x = 0; x < 5; x++)
-                    gridStringBuilder.SetCell(topLeft.X + x, topLeft.Y + y, LowerLevel, LowerLevelColor);
+                    gridStringBuilder.SetCell(topLeft.X + x, topLeft.Y + y, properties.LowerLevel, properties.LowerLevelColor);
 
         }
 
@@ -312,9 +229,9 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
                     var isFocusFloor = floor == focusFloor;
 
                     if (floor == playerFloor)
-                        gridStringBuilder.DrawWrapped($"{CurrentFloorIndicator} L{floor}", x, ++y, maxAvailableWidth, VisitedBoundaryColor, out _, out _);
+                        gridStringBuilder.DrawWrapped($"{properties.CurrentFloorIndicator} L{floor}", x, ++y, maxAvailableWidth, properties.VisitedBoundaryColor, out _, out _);
                     else
-                        gridStringBuilder.DrawWrapped($"L{floor}", x + 2, ++y, maxAvailableWidth, isFocusFloor ? FocusedBoundaryColor : LowerLevelColor, out _, out _);
+                        gridStringBuilder.DrawWrapped($"L{floor}", x + 2, ++y, maxAvailableWidth, isFocusFloor ? properties.FocusedBoundaryColor : properties.LowerLevelColor, out _, out _);
                 }
 
                 x += indicatorLength;
@@ -322,7 +239,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
             }
 
             // firstly draw lower levels
-            if (ShowLowerFloors)
+            if (properties.ShowLowerFloors)
             {
                 List<RoomPosition> lowerLevelRooms = [.. visitedRoomPositions.Where(r => r.Position.Z < focusFloor)];
 
@@ -352,3 +269,4 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         #endregion
     }
 }
+

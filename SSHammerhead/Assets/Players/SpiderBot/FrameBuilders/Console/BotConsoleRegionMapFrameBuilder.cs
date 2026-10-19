@@ -1,7 +1,6 @@
 ﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
-using NetAF.Commands.Frame;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
@@ -14,9 +13,10 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
     /// Provides a builder of color region map frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
+    /// <param name="properties">The render properties.</param>
     /// <param name="regionMapBuilder">A builder for region maps.</param>
     /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
-    public sealed class BotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, IRegionMapBuilder regionMapBuilder, bool renderPrompt = true) : IRegionMapFrameBuilder
+    public sealed class BotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, IRegionMapBuilder regionMapBuilder, bool renderPrompt = true) : IRegionMapFrameBuilder
     {
         #region Fields
 
@@ -30,31 +30,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         /// Get the region map builder.
         /// </summary>
         private IRegionMapBuilder RegionMapBuilder { get; } = regionMapBuilder;
-
-        /// <summary>
-        /// Get or set the background color.
-        /// </summary>
-        public AnsiColor BackgroundColor { get; set; }
-
-        /// <summary>
-        /// Get or set the border color.
-        /// </summary>
-        public AnsiColor BorderColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the title color.
-        /// </summary>
-        public AnsiColor TitleColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the commands color.
-        /// </summary>
-        public AnsiColor CommandsColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the input color.
-        /// </summary>
-        public AnsiColor InputColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         #endregion
 
@@ -71,17 +46,17 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
         {
             gridStringBuilder.Resize(size);
 
-            gridStringBuilder.DrawBoundary(BorderColor);
+            gridStringBuilder.DrawBoundary(properties.LeftBoundary, properties.RightBoundary, properties.HorizontalDivider, properties.BorderColor);
 
             var availableWidth = size.Width - 4;
             var availableHeight = size.Height - 2;
             const int leftMargin = 2;
 
-            gridStringBuilder.DrawWrapped("BOT::MODE::MAP", leftMargin, 1, availableWidth, TitleColor, out _, out var lastY);
-            gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
+            gridStringBuilder.DrawWrapped("BOT::MODE::MAP", leftMargin, 1, availableWidth, properties.TitleColor, out _, out var lastY);
+            gridStringBuilder.DrawHorizontalDivider(lastY + 1, properties.HorizontalDivider, properties.BorderColor);
 
-            gridStringBuilder.DrawWrapped($"BOT::REGION::{region.Identifier.Name.ToUpper()}", leftMargin, lastY + 2, availableWidth, TitleColor, out _, out lastY);
-            gridStringBuilder.DrawHorizontalDivider(lastY + 1, BorderColor);
+            gridStringBuilder.DrawWrapped($"BOT::REGION::{region.Identifier.Name.ToUpper()}", leftMargin, lastY + 2, availableWidth, properties.TitleColor, out _, out lastY);
+            gridStringBuilder.DrawHorizontalDivider(lastY + 1, properties.HorizontalDivider, properties.BorderColor);
 
             int commandSpace = 0;
             var mapStartY = lastY + 2;
@@ -95,20 +70,20 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
                 var yStart = Math.Max(requiredYToFitAllCommands, lastY);
                 lastY = yStart;
 
-                gridStringBuilder.DrawHorizontalDivider(lastY, BorderColor);
-                gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                gridStringBuilder.DrawHorizontalDivider(lastY, properties.HorizontalDivider, properties.BorderColor);
+                gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 1, availableWidth, properties.OptionColor, out _, out lastY);
 
                 lastY++;
 
                 for (var index = 0; index < contextualCommands.Length; index++)
                 {
                     var contextualCommand = contextualCommands[index];
-                    gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand.ToUpper(), leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                    gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand.ToUpper(), leftMargin, lastY + 1, availableWidth, properties.OptionColor, out _, out lastY);
                 
                     // only continue if not run out of space - the 1 is for the border the ...
                     if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt >= size.Height - 1)
                     {
-                        gridStringBuilder.DrawWrapped("...", leftMargin, lastY + 1, availableWidth, CommandsColor, out _, out lastY);
+                        gridStringBuilder.DrawWrapped("...", leftMargin, lastY + 1, availableWidth, properties.OptionColor, out _, out lastY);
                         break;
                     }
                 }
@@ -124,11 +99,12 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
 
             if (renderPrompt)
             {
-                gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, BorderColor);
-                gridStringBuilder.DrawWrapped(">", leftMargin, availableHeight, availableWidth, InputColor, out _, out _);
+                gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, properties.HorizontalDivider, properties.BorderColor);
+                gridStringBuilder.DrawWrapped(properties.Prompt, leftMargin, availableHeight, availableWidth, properties.PromptColor, out _, out _);
             }
 
-            return new GridTextFrame(gridStringBuilder, 4, availableHeight, BackgroundColor) { ShowCursor = true };
+            var promptLengthAndPadding = properties.ShowPrompt ? properties.Prompt.Length + 1 : 0;
+            return new GridTextFrame(gridStringBuilder, leftMargin + promptLengthAndPadding, availableHeight, true, properties.BackgroundColor, properties.InputColor);
         }
 
         #endregion

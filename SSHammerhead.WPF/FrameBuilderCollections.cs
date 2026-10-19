@@ -4,6 +4,7 @@ using NetAF.Targets.Markup.Rendering;
 using NetAF.Targets.Markup.Rendering.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
+using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
 using SSHammerhead.WPF.FrameBuilders;
 using System.Windows;
@@ -23,24 +24,28 @@ namespace SSHammerhead.WPF
         {
             get
             {
+                var renderProperties = MarkupRenderProperties.Default;
+                var mapRenderProperties = ConsoleMapRenderProperties.Default;
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
+                var scannerRenderProperties = ScannerRenderProperties.CreateRenderProperties();
                 var gridStringBuilder = new GridStringBuilder();
                 var markupBuilder = new MarkupBuilder();
 
                 return new FrameBuilderCollection(
                     new MarkupTitleFrameBuilder(markupBuilder),
-                    new MarkupSceneFrameBuilder(markupBuilder, new MarkupRoomMapBuilder(markupBuilder)),
-                    new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder)),
+                    new MarkupSceneFrameBuilder(markupBuilder, renderProperties, new MarkupRoomMapBuilder(markupBuilder, mapRenderProperties)),
+                    new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder, mapRenderProperties)),
                     new MarkupCommandListFrameBuilder(markupBuilder),
                     new MarkupHelpFrameBuilder(markupBuilder),
                     new MarkupCompletionFrameBuilder(markupBuilder),
                     new MarkupGameOverFrameBuilder(markupBuilder),
                     new MarkupAboutFrameBuilder(markupBuilder),
-                    new MarkupReactionFrameBuilder(markupBuilder),
+                    new MarkupReactionFrameBuilder(markupBuilder, renderProperties),
                     new MarkupConversationFrameBuilder(markupBuilder),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
-                    new ConsoleLoginFrameBuilder(gridStringBuilder),
-                    new ConsoleScannerFrameBuilder(gridStringBuilder),
+                    new ConsoleLoginFrameBuilder(gridStringBuilder, botRenderProperties),
+                    new ConsoleScannerFrameBuilder(gridStringBuilder, scannerRenderProperties),
                     new MarkupNarrativeFrameBuilder(markupBuilder),
                     new MarkupVisualFrameBuilder(markupBuilder),
                     new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
@@ -54,19 +59,21 @@ namespace SSHammerhead.WPF
         {
             get
             {
-                var botStringBuilder = new GridStringBuilder('[', ']', '+');
+                var botStringBuilder = new GridStringBuilder();
                 var markupBuilder = new MarkupBuilder();
+                var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
+                var botMapProperties = SpiderBotRenderProperties.CreateMapRenderProperties();
 
                 return new FrameBuilderCollection(
                     new MarkupTitleFrameBuilder(markupBuilder),
-                    new BotConsoleSceneFrameBuilder(botStringBuilder, new BotConsoleRoomMapBuilder(botStringBuilder), false),
-                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, new BotConsoleRegionMapBuilder(botStringBuilder), false),
+                    new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
+                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
                     new MarkupCommandListFrameBuilder(markupBuilder),
                     new MarkupHelpFrameBuilder(markupBuilder),
                     new MarkupCompletionFrameBuilder(markupBuilder),
                     new MarkupGameOverFrameBuilder(markupBuilder),
                     new MarkupAboutFrameBuilder(markupBuilder),
-                    new BotConsoleReactionFrameBuilder(botStringBuilder),
+                    new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
                     new MarkupConversationFrameBuilder(markupBuilder),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
@@ -83,18 +90,20 @@ namespace SSHammerhead.WPF
         {
             get
             {
+                var renderProperties = MarkupRenderProperties.Default;
                 var markupBuilder = new MarkupBuilder();
+                var anneMapProperties = AnneConsoleMapRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Markup.Rendering.FrameBuilders.MarkupTitleFrameBuilder(markupBuilder),
-                    new MarkupSceneFrameBuilder(markupBuilder, new MarkupRoomMapBuilder(markupBuilder)),
-                    new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder) { HorizontalBoundary = '.', VerticalBoundary = '~' }),
+                    new MarkupSceneFrameBuilder(markupBuilder, renderProperties, new MarkupRoomMapBuilder(markupBuilder, ConsoleMapRenderProperties.Default)),
+                    new MarkupRegionMapFrameBuilder(markupBuilder, new MarkupRegionMapBuilder(markupBuilder, anneMapProperties)),
                     new MarkupCommandListFrameBuilder(markupBuilder),
                     new MarkupHelpFrameBuilder(markupBuilder),
                     new MarkupCompletionFrameBuilder(markupBuilder),
                     new MarkupGameOverFrameBuilder(markupBuilder),
                     new MarkupAboutFrameBuilder(markupBuilder),
-                    new MarkupReactionFrameBuilder(markupBuilder),
+                    new MarkupReactionFrameBuilder(markupBuilder, renderProperties),
                     new MarkupConversationFrameBuilder(markupBuilder),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
