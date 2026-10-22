@@ -3,34 +3,13 @@ using NetAF.Assets.Locations;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
-using SSHammerhead.Assets.Players.SpiderBot;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 
 namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals
 {
-    internal class TunnelView(Room room, Size size) : IAssetTemplate<Visual>
+    internal class TunnelView(Room room, Size size, ConsoleRenderProperties properties) : IAssetTemplate<Visual>
     {
         #region StaticProperties
-
-        /// <summary>
-        /// Get or set the background color.
-        /// </summary>
-        private static AnsiColor BackgroundColor { get; set; } = AnsiColor.Black;
-
-        /// <summary>
-        /// Get or set the border color.
-        /// </summary>
-        private static AnsiColor BorderColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the text color.
-        /// </summary>
-        private static AnsiColor TextColor { get; set; } = SpiderBotTemplate.DisplayColor;
-
-        /// <summary>
-        /// Get or set the scan color.
-        /// </summary>
-        private static AnsiColor ScanColor { get; set; } = SpiderBotTemplate.DisplayColor;
 
         /// <summary>
         /// Get or set the padlock key color.
@@ -176,8 +155,9 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals
         /// </summary>
         /// <param name="room">The room.</param>
         /// <param name="size">The size of the frame.</param>
+        /// <param name="renderProperties">The render properties.</param>
         /// <returns>The builder.</returns>
-        private static GridVisualBuilder BuildVisual(Room room, Size size)
+        private static GridVisualBuilder BuildVisual(Room room, Size size, ConsoleRenderProperties renderProperties)
         {
             const int leftMargin = 2;
             var top = 5;
@@ -185,23 +165,23 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals
             var left = 1;
             var right = size.Width - 2;
 
-            var gridVisualBuilder = new GridVisualBuilder(BackgroundColor, TextColor);
+            var gridVisualBuilder = new GridVisualBuilder(renderProperties.BackgroundColor, renderProperties.MainTextColor);
             gridVisualBuilder.Resize(size);
 
             // display the scene
 
-            FillLine(gridVisualBuilder, '+', 0, BorderColor);
-            DrawText(gridVisualBuilder, "BOT::MODE::SCAN", leftMargin, 1, TextColor);
-            FillLine(gridVisualBuilder, '+', 2, BorderColor);
-            DrawText(gridVisualBuilder, $"BOT::LOCATION::{room.Identifier.Name.ToUpperInvariant()}", leftMargin, 3, TextColor);
-            FillLine(gridVisualBuilder, '+', 4, BorderColor);
+            FillLine(gridVisualBuilder, '+', 0, renderProperties.BorderColor);
+            DrawText(gridVisualBuilder, "BOT::MODE::SCAN", leftMargin, 1, renderProperties.MainTextColor);
+            FillLine(gridVisualBuilder, '+', 2, renderProperties.BorderColor);
+            DrawText(gridVisualBuilder, $"BOT::LOCATION::{room.Identifier.Name.ToUpperInvariant()}", leftMargin, 3, renderProperties.MainTextColor);
+            FillLine(gridVisualBuilder, '+', 4, renderProperties.BorderColor);
 
             int section = 5;
             const int sections = 4;
 
             for (var i = 0; i < sections; i++)
             {
-                DrawSection(gridVisualBuilder, left, top, right, bottom, section, ScanColor);
+                DrawSection(gridVisualBuilder, left, top, right, bottom, section, renderProperties.MainTextColor);
 
                 if (i == 2 && room.FindItem(PadlockKey.Name, out _))
                     DrawPadlockKey(gridVisualBuilder, size.Width / 2 - 5, bottom - 1, PadlockKeyColor);
@@ -213,9 +193,9 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals
                 section--;
             }
 
-            FillLine(gridVisualBuilder, '+', size.Height - 1, BorderColor);
-            FillVertcialLine(gridVisualBuilder, '[', 0, BorderColor);
-            FillVertcialLine(gridVisualBuilder, ']', size.Width - 1, BorderColor);
+            FillLine(gridVisualBuilder, renderProperties.HorizontalDivider, size.Height - 1, renderProperties.BorderColor);
+            FillVertcialLine(gridVisualBuilder, renderProperties.LeftBoundary, 0, renderProperties.BorderColor);
+            FillVertcialLine(gridVisualBuilder, renderProperties.RightBoundary, size.Width - 1, renderProperties.BorderColor);
 
             return gridVisualBuilder;
         }
@@ -226,7 +206,7 @@ namespace SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals
 
         public Visual Instantiate()
         {
-            return new Visual(string.Empty, string.Empty, BuildVisual(room ,size));
+            return new Visual(string.Empty, string.Empty, BuildVisual(room, size, properties));
         }
 
         #endregion

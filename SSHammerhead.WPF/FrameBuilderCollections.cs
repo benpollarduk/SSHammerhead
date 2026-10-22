@@ -41,7 +41,7 @@ namespace SSHammerhead.WPF
                     new MarkupGameOverFrameBuilder(markupBuilder),
                     new MarkupAboutFrameBuilder(markupBuilder),
                     new MarkupReactionFrameBuilder(markupBuilder, renderProperties),
-                    new MarkupConversationFrameBuilder(markupBuilder),
+                    new MarkupConversationFrameBuilder(markupBuilder, renderProperties),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new ConsoleLoginFrameBuilder(gridStringBuilder, botRenderProperties),
@@ -63,6 +63,7 @@ namespace SSHammerhead.WPF
                 var markupBuilder = new MarkupBuilder();
                 var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
                 var botMapProperties = SpiderBotRenderProperties.CreateMapRenderProperties();
+                var markupRenderProperties = MarkupRenderProperties.Default;
 
                 return new FrameBuilderCollection(
                     new MarkupTitleFrameBuilder(markupBuilder),
@@ -74,7 +75,7 @@ namespace SSHammerhead.WPF
                     new MarkupGameOverFrameBuilder(markupBuilder),
                     new MarkupAboutFrameBuilder(markupBuilder),
                     new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
-                    new MarkupConversationFrameBuilder(markupBuilder),
+                    new MarkupConversationFrameBuilder(markupBuilder, markupRenderProperties),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new MarkupNarrativeFrameBuilder(markupBuilder),
@@ -104,7 +105,7 @@ namespace SSHammerhead.WPF
                     new MarkupGameOverFrameBuilder(markupBuilder),
                     new MarkupAboutFrameBuilder(markupBuilder),
                     new MarkupReactionFrameBuilder(markupBuilder, renderProperties),
-                    new MarkupConversationFrameBuilder(markupBuilder),
+                    new MarkupConversationFrameBuilder(markupBuilder, renderProperties),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new MarkupNarrativeFrameBuilder(markupBuilder),

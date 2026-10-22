@@ -1,5 +1,4 @@
 using NetAF.Targets.Console.Rendering;
-using SSHammerhead.Assets.Players.SpiderBot;
 
 namespace SSHammerhead.Rendering
 {
@@ -8,6 +7,8 @@ namespace SSHammerhead.Rendering
     /// </summary>
     public static class SpiderBotRenderProperties
     {
+        private static AnsiColor DisplayColor = new AnsiColor(100, 255, 100);
+
         /// <summary>
         /// Create the console render properties used by the spider bot frame builders.
         /// </summary>
@@ -18,19 +19,19 @@ namespace SSHammerhead.Rendering
             properties.LeftBoundary = '[';
             properties.RightBoundary = ']';
             properties.HorizontalDivider = '+';
-            properties.BorderColor = SpiderBotTemplate.DisplayColor;
-            properties.MainTextColor = SpiderBotTemplate.DisplayColor;
-            properties.InputColor = SpiderBotTemplate.DisplayColor;
-            properties.OptionColor = SpiderBotTemplate.DisplayColor;
-            properties.SecondaryTextColor = SpiderBotTemplate.DisplayColor;
-            properties.OptionDescriptionColor = SpiderBotTemplate.DisplayColor;
-            properties.TitleColor = SpiderBotTemplate.DisplayColor;
-            properties.CommandColor = SpiderBotTemplate.DisplayColor;
-            properties.CommandDescriptionColor = SpiderBotTemplate.DisplayColor;
-            properties.HighlightTextColor = SpiderBotTemplate.DisplayColor;
+            properties.BorderColor = DisplayColor;
+            properties.MainTextColor = DisplayColor;
+            properties.InputColor = DisplayColor;
+            properties.OptionColor = DisplayColor;
+            properties.SecondaryTextColor = DisplayColor;
+            properties.OptionDescriptionColor = DisplayColor;
+            properties.TitleColor = DisplayColor;
+            properties.CommandColor = DisplayColor;
+            properties.CommandDescriptionColor = DisplayColor;
+            properties.HighlightTextColor = DisplayColor;
             properties.HighlightKeywords = false;
             properties.Prompt = ">>>";
-            properties.PromptColor = SpiderBotTemplate.DisplayColor;
+            properties.PromptColor = DisplayColor;
             properties.ShowPrompt = true;
             return properties;
         }
@@ -52,16 +53,16 @@ namespace SSHammerhead.Rendering
             properties.Player = '#';
             properties.Focus = '+';
             properties.CurrentFloorIndicator = '*';
-            properties.BoundaryColor = SpiderBotTemplate.DisplayColor;
-            properties.PointOfInterestColor = SpiderBotTemplate.DisplayColor;
-            properties.FocusedBoundaryColor = SpiderBotTemplate.DisplayColor;
-            properties.VisitedBoundaryColor = SpiderBotTemplate.DisplayColor;
-            properties.UnvisitedBoundaryColor = SpiderBotTemplate.DisplayColor;
-            properties.VisitedExitColor = SpiderBotTemplate.DisplayColor;
-            properties.UnvisitedExitColor = SpiderBotTemplate.DisplayColor;
-            properties.PlayerColor = SpiderBotTemplate.DisplayColor;
-            properties.LockedExitColor = SpiderBotTemplate.DisplayColor;
-            properties.LowerLevelColor = SpiderBotTemplate.DisplayColor;
+            properties.BoundaryColor = DisplayColor;
+            properties.PointOfInterestColor = DisplayColor;
+            properties.FocusedBoundaryColor = DisplayColor;
+            properties.VisitedBoundaryColor = DisplayColor;
+            properties.UnvisitedBoundaryColor = DisplayColor;
+            properties.VisitedExitColor = DisplayColor;
+            properties.UnvisitedExitColor = DisplayColor;
+            properties.PlayerColor = DisplayColor;
+            properties.LockedExitColor = DisplayColor;
+            properties.LowerLevelColor = DisplayColor;
             properties.ShowLowerFloors = true;
             return properties;
         }

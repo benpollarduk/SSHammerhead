@@ -3,12 +3,12 @@ using NetAF.Assets.Characters;
 using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic.Modes;
-using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Rooms.L0;
 using SSHammerhead.Assets.Regions.MaintenanceTunnels.Visuals;
+using SSHammerhead.Rendering;
 using System;
 
 namespace SSHammerhead.Assets.Players.SpiderBot
@@ -17,7 +17,6 @@ namespace SSHammerhead.Assets.Players.SpiderBot
     {
         #region Constants
 
-        public static AnsiColor DisplayColor { get; } = new AnsiColor(100, 255, 100);
         public static Identifier Identifier => new(Name);
         private const string Name = "Bot";
         private const string Description = "A first generation spider bot, main purpose low scale maintenance operations.";
@@ -46,7 +45,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot
                             shunt.IsPlayerVisible = true;
                     }
 
-                    g.ChangeMode(new VisualMode(new TunnelView(g.Overworld.CurrentRegion.CurrentRoom, g.Configuration.DisplaySize).Instantiate()));
+                    g.ChangeMode(new VisualMode(new TunnelView(g.Overworld.CurrentRegion.CurrentRoom, g.Configuration.DisplaySize, SpiderBotRenderProperties.CreateRenderProperties()).Instantiate()));
                     return new Reaction(ReactionResult.GameModeChanged, string.Empty);
                 })
             ]);

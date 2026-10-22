@@ -165,7 +165,7 @@ namespace SSHammerhead.Blazor
                     new HtmlGameOverFrameBuilder(htmlBuilder),
                     new HtmlAboutFrameBuilder(htmlBuilder),
                     new HtmlReactionFrameBuilder(htmlBuilder, htmlRenderProperties),
-                    new HtmlConversationFrameBuilder(htmlBuilder),
+                    new HtmlConversationFrameBuilder(htmlBuilder, htmlRenderProperties),
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new ConsoleLoginFrameBuilder(gridStringBuilder, botRenderProperties),
@@ -187,6 +187,7 @@ namespace SSHammerhead.Blazor
                 var htmlBuilder = new HtmlBuilder();
                 var botRenderProperties = SpiderBotRenderProperties.CreateRenderProperties();
                 var botMapProperties = ConsoleMapRenderProperties.Default;
+                var htmlRenderProperties = HtmlRenderProperties.Default;
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),
@@ -198,7 +199,7 @@ namespace SSHammerhead.Blazor
                     new HtmlGameOverFrameBuilder(htmlBuilder),
                     new HtmlAboutFrameBuilder(htmlBuilder),
                     new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
-                    new HtmlConversationFrameBuilder(htmlBuilder),
+                    new HtmlConversationFrameBuilder(htmlBuilder, htmlRenderProperties),
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
@@ -230,7 +231,7 @@ namespace SSHammerhead.Blazor
                     new HtmlGameOverFrameBuilder(htmlBuilder),
                     new HtmlAboutFrameBuilder(htmlBuilder),
                     new HtmlReactionFrameBuilder(htmlBuilder, htmlRenderProperties),
-                    new HtmlConversationFrameBuilder(htmlBuilder),
+                    new HtmlConversationFrameBuilder(htmlBuilder, htmlRenderProperties),
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new HtmlNarrativeFrameBuilder(htmlBuilder),

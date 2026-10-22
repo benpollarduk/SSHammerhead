@@ -1,5 +1,4 @@
 using NetAF.Targets.Console.Rendering;
-using SSHammerhead.Assets.Players.SpiderBot;
 
 namespace SSHammerhead.Rendering
 {
