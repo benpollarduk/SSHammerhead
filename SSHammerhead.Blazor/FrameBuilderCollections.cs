@@ -9,7 +9,7 @@ using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 using SSHammerhead.Blazor.FrameBuilders;
 using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
-using ConsoleTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleTitleFrameBuilder;
+using ConsoleModernTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleModernTitleFrameBuilder;
 
 namespace SSHammerhead.Blazor
 {
@@ -34,7 +34,7 @@ namespace SSHammerhead.Blazor
                 var scannerRenderProperties = ScannerRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernSceneFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder, mapRenderProperties)),
                     new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleRegionMapBuilder(gridStringBuilder, mapRenderProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
@@ -68,7 +68,7 @@ namespace SSHammerhead.Blazor
                 var botMapProperties = SpiderBotRenderProperties.CreateMapRenderProperties();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties)),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
@@ -99,7 +99,7 @@ namespace SSHammerhead.Blazor
                 anneRegionMapProperties.HorizontalBoundary = '¬';
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernSceneFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder, anneRegionMapProperties)),
                     new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleRegionMapBuilder(gridStringBuilder, anneRegionMapProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),

@@ -10,9 +10,11 @@
 
   <ItemGroup>
     <PackageReference Include="LoFiEffects.WPF" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App.Internal.Assets" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="10.0.13" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="10.0.13" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="10.0.13" />
+    <PackageReference Include="NetAF.Imaging" Version="10.0.0" />
     <PackageReference Include="NetAF.WPF" Version="10.1.0" />
   </ItemGroup>
     

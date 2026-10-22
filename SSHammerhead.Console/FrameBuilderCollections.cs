@@ -6,7 +6,7 @@ using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
 using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
-using ConsoleTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleTitleFrameBuilder;
+using ConsoleModernTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleModernTitleFrameBuilder;
 
 namespace SSHammerhead.Console
 {
@@ -29,7 +29,7 @@ namespace SSHammerhead.Console
                 var gridStringBuilder = new GridStringBuilder();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernSceneFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder, mapRenderProperties)),
                     new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleRegionMapBuilder(gridStringBuilder, mapRenderProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
@@ -63,7 +63,7 @@ namespace SSHammerhead.Console
                 var botMapProperties = SpiderBotRenderProperties.CreateMapRenderProperties();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties)),
                     new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
@@ -93,7 +93,7 @@ namespace SSHammerhead.Console
                 var anneMapProperties = AnneConsoleMapRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
-                    new ConsoleTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
+                    new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernSceneFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleHighDetailRoomMapBuilder(gridStringBuilder, anneMapProperties)),
                     new ConsoleModernRegionMapFrameBuilder(gridStringBuilder, consoleRenderProperties, new ConsoleRegionMapBuilder(gridStringBuilder, anneMapProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),

@@ -14,7 +14,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="properties">The render properties.</param>
-    public sealed class ConsoleTitleFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties) : ITitleFrameBuilder
+    public sealed class ConsoleModernTitleFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties) : ITitleFrameBuilder
     {
         #region Implementation of ITitleFrameBuilder
 
@@ -23,13 +23,9 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
         {
             gridStringBuilder.Resize(size);
 
-            gridStringBuilder.DrawBoundary(properties.LeftBoundary, properties.RightBoundary, properties.HorizontalDivider, properties.BorderColor);
-
             var availableWidth = size.Width - 4;
 
             gridStringBuilder.DrawCentralisedWrapped(title, 2, availableWidth, properties.TitleColor, out var lastX, out var lastY);
-            gridStringBuilder.DrawUnderline(lastX + 1 - title.Length, lastY + 1, title.Length, properties.TitleColor);
-
             gridStringBuilder.DrawWrapped(description, 2, lastY + 3, availableWidth, properties.MainTextColor, out _, out lastY);
 
             var output = new GridVisualBuilder(properties.BackgroundColor, properties.TitleColor);
