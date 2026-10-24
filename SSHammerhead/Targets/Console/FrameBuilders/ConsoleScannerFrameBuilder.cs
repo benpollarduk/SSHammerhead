@@ -14,8 +14,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="properties">The render properties.</param>
-    /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
-    public sealed class ConsoleScannerFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, bool renderPrompt = true) : IScannerFrameBuilder
+    public sealed class ConsoleScannerFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties) : IScannerFrameBuilder
     {
         #region StaticMethods
 
@@ -70,14 +69,12 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
                     gridStringBuilder.DrawCentralisedWrapped($"UNKNOWN: {FormatNumber(remaining)}%", lastY + 1, availableWidth, properties.MainTextColor, out lastX, out lastY);
             }
 
-            if (renderPrompt)
-                gridStringBuilder.DrawCentralisedWrapped("_______________",  lastY + 2, availableWidth, properties.MainTextColor, out lastX, out lastY);
-
+            gridStringBuilder.DrawCentralisedWrapped("_______________", lastY + 2, availableWidth, properties.MainTextColor, out lastX, out lastY);
             gridStringBuilder.DrawWrapped($"{End.CommandHelp.Command.ToUpper()} TO EXIT", left + 2, lastY + 2, availableWidth, properties.MainTextColor, out _, out lastY);
 
             bottom = lastY + 1;
             var cursorX = lastX - 14;
-            var cursorY = lastY;
+            var cursorY = lastY - 2;
 
             for (var i = left; i <= right; i++)
             {
@@ -91,7 +88,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
                 gridStringBuilder.SetCell(right, i, properties.HorizontalDivider, properties.BorderColor);
             }
 
-            return new GridTextFrame(gridStringBuilder, renderPrompt ? cursorX : 0, renderPrompt ? cursorY : availableHeight, true, properties.BackgroundColor, properties.InputColor);
+            return new GridTextFrame(gridStringBuilder, cursorX, cursorY, true, properties.BackgroundColor, properties.InputColor);
         }
 
         #endregion

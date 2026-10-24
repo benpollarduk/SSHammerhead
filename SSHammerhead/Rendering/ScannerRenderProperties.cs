@@ -18,6 +18,7 @@ namespace SSHammerhead.Rendering
             properties.LeftBoundary = '*';
             properties.RightBoundary = '*';
             properties.HorizontalDivider = '*';
+            properties.TitleColor = scannerColor;
             properties.BorderColor = scannerColor;
             properties.MainTextColor = scannerColor;
             properties.InputColor = scannerColor;
