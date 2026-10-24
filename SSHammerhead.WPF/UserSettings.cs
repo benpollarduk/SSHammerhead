@@ -36,6 +36,8 @@ namespace SSHammerhead.WPF
         private bool showCommandButtons = true;
         private bool showPrompt = true;
         private int fontSizeModifier = 0;
+        private PointOfInterestDetail pointOfInterestDetail = PointOfInterestDetail.Low;
+        private KeyPlacement keyPlacement = KeyPlacement.Right;
         private AutoSaveEvent autoSaveEvent = AutoSaveEvent.RoomEntered;
         private bool autoLoad = true;
 
@@ -170,7 +172,7 @@ namespace SSHammerhead.WPF
         }
 
         /// <summary>
-        /// Get or set the fontsize modifier.
+        /// Get or set the font size modifier.
         /// </summary>
         public int FontSizeModifier
         {
@@ -179,6 +181,38 @@ namespace SSHammerhead.WPF
             {
                 fontSizeModifier = value;
                 OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Get or set the point of interest detail.
+        /// </summary>
+        public PointOfInterestDetail PointOfInterestDetail
+        {
+            get { return pointOfInterestDetail; }
+            set
+            {
+                pointOfInterestDetail = value;
+                OnPropertyChanged();
+
+                FrameProperties.RoomMapRenderOptions.PointOfInterestDetail = value;
+                FramePropertiesChanged?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// Get or set the key placement.
+        /// </summary>
+        public KeyPlacement KeyPlacement
+        {
+            get { return keyPlacement; }
+            set
+            {
+                keyPlacement = value;
+                OnPropertyChanged();
+
+                FrameProperties.RoomMapRenderOptions.KeyPlacement = value;
+                FramePropertiesChanged?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -259,8 +293,7 @@ namespace SSHammerhead.WPF
 
                 var configuration = GameExecutor.ExecutingGame?.Configuration;
                 
-                if (configuration != null)
-                    configuration.AutoSaveEvent = value;
+                configuration?.AutoSaveEvent = value;
 
                 OnPropertyChanged();
             }
@@ -304,6 +337,8 @@ namespace SSHammerhead.WPF
             CommandListType = defaults.CommandListType;
             KeyType = defaults.KeyType;
             ShowMapInScenes = defaults.ShowMapInScenes;
+            KeyPlacement = defaults.KeyPlacement;
+            PointOfInterestDetail = defaults.PointOfInterestDetail;
 
             UseFrameTransitions = defaults.UseFrameTransitions;
 

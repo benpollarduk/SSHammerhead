@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:SSHammerhead.WPF.Controls"
         xmlns:converters="clr-namespace:SSHammerhead.WPF.Converters"
         mc:Ignorable="d"
-        DataContext="{x:Static top:App.Settings}" Height="500" Width="800">
+        DataContext="{x:Static top:App.Settings}" Height="550" Width="800">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -114,22 +114,34 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="{StaticResource TitleLabelColumnWidth}"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="100"/>
                             </Grid.ColumnDefinitions>
                             <Label Content="Command list:" Style="{StaticResource LabelStyle}" Grid.Row="0" Grid.Column="0"/>
                             <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="CommandListType" Grid.Row="0" Grid.Column="1"/>
-                            <RadioButton Content="Minimal" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Minimal}" GroupName="CommandListType" Grid.Row="0" Grid.Column="2"/>
+                            <RadioButton Content="Light" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Light}" GroupName="CommandListType" Grid.Row="0" Grid.Column="2"/>
                             <RadioButton Content="All" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=CommandListType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=All}" GroupName="CommandListType" Grid.Row="0" Grid.Column="3"/>
                             <Label Content="Map key:" Style="{StaticResource LabelStyle}" Grid.Row="1" Grid.Column="0"/>
                             <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="KeyType" Grid.Row="1" Grid.Column="1"/>
                             <RadioButton Content="Dynamic" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Dynamic}" GroupName="KeyType" Grid.Row="1" Grid.Column="2"/>
                             <RadioButton Content="Full" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyType, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Full}" GroupName="KeyType" Grid.Row="1" Grid.Column="3"/>
-                            <CheckBox Content="Show map in scenes?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowMapInScenes, Mode=TwoWay}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"/>
+                            <Label Content="Map placement:" Style="{StaticResource LabelStyle}" Grid.Row="2" Grid.Column="0"/>
+                            <RadioButton Content="Above" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyPlacement, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Above}" GroupName="MapPlacement" Grid.Row="2" Grid.Column="1"/>
+                            <RadioButton Content="Below" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyPlacement, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Below}" GroupName="MapPlacement" Grid.Row="2" Grid.Column="2"/>
+                            <RadioButton Content="Left" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyPlacement, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Left}" GroupName="MapPlacement" Grid.Row="2" Grid.Column="3"/>
+                            <RadioButton Content="Right" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=KeyPlacement, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Right}" GroupName="MapPlacement" Grid.Row="2" Grid.Column="4"/>
+                            <Label Content="Point of interest detail:" Style="{StaticResource LabelStyle}" Grid.Row="3" Grid.Column="0"/>
+                            <RadioButton Content="None" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=PointOfInterestDetail, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=None}" GroupName="PointOfInterestDetail" Grid.Row="3" Grid.Column="1"/>
+                            <RadioButton Content="Low" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=PointOfInterestDetail, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=Low}" GroupName="PointOfInterestDetail" Grid.Row="3" Grid.Column="2"/>
+                            <RadioButton Content="High" Style="{StaticResource RadioButtonStyle}" IsChecked="{Binding Path=PointOfInterestDetail, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter=High}" GroupName="PointOfInterestDetail" Grid.Row="3" Grid.Column="3"/>
+                            <CheckBox Content="Show map in scenes?" Style="{StaticResource CheckBoxStyle}" IsChecked="{Binding Path=ShowMapInScenes, Mode=TwoWay}" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"/>
                         </Grid>
                     </GroupBox>
                     <Button Style="{StaticResource ResetButtonStyle}" Command="{StaticResource ResetVisualSettingsCommand}"/>
