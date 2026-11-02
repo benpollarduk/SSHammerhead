@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
     <Version>0.0.0</Version>
+    <!-- Required so the native libSkiaSharp (WebAssembly) binary is relinked into the app. -->
+    <WasmBuildNative>true</WasmBuildNative>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +15,13 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.13" PrivateAssets="all" />
     <PackageReference Include="NetAF" Version="10.1.6" />
     <PackageReference Include="NetAF.Blazor" Version="10.0.1" />
+    <!-- Provides the libSkiaSharp native binary compiled for browser-wasm. Version must match the transitive SkiaSharp version. -->
+    <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" Version="3.119.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Link the Skia native static library so WasmBuildNative includes it. -->
+    <NativeFileReference Include="$(SkiaSharpStaticLibraryPath)\3.1.56\*.a" />
   </ItemGroup>
 
   <ItemGroup>
