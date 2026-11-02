@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 env:
-  DOTNET_VERSION: '8.0'
+  DOTNET_VERSION: '10.0.x'
 
 jobs:
   build:
@@ -41,6 +41,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Install wasm-tools workload
+      run: dotnet workload install wasm-tools
 
     - name: Install dependencies
       run: dotnet restore -p:EnableWindowsTargeting=true
