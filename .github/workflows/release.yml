@@ -54,11 +54,8 @@ jobs:
     - name: Run tests with coverlet
       run: dotnet test -p:EnableWindowsTargeting=true /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
-    - name: Upload installer as artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: "SSHammerhead_${{ github.event.inputs.ver }}_Setup"
-        path: .inno/output/*.exe
+    - name: Create published console apps
+      run: dotnet publish -c Release
 
     - name: Update version in Blazor app
       run: |
@@ -124,6 +121,7 @@ jobs:
         git push --tags
 
     - name: Create GitHub release
+      id: create_release
       uses: actions/create-release@v1
       with:
         tag_name: "${{ inputs.ver }}"
@@ -131,3 +129,23 @@ jobs:
         body: "${{ inputs.release-notes }}"
       env:
         GITHUB_TOKEN: ${{ secrets.PAT }}
+
+    - name: Upload Console App to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: SSHammerhead.Console\bin\Release\net10.0-windows\win-x64\publish\SSHammerhead.Console.exe
+        asset_name: SSHammerhead.Console.exe
+        asset_content_type: application/octet-stream
+
+    - name: Upload WPF App to Release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: SSHammerhead.WPF\bin\Release\net10.0-windows\win-x64\publish\SSHammerhead.WPF.exe
+        asset_name: SSHammerhead.WPF.exe
+        asset_content_type: application/octet-stream
