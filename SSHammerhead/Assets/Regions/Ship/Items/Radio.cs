@@ -8,8 +8,10 @@ using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Ship.Items.Casettes;
 using SSHammerhead.Audio;
 using SSHammerhead.Logic.Modes;
+using SSHammerhead.ResourceHandling;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -35,7 +37,8 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
         private static Item lastGeneratedRadio;
         private static string casetteTemplateAsString;
         private static WaveOutEvent backgroundMusicWaveOut;
-        private static AudioFileReader backgroundMusicReader;
+        private static Mp3FileReader backgroundMusicReader;
+        private static Stream backgroundMusicStream;
         private static ProximityFilter backgroundProximityFilter;
         private static bool shouldLoopBackgroundMusic;
         private static Timer positionUpdateTimer;
@@ -95,15 +98,14 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
             var casette = GetCurrentlyLoadedCasette(game);
 
             backgroundMusicWaveOut = new WaveOutEvent();
-            backgroundMusicReader = new AudioFileReader(casette.ResourceName)
+            backgroundMusicStream = EmbeddedResources.Read(casette.ResourceName);
+            backgroundMusicReader = new Mp3FileReader(backgroundMusicStream)
             {
-                CurrentTime = GetCasettePosition(game, casette),
-
-                Volume = 1
+                CurrentTime = GetCasettePosition(game, casette)
             };
             shouldLoopBackgroundMusic = true;
 
-            backgroundProximityFilter = new ProximityFilter(backgroundMusicReader);
+            backgroundProximityFilter = new ProximityFilter(backgroundMusicReader.ToSampleProvider(), backgroundMusicReader);
             backgroundProximityFilter.UpdateProximity(desiredProximity, true);
             backgroundProximityFilter.UpdateVolume(desiredVolume * desiredProximity, true);
 
@@ -162,6 +164,12 @@ namespace SSHammerhead.Assets.Regions.Ship.Items
                 SetCasettePosition(game, GetCurrentlyLoadedCasette(game), backgroundMusicReader.CurrentTime);
                 backgroundMusicReader.Dispose();
                 backgroundMusicReader = null;
+            }
+
+            if (backgroundMusicStream != null)
+            {
+                backgroundMusicStream.Dispose();
+                backgroundMusicStream = null;
             }
 
             backgroundProximityFilter = null;

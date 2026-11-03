@@ -1,4 +1,5 @@
 ﻿using SSHammerhead.ImageHandling;
+using SSHammerhead.ResourceHandling;
 using System.IO;
 
 namespace SSHammerhead.WPF
@@ -13,8 +14,7 @@ namespace SSHammerhead.WPF
         /// <inheritdoc/>
         public MemoryStream GetImageAsStream(string key)
         {
-            var fileBytes = File.ReadAllBytes(key);
-            return new MemoryStream(fileBytes);
+            return EmbeddedResources.Read(key);
         }
 
         #endregion
