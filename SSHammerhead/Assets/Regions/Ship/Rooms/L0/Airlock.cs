@@ -61,7 +61,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
                 room.FindExit(Direction.East, true, out var east);
                 east.Unlock();
                 greenButtonCommand.IsPlayerVisible = false;
-                return new Reaction(ReactionResult.Inform, "You press the green button on the control panel. The airlock door that leads to The SS Hammerhead opens.");
+                return new Reaction(ReactionResult.Inform, "You press the green button on the control panel. The airlock door that leads to the SS Hammerhead opens.");
             });
 
             return [redButtonCommand, greenButtonCommand];
