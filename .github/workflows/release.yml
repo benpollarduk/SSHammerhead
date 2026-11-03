@@ -54,7 +54,7 @@ jobs:
     - name: Run tests with coverlet
       run: dotnet test -p:EnableWindowsTargeting=true /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
-    - name: Create published console apps
+    - name: Publish applications
       run: dotnet publish -c Release
 
     - name: Update version in Blazor app
@@ -136,7 +136,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.PAT }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: SSHammerhead.Console\bin\Release\net10.0-windows\win-x64\publish\SSHammerhead.Console.exe
+        asset_path: SSHammerhead.Console\bin\Release\net10.0\win-x64\publish\SSHammerhead.Console.exe
         asset_name: SSHammerhead.Console.exe
         asset_content_type: application/octet-stream
 
