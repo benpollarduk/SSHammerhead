@@ -11,9 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.13" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.13" PrivateAssets="all" />
-    <PackageReference Include="NetAF" Version="10.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.14" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.14" PrivateAssets="all" />
     <PackageReference Include="NetAF.Blazor" Version="10.0.1" />
     <!-- Provides the libSkiaSharp native binary compiled for browser-wasm. Version must match the transitive SkiaSharp version. -->
     <PackageReference Include="SkiaSharp.NativeAssets.WebAssembly" Version="3.119.2" />
