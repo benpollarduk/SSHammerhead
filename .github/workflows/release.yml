@@ -54,20 +54,6 @@ jobs:
     - name: Run tests with coverlet
       run: dotnet test -p:EnableWindowsTargeting=true /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
 
-    - name: Update version in installer script
-      run: |
-        cd "${{ github.workspace }}"
-        $filePath = ".inno/setup.iss"
-        $newVersion = "${{ github.event.inputs.ver }}"
-        $content = Get-Content $filePath
-        $content -replace '#define ApplicationVersion "1.0.0"', "#define ApplicationVersion `"$newVersion`"" | Set-Content -Path $filePath
-      shell: pwsh
-
-    - name: Compile .iss to .exe installer
-      uses: Minionguyjpro/Inno-Setup-Action@v1.2.2
-      with:
-        path: .inno/setup.iss
-
     - name: Upload installer as artifact
       uses: actions/upload-artifact@v4
       with:
