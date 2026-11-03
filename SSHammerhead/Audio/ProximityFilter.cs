@@ -12,6 +12,7 @@ namespace SSHammerhead.Audio
         #region Fields
 
         private readonly ISampleProvider sourceProvider;
+        private readonly WaveStream loopSource;
         private readonly BiQuadFilter[] filters;
         private float targetProximity = 1f;
         private float currentProximity = 1f;
@@ -37,9 +38,11 @@ namespace SSHammerhead.Audio
         /// Initializes a new instance of the ProximityFilter class.
         /// </summary>
         /// <param name="sourceProvider">The source provider.</param>
-        public ProximityFilter(ISampleProvider sourceProvider)
+        /// <param name="loopSource">An optional seekable source that is rewound to loop playback when the end is reached.</param>
+        public ProximityFilter(ISampleProvider sourceProvider, WaveStream loopSource = null)
         {
             this.sourceProvider = sourceProvider;
+            this.loopSource = loopSource;
             filters = new BiQuadFilter[sourceProvider.WaveFormat.Channels];
 
             // protect against Nyquist limits based on source sample rate
@@ -94,9 +97,9 @@ namespace SSHammerhead.Audio
             var read = sourceProvider.Read(buffer, offset, count);
 
             // handle looping directly in the read loop to avoid NAudio PlaybackStopped bugs
-            if (read == 0 && sourceProvider is AudioFileReader fileReader)
+            if (read == 0 && loopSource != null)
             {
-                fileReader.Position = 0;
+                loopSource.Position = 0;
                 read = sourceProvider.Read(buffer, offset, count);
             }
 

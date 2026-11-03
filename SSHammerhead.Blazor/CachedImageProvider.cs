@@ -1,4 +1,5 @@
 ﻿using SSHammerhead.ImageHandling;
+using SSHammerhead.ResourceHandling;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 
@@ -7,8 +8,7 @@ namespace SSHammerhead.Blazor
     /// <summary>
     /// An image provider that caches images and servers them as required.
     /// </summary>
-    /// <param name="baseUrl">The base Url.</param>
-    public class CachedImageProvider(string baseUrl) : IImageProvider
+    public class CachedImageProvider : IImageProvider
     {
         #region Fields
 
@@ -23,40 +23,21 @@ namespace SSHammerhead.Blazor
         /// </summary>
         /// <param name="key">The image key.</param>
         /// <returns>The task.</returns>
-        public async Task CacheImageAsync(string key)
+        public Task CacheImageAsync(string key)
         {
             if (cache.ContainsKey(key))
-                return;
+                return Task.CompletedTask;
 
-            var imageUrl = baseUrl + key;
-            cache[key] = await DownloadImageAsync(imageUrl);
-        }
-
-        #endregion
-
-        #region StaticMethods
-
-        /// <summary>
-        /// Download an image, asynchronously.
-        /// </summary>
-        /// <param name="url">The Url of the image.</param>
-        /// <returns>The memory stream containing the image.</returns>
-        private static async Task<MemoryStream> DownloadImageAsync(string url)
-        {
             try
             {
-                byte[] bytes;
-
-                using (var client = new HttpClient())
-                    bytes = await client.GetByteArrayAsync(url);
-
-                return new MemoryStream(bytes);
+                cache[key] = EmbeddedResources.Read(key);
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Exception caught downloading image async: {e.Message}");
-                return new();
+                Debug.WriteLine($"Exception caught caching embedded image: {e.Message}");
             }
+
+            return Task.CompletedTask;
         }
 
         #endregion
@@ -66,12 +47,21 @@ namespace SSHammerhead.Blazor
         /// <inheritdoc/>
         public MemoryStream GetImageAsStream(string key)
         {
-            cache.TryGetValue(key, out var stream);
+            if (!cache.TryGetValue(key, out var stream) || stream == null)
+            {
+                try
+                {
+                    stream = EmbeddedResources.Read(key);
+                    cache[key] = stream;
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine($"Exception caught reading embedded image: {e.Message}");
+                    return new MemoryStream();
+                }
+            }
 
-            if (stream != null)
-                return new MemoryStream(stream.ToArray());
-            else
-                return new MemoryStream();
+            return new MemoryStream(stream.ToArray());
         }
 
         #endregion

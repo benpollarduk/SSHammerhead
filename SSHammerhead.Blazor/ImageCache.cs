@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-
-namespace SSHammerhead.Blazor
+﻿namespace SSHammerhead.Blazor
 {
     /// <summary>
     /// Provides a cache of images.
@@ -22,15 +19,7 @@ namespace SSHammerhead.Blazor
         /// <returns>The provider.</returns>
         public static CachedImageProvider GetProvider()
         {
-            if (provider == null)
-            {
-                var builder = WebAssemblyHostBuilder.CreateDefault();
-                var host = builder.Build();
-                var navigationManager = host.Services.GetRequiredService<NavigationManager>();
-                var baseUri = navigationManager.BaseUri;
-                provider = new CachedImageProvider(baseUri);
-            }
-
+            provider ??= new CachedImageProvider();
             return provider;
         }
 

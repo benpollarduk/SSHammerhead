@@ -1,4 +1,6 @@
 ﻿using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
+using SSHammerhead.ResourceHandling;
 using System;
 
 namespace SSHammerhead.Audio
@@ -76,16 +78,19 @@ namespace SSHammerhead.Audio
         private static void PlayFromFile(string path, float volume)
         {
             var waveOut = new WaveOutEvent();
-            var audioFile = new AudioFileReader(path)
+            var resourceStream = EmbeddedResources.Open(path);
+            var audioFile = new WaveFileReader(resourceStream);
+            var sampleProvider = new SampleChannel(audioFile, true)
             {
                 Volume = volume
             };
 
-            waveOut.Init(audioFile);
+            waveOut.Init(sampleProvider);
 
             waveOut.PlaybackStopped += (sender, args) =>
             {
                 audioFile.Dispose();
+                resourceStream.Dispose();
                 waveOut.Dispose();
             };
 
