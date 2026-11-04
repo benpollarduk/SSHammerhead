@@ -34,21 +34,21 @@ namespace SSHammerhead.Commands.Radio
             if (string.IsNullOrEmpty(album))
                 return new(ReactionResult.Error, "Specify a casette by album name.");
 
-            var available = Radio.AvailableCasettes(game);
+            var available = Assets.Regions.Ship.Items.Radio.AvailableCasettes(game);
             var casette = available.FirstOrDefault(x => x.Info.Album.InsensitiveEquals(album));
 
             if (casette == null)
                 return new(ReactionResult.Error, $"{album} is not a known casette.");
 
-            Radio.ChangeCasette(game, casette);
+            Assets.Regions.Ship.Items.Radio.ChangeCasette(game, casette);
             return new(ReactionResult.Silent, $"Casette changed to {casette.Info.Album} by {casette.Info.Artist}.");
         }
 
         /// <inheritdoc/>
         public Prompt[] GetPrompts(Game game)
         {
-            var playing = Radio.GetCurrentlyLoadedCasette(game);
-            var available = Radio.AvailableCasettes(game);
+            var playing = Assets.Regions.Ship.Items.Radio.GetCurrentlyLoadedCasette(game);
+            var available = Assets.Regions.Ship.Items.Radio.AvailableCasettes(game);
             return [.. available.Where(x => x != playing).Select(x => new Prompt(x.Info.Album))];
         }
 

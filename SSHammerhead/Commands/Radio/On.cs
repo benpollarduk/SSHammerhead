@@ -25,7 +25,7 @@ namespace SSHammerhead.Commands.Radio
         /// <inheritdoc/>
         public Reaction Invoke(Game game)
         {
-            Radio.Start(game);
+            Assets.Regions.Ship.Items.Radio.Start(game);
             return new(ReactionResult.Silent, "You turn the radio on.");
         }
 
