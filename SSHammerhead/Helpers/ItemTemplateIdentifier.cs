@@ -1,7 +1,7 @@
 ﻿using NetAF.Assets;
 using NetAF.Utilities;
 
-namespace SSHammerhead.Commands.Helpers
+namespace SSHammerhead.Helpers
 {
     /// <summary>
     /// Provides an identifier for an item template.

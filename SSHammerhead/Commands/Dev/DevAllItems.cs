@@ -1,6 +1,6 @@
 ﻿using NetAF.Commands;
 using NetAF.Utilities;
-using SSHammerhead.Commands.Helpers;
+using SSHammerhead.Helpers;
 
 namespace SSHammerhead.Commands.Dev
 {

@@ -1,8 +1,7 @@
 ﻿using NetAF.Commands;
 using NetAF.Logic;
-using SSHammerhead.Assets.Regions.Ship.Items;
 
-namespace SSHammerhead.Commands.MaintenancePanel
+namespace SSHammerhead.Commands.Radio
 {
     /// <summary>
     /// Represents the Radio on command.

@@ -1,10 +1,9 @@
 ﻿using NetAF.Commands;
 using NetAF.Extensions;
 using NetAF.Logic;
-using SSHammerhead.Assets.Regions.Ship.Items;
 using System.Linq;
 
-namespace SSHammerhead.Commands.MaintenancePanel
+namespace SSHammerhead.Commands.Radio
 {
     /// <summary>
     /// Represents the Radio change command.

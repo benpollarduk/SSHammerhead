@@ -4,7 +4,7 @@ using NetAF.Interpretation;
 using NetAF.Logic;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Regions.Ship.Items;
-using SSHammerhead.Commands.MaintenancePanel;
+using SSHammerhead.Commands.Radio;
 using SSHammerhead.Logic.Modes;
 using System.Collections.Generic;
 using System.Linq;

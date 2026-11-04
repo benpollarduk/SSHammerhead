@@ -1,7 +1,7 @@
 ﻿using SSHammerhead.Assets.Regions.MaintenanceTunnels.Items;
 using SSHammerhead.Assets.Regions.Ship.Items;
 
-namespace SSHammerhead.Commands.Helpers
+namespace SSHammerhead.Helpers
 {
     /// <summary>
     /// Provides helper functions for items.
