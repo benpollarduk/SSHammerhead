@@ -11,7 +11,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="properties">The render properties.</param>
-    public sealed class BotConsoleReactionFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties) : IReactionFrameBuilder
+    public sealed class SpiderBotConsoleReactionFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties) : IReactionFrameBuilder
     {
         #region Fields
 

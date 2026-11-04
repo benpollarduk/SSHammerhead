@@ -66,19 +66,19 @@ namespace SSHammerhead.WPF
 
                 return new FrameBuilderCollection(
                     new MarkupTitleFrameBuilder(markupBuilder),
-                    new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
-                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
+                    new SpiderBotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
+                    new SpiderBotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
                     new MarkupCommandListFrameBuilder(markupBuilder),
                     new MarkupHelpFrameBuilder(markupBuilder),
                     new MarkupCompletionFrameBuilder(markupBuilder),
                     new MarkupGameOverFrameBuilder(markupBuilder),
                     new MarkupAboutFrameBuilder(markupBuilder),
-                    new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
+                    new SpiderBotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
                     new MarkupConversationFrameBuilder(markupBuilder, markupRenderProperties),
                     new MarkupNoteFrameBuilder(markupBuilder),
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new MarkupNarrativeFrameBuilder(markupBuilder),
-                    new BotVisualFrameBuilder(),
+                    new SpiderBotVisualFrameBuilder(),
                     new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
             }
         }

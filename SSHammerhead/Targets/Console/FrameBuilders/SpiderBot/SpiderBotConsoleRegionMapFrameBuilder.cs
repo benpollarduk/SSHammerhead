@@ -16,7 +16,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
     /// <param name="properties">The render properties.</param>
     /// <param name="regionMapBuilder">A builder for region maps.</param>
     /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
-    public sealed class BotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, IRegionMapBuilder regionMapBuilder, bool renderPrompt = true) : IRegionMapFrameBuilder
+    public sealed class SpiderBotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, IRegionMapBuilder regionMapBuilder, bool renderPrompt = true) : IRegionMapFrameBuilder
     {
         #region Fields
 

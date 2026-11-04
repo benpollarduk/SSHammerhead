@@ -16,7 +16,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
     /// <param name="properties">The render properties.</param>
     /// <param name="roomMapBuilder">A builder to use for room maps.</param>
     /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
-    public sealed class BotConsoleSceneFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, IRoomMapBuilder roomMapBuilder, bool renderPrompt = true) : ISceneFrameBuilder
+    public sealed class SpiderBotConsoleSceneFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, IRoomMapBuilder roomMapBuilder, bool renderPrompt = true) : ISceneFrameBuilder
     {
         #region Fields
 
@@ -49,10 +49,10 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, properties.HorizontalDivider, properties.BorderColor);
             lastY += 2;
 
-            if (roomMapBuilder is IConsoleRoomMapBuilder consoleRoomMapBuilder)
-                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, options, new Point2D(size.Width / 2 - 4, lastY + 4), out _, out lastY);
-            else
-                roomMapBuilder?.BuildRoomMap(room, viewPoint, options);
+            var yMapSpaceStart = lastY;
+            var yPrompt = availableHeight - 1;
+            var yCommandStart = yPrompt;
+            var mapSize = roomMapBuilder?.RenderedSize ?? new Size(0, 0);
 
             if (contextualCommands != null && contextualCommands.Length > 0)
             {
@@ -60,8 +60,8 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
                 const int requiredSpaceForCommandHeader = 2;
                 int requiredSpaceForPrompt = renderPrompt ? 3 : 1;
                 var requiredYToFitAllCommands = size.Height - requiredSpaceForCommandHeader - requiredSpaceForPrompt - requiredSpaceForDivider - contextualCommands.Length;
-                var yStart = Math.Max(requiredYToFitAllCommands, lastY);
-                lastY = yStart;
+                yCommandStart = Math.Max(requiredYToFitAllCommands, lastY + mapSize.Height);
+                lastY = yCommandStart;
 
                 gridStringBuilder.DrawHorizontalDivider(lastY + linePadding, properties.HorizontalDivider, properties.BorderColor);
                 gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 3, availableWidth, properties.OptionColor, out _, out lastY);
@@ -82,9 +82,20 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
                 }
             }
 
+            if (roomMapBuilder is IConsoleRoomMapBuilder consoleRoomMapBuilder)
+            {
+                var mapX = size.Width / 2 - mapSize.Width / 2;
+                var mapY = yMapSpaceStart + ((yCommandStart - yMapSpaceStart) / 2) - mapSize.Height / 2;
+                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, options, new Point2D(mapX, mapY), out _, out _);
+            }
+            else
+            {    
+                roomMapBuilder?.BuildRoomMap(room, viewPoint, options);
+            }
+
             if (renderPrompt)
             {
-                gridStringBuilder.DrawHorizontalDivider(availableHeight - 1, properties.HorizontalDivider, properties.BorderColor);
+                gridStringBuilder.DrawHorizontalDivider(yPrompt, properties.HorizontalDivider, properties.BorderColor);
                 gridStringBuilder.DrawWrapped(properties.Prompt, leftMargin, availableHeight, availableWidth, properties.PromptColor, out _, out _);
             }
 

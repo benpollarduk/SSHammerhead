@@ -11,7 +11,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
     /// </summary>
     /// <param name="gridStringBuilder">The string builder to use.</param>
     /// <param name="properties">The render properties.</param>
-    public sealed class BotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder, ConsoleMapRenderProperties properties) : IConsoleRoomMapBuilder
+    public sealed class SpiderBotConsoleRoomMapBuilder(GridStringBuilder gridStringBuilder, ConsoleMapRenderProperties properties) : IConsoleRoomMapBuilder
     {
         #region StaticProperties
 

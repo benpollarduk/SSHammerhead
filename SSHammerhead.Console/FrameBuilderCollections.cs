@@ -63,19 +63,19 @@ namespace SSHammerhead.Console
 
                 return new FrameBuilderCollection(
                     new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties)),
-                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties)),
+                    new SpiderBotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRoomMapBuilder(botStringBuilder, botMapProperties)),
+                    new SpiderBotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRegionMapBuilder(botStringBuilder, botMapProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernHelpFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernCompletionFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernGameOverFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernAboutFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
+                    new SpiderBotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
                     new ConsoleModernConversationFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new BotVisualFrameBuilder(),
+                    new SpiderBotVisualFrameBuilder(),
                     new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }

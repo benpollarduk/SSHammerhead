@@ -8,7 +8,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
     /// <summary>
     /// Provides a builder of visual frames.
     /// </summary>
-    public sealed class BotVisualFrameBuilder : IVisualFrameBuilder
+    public sealed class SpiderBotVisualFrameBuilder : IVisualFrameBuilder
     {
         #region Implementation of IVisualFrameBuilder
 

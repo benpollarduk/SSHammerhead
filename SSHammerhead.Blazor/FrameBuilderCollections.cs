@@ -68,18 +68,18 @@ namespace SSHammerhead.Blazor
 
                 return new FrameBuilderCollection(
                     new ConsoleModernTitleFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties)),
-                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties)),
+                    new SpiderBotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRoomMapBuilder(botStringBuilder, botMapProperties)),
+                    new SpiderBotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRegionMapBuilder(botStringBuilder, botMapProperties)),
                     new ConsoleModernCommandListFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernHelpFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernCompletionFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernGameOverFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernAboutFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
+                    new SpiderBotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
                     new ConsoleModernConversationFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new BotVisualFrameBuilder(),
+                    new SpiderBotVisualFrameBuilder(),
                     new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
@@ -190,19 +190,19 @@ namespace SSHammerhead.Blazor
 
                 return new FrameBuilderCollection(
                     new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),
-                    new BotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
-                    new BotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new BotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
+                    new SpiderBotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
+                    new SpiderBotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
                     new HtmlHelpFrameBuilder(htmlBuilder),
                     new HtmlCompletionFrameBuilder(htmlBuilder),
                     new HtmlGameOverFrameBuilder(htmlBuilder),
                     new HtmlAboutFrameBuilder(htmlBuilder),
-                    new BotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
+                    new SpiderBotConsoleReactionFrameBuilder(botStringBuilder, botRenderProperties),
                     new HtmlConversationFrameBuilder(htmlBuilder, htmlRenderProperties),
                     new HtmlNoteFrameBuilder(htmlBuilder),
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
-                    new BotVisualFrameBuilder(),
+                    new SpiderBotVisualFrameBuilder(),
                     new HtmlRadioFrameBuilder(htmlBuilder));
             }
         }
