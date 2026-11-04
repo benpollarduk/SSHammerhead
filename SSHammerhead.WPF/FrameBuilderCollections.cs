@@ -2,10 +2,9 @@
 using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Markup.Rendering;
 using NetAF.Targets.Markup.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
+using SSHammerhead.Targets.Console.FrameBuilders.SpiderBot;
 using SSHammerhead.WPF.FrameBuilders;
 using System.Windows;
 using MarkupTitleFrameBuilder = SSHammerhead.WPF.FrameBuilders.MarkupTitleFrameBuilder;

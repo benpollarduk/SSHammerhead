@@ -13,7 +13,7 @@ namespace SSHammerhead.Blazor.FrameBuilders
     /// Provides a builder of title frames.
     /// </summary>
     /// <param name="builder">A builder to use for the text layout.</param>
-    public sealed class HtmlTitleFrameBuilder(HtmlBuilder builder) : ITitleFrameBuilder
+    public sealed class NaomiHtmlTitleFrameBuilder(HtmlBuilder builder) : ITitleFrameBuilder
     {
         #region Implementation of ITitleFrameBuilder
 

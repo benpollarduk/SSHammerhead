@@ -4,7 +4,7 @@ using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
+namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
 {
     /// <summary>
     /// Provides a builder for console reaction frames.

@@ -3,7 +3,7 @@ using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders
+namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
 {
     /// <summary>
     /// Provides a builder of visual frames.

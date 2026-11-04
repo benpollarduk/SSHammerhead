@@ -1,70 +1,77 @@
-﻿using System;
-using NetAF.Assets;
-using NetAF.Assets.Characters;
+﻿using NetAF.Assets;
 using NetAF.Assets.Locations;
 using NetAF.Commands;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
+using System;
+using System.Linq;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
+namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
 {
     /// <summary>
-    /// Provides a builder for console scene frames.
+    /// Provides a builder of color region map frames.
     /// </summary>
     /// <param name="gridStringBuilder">A builder to use for the string layout.</param>
     /// <param name="properties">The render properties.</param>
-    /// <param name="roomMapBuilder">A builder to use for room maps.</param>
+    /// <param name="regionMapBuilder">A builder for region maps.</param>
     /// <param name="renderPrompt">Specify if the prompt should be rendered.</param>
-    public sealed class BotConsoleSceneFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, IRoomMapBuilder roomMapBuilder, bool renderPrompt = true) : ISceneFrameBuilder
+    public sealed class BotConsoleRegionMapFrameBuilder(GridStringBuilder gridStringBuilder, ConsoleRenderProperties properties, IRegionMapBuilder regionMapBuilder, bool renderPrompt = true) : IRegionMapFrameBuilder
     {
         #region Fields
 
         private readonly GridStringBuilder gridStringBuilder = gridStringBuilder;
-        private readonly IRoomMapBuilder roomMapBuilder = roomMapBuilder;
 
         #endregion
 
-        #region Implementation of ISceneFrameBuilder
+        #region Properties
+
+        /// <summary>
+        /// Get the region map builder.
+        /// </summary>
+        private IRegionMapBuilder RegionMapBuilder { get; } = regionMapBuilder;
+
+        #endregion
+
+        #region Implementation of IRegionMapFrameBuilder
 
         /// <inheritdoc/>
-        public IFrame Build(Room room, ViewPoint viewPoint, PlayableCharacter player, CommandHelp[] contextualCommands, string[] keywords, bool showMap, RoomMapRenderOptions options, Size size)
-        {
-            var availableWidth = size.Width - 4;
-            var availableHeight = size.Height - 2;
-            const int leftMargin = 2;
-            const int linePadding = 2;
+        public bool SupportsPan => false;
 
+        /// <inheritdoc/>
+        public bool SupportsZoom => false;
+
+        /// <inheritdoc/>
+        public IFrame Build(Region region, Point3D focusPosition, RegionMapRenderOptions regionMapOptions, RoomMapRenderOptions roomMapOptions, CommandHelp[] contextualCommands, Size size)
+        {
             gridStringBuilder.Resize(size);
 
             gridStringBuilder.DrawBoundary(properties.LeftBoundary, properties.RightBoundary, properties.HorizontalDivider, properties.BorderColor);
 
-            // display the scene
+            var availableWidth = size.Width - 4;
+            var availableHeight = size.Height - 2;
+            const int leftMargin = 2;
 
-            gridStringBuilder.DrawWrapped("BOT::MODE::CAMERA", leftMargin, 1, availableWidth, properties.MainTextColor, out _, out var lastY);
+            gridStringBuilder.DrawWrapped("BOT::MODE::MAP", leftMargin, 1, availableWidth, properties.TitleColor, out _, out var lastY);
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, properties.HorizontalDivider, properties.BorderColor);
-            lastY += 2;
 
-            gridStringBuilder.DrawWrapped($"BOT::LOCATION::{room.Identifier.Name.ToUpperInvariant()}", leftMargin, lastY, availableWidth, properties.MainTextColor, out _, out lastY);
+            gridStringBuilder.DrawWrapped($"BOT::REGION::{region.Identifier.Name.ToUpper()}", leftMargin, lastY + 2, availableWidth, properties.TitleColor, out _, out lastY);
             gridStringBuilder.DrawHorizontalDivider(lastY + 1, properties.HorizontalDivider, properties.BorderColor);
-            lastY += 2;
 
-            if (roomMapBuilder is IConsoleRoomMapBuilder consoleRoomMapBuilder)
-                consoleRoomMapBuilder.BuildRoomMap(room, viewPoint, options, new Point2D(size.Width / 2 - 4, lastY + 2), out _, out lastY);
-            else
-                roomMapBuilder?.BuildRoomMap(room, viewPoint, options);
+            int commandSpace = 0;
+            var mapStartY = lastY + 2;
 
-            if (contextualCommands != null && contextualCommands.Length > 0)
+            if (contextualCommands?.Any() ?? false)
             {
-                const int requiredSpaceForDivider = 3;
+                const int requiredSpaceForDivider = 1;
                 const int requiredSpaceForCommandHeader = 2;
                 int requiredSpaceForPrompt = renderPrompt ? 3 : 1;
                 var requiredYToFitAllCommands = size.Height - requiredSpaceForCommandHeader - requiredSpaceForPrompt - requiredSpaceForDivider - contextualCommands.Length;
                 var yStart = Math.Max(requiredYToFitAllCommands, lastY);
                 lastY = yStart;
 
-                gridStringBuilder.DrawHorizontalDivider(lastY + linePadding, properties.HorizontalDivider, properties.BorderColor);
-                gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 3, availableWidth, properties.OptionColor, out _, out lastY);
+                gridStringBuilder.DrawHorizontalDivider(lastY, properties.HorizontalDivider, properties.BorderColor);
+                gridStringBuilder.DrawWrapped("BOT::TASKS:", leftMargin, lastY + 1, availableWidth, properties.OptionColor, out _, out lastY);
 
                 lastY++;
 
@@ -72,7 +79,7 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
                 {
                     var contextualCommand = contextualCommands[index];
                     gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand.ToUpper(), leftMargin, lastY + 1, availableWidth, properties.OptionColor, out _, out lastY);
-                    
+                
                     // only continue if not run out of space - the 1 is for the border the ...
                     if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt >= size.Height - 1)
                     {
@@ -81,6 +88,14 @@ namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
                     }
                 }
             }
+
+            var startMapPosition = new Point2D(leftMargin, mapStartY);
+            var mapSize = new Size(availableWidth, size.Height - 4 - commandSpace);
+
+            if (RegionMapBuilder is IConsoleRegionMapBuilder consoleRegionMapBuilder)
+                consoleRegionMapBuilder.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, new RoomMapRenderOptions { KeyType = roomMapOptions.KeyType, PointOfInterestDetail = PointOfInterestDetail.Low }, mapSize, startMapPosition);
+            else
+                RegionMapBuilder?.BuildRegionMap(region, focusPosition, new RegionMapRenderOptions { MapDetail = RegionMapDetail.Normal }, new RoomMapRenderOptions { KeyType = roomMapOptions.KeyType, PointOfInterestDetail = PointOfInterestDetail.Low }, mapSize);
 
             if (renderPrompt)
             {

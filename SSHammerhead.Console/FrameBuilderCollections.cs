@@ -2,10 +2,9 @@
 using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Console.Rendering.FrameBuilders.Common;
 using NetAF.Targets.Console.Rendering.FrameBuilders.Modern;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
+using SSHammerhead.Targets.Console.FrameBuilders.SpiderBot;
 using ConsoleModernTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleModernTitleFrameBuilder;
 
 namespace SSHammerhead.Console

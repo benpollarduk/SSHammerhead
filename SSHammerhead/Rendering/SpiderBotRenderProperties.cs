@@ -29,7 +29,8 @@ namespace SSHammerhead.Rendering
             properties.CommandColor = DisplayColor;
             properties.CommandDescriptionColor = DisplayColor;
             properties.HighlightTextColor = DisplayColor;
-            properties.HighlightKeywords = false;
+            properties.HighlightSceneKeywords = false;
+            properties.HighlightReactionKeywords = false;
             properties.Prompt = ">>>";
             properties.PromptColor = DisplayColor;
             properties.ShowPrompt = true;

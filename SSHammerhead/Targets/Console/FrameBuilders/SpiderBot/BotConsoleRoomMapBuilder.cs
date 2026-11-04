@@ -4,7 +4,7 @@ using NetAF.Assets.Locations;
 using NetAF.Rendering;
 using NetAF.Targets.Console.Rendering;
 
-namespace SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console
+namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
 {
     /// <summary>
     /// Provides a console room map builder.

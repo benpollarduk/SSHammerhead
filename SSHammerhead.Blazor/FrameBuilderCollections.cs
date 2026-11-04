@@ -4,11 +4,10 @@ using NetAF.Targets.Console.Rendering.FrameBuilders.Common;
 using NetAF.Targets.Console.Rendering.FrameBuilders.Modern;
 using NetAF.Targets.Html.Rendering;
 using NetAF.Targets.Html.Rendering.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders;
-using SSHammerhead.Assets.Players.SpiderBot.FrameBuilders.Console;
 using SSHammerhead.Blazor.FrameBuilders;
 using SSHammerhead.Rendering;
 using SSHammerhead.Targets.Console.FrameBuilders;
+using SSHammerhead.Targets.Console.FrameBuilders.SpiderBot;
 using ConsoleModernTitleFrameBuilder = SSHammerhead.Targets.Console.FrameBuilders.ConsoleModernTitleFrameBuilder;
 
 namespace SSHammerhead.Blazor
@@ -156,7 +155,7 @@ namespace SSHammerhead.Blazor
                 var scannerRenderProperties = ScannerRenderProperties.CreateRenderProperties();
 
                 return new FrameBuilderCollection(
-                    new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),
+                    new NaomiHtmlTitleFrameBuilder(htmlBuilder),
                     new HtmlSceneFrameBuilder(htmlBuilder, htmlRenderProperties, new HtmlRoomMapBuilder(htmlBuilder, mapRenderProperties)),
                     new HtmlRegionMapFrameBuilder(htmlBuilder, new HtmlRegionMapBuilder(htmlBuilder, mapRenderProperties)),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
