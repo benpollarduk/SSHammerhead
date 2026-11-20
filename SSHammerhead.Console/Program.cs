@@ -8,8 +8,6 @@ using SSHammerhead.Console;
 
 try
 {
-    Services.ImageProvider = new ConsoleImageProvider();
-
     EventBus.Subscribe<GameRestored>(x =>
     {
         if (Radio.IsPlaying(x.Game))

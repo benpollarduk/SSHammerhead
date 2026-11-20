@@ -1,17 +1,16 @@
-﻿using NetAF.Assets;
-using NetAF.Assets.Locations;
+﻿using NetAF.Assets.Locations;
 using NetAF.Commands;
-using NetAF.Imaging;
-using NetAF.Imaging.Textures;
 using NetAF.Logic.Modes;
 using NetAF.Narratives;
 using NetAF.Rendering;
+using NetAF.Targets.Console.Rendering;
 using NetAF.Utilities;
 using SSHammerhead.Assets.Players.Anne;
 using SSHammerhead.Assets.Players.Management;
 using SSHammerhead.Assets.Players.Naomi;
 using SSHammerhead.Assets.Regions.Ship.Items;
 using SSHammerhead.Assets.Regions.Ship.Rooms.L1;
+using SSHammerhead.Resources;
 
 namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
 {
@@ -30,9 +29,8 @@ namespace SSHammerhead.Assets.Regions.Stasis.Awaji.Rooms
 
         private static Narrative GetNarrative()
         {
-            var stream = Services.ImageProvider.GetImageAsStream("Resources/Images/torii.png");
-            var visualBuilder = VisualHelper.FromImage(stream, new Size(40, 25), CellAspectRatio.Console, new NoTexturizer());
-            var visual = new Visual(string.Empty, string.Empty, visualBuilder);
+            var imageBuilder = GridVisualBuilder.FromString(Images.Torii);
+            var visual = new Visual(string.Empty, string.Empty, imageBuilder);
 
             Section[] sections =
             [

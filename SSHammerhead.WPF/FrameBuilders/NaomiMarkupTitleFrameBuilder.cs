@@ -1,10 +1,10 @@
 ﻿using NetAF.Assets;
-using NetAF.Imaging;
-using NetAF.Imaging.Textures;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
+using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Markup;
 using NetAF.Targets.Markup.Rendering;
+using SSHammerhead.Resources;
 using System.Diagnostics;
 
 namespace SSHammerhead.WPF.FrameBuilders
@@ -28,8 +28,7 @@ namespace SSHammerhead.WPF.FrameBuilders
 
             try
             {
-                var stream = Services.ImageProvider.GetImageAsStream("Resources/Images/space.png");
-                var imageBuilder = VisualHelper.FromImage(stream, size, CellAspectRatio.Console, new NoTexturizer());
+                var imageBuilder = GridVisualBuilder.FromString(Images.Title);
                 var imageAsMarkup = MarkupAdapter.ConvertGridVisualBuilderToMarkupString(imageBuilder);
                 builder.Raw(imageAsMarkup);
             }

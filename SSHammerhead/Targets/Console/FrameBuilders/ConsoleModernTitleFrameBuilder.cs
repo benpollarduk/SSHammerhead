@@ -1,9 +1,8 @@
 ﻿using NetAF.Assets;
-using NetAF.Imaging;
-using NetAF.Imaging.Textures;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
+using SSHammerhead.Resources;
 using System;
 using System.Diagnostics;
 
@@ -25,7 +24,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
             var availableWidth = size.Width - 4;
 
-            gridStringBuilder.DrawCentralisedWrapped(title, 2, availableWidth, properties.TitleColor, out var lastX, out var lastY);
+            gridStringBuilder.DrawCentralisedWrapped(title, 2, availableWidth, properties.TitleColor, out _, out var lastY);
             gridStringBuilder.DrawWrapped(description, 2, lastY + 3, availableWidth, properties.MainTextColor, out _, out lastY);
 
             var output = new GridVisualBuilder(properties.BackgroundColor, properties.TitleColor);
@@ -35,8 +34,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
             try
             {
-                var stream = Services.ImageProvider.GetImageAsStream("Resources/Images/space.png");
-                var imageBuilder = VisualHelper.FromImage(stream, new(availableWidth, size.Height - 4), CellAspectRatio.Console, new NoTexturizer());
+                var imageBuilder = GridVisualBuilder.FromString(Images.Title);
                 output.Overlay(size.Width / 2 - imageBuilder.DisplaySize.Width / 2, size.Height / 2 - imageBuilder.DisplaySize.Height / 2 + lastY / 2, imageBuilder);
             }
             catch (Exception e) 
