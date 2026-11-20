@@ -4765,10 +4765,6 @@ function createWasm() {
       return bytes.length-1;
     };
 
-  var _strftime_l = (s, maxsize, format, tm, loc) => {
-      return _strftime(s, maxsize, format, tm); // no locale support yet
-    };
-
 
 
   var getCFunc = (ident) => {
@@ -5251,9 +5247,7 @@ var wasmImports = {
   /** @export */
   schedule_background_exec: _schedule_background_exec,
   /** @export */
-  strftime: _strftime,
-  /** @export */
-  strftime_l: _strftime_l
+  strftime: _strftime
 };
 var wasmExports = createWasm();
 var ___wasm_call_ctors = () => (___wasm_call_ctors = wasmExports['__wasm_call_ctors'])();
