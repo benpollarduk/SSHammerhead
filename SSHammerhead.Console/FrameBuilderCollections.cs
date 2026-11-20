@@ -44,7 +44,8 @@ namespace SSHammerhead.Console
                     new ConsoleScannerFrameBuilder(gridStringBuilder, scannerRenderProperties),
                     new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernVisualFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
+                    new ConsoleRadioFrameBuilder(consoleRenderProperties),
+                    new ConsoleModernAnimationFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
@@ -76,7 +77,8 @@ namespace SSHammerhead.Console
                     new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new SpiderBotVisualFrameBuilder(),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
+                    new ConsoleRadioFrameBuilder(consoleRenderProperties),
+                    new ConsoleModernAnimationFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
@@ -105,7 +107,8 @@ namespace SSHammerhead.Console
                     new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernVisualFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
+                    new ConsoleRadioFrameBuilder(consoleRenderProperties),
+                    new ConsoleModernAnimationFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 

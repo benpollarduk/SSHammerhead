@@ -49,7 +49,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleScannerFrameBuilder(gridStringBuilder, scannerRenderProperties),
                     new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernVisualFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
+                    new ConsoleRadioFrameBuilder(consoleRenderProperties),
+                    new ConsoleModernAnimationFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
@@ -80,7 +81,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleModernNoteFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new SpiderBotVisualFrameBuilder(),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
+                    new ConsoleRadioFrameBuilder(consoleRenderProperties),
+                    new ConsoleModernAnimationFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
@@ -112,7 +114,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleModernHistoryFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernNarrativeFrameBuilder(gridStringBuilder, consoleRenderProperties),
                     new ConsoleModernVisualFrameBuilder(gridStringBuilder, consoleRenderProperties),
-                    new ConsoleRadioFrameBuilder(gridStringBuilder, consoleRenderProperties));
+                    new ConsoleRadioFrameBuilder(consoleRenderProperties),
+                    new ConsoleModernAnimationFrameBuilder(gridStringBuilder, consoleRenderProperties));
             }
         }
 
@@ -171,7 +174,8 @@ namespace SSHammerhead.Blazor
                     new ConsoleScannerFrameBuilder(gridStringBuilder, scannerRenderProperties),
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
                     new HtmlVisualFrameBuilder(htmlBuilder),
-                    new HtmlRadioFrameBuilder(htmlBuilder));
+                    new HtmlRadioFrameBuilder(htmlBuilder),
+                    new HtmlAnimationFrameBuilder(htmlBuilder));
             }
         }
 
@@ -189,7 +193,7 @@ namespace SSHammerhead.Blazor
                 var htmlRenderProperties = HtmlRenderProperties.Default;
 
                 return new FrameBuilderCollection(
-                    new NetAF.Targets.Html.Rendering.FrameBuilders.HtmlTitleFrameBuilder(htmlBuilder),
+                    new HtmlTitleFrameBuilder(htmlBuilder),
                     new SpiderBotConsoleSceneFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRoomMapBuilder(botStringBuilder, botMapProperties), false),
                     new SpiderBotConsoleRegionMapFrameBuilder(botStringBuilder, botRenderProperties, new SpiderBotConsoleRegionMapBuilder(botStringBuilder, botMapProperties), false),
                     new HtmlCommandListFrameBuilder(htmlBuilder),
@@ -203,7 +207,8 @@ namespace SSHammerhead.Blazor
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
                     new SpiderBotVisualFrameBuilder(),
-                    new HtmlRadioFrameBuilder(htmlBuilder));
+                    new HtmlRadioFrameBuilder(htmlBuilder),
+                    new HtmlAnimationFrameBuilder(htmlBuilder));
             }
         }
 
@@ -235,7 +240,8 @@ namespace SSHammerhead.Blazor
                     new HtmlHistoryFrameBuilder(htmlBuilder) { MaxEntries = 10 },
                     new HtmlNarrativeFrameBuilder(htmlBuilder),
                     new HtmlVisualFrameBuilder(htmlBuilder),
-                    new HtmlRadioFrameBuilder(htmlBuilder));
+                    new HtmlRadioFrameBuilder(htmlBuilder),
+                    new HtmlAnimationFrameBuilder(htmlBuilder));
             }
         }
 

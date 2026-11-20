@@ -47,7 +47,8 @@ namespace SSHammerhead.WPF
                     new ConsoleScannerFrameBuilder(gridStringBuilder, scannerRenderProperties),
                     new MarkupNarrativeFrameBuilder(markupBuilder),
                     new MarkupVisualFrameBuilder(markupBuilder),
-                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
+                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher),
+                    new MarkupAnimationFrameBuilder(markupBuilder));
             }
         }
 
@@ -79,7 +80,8 @@ namespace SSHammerhead.WPF
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new MarkupNarrativeFrameBuilder(markupBuilder),
                     new SpiderBotVisualFrameBuilder(),
-                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
+                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher),
+                    new MarkupAnimationFrameBuilder(markupBuilder));
             }
         }
 
@@ -109,7 +111,8 @@ namespace SSHammerhead.WPF
                     new MarkupHistoryFrameBuilder(markupBuilder) { MaxEntries = 10 },
                     new MarkupNarrativeFrameBuilder(markupBuilder),
                     new MarkupVisualFrameBuilder(markupBuilder),
-                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher));
+                    new MarkupRadioFrameBuilder(markupBuilder, Application.Current.Dispatcher),
+                    new MarkupAnimationFrameBuilder(markupBuilder));
             }
         }
 

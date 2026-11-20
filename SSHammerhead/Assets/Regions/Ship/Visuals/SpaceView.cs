@@ -6,16 +6,16 @@ using System;
 
 namespace SSHammerhead.Assets.Regions.Ship.Visuals
 {
-    internal class SpaceView(Size size) : IAssetTemplate<Visual>
+    internal class SpaceView(Size size) : IAssetTemplate<Animation>
     {
         #region StaticMethods
 
         /// <summary>
-        /// Build the visual.
+        /// Build the animation.
         /// </summary>
         /// <param name="size">The size of the frame.</param>
-        /// <returns>The builder.</returns>
-        private static GridVisualBuilder BuildVisual(Size size)
+        /// <returns>The builders.</returns>
+        private static GridVisualBuilder[] BuildAnimation(Size size)
         {
             var gridVisualBuilder = new GridVisualBuilder(AnsiColor.Black, AnsiColor.BrightWhite);
             gridVisualBuilder.Resize(size);
@@ -23,12 +23,20 @@ namespace SSHammerhead.Assets.Regions.Ship.Visuals
             BuildRandomSpace(gridVisualBuilder);
             BuildConstellation(gridVisualBuilder);
 
-            return gridVisualBuilder;
+            var variations = 10;
+            var builders = new GridVisualBuilder[variations];
+
+            builders[0] = gridVisualBuilder;
+
+            for (var i = 1; i < variations; i++)
+                builders[i] = RandomAdjustSpace(builders[i], 25);
+
+            return builders;
         }
 
         /// <summary>
         /// Build random space.
-        /// <param name="gridVisualBuilder">The grid visual builder..</param>
+        /// <param name="gridVisualBuilder">The grid visual builder.</param>
         /// </summary>
         private static void BuildRandomSpace(GridVisualBuilder gridVisualBuilder)
         {
@@ -50,6 +58,41 @@ namespace SSHammerhead.Assets.Regions.Ship.Visuals
                         gridVisualBuilder.SetCell(x, y, spaceColors[random.Next(0, spaceColors.Length)]);
                 }
             }
+        }
+
+        /// <summary>
+        /// Randomly adjust space.
+        /// <param name="gridVisualBuilder">The grid visual builder to adjust.</param>
+        /// <param name="maximumVariance">The maximum variance for the adjustment.</param>
+        /// </summary>
+        /// <returns>The adjusted grid visual builder.</returns>
+        private static GridVisualBuilder RandomAdjustSpace(GridVisualBuilder gridVisualBuilder, int maximumVariance)
+        {
+            var newBuilder = new GridVisualBuilder(AnsiColor.Black, AnsiColor.BrightWhite);
+            newBuilder.Resize(gridVisualBuilder.DisplaySize);
+
+            var random = new Random();
+
+            for (var y = 0; y < gridVisualBuilder.DisplaySize.Height; y++)
+            {
+                for (var x = 0; x < gridVisualBuilder.DisplaySize.Width; x++)
+                {
+                    var character = gridVisualBuilder.GetCharacter(x, y);
+                    var background = gridVisualBuilder.GetCellBackgroundColor(x, y);
+                    var foreground = gridVisualBuilder.GetCellForegroundColor(x, y);
+
+                    var adjust = random.Next(0, 2) == 1;
+                    var variance = random.Next(-maximumVariance, maximumVariance);
+
+                    var adjustedR = adjust ? Math.Clamp(foreground.R + variance, 0, 255) : foreground.R;
+                    var adjustedG = adjust ? Math.Clamp(foreground.G + variance, 0, 255) : foreground.G;
+                    var adjustedB = adjust ? Math.Clamp(foreground.B + variance, 0, 255) : foreground.B;
+
+                    newBuilder.SetCell(x, y, character, new AnsiColor((byte)adjustedR, (byte)adjustedG, (byte)adjustedB), background);
+                }
+            }
+
+            return newBuilder;
         }
 
         /// <summary>
@@ -79,11 +122,11 @@ namespace SSHammerhead.Assets.Regions.Ship.Visuals
 
         #endregion
 
-        #region Implementation of IAssetTemplate<Visual>
+        #region Implementation of IAssetTemplate<Animation>
 
-        public Visual Instantiate()
+        public Animation Instantiate()
         {
-            return new Visual(string.Empty, string.Empty, BuildVisual(size));
+            return new Animation(string.Empty, string.Empty, BuildAnimation(size), new AnimationOptions(AnimationOptions.Forever, 5));
         }
 
         #endregion

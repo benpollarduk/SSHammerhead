@@ -83,7 +83,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Rooms.L0
             [
                 new CustomCommand(new CommandHelp("Peer", "Peer through the porthole in the outer airlock door."), true, true, (g, _) =>
                 {
-                    g.ChangeMode(new VisualMode(new SpaceView(g.Configuration.DisplaySize).Instantiate()));
+                    g.ChangeMode(new AnimationMode(new SpaceView(g.Configuration.DisplaySize).Instantiate()));
 
                     g.NoteManager.Add(SevenLogName, "The constellation outside the airlock appears as a 7.");
                     g.NoteManager.Expire(Laptop.ScottViewLogName);

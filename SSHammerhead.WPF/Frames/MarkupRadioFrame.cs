@@ -31,7 +31,7 @@ namespace SSHammerhead.WPF.Frames
 
         #region Methods
 
-        private void UpdadateFrame(object? state)
+        private void UpdateFrame(object? state)
         {
             if (!Radio.IsPlaying(GameExecutor.ExecutingGame))
             {
@@ -133,7 +133,9 @@ namespace SSHammerhead.WPF.Frames
         /// <inheritdoc/>
         public void Start()
         {
-            timerCallback = new TimerCallback(UpdadateFrame);
+            Stop();
+
+            timerCallback = new TimerCallback(UpdateFrame);
             timer = new Timer(timerCallback, null, updateFrequency, updateFrequency);
         }
 
