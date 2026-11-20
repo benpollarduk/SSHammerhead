@@ -1,9 +1,8 @@
 ﻿using NetAF.Assets;
-using NetAF.Imaging;
-using NetAF.Imaging.Textures;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
 using NetAF.Targets.Console.Rendering;
+using SSHammerhead.Resources;
 using System;
 using System.Diagnostics;
 
@@ -39,8 +38,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders
 
             try
             {
-                var stream = Services.ImageProvider.GetImageAsStream("Resources/Images/space.png");
-                var imageBuilder = VisualHelper.FromImage(stream, new(availableWidth, size.Height - 4), CellAspectRatio.Console, new NoTexturizer());
+                var imageBuilder = GridVisualBuilder.FromString(Images.Title);
                 output.Overlay(size.Width / 2 - imageBuilder.DisplaySize.Width / 2, size.Height / 2 - imageBuilder.DisplaySize.Height / 2 + lastY / 2, imageBuilder);
             }
             catch (Exception e) 

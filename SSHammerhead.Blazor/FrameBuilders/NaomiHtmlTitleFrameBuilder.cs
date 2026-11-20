@@ -1,11 +1,11 @@
 ﻿using NetAF.Assets;
-using NetAF.Imaging.Textures;
-using NetAF.Imaging;
 using NetAF.Rendering;
 using NetAF.Rendering.FrameBuilders;
-using NetAF.Targets.Html.Rendering;
-using System.Diagnostics;
+using NetAF.Targets.Console.Rendering;
 using NetAF.Targets.Html;
+using NetAF.Targets.Html.Rendering;
+using SSHammerhead.Resources;
+using System.Diagnostics;
 
 namespace SSHammerhead.Blazor.FrameBuilders
 {
@@ -28,8 +28,7 @@ namespace SSHammerhead.Blazor.FrameBuilders
 
             try
             {
-                var stream = Services.ImageProvider.GetImageAsStream("Resources/Images/space.png");
-                var imageBuilder = VisualHelper.FromImage(stream, size, CellAspectRatio.Console, new NoTexturizer());
+                var imageBuilder = GridVisualBuilder.FromString(Images.Title);
                 var imageAsHtml = HtmlAdapter.ConvertGridVisualBuilderToHtmlString(imageBuilder);
                 builder.Raw(imageAsHtml);
             }

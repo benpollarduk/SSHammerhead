@@ -1,10 +1,7 @@
 @page "/"
 @using NetAF.Assets
 @using NetAF.Blazor.Components
-@using NetAF.Interpretation
-@using NetAF.Logic.Modes
 @using NetAF.Rendering
-@using NetAF.Rendering.FrameBuilders
 @using SSHammerhead.Assets.Players.Management
 @using SSHammerhead.Configuration
 @using System.Reflection
@@ -46,10 +43,6 @@
     {
         var v = Assembly.GetExecutingAssembly()?.GetName()?.Version;
         version = v != null ? $"{v.Major}.{v.Minor}.{v.Build}" : "unknown";
-        
-        Services.ImageProvider = ImageCache.GetProvider();
-
-        await ImageCache.CacheAllImages();
     }
 
     private void RunConsoleEmu()

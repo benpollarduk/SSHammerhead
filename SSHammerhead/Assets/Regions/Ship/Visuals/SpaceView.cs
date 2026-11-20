@@ -29,7 +29,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Visuals
             builders[0] = gridVisualBuilder;
 
             for (var i = 1; i < variations; i++)
-                builders[i] = RandomAdjustSpace(builders[i], 25);
+                builders[i] = RandomAdjustSpace(builders[0], 25);
 
             return builders;
         }
