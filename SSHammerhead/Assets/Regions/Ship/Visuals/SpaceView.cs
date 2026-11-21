@@ -29,7 +29,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Visuals
             builders[0] = gridVisualBuilder;
 
             for (var i = 1; i < variations; i++)
-                builders[i] = RandomAdjustSpace(builders[0], 25);
+                builders[i] = RandomAdjustSpace(builders[0], 30);
 
             return builders;
         }
@@ -81,7 +81,7 @@ namespace SSHammerhead.Assets.Regions.Ship.Visuals
                     var background = gridVisualBuilder.GetCellBackgroundColor(x, y);
                     var foreground = gridVisualBuilder.GetCellForegroundColor(x, y);
 
-                    var adjust = random.Next(0, 2) == 1;
+                    var adjust = random.Next(0, 10) <= 7;
                     var variance = random.Next(-maximumVariance, maximumVariance);
 
                     var adjustedR = adjust ? Math.Clamp(foreground.R + variance, 0, 255) : foreground.R;
