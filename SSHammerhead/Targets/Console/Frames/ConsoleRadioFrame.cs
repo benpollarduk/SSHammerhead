@@ -60,10 +60,10 @@ namespace SSHammerhead.Targets.Console.Frames
 
         #endregion
 
-        #region Overrides of Object
+        #region Implementation of IFrame
 
         /// <inheritdoc/>
-        public override string ToString()
+        public string ToPresentableString()
         {
             var builder = new GridStringBuilder();
             builder.Resize(size);

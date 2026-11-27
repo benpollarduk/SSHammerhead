@@ -81,7 +81,7 @@ namespace SSHammerhead.Targets.Console.FrameBuilders.SpiderBot
                     gridStringBuilder.DrawWrapped(contextualCommand.DisplayCommand.ToUpper(), leftMargin, lastY + 1, availableWidth, properties.OptionColor, out _, out lastY);
                 
                     // only continue if not run out of space - the 1 is for the border the ...
-                    if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt >= size.Height - 1)
+                    if (index < contextualCommands.Length - 1 && lastY + 1 + requiredSpaceForPrompt > size.Height - 1)
                     {
                         gridStringBuilder.DrawWrapped("...", leftMargin, lastY + 1, availableWidth, properties.OptionColor, out _, out lastY);
                         break;

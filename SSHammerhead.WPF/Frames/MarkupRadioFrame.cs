@@ -49,10 +49,10 @@ namespace SSHammerhead.WPF.Frames
 
         #endregion
 
-        #region Overrides of Object
+        #region Implementation of IFrame
 
         /// <inheritdoc/>
-        public override string ToString()
+        public string ToPresentableString()
         {
             return builder.ToString();
         }
